@@ -1,0 +1,1150 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.0.0/magnific-popup.min.css" integrity="sha512-nIm/JGUwrzblLex/meoxJSPdAKQOe2bLhnrZ81g5Jbh519z8GFJIWu87WAhBH+RAyGbM4+U3S2h+kL5JoV6/wA==" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.0.0/jquery.magnific-popup.min.js" integrity="sha512-+m6t3R87+6LdtYiCzRhC5+E0l4VQ9qIT1H9+t1wmHkMJvvUQNI5MKKb7b08WL4Kgp9K0IBgHDSLCRJk05cFUYg==" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+
+{% assign pagination_type = section.settings.pagination_type %}
+{% assign no_products_image = section.settings.no_products_image %}
+{% assign empty_collection_text = section.settings.empty_collection_text %}
+{% assign show_collection_title = section.settings.show_collection_title %}
+{% assign enable_collection_sorting = section.settings.enable_collection_sorting %}
+{% assign show_collection_breadcrumb = section.settings.show_collection_breadcrumb %}
+{% assign show_collection_description = section.settings.show_collection_description %}
+
+{% assign show_pagination = false %}
+{% if pagination_type != 'infinite_scroll' %}
+  {% assign show_pagination = true %}
+{% endif %}
+
+
+{% comment %}
+{% assign products_by_price = collection.products | sort: "price" %}
+{% for product in products_by_price %}
+  <h4>{{ product.price }}</h4>
+{% endfor %}
+{% endcomment %}
+
+
+<section data-section-id="{{ section.id }}" data-section-type="mm-collection-template" class="mm-collection">
+  
+  {% if show_collection_title %}
+  <div class="container">
+    <div class="row mm-collection-title">
+	  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <h2>{{ collection.title }}</h2>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  
+  {% comment %}
+  {% if show_collection_description and collection.description %}
+  <div class="container">
+    <div class="row mm-collection-description">
+	  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <p>{{ collection.description }}</p>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  
+  {% if show_collection_breadcrumb %}
+  <div class="container">
+    <div class="row mm-collection-breadcrumb">
+	  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+<!--         <nav class="breadcrumb" role="navigation" aria-label="breadcrumbs">
+          <a href="/" title="Home">Home</a>  
+          {% if template contains 'collection' and collection.handle %}
+            <span aria-hidden="true">></span>
+            {% if current_tags %}
+              {% capture url %}/collections/{{ collection.handle }}{% endcapture %}
+              {{ collection.title | link_to: url }}
+              <span aria-hidden="true">/</span>
+              <span>{{ current_tags | join: " + " }}</span>
+            {% else %}
+              <span class="collection-title">{{ collection.title }}</span>
+            {% endif %}
+          {% endif %}
+        </nav> -->
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  {% endcomment %}
+  
+  <div class="page-width" style="margin-top:10px;">  
+    {% assign banner = collection.metafields.collection.banner %}
+    {% if banner != blank %}
+    <div class="collection-banner hidden-mobile hidden-tablet">    
+      <img class="banner-image" src="{{ banner }}" alt="{{ collection.title }}" />
+      <h2>{{ collection.title }}</h2>
+    </div>
+    {% endif %}
+    {% assign mobilebanner = collection.metafields.collection.mobilebanner %}
+    {% if banner != blank %}
+    <div class="collection-mobile-banner hidden-desktop">    
+      <img class="banner-mobile-image" src="{{ mobilebanner }}" alt="{{ collection.title }}" />
+      <h2>{{ collection.title }}</h2>
+    </div>
+    {% endif %}
+  <div class="grid">
+    
+    <div class="grid__item medium-up--one-quarter mm-22">
+      <div class="mm-sticky-block">
+        <div class="mm-filter-sidebar mm-sticky-sidebar">
+          <div class="mm-sticky-inner">
+            {% include 'mm-filter-sidebar' %}
+          </div>
+        </div>
+      </div>
+      <div class="reset-btn">
+      <h2 class="clear-all">Reset</h2>
+      </div>
+    </div>
+    
+
+    
+    <div class="grid__item medium-up--three-quarters mm-78 container-padding">
+      
+      
+      
+<!--           <div class="mm-product-header">
+            <p>{{ collection.title }}</p>
+          </div>
+          <hr class="hr-line"> -->
+      
+<!--       <div class="grid display-none">
+        <div class="grid__item">
+          <div class="mm-product-header">
+            <p>{{ collection.title }}</p>
+             <hr class="hr-line">
+
+            {% if enable_collection_sorting %}
+            <div class="nav-sort"><span class="sort">Sort:</span><span class="popularity">Popularity</span></div>
+            {% endif %}
+          </div>
+        </div>
+      </div> -->
+      
+      
+      {% if collection.handle == 'all' %}
+      
+      <div class="mmcollection__title">
+        <h2  class="title">Clear Lens</h2>
+        <div class="mmfilter-tag">
+          <h2 class="sub-title">Daily-One Time</h2>
+          <div data-tagpair="mmfilter-clear--daily-One Time" class="tag-pair">
+          </div>
+          <!--           <button class="view-btn">Show More<span><i class="arrow down"></i></span></button> -->
+        </div>
+
+        <div class="mmfilter-tag">
+          <h2 class="sub-title">Monthly</h2>
+          <div data-tagpair="mmfilter-clear--monthly" class="tag-pair">
+          </div>
+          <!--            <button class="view-btn">Show More<span><i class="arrow down"></i></span></button> -->
+        </div>
+      </div>
+
+      <div class="mmcollection__title">
+        <h2  class="title">Color Lens</h2>
+        <div class="mmfilter-tag">
+          <h2 class="sub-title">Zero Powered</h2>
+          <div data-tagpair="mmfilter-color--zero Powered" class="tag-pair">
+          </div>
+          <!--             <button class="view-btn">Show More<span><i class="arrow down"></i></span></button> -->
+        </div>
+        <div class="mmfilter-tag">
+          <h2 class="sub-title">Powered</h2>
+          <div data-tagpair="mmfilter-color--powered" class="tag-pair">
+          </div>
+          <!--             <button class="view-btn">Show More<span><i class="arrow down"></i></span></button> -->
+        </div>
+      </div>
+
+      <div class="mmcollection__title">
+        <h2  class="title">Speciality Lens</h2>
+        <div class="mmfilter-tag">
+          <h2 class="sub-title-toric">Speciality Lens</h2>
+          <div data-tagpair="mmfilter-speciality--special" class="tag-pair">
+          </div>
+        </div>
+      </div>
+
+      <div class="mmcollection__title">
+        <h2  class="title">Lens Solution</h2>
+        <div class="mmfilter-tag">
+          <h2 class="sub-title">Solution</h2>
+          <div data-tagpair="mmfilter-contact--solution" class="tag-pair">
+          </div>
+          <!--              <button class="view-btn">Show More<span><i class="arrow down"></i></span></button> -->
+        </div>
+
+        <div class="mmfilter-tag">
+          <h2 class="sub-title">Solution Combo</h2>
+          <div data-tagpair="mmfilter-contact--solution combo" class="tag-pair">
+          </div>
+          <!--             <button class="view-btn">Show More<span><i class="arrow down"></i></span></button> -->
+        </div>
+      </div>
+
+      <div class="mmcollection__title">
+        <h2  class="title">Accessories</h2>
+        <div class="mmfilter-tag">
+          <h2 class="sub-title-accessories">Accessories</h2>
+          <div data-tagpair="mmfilter-accessories--accessories" class="tag-pair">
+          </div>
+        </div>
+      </div>
+
+      <!--      new html -->
+      <div class="mmcollection__title">
+        <h2  class="title">J&J Clear Lens</h2>
+        <div class="mmfilter-tag">
+          <h2 class="sub-title-accessories">J&J Clear Lens</h2>
+          <div data-tagpair="mmfilter-jj--clear" class="tag-pair">
+          </div>
+        </div>
+      </div>
+
+      <div class="mmcollection__title">
+        <h2  class="title">J&J Color Lens</h2>
+        <div class="mmfilter-tag">
+          <h2 class="sub-title-accessories">J&J Color Lens</h2>
+          <div data-tagpair="mmfilter-jj--color" class="tag-pair">
+          </div>
+        </div>
+      </div>
+
+      <!--       end -->
+
+      
+      {% else %}
+      
+      {% assign mmfilterMetafield = collection.metafields.mmfilter.type  | split:"," %} 
+      <div class="mmcollection__title">
+        <h2  class="title">{{ collection.title }}</h2>
+        {% for filterMeta in mmfilterMetafield %}
+        {% assign filterMeta2 =  filterMeta | split:"--" %}
+        <div class="mmfilter-tag">
+          {% if filterMeta2 contains 'special' %}
+           {% elsif filterMeta2 contains 'accessories' %}
+          {% else %}
+          <h2 class="sub-title">{{ filterMeta2 | last | capitalize }}</h2>
+          {% endif %}
+          <div data-tagpair="{{ filterMeta | strip }}" class="tag-pair">
+          </div>
+<!--           <button class="view-btn">Show More<span><i class="arrow down"></i></span></button> -->
+
+        </div>
+        {% endfor %}
+      </div>
+      
+      {% endif %}
+      
+      <div class="grid grid--uniform grid--collection" id="product-loop">
+        
+      </div>
+    
+      {% comment %}
+      <div class="grid">
+        <div class="grid__item no-products" 
+             id="empty-products" 
+             style="display: none;">
+          {% if no_products_image != nil %}
+          <img src="{{ no_products_image | img_url: '150x' }}" alt="Empty Collection Image">
+          {% endif %}
+          {% if empty_collection_text != blank %}
+          <p>{{ empty_collection_text }}</p>
+          {% else %}
+          <p>We are sorry, no products match your filter selections. Please adjust them further.</p>
+          {% endif %}
+        </div>
+      </div>
+      
+      <div class="grid">
+        <div class="grid__item">
+          <div class="mm-pagination" {% if show_pagination == false %}style="opacity: 0;"{% endif %}>
+            <div id="mm-pagination-holder"></div>
+          </div> 
+        </div>
+      </div>
+      {% endcomment %}
+    </div>
+    </div>
+  </div>
+  {% if section.settings.sidebar_filter_heading %}
+  	{% assign sidebar_filter_heading = section.settings.sidebar_filter_heading %}
+  {% else %}
+  	{% assign sidebar_filter_heading = 'Filter By' %}
+  {% endif %}
+  
+<!--   <div class="mm-filter-btn">
+    {% if enable_collection_sorting %}
+    <div class="mm-sort-content mm-mobile">
+      <div class="mm-sort-text">
+      	<img src="{{ 'sort.svg' | asset_url }}" alt="Sort Icon" />
+        SORT BY
+      </div>
+      <select id="ajaxSort" class="sort-wrapper">
+        <option value="best-selling">Default Sorting</option>
+        <option value="price-ascending">Price: Low to High</option>
+        <option value="price-descending">Price: High to Low</option>                
+        <option value="title-ascending">Alphabetically: A-Z</option>
+        <option value="title-descending">Alphabetically: Z-A</option>
+        <option value="created-descending">Date: New to Old</option>
+        <option value="created-ascending">Date: Old to New</option>
+      </select>
+    </div>
+    {% endif %}
+
+    <button class="mm-button" id="sidebar-filter-opener">
+      <img src="{{ 'filter-icon.svg' | asset_url }}" alt="Filter Icon" />
+      FILTER BY
+    </button>
+  </div> -->
+
+<!--   <div id="power-popup" class="power-white-popup mfp-hide">
+    Popup content
+  </div> -->
+ 
+  
+   <div id="power-popup" class="power-white-popup mfp-hide power-content"><div class="child-one" style="position:relative;"></div><div class="child-one-qty"></div></div>
+  
+   <div id="color-popup" class="power-white-popup mfp-hide power-content"><div class="child-one"></div><div class="child-one-qty"></div></div>
+  
+   <div id="solution-popup" class="power-white-popup mfp-hide power-content"><div class="child-one"></div><div class="child-one-qty"></div></div>
+ 
+   <div id="prd__details" class="prd-white-popup mfp-hide"><div class="prdDetails__child"></div></div>
+   
+  
+  </section>
+
+
+
+
+<style>
+/*   .power-list .power-list-item-toric {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: center;
+    outline: none;
+    height: 50px;
+  }
+  .power-btn-toric {
+    flex: 0 0 31%;
+    padding: 0;
+    border: none;
+    border-radius: 2px;
+    background: white;
+    border: 2px solid #E5E5E5;
+  } */
+  
+  
+  .power-list .power-list-item-toric {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: center;
+    outline: none;
+    height: 50px;
+  }
+  .power-btn-toric {
+    flex: 0 0 24%;
+    padding: 0;
+    border: none;
+    border-radius: 2px;
+    background: white;
+    border: 2px solid #E5E5E5;
+  }
+  @media (max-width: 749px){
+    .power-list .power-list-item-toric {
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 21px;
+      text-align: center;
+      outline: none;
+      height: 50px;
+    }
+    .power-btn-toric {
+      flex: 0 0 31%;
+      padding: 0;
+      border: none;
+      border-radius: 2px;
+      background: white;
+      border: 2px solid #E5E5E5;
+    }
+  }
+
+  
+/*   .loader-div {
+    background: #000;
+    top: 0;
+    left: 0;
+    top:8%;
+    position: fixed;
+    width: auto;
+    height: 100vh;
+    z-index: 999;
+    opacity: 85%;
+  } */
+  .loader {
+    height: 50px;
+    width: 50px;
+    border: 8px solid #00bac6;
+    border-radius: 50%;
+    border-top: 8px solid #fff;
+    opacity: 1;
+    margin: 0 auto;
+/*     margin-top: 20%; */
+    animation-name: spin;
+    animation-duration: 1000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+
+  }
+  .loader-text{
+    text-align:center;
+    color:black;
+    font-weight:600;
+    font-size:20px;
+  }
+  
+  
+  
+  .loader-main {
+/*     position: fixed; */
+    height: 90vh;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999999;
+    opacity: 1;
+  }
+  .loader-main p{
+    height: 100px;
+    width: 100px;
+  }
+  .tag-pair {
+    display: flex;
+    flex-wrap: wrap;
+}
+/*   .solution-collection{
+    display:none !important;
+  } */
+
+/*    #solution-power{
+    display:none;
+  }  */
+  
+  .power-white-popup {
+    position: relative;
+    background: #FFF;
+    padding: 0px;
+    width: auto;
+
+  }  
+  .mfp-container {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  .mfp-content {
+    position: relative;
+    display: inline-block;
+    vertical-align: bottom;
+    margin: 0 auto;
+    text-align: left;
+    z-index: 1045;
+    margin-bottom: -1px;
+  }
+  @media(max-width:749px){
+  .mfp-wrap{
+      overflow: hidden !important;    
+    }
+  }
+  @media(min-width:749px){
+    .mfp-wrap{
+      overflow-y: hidden !important;
+    
+    }
+    .mfp-container{
+      width: 50%;
+      height: 100%;
+      top:unset;
+      left:unset;
+      right: 0;
+      bottom: 0;
+      top:0;
+    }
+    .child-one{
+      height:100vh;
+    }
+    .child-one-qty{
+      height:100vh;
+    }
+    .mfp-close-btn-in .mfp-close {
+      color: #333;
+      margin: 5px;
+    }  
+    
+  }
+  
+/* product details  css   */
+  .prdDetails__child {
+    height: 100vh;
+    overflow:scroll;
+  }
+  .pdp__description-tabs {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(89, 101, 171, 0.1);
+    position: fixed;
+    top: 0;
+    width: 50%;
+  }
+  .quick-product__btn {
+    position: absolute;
+    width: 100px;
+  }
+  a.quick-product__label {
+    display:none;
+    position: absolute;
+    z-index: 99;
+    background: #00bac6;
+    border-radius: 4px;
+    color: white;
+    padding: 5px 5px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor:pointer;
+  }
+ 
+  .quick-product__label:hover {
+    color: #00bac6 !important;
+    background: white;
+    border: 1px solid #00bac6;
+    transition: 0.3s;
+  }
+  .pdp-specs{
+    display:none;
+  }
+  .pdp-datails{
+    display:none;
+  }
+  .details__list {
+    position: absolute;
+    top:44px;
+    bottom:44px;
+    width:100%;
+    overflow: auto;
+    padding: 15px;
+  }  
+  .prd-white-popup {
+    position: relative;
+    background: #FFF;
+    padding: 0px;
+    width: auto;
+  }
+  .btn__hideProduct-descPopup {
+    position: fixed;
+    bottom: 0;
+  }
+  
+  .pdp__description-tabs .tab-active {
+    background: rgba(89, 101, 171, 0.1);
+  }
+
+  
+  .pdp__description-tabs .tab-active p:after{
+    width: 100%;
+    background: #5965AB;
+  }
+  .pdp__descFlex p:after {
+    content: '';
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+    height: 3px;
+    width: 0px;
+    background: transparent;
+    transition: width .5s ease, background-color .5s ease;
+}
+  
+  .pdp__descFlex {
+    flex-basis: 33.33%;
+    flex-grow: 1;
+    cursor: pointer;
+    text-align: center;
+  }
+  .pdp__descFlex p {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    color: #5965AB;
+    padding: 11px 20px 0px;
+    margin: 0 auto;
+}
+  .btn__hideProduct-descPopup {
+      position: fixed;
+      bottom: 0;
+      /* text-align: center; */
+      background: #00BAC6;
+      width: 50%;
+      text-align: center;
+      padding: 10px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      font-style: normal;
+    font-family: Poppins;
+  }
+
+
+  #prd__details .mfp-close{
+    border-radius: 26px !important;
+    margin:0px !important;
+    background: black !important;
+    color:white !important;
+  }
+  .prd__details--heading{
+    display:none;
+  }
+  
+ /********** pdp-datails********/  
+  .pdp-datails ul {
+    margin: 0;
+    padding: 0;
+    padding-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .pdp-datails ul li {
+    list-style-type: none;
+    padding-bottom: 15px;
+    width: 48%;
+  }
+  .pdp-datails ul li .l-icon img {
+    width: 50px;
+    height: 50px;
+}
+  .pdp-datails ul li .l-content .heading {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    color: #333333;
+    padding-top: 5px;
+}
+  .pdp-datails ul li .l-content .content {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 18px;
+    color: #666666;
+}
+  .pdp-datails  span{
+    text-align: left;
+    font-family: Poppins;
+    font-style: normal;
+    font-size: 14px;
+    line-height: 21px;
+    flex-basis: 50%;
+    margin: 0;
+    font-weight: 500;
+    color: #333333;
+    padding-bottom: 10px;
+     list-style-type: none;
+  }
+  
+  /**********/
+/*******pdp specification******/
+  .pdp-specs .p-left ul li,
+  .pdp-specs .p-right ul li{
+    display:flex;
+    justify-content:space-between;
+     list-style-type: none;
+    padding-bottom: 10px;
+  }
+  .pdp-specs .p-left p,
+  .pdp-specs .p-right p{
+    text-align: left;
+    font-family: Poppins;
+    font-style: normal;
+    font-size: 14px;
+    line-height: 21px;
+    flex-basis: 50%;
+    margin: 0;
+  }
+  .pdp-specs .p-left ul li p.ht,
+  .pdp-specs .p-right ul li p.ht{
+    font-weight: normal;
+    color: #999999;
+    display: flex;
+    justify-content: space-between;
+    padding-right: 10px;
+}
+  .pdp-specs .p-left ul li p.hc,
+  .pdp-specs .p-right ul li p.hc {    
+    font-weight: 500;
+    color: #333333;
+ 
+}  
+/*******/
+  /*******USPS css******/
+  .pdp-usps .p-right  ul li{
+    list-style-type: disc;
+    padding-bottom: 10px;    
+  }
+  .pdp-usps ul li{
+    text-align: left;
+    font-family: Poppins;
+    font-style: normal;
+    font-size: 14px;
+    line-height: 21px;
+    flex-basis: 50%;
+    margin: 0;
+    font-weight: 500;
+    color: #333333;
+    padding-bottom: 10px;
+     list-style-type: disc;
+  }
+  .pdp-usps-image img {
+    width: 100%;
+    height: 100%;
+  }
+  .pdp-usps-title h4 {
+    width: fit-content;
+    margin-top: 10px;
+    color: black;
+    font-size:18px;
+    font-family: Poppins;
+    font-style: normal;
+    text-transform: capitalize;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 21px;
+    color: #4f4f4f;
+    letter-spacing:1px;
+  }
+  .pdp-usps-content {
+    width: 100%;
+  }
+  .usps__cStyle {
+    padding: 10px 17px;
+}
+  .pdp-usps-title_image {
+    display: flex;
+    align-items: center;
+}
+  .pdp-usps-image {
+    width: 90px;
+    border: 1px solid #e0e0e0;
+    margin-right: 10px;
+    border-radius: 4px;
+}
+  .usps__cStyle li{
+    list-style-type: disc
+  }
+
+  /*******/
+  
+  
+  @media(max-width:749px){
+    .details__list {
+      position: unset;
+      top: unset;
+      bottom: unset;
+      width: 100%;
+      overflow: scroll;
+      padding-left: unset;
+      height: 100vh;
+      max-height: calc(100vh - 136px);     
+      padding: 15px;
+    }
+    .prd-white-popup {
+      position: relative;
+      background: #FFF;
+      padding: 0px;
+      width: auto;
+/*       margin: 10px 10px; */
+/*       border-radius: 4px; */
+    }
+    .pdp__description-tabs {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(89, 101, 171, 0.1);
+      position: relative;
+      width: 100%;
+    }
+    .btn__hideProduct-descPopup {
+      position: fixed;
+      bottom: 0;
+      /* text-align: center; */
+      background: #00BAC6;
+      width: 100%;
+      text-align: center;
+      padding: 10px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      font-style: normal;
+      font-family: Poppins;
+    }
+    .prd__details--heading{
+      margin:13px;
+      display:block;
+    }
+    #prd__details .mfp-close{
+      border-radius: unset !important;
+      margin:0px !important;
+      background: unset !important;
+      color:unset !important;
+    }
+  }
+</style>
+
+
+{% include 'mm-filter-content' %}
+
+{% assign price_slider = section.settings.price_range_slider %}
+{% if price_slider %}
+<script defer src="{{ 'mm-slider.min.js' | asset_url }}"></script>
+{% endif %}
+
+<script>
+  
+   // description
+
+    
+
+ 
+</script>
+
+    
+{% schema %}
+  {
+    "name": "Collection Page",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Heading and Description"
+      },
+	  {
+        "type": "checkbox",
+        "id": "show_collection_title",
+        "label": "Show collection title",
+		"default": true
+	  },
+	  {
+        "type": "checkbox",
+        "id": "show_collection_description",
+        "label": "Show collection description",
+		"default": true
+	  },
+	  {
+        "type": "checkbox",
+        "id": "show_collection_breadcrumb",
+        "label": "Show breadcrumb links",
+        "default": true
+      },
+	  {
+        "type": "header",
+        "content": "Empty Collection"
+      },
+	  {
+        "type": "image_picker",
+        "id": "no_products_image",
+        "label": "Empty Collection Image"
+      },
+	  {
+        "type": "textarea",
+        "id": "empty_collection_text",
+        "label": "Empty Collection Text",
+        "default": "We are sorry, no products match your filter selections. Please adjust them further."
+      },
+      {
+        "type": "header",
+        "content": "Pagination"
+      },
+	  {
+        "type": "select",
+        "id": "pagination_type",
+        "label": "Pagination Type",
+        "options": [
+          {
+            "value": "basic_pagination",
+            "label": "Page Links"
+          },
+          {
+            "value": "infinite_scroll",
+            "label": "Infinite Scroll"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "pagination_limit",
+        "label": "Products per page",
+        "min": 3,
+        "max": 80,
+        "step": 1,
+        "default": 45
+      },
+	  {
+        "type": "header",
+        "content": "Filter Sidebar"
+      },	  
+	  {
+        "type": "checkbox",
+        "id": "show_filter_heading",
+        "label": "Show Filter Heading",
+        "default": true
+      },
+	  {
+        "type": "checkbox",
+        "id": "enable_sticky_sidebar",
+        "label": "Enable Sticky Sidebar",
+        "default": false
+      },
+	  {
+        "type": "text",
+        "id": "sidebar_filter_heading",
+        "label": "Heading",
+        "default": "Filter"
+      },
+	  {
+        "type": "select",
+        "id": "mobile_sidebar_style",
+        "label": "Mobile Sidebar Style",
+        "options": [
+          {
+            "value": "from_down",
+            "label": "Open From Down"
+          },
+          {
+            "value": "from_side",
+            "label": "Open From Side"
+          }
+        ]
+      },
+	  {
+        "type": "header",
+        "content": "Collection Sorting"
+      },
+	  {
+        "type": "checkbox",
+        "id": "enable_collection_sorting",
+        "label": "Enable Collection Sorting",
+        "default": true
+      },
+	  {
+        "type": "checkbox",
+        "id": "show_product_count",
+        "label": "Show product count",
+        "default": true
+      },
+	  {
+        "type": "header",
+        "content": "Brand Filter"
+      },
+	  {
+        "type": "checkbox",
+        "id": "enable_brand_filter",
+        "label": "Enable Brand Filter",
+        "default": true
+      },
+	  {
+        "type": "checkbox",
+        "id": "enable_brand_filter_search",
+        "label": "Enable Search Box",
+		"info": "This will show search box for brand filter, which will help user to search brands.",
+        "default": true
+      },
+	  {
+        "type": "text",
+        "id": "brand_filter_heading",
+        "label": "Heading",
+        "default": "Brand"
+      },
+	  {
+        "type": "header",
+        "content": "Product Type Filter"
+      },
+	  {
+        "type": "checkbox",
+        "id": "enable_pt_filter",
+        "label": "Enable Product Type Filter",
+        "default": true
+      },
+	  {
+        "type": "checkbox",
+        "id": "enable_pt_filter_search",
+        "label": "Enable Search Box",
+		"info": "This will show search box for product type filter, which will help user to search product types.",
+        "default": true
+      },
+	  {
+        "type": "text",
+        "id": "pt_filter_heading",
+        "label": "Heading",
+        "default": "Type"
+      },
+	  {
+        "type": "header",
+        "content": "Price Filter"
+      },
+	  {
+        "type": "checkbox",
+        "id": "enable_price_filter",
+        "label": "Enable Price Filter",
+        "default": true
+      },
+	  {
+        "type": "text",
+        "id": "price_filter_heading",
+        "label": "Heading",
+        "default": "Price"
+      },
+	  {
+        "type": "textarea",
+        "id": "price_ranges",
+        "label": "Price Range",
+        "default": "0-500,500-1000,1000-2000,2000-3000,3000-100000"
+      },
+	  {
+        "type": "checkbox",
+        "id": "price_range_slider",
+        "label": "Enable Price Slider",
+		"default": false
+      },
+	  {
+        "type": "header",
+        "content": "Size Filter"
+      },
+	  {
+        "type": "checkbox",
+        "id": "enable_size_filter",
+        "label": "Enable Size Filter",
+		"info": "Sizes will appear only when products has the size variant.",
+        "default": true
+      },
+	  {
+        "type": "checkbox",
+        "id": "enable_size_filter_swatch",
+        "label": "Enable Size Swatch",
+        "default": true
+      },
+	  {
+        "type": "text",
+        "id": "size_filter_heading",
+        "label": "Heading",
+        "default": "Size"
+      },
+	  {
+        "type": "header",
+        "content": "Color Filter"
+      },
+	  {
+        "type": "checkbox",
+        "id": "enable_color_filter",
+        "label": "Enable Color Filter",
+		"info": "Colors will appear only when products has the color variant.",
+        "default": true
+      },
+	  {
+        "type": "checkbox",
+        "id": "enable_color_filter_swatch",
+        "label": "Enable Color Swatch",
+        "default": true
+      },
+	  {
+        "type": "text",
+        "id": "color_filter_heading",
+        "label": "Heading",
+        "default": "Color"
+      },	  
+	  {
+        "type": "header",
+        "content": "Discount Filter"
+      },
+	  {
+        "type": "checkbox",
+        "id": "enable_discount_filter",
+        "label": "Enable Discount Filter",
+        "default": true
+      },
+	  {
+        "type": "text",
+        "id": "discount_filter_heading",
+        "label": "Heading",
+        "default": "Discount"
+      },
+	  {
+        "type": "textarea",
+        "id": "discount_filter_options",
+        "label": "Discount Options",
+        "default": "10,20,30,40,50",
+		"info": "Add comma separated discount options"
+      },
+	  {
+        "type": "header",
+        "content": "Availability Filter"
+      },
+	  {
+        "type": "checkbox",
+        "id": "enable_availability_filter",
+        "label": "Enable Availability Filter",
+        "default": true
+      },
+	  {
+        "type": "header",
+        "content": "Tag Filter"
+      },
+	  {
+        "type": "checkbox",
+        "id": "enable_tag_filter",
+        "label": "Enable Tag Filter",
+		"info": "Add tag filters in sidebar by adding content blocks.",
+        "default": true
+      }
+	],
+	"blocks": [
+      {
+		"type": "tag_filters",
+		"name": "Tag Filter",
+		"settings": [
+          {
+			"type": "text",
+			"id": "filter_name",
+			"label": "Heading",
+			"default": "Heading"
+          },
+		  {
+			"type": "textarea",
+			"id": "filter_tags",
+			"label": "Tags",
+			"info": "Add a comma-separated list of product tags. Only the tags found in the collection will be displayed as filters."
+		  }
+		]
+      }
+	]
+  }
+{% endschema %}
+

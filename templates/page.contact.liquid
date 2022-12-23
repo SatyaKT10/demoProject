@@ -1,0 +1,252 @@
+<style> 
+  .retailerInfo__wrapper {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    
+  }
+  .am_card {
+    background: white;
+    border-radius: 4px;
+    box-shadow: 0 0 6px #00000029;
+    padding:20px;
+    width:50%;
+    max-width:50%;
+  }
+  .am_card p{
+    margin-bottom:10px;
+    font-size: 16px;
+  }
+ 
+  .am_card h2 {
+    letter-spacing: 0;
+    text-transform: capitalize;
+    margin-bottom:10px !important;
+  }
+  span.am_name,
+   span.am_phone{
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .se_card {
+    background: white;
+    border-radius: 4px;
+    box-shadow: 0 0 6px #00000029;
+    padding:20px;
+    width:50%;
+    max-width:50%;
+  }
+   .se_card p{
+    margin-bottom:10px;
+     font-size: 16px;
+  }
+  .se_card h2 {
+    letter-spacing: 0;
+    text-transform: capitalize;
+    margin-bottom:10px !important;
+  }
+ span.se_name,
+ span.se_phone{
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .table__heading {
+    text-align: center;
+    color: #00bac6;
+    font-weight: 600;
+    font-size: 15px;
+  }
+  .table__text {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    color: #4f4f4f;
+    text-align: center;
+    padding: 4px 0;
+    text-transform: capitalize;
+  }
+
+  .contactUs__text{
+    width:100%;
+    padding:0px !important;
+  }
+  .loader-main {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    z-index: 999999999;
+    background:white;
+    opacity: 0.9;
+  }
+  .loader-main p{
+    height: 100px;
+    width: 100px;
+
+  }
+  
+  @media(max-width:749px){
+    .contactUs__content{
+      padding:0px !important;
+    }
+    .contactUs__content h2{    
+      margin:10px 0 0 0;
+    }
+    .contactUs__content .section-header {
+      margin-bottom:0px;
+    } 
+    .contactUs__content .contactUs__text {
+      padding-left:0px !important;
+      padding:0 !important;
+    }
+    .contactUs__flex {
+      display:flex;
+      justify-content:center;
+    }
+    .retailer_information {
+      margin-top: 10px;
+    }
+    .table__heading {
+      font-size: 12px;
+    }
+    .table__text {
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 10px;
+      line-height: 21px;
+      color: #4f4f4f;
+      text-align: center;
+       padding: 0 0;
+    }
+    .retailerInfo__wrapper {
+      flex-direction:column;
+      gap: 1rem;
+      
+    }
+    .se_card,
+    .am_card {
+      width:100%;
+      max-width:100%;
+    }
+  }
+  
+</style>
+
+<div class="loader-main">
+	<p><img class=" lazyloaded" src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/image_2.png?v=1640198349" data-src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/image_2.png?v=1640198349" alt="Aqualens Contact lenses"></p>
+</div>
+<div class="page-width contactUs__width">
+  <div class="grid contactUs__wrapper">
+    <div class="grid__item medium-up--five-sixths medium-up--push-one-twelfth contactUs__content">
+      <div class="section-header text-center">
+        <h2>{{ page.title }}</h2>
+      </div>
+
+      <div class="retailer_information">
+      </div>
+      {% if page.content.size > 0 %}
+        <div class="rte">
+          {{ page.content }}
+        </div>
+      {% endif %}
+
+      <div class="contact-form form-vertical contactUs__flex">
+        {%- assign formId = 'ContactForm' -%}
+        {% form 'contact', id: formId %}
+          {% include 'form-status', form: form, form_id: formId %}
+
+          <div class="grid grid--half-gutters ">
+            <div class="grid__item medium-up--one-half contactUs__text">
+              <label for="{{ formId }}-name">{{ 'contact.form.name' | t }}</label>
+              <input type="text" id="{{ formId }}-name" name="contact[{{ 'contact.form.name' | t }}]" value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}">
+            </div>
+            <div class="grid__item medium-up--one-half contactUs__text">
+              <label for="{{ formId }}-email">{{ 'contact.form.email' | t }} <span aria-hidden="true">*</span></label>
+              <input
+                type="email"
+                id="{{ formId }}-email"
+                name="contact[email]"
+                autocorrect="off"
+                autocapitalize="off"
+                value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                aria-required="true"
+                {%- if form.errors contains 'email' -%}
+                  class="input--error"
+                  aria-invalid="true"
+                  aria-describedby="{{ formId }}-email-error"
+                {%- endif -%}
+                >
+              {%- if form.errors contains 'email' -%}
+                <span id="{{ formId}}-email-error" class="input-error-message">
+                  <span class="visually-hidden">{{ 'general.accessibility.error' | t }} </span>
+                  {% include 'icon-error' %}
+                  <span>{{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}.</span>
+                </span>
+              {%- endif -%}
+            </div>
+          </div>
+       
+          <label for="{{ formId }}-phone">{{ 'contact.form.phone' | t }}</label>
+          <input type="tel" id="{{ formId }}-phone" name="contact[{{ 'contact.form.phone' | t }}]" pattern="[0-9\-]*" value="{% if form[phone] %}{{ form[phone] }}{% elsif customer %}{{ customer.phone  |  slice: 3, 12}}{% endif %}">
+
+          <label for="{{ formId }}-message">{{ 'contact.form.message' | t }}</label>
+          <textarea rows="10" id="{{ formId }}-message" name="contact[{{ 'contact.form.message' | t }}]">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+
+          <input type="submit" class="btn" value="{{ 'contact.form.submit' | t }}">
+
+        {% endform %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  
+  $(document).ready(function() {    
+    let custNewToken =  sessionStorage.getItem("custNewToken");
+      var creditSettings = {
+        "url": baseURL+"/api/v1/customers/contact-us-info",
+        "method":"GET",
+        "headers": {
+          "Authorization": "Bearer"+" "+custNewToken,
+        }
+      };
+      $.ajax(creditSettings).done(function (response) {       
+        let amHtml = '';
+        let seHtml = '';        
+        if(response.status == true){           
+          if(response.data.b2b_am != null && response.data.b2b_am.full_name != null && response.data.b2b_am.phone != null){
+            amHtml = `<div class="am_card">
+						<h2>Area Manager</h2>
+                        <p><span class='am_name'>Name</span>: ${response.data.b2b_am.full_name}</p>
+                        <p><span class='am_phone'>Phone</span>: ${response.data.b2b_am.phone}</p>
+					  </div>`                      
+          }          
+          if(response.data.sales_person != null && response.data.sales_person.full_name != null && response.data.sales_person.phone != null ){
+            seHtml = `<div class="se_card">
+						<h2>Sales Executive</h2>
+                        <p><span class='se_name'>Name</span>: ${response.data.sales_person.full_name}</p>
+                        <p><span class='se_phone'>Phone</span>: ${response.data.sales_person.phone}</p>
+					  </div>`
+          }              
+          let htmlData = `<div class="retailerInfo__wrapper">
+                            ${amHtml}  
+                            ${seHtml}
+                           </div>`
+           $('.retailer_information').html(htmlData); 
+           $('.loader-main').hide();
+        }
+      }).fail(function(error){
+        $('.loader-main').hide();
+      })
+      
+  })
+
+</script>
+

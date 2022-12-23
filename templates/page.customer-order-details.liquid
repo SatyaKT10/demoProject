@@ -1,0 +1,366 @@
+{% include 'mobile-header' %}
+<div class="customer-page-width" style="background: #F8F8F8; padding-top: 52px; margin-bottom: 15px;">
+  <div class="customer-view__order-section">    
+  </div>
+</div>
+
+<script>
+  function renderCustomerOrderDetails(order,productType){
+    let orderContainer = "";
+    
+    let billingDetails = order.billingAddress;
+    let shippingDetails = order.shippingAddress;
+    let paymentDetailsMethod = order.payments.paymentList[0].method;
+    let orderAmount = order.amount;
+	let orderItems = order.items;
+    
+    let options = {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      };
+    let orderPlaced = Intl.DateTimeFormat("en-IN", options).format(new Date(Number(order.createdAt)));
+    let orderDelivered = Intl.DateTimeFormat("en-IN", options).format(new Date(Number(order.deliveryDate)));
+    
+    
+    let orderHtml = `<div class="customer-view__order-details-wrapper">
+        <div  class="customer-view__order-product-wrapper">
+          <div class="view__order-product-header">
+            <div class="view__order-product-header-icon"><img src='${orderItems[0].image}'></div>
+            <div class="view__order-product-header-text">
+              ${orderItems[0].name}
+            </div>
+          </div>`;
+          
+    if(productType.includes("Clear")){
+      orderHtml += `<div class="view__order-product-title">
+		  	<p class="view__order-product-title-text">Power</p> 
+	      	<p class="view__order-product-title-text">Qty.</p>
+		  </div>`;
+      
+      orderItems.forEach(function(item){
+        let power = "";
+        if(item.prescription.left){        
+          power = item.prescription.left.sph
+        }else{
+          power= item.prescription.right.sph
+        }
+        
+        orderHtml += `<div class="view__order-product-content">
+            <div class="view__order-product-power">${power}</div>     
+            <div class="view__order-product-qty">${item.quantity}</div>
+          </div>`;
+      })
+    }
+    
+    if(productType.includes("Plano")){
+      orderHtml += `<div class="view__order-product-title">
+			<p class="view__order-product-title-text">Color</p> 
+			<p class="view__order-product-title-text">Qty.</p>
+  		</div>`;
+        
+      orderItems.forEach(function(item){
+        orderHtml += `<div class="view__order-product-content">
+            <div class="view__order-product-power">${item.modelName}</div>     
+            <div class="view__order-product-qty">${item.quantity}</div>
+          </div>`;
+      })
+    }
+                         
+    if(productType.includes("Powered")){
+      orderHtml += `<div class="view__order-product-title">
+			<p class="view__order-product-title-text">Color(Power)</p> 
+			<p class="view__order-product-title-text">Qty.</p>
+  		</div>`;
+        
+      orderItems.forEach(function(item){
+        orderHtml += `<div class="view__order-product-content">
+			<div class="view__order-product-power">${item.modelName}(${item.prescription.left.sph})</div>     
+            <div class="view__order-product-qty">${item.quantity}</div>
+          </div>`;
+      })
+    }
+        
+    if(productType.includes("Toric")){
+      orderHtml += `<div class="view__order-product-title">
+			<p class="view__order-product-title-text">Power</p> 
+			<p class="view__order-product-title-text">Qty.</p>
+  		</div>`;
+        
+      orderItems.forEach(function(item){
+        orderHtml += `<div class="view__order-product-content">
+            <div class="view__order-product-power">SPH: ${item.prescription.left.sph}   |   CYL: ${item.prescription.left.cyl}   |   Axis: ${item.prescription.left.axis}</div>     
+            <div class="view__order-product-qty">${item.quantity}</div>
+          </div>`;
+      })
+    }
+    if(productType.includes("Solution")){
+      orderItems.forEach(function(item){
+        orderHtml += `<div class="view__order-product-content solution-product">     
+			<div class="view__order-product-qty">Qty: ${item.quantity}</div>
+          </div>`;
+      })
+    }
+    
+    orderHtml +=`</div>
+      </div>`;
+    
+    
+    let orderContent = `<div class="customer-view__order-status">
+      <div class="view__order-flex" data-value="Order Number" >
+        <p class="view__order-title">Order Number</p> 
+        <p class="view__order-text">${order.id}</p>
+      </div>
+      <hr class="customer-status-separator">
+      <div class="view__order-flex" data-value="Order Placed on">
+        <p class="view__order-title">Order Placed on</p> 
+        <p class="view__order-text">${orderPlaced}</p>
+      </div>
+      <hr class="customer-status-separator">
+      <div class="view__order-flex" data-value="Order-Delivered-on">
+        <p class="view__order-title">Order Delivered on</p> 
+        <p class="view__order-text">${orderDelivered}</p>
+      </div>
+      <hr class="customer-status-separator">
+      <div class="view__order-flex" data-value="Payment Status">
+        <p class="view__order-title">Payment Status</p> 
+        <p class="view__order-text">Paid</p>
+      </div>
+      <hr class="customer-status-separator">
+    </div>
+    
+    <div class="customer-view__order-summary">
+      <div class="view__order-summary-header view__order-sub-section-header">
+        <p class="view__order-summary-header-text view__order-sub-section-header-text">Order Summary</p>
+      </div>
+      <div class="view__order-flex" data-value="Total Qty" >
+        <p class="view__order-title">Total Qty</p> 
+        <p class="view__order-text">${order.itemCount}</p>
+      </div>
+      <hr class="customer-status-separator">
+      <div class="view__order-flex" data-value="Sub Total">
+        <p class="view__order-title">Sub Total</p> 
+        <p class="view__order-text">${orderAmount.subTotal}</p>
+      </div>
+      <hr class="customer-status-separator">
+      <div class="view__order-flex" data-value="Discount">
+        <p class="view__order-title">Discount</p>
+        <p class="view__order-text">${orderAmount.totalDiscount}</p>
+      </div>
+      <hr class="customer-status-separator">
+      <div class="view__order-flex" data-value="Shipping">
+        <p class="view__order-title">Shipping</p>
+        <p class="view__order-text">${orderAmount.shipping}</p>
+      </div>
+      <hr class="customer-status-separator">      
+      <div class="view__order-flex" data-value="Total">
+        <p class="view__order-title">Total</p> 
+        <p class="view__order-text">${orderAmount.total}</p>
+      </div>
+    </div>   
+	
+    <div class="view__order-address-container">
+      <div class="view__order-address-header view__order-sub-section-header">
+        <p class="view__order-address-header-text view__order-sub-section-header-text">Billing Details</p>
+      </div>
+      <div class="view__order-address">
+        <p class="view__order-address-margin">${billingDetails.firstName} ${billingDetails.lastName}</p>
+        <p class="view__order-address-margin">${billingDetails.addressline1}</p>
+        <p class="view__order-address-margin address-margin">${billingDetails.city}, ${billingDetails.state}, ${billingDetails.postcode}</p>
+        <p class="view__order-address-margin">Phone: ${billingDetails.phone}</p>
+      </div>
+      
+      <div class="view__order-address-header view__order-sub-section-header">
+        <p class="view__order-address-header-text view__order-sub-section-header-text">Shipping Details</p>
+      </div>
+      <div class="view__order-address">
+        <p class="view__order-address-margin">${shippingDetails.firstName} ${shippingDetails.lastName}</p>
+        <p class="view__order-address-margin">${shippingDetails.addressline1}</p>
+        <p class="view__order-address-margin address-margin">${shippingDetails.city}, ${shippingDetails.state}, ${shippingDetails.postcode}</p>
+        <p class="view__order-address-margin">Phone: ${shippingDetails.phone}</p>
+      </div>
+      
+      <div class="view__order-address-header view__order-sub-section-header">
+        <p class="view__order-address-header-text view__order-sub-section-header-text">Payment Details</p>
+      </div>
+      <div class="view__order-address">
+        <p class="view__order-address-margin">Paid using: ${paymentDetailsMethod}</p>
+      </div>
+    </div>`;
+    
+    orderContainer = orderHtml + orderContent;
+    
+    $(".customer-view__order-section").html(orderContainer);
+    
+  }
+  
+  $(document).ready(function(){
+    let queryString = decodeURIComponent(window.location.search);
+    queryString = queryString.substring(1);
+    let queries = queryString.split("&");
+    let orderId = queries[0];
+    let productType = queries[1];
+    
+    $(".cart__header-icon a").attr("href","https://aqualensb2b.com/pages/customer-orders");
+    
+    $.ajax({
+      url: "https://subscriber.aqualens.in/api/v1/orders/"+orderId,
+    })
+    .done(function(response) {
+      console.log(response);
+      if(response.status == true && response.data != null){
+        //$(".customer__orders-empty-msg").hide();
+        //$(".customer__orders-wrapper").show();
+        renderCustomerOrderDetails(response.data,productType);
+        console.log(response.data,productType);
+      }
+    })
+    .fail(function(error){
+      console.log("Error",error);
+    })
+  })
+</script>
+
+<style>
+  
+  .customer-view__order-status{
+    padding: 0px 15px;
+  }
+  .customer-status-separator{
+    margin: 11px 0px;
+    border: 1px solid #E0E0E0;
+    background-color: #E0E0E0;
+  }
+  .view__order-flex{
+    display: flex;
+  }
+  .view__order-text {
+    flex: 50%;
+    margin-bottom: 0;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    color: #333333;
+  }
+  .view__order-title {
+    flex: 50%;
+    margin-bottom: 0;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    color: #666666;
+  }
+  .customer-view__order-summary{
+    background: #FFFFFF;
+    padding: 15px 15px 18px;
+    margin-bottom: 10px;
+  }
+  .view__order-sub-section-header {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #333333;
+    margin-bottom: 10px;
+  }
+  .view__order-summary-header{
+    margin-bottom: 15px;
+  }
+  .view__order-address-container {
+    background-color: #FFFFFF;
+    padding: 15px;
+  }
+  .view__order-address {
+    background: #F8F8F8;
+    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 15px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    color: #666666;
+  }
+  .view__order-address-margin {
+    margin-bottom: 0px;
+  }
+  .address-margin{
+    margin-bottom: 10px;
+  }
+
+  .customer-view__order-product-wrapper {
+    border: 1px solid #E0E0E0;
+    border-radius: 4px;
+    margin: 12px 15px 12px;
+    background-color: #FFFFFF;
+  }
+  .view__order-product-header {
+    display: flex;
+    align-items: center;
+    padding: 15px 15px 4px;
+  }
+  .view__order-product-header-icon {
+    width: 60px;
+  }
+  .view__order-product-header-text {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    color: #333333;
+    padding-left: 15px;
+  }
+  .view__order-product-title {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 0px;
+    background: #F8F8F8;
+  }
+  .view__order-product-title-text {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    color: #474747;
+    margin-bottom: 0px;
+    padding:8px 15px;
+  }
+  .view__order-product-content {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0px;
+    margin: 0px 15px;
+    border-bottom: 1px solid #F2F2F2;
+  }
+  .view__order-product-power {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 18px;
+    color: #828282;
+    display: flex;
+  }
+  .view__order-product-qty {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+    color: #4F4F4F;
+  }
+  .solution-product{
+    justify-content:unset;
+    padding: 0px 0px 10px 90px;
+    margin: 0;
+    border-bottom: 0px;
+  }
+</style>

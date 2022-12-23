@@ -1,0 +1,166 @@
+<!-- <div class="page-width">
+  <div class="grid">
+    <div class="grid__item form__wrapper">
+
+      <div class="form-vertical">
+
+        <h1 class="text-left">Create Your Account</h1>
+        <p class="warning" id="input_error" style="display:none">Please fill in all the required details. </p>
+        {%- assign formId = 'RegisterForm' -%}
+        {% form 'create_customer', id: formId, novalidate: 'novalidate' %}
+          {% include 'form-status', form: form, form_id: formId %}
+
+          <label for="{{ formId }}-FirstName">{{ 'customer.register.first_name' | t }} *</label>
+          <input type="text" name="customer[first_name]" id="{{ formId }}-FirstName" {% if form.first_name %}value="{{ form.first_name }}"{% endif %} autocomplete="given-name">
+
+          <label for="{{ formId }}-LastName">{{ 'customer.register.last_name' | t }} *</label>
+          <input type="text" name="customer[last_name]" id="{{ formId }}-LastName" {% if form.last_name %}value="{{ form.last_name }}"{% endif %} autocomplete="family-name">
+
+          <label for="{{ formId }}-email">{{ 'customer.register.email' | t }} *</label>
+          <input
+            type="email"
+            name="customer[email]"
+            id="{{ formId }}-email"
+            class="{% if form.errors contains 'email' %} input--error{% endif %}"
+            {% if form.email %} value="{{ form.email }}"{% endif %}
+            autocorrect="off"
+            autocapitalize="off"
+            autocomplete="email"
+            aria-required="true"
+            {%- if form.errors contains 'email' -%}
+              class="input--error"
+              aria-invalid="true"
+              aria-describedby="{{ formId }}-email-error"
+            {%- endif -%}
+          >
+          {%- if form.errors contains 'email' -%}
+            <span id="{{ formId }}-email-error" class="input-error-message">
+              <span class="visually-hidden">{{ 'general.accessibility.error' | t }} </span>
+              {% include 'icon-error' %}
+              <span>{{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}.</span>
+            </span>
+          {%- endif -%}
+        <a class="warning" id="email_error" href="account/login" style="display: none">you are already registered. Please login to your account</a>
+
+            <input type="submit" id="register" value="Create account" class="btn">
+
+             <p class="form__text text-center">
+              Already have an account ? <a href="/account/" id="customer_register_link">Login</a>
+            </p>
+
+        {% endform %}
+      </div>
+    </div>
+    <div id="response_wrapper" class="form__wrapper">
+        <div id="confimation_messege" class="response_text text-center">
+          <div class="heading_holder text-left">
+            <svg id="done_icon" xmlns="http://www.w3.org/2000/svg" width="135" height="135" viewBox="0 0 135 135"><defs><style>.a{fill:rgba(44,179,190,0.2);}.b{fill:#2cb3be;}</style></defs><g transform="translate(-389 -164)"><circle class="a" cx="67.5" cy="67.5" r="67.5" transform="translate(389 164)"/><path class="b" d="M57.694,59.882H5.968A5.975,5.975,0,0,0,0,65.85v35.81a5.975,5.975,0,0,0,5.968,5.968H57.694a5.975,5.975,0,0,0,5.968-5.968V65.85A5.975,5.975,0,0,0,57.694,59.882Zm0,3.979a1.978,1.978,0,0,1,.763.154L31.831,87.091,5.206,64.015a1.98,1.98,0,0,1,.763-.154Zm0,39.789H5.968a1.991,1.991,0,0,1-1.99-1.99V68.219L30.527,91.227a1.992,1.992,0,0,0,2.607,0L59.683,68.219V101.66A1.991,1.991,0,0,1,57.694,103.65Z" transform="translate(424.886 147.65)"/></g></svg>     
+            <div class="heading_text_content">
+            <h1>Check your email</h1>            
+            <p>We’ve sent a message to <a id="user_email" href="#"></a> with a link to activate your account.</p>
+            </div>
+          </div>
+        </div>
+      
+        <div id="Error_messege" class="response_text text-center">
+           <div class="heading_holder">
+            <svg ID="error_icon" width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                  <g id="Rounded" transform="translate(-238.000000, -730.000000)">
+                      <g id="Alert" transform="translate(100.000000, 674.000000)">
+                          <g id="-Round-/-Alert-/-error" transform="translate(136.000000, 54.000000)">
+                              <g>
+                                  <rect id="Rectangle-Copy-27" x="0" y="0" width="24" height="24"></rect>
+                                  <path d="M12,2 C6.48,2 2,6.48 2,12 C2,17.52 6.48,22 12,22 C17.52,22 22,17.52 22,12 C22,6.48 17.52,2 12,2 Z M12,13 C11.45,13 11,12.55 11,12 L11,8 C11,7.45 11.45,7 12,7 C12.55,7 13,7.45 13,8 L13,12 C13,12.55 12.55,13 12,13 Z M13,17 L11,17 L11,15 L13,15 L13,17 Z" id="🔹Icon-Color" fill="#1D1D1D"></path>
+                              </g>
+                          </g>
+                      </g>
+                  </g>
+               </g>
+            </svg>
+           <h1>OOPS! SOMETHING NOT RIGHT </h1>
+          </div>
+          <p>we are trying to fix it as soon as possible</p>
+        </div>
+    </div>
+  </div>
+</div>
+<script>
+  $('#register').on('click',function(event){
+   event.preventDefault();
+    let first_name = $('input[name="customer[first_name]"').val();
+    let last_name = $('input[name="customer[last_name]"').val();
+    let email = $('input[name="customer[email]"').val();
+    let api_url = "http://lenskart.martmonk.com/website/retailerManagement/retiailerSignupApi";
+    var params = {
+      "first_name" : first_name,
+      "last_name" : last_name,
+      "email" : email
+    }
+    $.ajax({
+        type: "POST",
+        url: api_url,
+        data: params,
+      dataType: 'json',
+      success: function(res){
+        console.log(res);
+        if(res.message == "Not correct input Format !"){
+         $('#RegisterForm input').css("border-color","red");
+          $('.warning').hide();
+          $('#input_error').show();
+        }
+        else if(res.message == "Email already Register"){
+          $('#RegisterForm input').css("border-color","#EEEEEE");
+          $('#RegisterForm-email').css("border-color","red");
+          $('.warning').hide();
+          $('#email_error').show();
+        }
+        else{
+          $('.warning').hide();
+         $('.grid__item.form__wrapper').hide();
+         $('#response_wrapper').show();
+         $('#confimation_messege').show();
+        }
+
+
+        },
+      error: function(){
+         $('.grid__item.form__wrapper').hide();
+          $('#response_wrapper').show();
+         $('#Error_messege').show();
+      }
+     })
+      
+  });
+
+</script> -->
+<div class="grid hide">
+
+  <div class="grid__item large--one-third push--large--one-third text-center">
+
+    <div class="form-vertical">
+      {% form 'create_customer' %}
+<div class="">
+        {{ form.errors | default_errors }}
+
+        <label for="FirstName" class="hidden-label">{{ 'customer.register.first_name' | t }}</label>
+        <input type="text" name="customer[first_name]" id="FirstName" class="input-full" placeholder="{{ 'customer.register.first_name' | t }}" {% if form.first_name %}value="{{ form.first_name }}"{% endif %} autocapitalize="words" autofocus>
+
+        <label for="LastName" class="hidden-label">{{ 'customer.register.last_name' | t }}</label>
+        <input type="text" name="customer[last_name]" id="LastName" class="input-full" placeholder="{{ 'customer.register.last_name' | t }}" {% if form.last_name %}value="{{ form.last_name }}"{% endif %} autocapitalize="words">
+
+        <label for="Email" class="hidden-label">{{ 'customer.register.email' | t }}</label>
+        <input type="email" name="customer[email]" id="Email" class="input-full{% if form.errors contains 'email' %} error{% endif %}" placeholder="{{ 'customer.register.email' | t }}" {% if form.email %} value="{{ form.email }}"{% endif %} autocorrect="off" autocapitalize="off">
+
+        <label for="CreatePassword" class="hidden-label">{{ 'customer.register.password' | t }}</label>
+        <input type="text" name="customer[password]" id="CreatePassword" class="input-full{% if form.errors contains 'password' %} error{% endif %}" placeholder="{{ 'customer.register.password' | t }}">
+
+        <p>
+          <input type="submit" value="{{ 'customer.register.submit' | t }}" class="btn btn--full">
+        </p>
+        <a href="{{ shop.url }}">{{ 'customer.register.cancel' | t }}</a>
+      </div>
+      {% endform %}
+    </div>
+  </div>
+</div>

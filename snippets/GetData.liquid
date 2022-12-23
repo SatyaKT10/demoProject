@@ -1,0 +1,197 @@
+
+  <div id="pincode_checker">
+     <div class="form-vertical">
+       <div id="Go_back">
+         <a href="#" id="login_link"><svg id="back-icon" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><title>arrow-left-glyph</title><path d="M256,0C114.84,0,0,114.84,0,256S114.84,512,256,512,512,397.16,512,256,397.16,0,256,0ZM384,277.33H222.17l27.58,27.58a21.33,21.33,0,1,1-30.17,30.17l-64-64a21.42,21.42,0,0,1-2.67-3.27c-.35-.52-.59-1.09-.88-1.63a12.46,12.46,0,0,1-1.74-4.2c-.18-.61-.42-1.19-.54-1.83a21.43,21.43,0,0,1,0-8.36c.13-.63.36-1.22.54-1.83a12.46,12.46,0,0,1,1.74-4.2c.3-.54.54-1.11.88-1.63a21.42,21.42,0,0,1,2.67-3.27l64-64a21.33,21.33,0,0,1,30.17,30.17l-27.58,27.58H384a21.33,21.33,0,0,1,0,42.67Z"/></svg></a>
+        </div>
+        <h1 id="LoginHeading" class="text-left">create Account</h1>
+
+        <form>
+
+          <label for="PincodeField">Enter Pincode</label>
+          <input
+            type="text"
+            placeholder="Enter your Area Pincode"
+            id="pincode_holder"
+            >
+          <p class="warning"> Please enter the valid pincode </p>
+          <div class="text-center">
+             <input type="button" class="btn" onClick="" id="pincode-submit" value="Check Availability">
+          </div>
+
+        </form>
+      </div>
+   
+    <div id="pincode_match" class="response_text hidden">
+    <h4>Sorry, we already have a distributor in your area.</h4>
+      <h4 class="form_link"> <a href="#" id="contact_form_btn">Stay in touch</a> to get future updates </h4>
+     </div>
+    <div id="pincode_available" class="response_text hidden">
+      <h4>Please Press continue to set-up your account</h4>
+       <p class="form_link">
+         <a href="/account/register.contact">Continue</a>
+       </p>
+     </div>
+  </div>
+
+
+
+    <div id="contact_us_form">
+      <div class="form-vertical">
+         <div id="Go_back">
+         <a href="account/login" id="login_link"><svg id="back-icon" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><title>arrow-left-glyph</title><path d="M256,0C114.84,0,0,114.84,0,256S114.84,512,256,512,512,397.16,512,256,397.16,0,256,0ZM384,277.33H222.17l27.58,27.58a21.33,21.33,0,1,1-30.17,30.17l-64-64a21.42,21.42,0,0,1-2.67-3.27c-.35-.52-.59-1.09-.88-1.63a12.46,12.46,0,0,1-1.74-4.2c-.18-.61-.42-1.19-.54-1.83a21.43,21.43,0,0,1,0-8.36c.13-.63.36-1.22.54-1.83a12.46,12.46,0,0,1,1.74-4.2c.3-.54.54-1.11.88-1.63a21.42,21.42,0,0,1,2.67-3.27l64-64a21.33,21.33,0,0,1,30.17,30.17l-27.58,27.58H384a21.33,21.33,0,0,1,0,42.67Z"/></svg></a>
+        </div>
+        <h1 class="text-left">Keep in touch</h1>
+
+         {%- assign formId = 'ContactForm' -%}
+        {% form 'contact', id: formId %}
+          {% include 'form-status', form: form, form_id: formId %}
+
+          <label for="{{ formId }}-FirstName">{{ 'customer.register.first_name' | t }}</label>
+          <input type="text" name="customer[first_name]" id="{{ formId }}-FirstName" {% if form.first_name %}value="{{ form.first_name }}"{% endif %} autocomplete="given-name">
+
+          <label for="{{ formId }}-LastName">{{ 'customer.register.last_name' | t }}</label>
+          <input type="text" name="customer[last_name]" id="{{ formId }}-LastName" {% if form.last_name %}value="{{ form.last_name }}"{% endif %} autocomplete="family-name">
+
+          <label for="{{ formId }}-email">{{ 'customer.register.email' | t }}</label>
+          <input
+            type="email"
+            name="customer[email]"
+            id="{{ formId }}-email"
+            class="{% if form.errors contains 'email' %} input--error{% endif %}"
+            {% if form.email %} value="{{ form.email }}"{% endif %}
+            autocorrect="off"
+            autocapitalize="off"
+            autocomplete="email"
+            aria-required="true"
+            {%- if form.errors contains 'email' -%}
+              class="input--error"
+              aria-invalid="true"
+              aria-describedby="{{ formId }}-email-error"
+            {%- endif -%}
+          >
+          {%- if form.errors contains 'email' -%}
+            <span id="{{ formId }}-email-error" class="input-error-message">
+              <span class="visually-hidden">{{ 'general.accessibility.error' | t }} </span>
+              {% include 'icon-error' %}
+              <span>{{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}.</span>
+            </span>
+          {%- endif -%}
+
+          <label for="{{ formId }}-phone">{{ 'contact.form.phone' | t }}</label>
+          <input type="tel" id="{{ formId }}-phone" name="contact[{{ 'contact.form.phone' | t }}]" pattern="[0-9\-]*" value="{% if form[phone] %}{{ form[phone] }}{% elsif customer %}{{ customer.phone }}{% endif %}">
+            <input type="submit"  value="Send" class="btn">
+
+        {% endform %}
+      </div>
+  </div>
+
+    <script type="text/javascript">
+
+      // Client ID and API key from the Developer Console
+      var CLIENT_ID = '495621570335-u5b578dft7ho6afanp04jc5ntb747aus.apps.googleusercontent.com';
+      var API_KEY = 'AIzaSyCuhRJpp1BmQ6Elq0TR37rR25dEI7B6kSE';
+
+      // Array of API discovery doc URLs for APIs used by the quickstart
+      var DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
+
+      // Authorization scopes required by the API; multiple scopes can be
+      // included, separated by spaces.
+      var SCOPES = "https://www.googleapis.com/auth/spreadsheets";
+
+      /**
+       *  On load, called to load the auth2 library and API client library.
+       */
+      function handleClientLoad1() {
+        gapi.load('client', initClient);
+      }
+
+      /**
+       *  Initializes the API client library and sets up sign-in state
+       *  listeners.
+       */
+      function initClient() {
+        gapi.client.init({
+          apiKey: API_KEY,
+          clientId: CLIENT_ID,
+          discoveryDocs: DISCOVERY_DOCS,
+          scope: SCOPES
+        }).then(function () {
+            fetchValue()
+        }, function(error) {
+          console.log(error);
+        });
+      }
+
+    function fetchValue() {
+      var params = {
+        // The ID of the spreadsheet to update.
+        spreadsheetId: '1Cz6uEEpq6B3IU90zP8UG6C2zRHBBEf8KH9RAVTSv2jk',  // TODO: Update placeholder value.
+
+        // The A1 notation of a range to search for a logical table of data.
+        // Values will be appended after the last row of the table.
+        range: 'A:Z',  // TODO: Update placeholder value.
+
+
+      };
+
+
+      var request =gapi.client.sheets.spreadsheets.values.get(params);
+      request.then(function(response) {
+        // TODO: Change code below to process the `response` object:
+        let values = response.result.values;
+        let pincode = document.getElementById('pincode_holder').value;
+        const pincode_availability = values.find((item) => item == pincode )
+        if(pincode_availability){
+        console.log("true");
+         $('#pincode_checker').empty();
+        $('#contact_us_form').appendTo("#pincode_checker");
+        $('#contact_us_form').show();
+          $('.form__wrapper').css('min-height','700px');
+          
+        }
+        else{
+        console.log("false");
+         window.location.href="/account/register.contact"
+          
+        }
+        
+      }, function(reason) {
+        console.error('error: ' + reason.result.error.message);
+      });
+    }
+      $('#contact_form_btn').click(function(){
+        $('#pincode_checker').empty();
+        $('#contact_us_form').appendTo("#pincode_checker");
+        $('#contact_us_form').show();
+
+      });
+
+    </script>
+
+    <script async defer src="https://apis.google.com/js/api.js"></script>
+     <Script>
+       window.addEventListener('DOMContentLoaded', (event) => {
+       $('.warning').hide();
+       $('#customer_register_link').click(function(){
+        gsap.to("#pincode_checker", {duration: 0.5, x: 735})
+       gsap.to("#CustomerLoginForm", {duration: 1, x: -735})
+       });
+       $('#login_link').click(function(){
+        gsap.to("#pincode_checker", {duration: 1, x: -735})
+       gsap.to("#CustomerLoginForm", {duration: 0.5, x: 0})
+       });
+       $('#pincode-submit').click(function(){
+          let pincode = $('#pincode_holder').val();
+         if(pincode){
+         handleClientLoad1();
+          $('.warning').hide();
+         $('#pincode_holder').removeClass("error");
+         }
+       else{
+        $('.warning').show();
+       $('#pincode_holder').addClass("error");
+       }
+      })
+       });
+  </Script>

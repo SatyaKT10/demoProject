@@ -1,0 +1,121 @@
+{% if customer %}
+  {% if section.settings.enable_navigation %}
+    {% if section.settings.navigation_linklist != blank %}
+     <div id="navigation-fixed">
+      <section class="navigation__filter" data-section-type="navigation__filter" data-section-id="{{section.id}}">
+        <div class="navigation__filter--wrapper">
+          {% assign navigation_link = section.settings.navigation_linklist %}
+            <ul class="navigation__filter--list">
+              {% for link in linklists[navigation_link].links %}
+                <li class="navigation__filter--listitem">
+                  <a class="{{ link.title | replace:' ','_' | append: "Event" }} link-button {% if link.active %} link-button--active{% endif %}"  href="{{ link.url }}">
+                    {{ link.title | escape }}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+        </div>
+      </section>
+     </div>
+    {% endif %}
+  {% endif %}
+{% endif %}
+
+<style>
+  {% if template contains 'collection' %}
+  .navigation__filter {
+    background:white;
+  }
+  {% endif %}
+  {% if template contains 'cart' or template.suffix contains 'orders' or template.name contains 'order' or template.suffix contains 'tax-statement' or template.suffix contains 'tax-request' or template.suffix contains 'transactions' or template.suffix contains 'customer' %}
+  .navigation__filter {
+    display:none !important; 
+  }
+  {% endif %}
+  
+  
+  .btn-active-navigation a{
+    border:none !important;
+  }
+  
+  {% if customer %}
+  .sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index:999;
+  }
+  {% endif %}
+
+  </style>
+
+ <script>
+  
+  $(".link-button").click(function () {
+    $('navigation__filter--list').addClass("btn-active-navigation"); 
+  });
+   
+   
+/*******   code for fixed navigation  **********/
+   {% if customer %}
+   window.onscroll = function() {myFunction()};
+
+   var navigation_fixed = document.getElementById("navigation-fixed");
+   var sticky = navigation_fixed.offsetTop;
+
+   function myFunction() {
+     if (window.pageYOffset >= sticky) {
+       navigation_fixed.classList.add("sticky")
+     } else {
+       navigation_fixed.classList.remove("sticky");
+     }
+   }
+    {% endif %}
+   //           clevertap events
+   $('.navigation__filter--listitem').on('click',function(){     
+     let collection_title = $(this).text();
+     clevertap.event.push("categories", {
+       "Category":collection_title
+     });     
+   }) 
+   //           GA events
+   $('.navigation__filter--listitem').on('click',function(){ 
+
+     let collection_title = $(this).text();       
+     let displayMode = 'browser';
+     const mqStandAlone = '(display-mode: standalone)';
+     if (navigator.standalone || window.matchMedia(mqStandAlone).matches || navigator.userAgent.toLowerCase().includes('wv')) {
+       displayMode = 'standalone';
+       dataLayer.push({
+         'event': 'collection_filter_pwa',
+         "Category":collection_title
+       })
+     }else{
+       dataLayer.push({
+         'event': 'collection_filter',
+         "Category":collection_title
+       })
+     } 
+     //           GA events end
+   })
+  
+</script>
+  
+{% schema %}
+{
+  "name": "Filter Navigation",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_navigation",
+      "label": "Enable Navigation",
+      "default": true
+    },
+    {
+      "type": "link_list",
+      "id": "navigation_linklist",
+      "label": "Filter Navigation"
+    }
+  ]
+}
+{% endschema %}

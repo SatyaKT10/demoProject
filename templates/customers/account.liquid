@@ -1,0 +1,165 @@
+<script>
+  {% if customer %}  
+  {% else %}
+  window.location.href = "https://aqualensb2b.com/account/login";
+  {% endif %}
+</script>
+<style>
+  .myaccount___account-details{
+    background-image: linear-gradient(120deg,#1b92e9 5%,#2103a0 99%);
+    color: white;
+  }
+  .myaccount__account-details .customerInfo{
+    border:1px solid white !important;
+  }
+  
+  @media(max-width:749px){
+    .loader-main-none-mobile{
+      display:none !important;
+    }
+  }
+  </style>
+<div class="loader-main loader-main-none-mobile">
+  <p><img class=" lazyloaded" src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/image_2.png?v=1640198349" data-src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/image_2.png?v=1640198349" alt="Aqualens Contact lenses"></p>
+</div>
+<div class="account-wrap">
+  {% unless customer.tags contains 'verified_retailer' %}
+<!--     <div class="retailer-note">
+      <div class="retailer-formsuccess">
+        <span class="retail-text"> Your account is waiting for an approval from distributor. We will update you  once your account is approved.</span>
+      </div>
+    </div> -->
+    {% endunless %}
+  <div class="header">
+
+  </div>
+  
+    <div class="order-header"> My Orders</div>
+  <div class="page-width">
+    
+<!--     <div class="section-header text-center">
+      <h1>{{ 'customer.account.title' | t }}</h1>
+      {{ 'layout.customer.log_out' | t | customer_logout_link }}
+    </div> -->
+    
+    <div class="grid myaccount">
+      
+      <div class="grid__item myaccount__account-details">
+        <div class="myaccount___account-details">
+          <div class="customerInfo">
+            <div style="padding:0;" class="content details">
+            </div>
+           
+
+          </div>
+           
+          <div class="order_details">  
+            <h4>My Account</h4>
+            <ul>
+              <li><a href="{{ routes.account_addresses_url }}" > My Addresses</a></li>
+              <li><a href="/pages/select-document?updateprofile=true" >Update Profile</a></li>
+              <li><a href="https://aqualensb2b.com/pages/retailer-dashboard" >Dsahboard</a></li>
+            </ul>
+          </div>
+          <div class="logOutButton log__out">
+            <a href="/account/logout">Logout</a>
+          </div>
+        </div>
+        <!--         {{ customer.default_address | format_address }}
+
+<p><a href="{{ routes.account_addresses_url }}" class="btn btn--small">{{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})</a></p>
+<p><a href="/pages/update-retailer" class="btn btn--small">Update Profile</a></p> -->
+      </div>
+     
+      
+      <div class="order-header-m"> My Orders</div>
+      
+      {% section 'orders-section' %}
+      {% comment %}
+      <div class="grid__item myaccount__order-history">
+<!--         <h2>{{ 'customer.orders.title' | t }}</h2> -->
+
+        {% paginate customer.orders by 20 %}
+        {% if customer.orders.size != 0 %}
+
+        <table class="responsive-table">
+<!--           <thead>
+            <tr>
+              <th scope="col">{{ 'customer.orders.order_number' | t }}</th>
+              <th scope="col">{{ 'customer.orders.date' | t }}</th>
+              <th scope="col">{{ 'customer.orders.payment_status' | t }}</th>
+              <th scope="col">{{ 'customer.orders.fulfillment_status' | t }}</th>
+              <th scope="col">{{ 'customer.orders.total' | t }}</th>
+              <th scope="col">Receiving Status</th>
+            </tr>
+          </thead> -->
+          <tbody>
+            {% for order in customer.orders %}
+            <tr>
+               {% for line_item in order.line_items %}
+              {% if forloop.first == true %}
+                 <td> {{ line_item.image | img_url: '100x100' | img_tag }}</td>
+              {% endif %}
+              {% endfor %}
+              <td data-label="{{ 'customer.orders.order_number' | t }}" >
+                <span class="order-head">Order Id</span> 
+                <a href="{{ order.customer_url }}" class="btn btn--secondary btn--small" aria-label="{{ 'customer.orders.order_number_link' | t: number: order.name }}">{{ order.name }}</a>
+               {% if order.tags contains 'order_received' %}
+              <div class="secon-l-order" data-label="Receiving Status"><span class="order-head">Receiving Status</span> <span class="success">Received</span></div>
+              {% else %}
+              <div class="secon-l-order"><span class="order-head">Receiving Status</span> <span class="received-btn" data-id="{{order.id}}">Mark as Received</span></div>
+              {% endif %}
+              </td>
+              <td data-label="{{ 'customer.orders.date' | t }}"><span class="order-head">Ordered On</span> {{ order.created_at | time_tag: format: 'date' }}
+               <div class="secon-l-order" data-label="{{ 'customer.orders.total' | t }}"><span class="order-head">Order Total</span>{{ order.total_price | money }}</div>
+             
+              </td>
+              <td data-label="{{ 'customer.orders.payment_status' | t }}"><span class="order-head">Payment Status</span> {{ order.financial_status_label }}</td>
+              <td data-label="{{ 'customer.orders.fulfillment_status' | t }}"><span class="order-head">Fulfillment Status</span>{{ order.fulfillment_status_label }}
+                <div class="secon-l-order">
+                  <span class="order-head view-o">View details</span>
+                  <span class="view-o-detail"> <a href="{{ order.customer_url }}" class="btn btn--secondary btn--small" aria-label="{{ 'customer.orders.order_number_link' | t: number: order.name }}"> View details</a></span>
+                </div>
+              </td>
+             
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        {% else %}
+
+        <p class="no-order">{{ 'customer.orders.none' | t }}</p>
+
+        {% endif %}
+        {%- if paginate.pages > 1 -%}
+        {% include 'pagination', paginate: paginate %}
+        {%- endif -%}
+        {% endpaginate %}
+      </div>
+      {% endcomment %}
+    </div>
+     <div class="content_container">
+      {% include 'wallet' %}
+    </div>
+  </div>
+</div>
+<script>
+  function authToken(){
+    var customer_id = $('body').attr("data-customer");
+    $.ajax({
+//       https://checkout.aqualensb2b.com
+      url : baseURL+'/api/v1/session/create/'+customer_id,
+      type: 'GET',
+      success:function(data){
+        var getToken = data.token;
+        sessionStorage.setItem("bearer_token",getToken);
+        console.log("hii");
+      }
+    })
+  }
+  if(sessionStorage.getItem("bearer_token") == null){
+    authToken();
+  }
+  
+</script>

@@ -1,0 +1,329 @@
+<style>
+  .aq-app__section .slick-prev:before{
+    content:"";
+  }
+  .aq-app__section .slick-next:before{
+    content:"";
+  }
+  .aq-app__section .slick-next:focus{
+    display:none;
+  }
+  .aq-app__section .slick-prev:focus{
+    display:none;
+  }
+  .aq-app__section .arrow {
+    border: solid #3069B3;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 4px;
+  }
+  .aq-app__section .right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    position: absolute;
+    top: 35%;
+    right: 42%;
+  }
+
+  .aq-app__section .left {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+    position: absolute;
+    top: 35%;
+    left: 40%;
+  }
+  .aq-app__section .slick-prev{
+    left:-25px;
+    text-align: right;
+    background:red;
+  }
+  .aq-app__section .slick-next{
+    right:0px;
+    text-align: left;
+  }
+  .aq-app__section .slick-prev {
+    position: absolute;
+    display: block;   
+    width:40px;
+    height:40px;
+    background:white;
+    border:1px solid #3069B3;
+    border-radius:20px;
+    line-height: 0px;
+    font-size: 0px;
+    cursor: pointer;
+    top: 55%;
+    left:70px;
+    -webkit-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    padding: 0;
+    z-index: 700;
+  }
+  .aq-app__section .slick-next {
+    position: absolute;
+    display: block;   
+    width:40px;
+    height:40px;
+    background:white;
+    border:1px solid #3069B3;
+    border-radius:20px;
+    line-height: 0px;
+    font-size: 0px;
+    cursor: pointer;
+    top: 55%;
+    right:70px;
+    -webkit-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    padding: 0;
+    z-index: 700;
+  }
+  .aq-app__section .slick-slider {
+    margin-bottom: 0;
+  }
+  .aq-app__section .slick-active button{
+    outline:none;
+  }  
+  
+  
+  
+  
+  
+  
+  .aq-app__section {
+    background: #FFFCF5;
+    padding-bottom:60px;
+  }
+  .aq-app__section .app__section--header {
+    padding-top: 84px;
+    text-align: center;
+  }
+  .aq-app__section .app__section--header h2{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 149.3%;
+    text-align: center;
+    color: #303030;
+    letter-spacing:0;
+    text-transform: capitalize;
+  }
+  .aq-app__section .app__section--subHeader{
+    padding-top: 17px;
+    text-align: center;
+  }
+  .aq-app__section .app__section--subHeader h2{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 149.3%;
+    text-align: center;
+    color: rgba(102, 102, 102, 0.4);
+    letter-spacing:0;
+    text-transform: capitalize;
+    margin-bottom: 20px;
+  }
+  .horizontal_line {
+    height: 4px;
+    width: 160px;
+    margin: auto;
+    background: #4DB8C5;
+    margin-bottom: 105px;
+  }
+  .app_cards_wrapper{
+    margin-bottom:120px;
+  }  
+  .appInfo_cards_flex {
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 875px;
+    padding:0 15px;
+  }
+  .appInfo_image {
+    width: 370px;
+  }
+  .appButton{
+    width: 364px;
+  }
+  .appInfo_text {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 149.3%;
+    color: #303030;
+    margin-bottom: 94px;
+  }
+  .app_desktop p{
+    background: #4DB8C5;
+    border-radius: 5px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 149.3%;
+    text-align: center;
+    color: #FFFFFF;
+    padding: 18px;
+  }
+  .app_mobile{
+    display:none;
+  }
+  
+  @media(max-width:749px){
+    .aq-app__section .app__section--header {
+      padding-top: 40px;
+    }
+    .appInfo_cards_flex {
+      flex-direction:column;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 875px;
+    }
+    .app_desktop{
+      display:none;
+    }
+    .app_mobile{
+      display:block;
+      margin-top: 72px;
+    }
+    .app_mobile p{
+      background: #4DB8C5;
+      border-radius: 5px;
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 149.3%;
+      text-align: center;
+      color: #FFFFFF;
+      padding: 18px;
+      margin: 0 35px;
+    }
+   .aq-app__section .slick-prev {
+      left:10px;
+    }
+   .aq-app__section .slick-next {
+      right:10px;
+    }
+    .appInfo_image {
+      max-width: 266px;
+    }
+    .appButton {
+      max-width: 357px;
+    }
+    .appInfo_text {
+      margin-bottom: 72px;
+      font-size: 20px;
+      text-align: center;
+    }
+  }
+</style>
+
+{% assign appInfo_slider = section.blocks | where: 'type', 'appInfo_slider' %}
+<section data-section-id="{{ section.id }}" data-section-type="aq_app-section" class="aq-app__section" id="appSection">
+  
+  {% if section.settings.section-heading != blank %}
+  <div class="app__section--header">
+    <h2>{{ section.settings.section-heading }}</h2>
+  </div>
+  {% endif %}
+  {% if section.settings.section-sub-heading != blank %}
+  <div class="app__section--subHeader">
+    <h2>{{ section.settings.section-sub-heading }}</h2>
+  </div>
+  {% endif %}
+  
+  <div class="horizontal_line"></div>
+  
+  <div class="app_cards_wrapper">    
+    {% for block in appInfo_slider  %}
+    <div class="appInfo_cards">
+      <div class="appInfo_cards_flex">
+      {% if block.settings.screen_image != ''%}
+      <div class="appInfo_image">
+        <img class="lazyload" src="{{block.settings.screen_image | img_url :'master'}}" data-src="{{block.settings.screen_image | img_url :'master'}}" alt="Image"  />
+      </div>
+      {% endif %}
+      <div class="appButton">
+        {% if block.settings.appInfo_text != blank %}
+        <div class="appInfo_text">{{ block.settings.appInfo_text }}</div>
+        {% endif %}
+        <a class="app_desktop" href="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/Aqualens_B2B.apk?v=1649932753"><p>Download</p></a>
+      </div>
+      </div>
+    </div>
+    {% endfor %}  
+  </div>  
+  <a class="app_mobile" href="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/Aqualens_B2B.apk?v=1649932753"><p>Download</p></a>
+
+</section>
+<script>
+  $(".app_cards_wrapper").slick({
+    dots:true,
+    infinite: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows:true,
+    autoplay: false,
+    autoplaySpeed: 2000,
+    prevArrow:'<div class="slick-prev"><i class="arrow left"></i></div>',
+    nextArrow:'<div class="slick-next"><i class="arrow right"></i></div>',
+  });
+</script>
+
+{% schema %}
+  {
+    "name": "Aqualens Dowanload App",
+    "settings": [
+    	{
+          "type": "text",
+          "id": "section-heading",
+          "label": "Section Heading",
+          "default": "Download Our App"
+        },
+		{
+          "type": "text",
+          "id": "section-sub-heading",
+          "label": "Section Sub Heading",
+          "default": "Faster and smarter way of staying connected"
+        }
+	],
+    "blocks": [
+        {
+          "name": "Aqualens App",
+          "type": "appInfo_slider",
+		  "limit":3,
+          "settings": [
+			{
+              "type": "image_picker",
+              "id": "screen_image",
+              "label": "Image"
+            },
+            {
+              "type": "text",
+              "id": "appInfo_text",
+              "label": "Text",
+              "default": "1"
+            }
+          ]
+        }
+      ],
+
+    "presets":[ 
+            { 
+               "name":{ 
+                  "en":"Aqualens Dowanload App"
+               },
+               "category":{ 
+                  "en":"Homepage"
+               }
+            }
+       ]
+  }
+{% endschema %}

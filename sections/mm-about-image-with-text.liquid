@@ -1,0 +1,78 @@
+<section id="about_image__with__text--section"
+  data-section-type="product-image-text"
+  data-section-id="{{ section.id }}"
+  data-section-data>
+    <div class="page-width">
+     <div class="image__with__text">  
+        <div class="image__with__text__content">
+          <div class="image__with__text__content--wrapper">
+            {% assign headertext = section.settings.headertext %}
+            {% assign text = section.settings.text %}
+            {% assign link = section.settings.link %}
+
+            {% if headertext != blank %}
+            <h2 class="image__with__text__content--headertext">{{ headertext }}</h2>
+            {% endif %}
+            {% if text != blank %}
+            <p class="image__with__text__content--text"><i>{{ text }}</i></p>
+            {% endif %}
+            {% if link != blank %}
+            <a href="{{ link }}" class="image__with__text__content--btn">{{section.settings.link-text}} </a>
+            {% endif %}
+          </div>
+        </div> 
+      </div>
+  </div>
+</section>
+<style>
+  .image__with__text__content {
+    background: url({{ section.settings.bannerimage | img_url: 'master' }});
+    background-size: 100%;
+    background-repeat: no-repeat;
+  }
+  @media only screen and (max-width: 768px){
+    .image__with__text__content {
+      background-size: cover;
+      background-position: center;
+    }
+  }
+  @media only screen and (min-width:769px) and (max-width: 1300px) {
+    .image__with__text__content {
+      background-size: 100% 100%;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Image With Text Section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "bannerimage",
+      "label": "Banner Image"
+    },
+    {
+      "type": "text",
+      "id": "headertext",
+      "label": "Header"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Content"
+    },
+	{
+      "type": "text",
+      "id": "link-text",
+      "label": "Button Text"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Button Link"
+    }
+  ]
+}
+{% endschema %}
+

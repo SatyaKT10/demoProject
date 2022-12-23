@@ -1,0 +1,502 @@
+<script>
+  {% if customer %}  
+  {% else %}
+  window.location.href = "https://aqualensb2b.com/account/login";
+  {% endif %}
+</script>
+<style>
+  .loader-main {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    z-index: 999999999;
+    background:white;
+    opacity: 0.9;
+  }
+  .loader-main p{
+    height: 100px;
+    width: 100px;
+
+  }
+  .r_dashboard_bg {
+    max-width: 1200px;
+    margin: auto;
+  }
+  .r_dashboard_header {
+    margin: 0;
+    text-align: center;
+    font-family: Poppins;
+    font-weight: 400;
+    font-size: 25px;
+    margin: 10px 0px;
+  }
+  .r_dashboard_s-cards {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 20px 0px;
+  } 
+  .r_sales_info {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px 1px rgb(0 0 0 / 6%), 0 1px 4px rgb(0 0 0 / 8%);
+    border: 0;
+    padding: 1.25rem;
+
+  } 
+  .r_heading {
+    margin: 0;
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 21px;
+    color: #4f4f4f;
+
+  }
+  .r_text {
+    font-family: Poppins;
+    font-size: 16px;
+    line-height: 21px;
+    color: #4f4f4f;
+  }
+  .r_icon img {
+    max-width: 45px;
+  }
+  .r_dashboard_b-cards {   
+    margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .card-title {
+    margin-bottom: 1.5rem;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 21px;
+    color: #4f4f4f;
+  }
+  .trending_products_wrapper {
+    border-radius: 10px;
+    box-shadow: 0 4px 20px 1px rgb(0 0 0 / 6%), 0 1px 4px rgb(0 0 0 / 8%);
+    border: 0;
+    padding: 1.25rem;
+  }
+  .top_products_wrapper {
+    border-radius: 10px;
+    box-shadow: 0 4px 20px 1px rgb(0 0 0 / 6%), 0 1px 4px rgb(0 0 0 / 8%);
+    border: 0;
+    padding: 1.25rem;
+
+  }
+  .t_products {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .t_products_imgs {
+    width: 80px;
+    height: 80px;
+    border: 1px solid #E0E0E0;
+    border-radius:2px;
+  }
+  .t_products_imgs img {
+    width: 100%;
+    height: 100%;
+  }
+  .t_products_contents p{
+    margin: 0;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    color: #4f4f4f;
+  }
+  .no_of_orders {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    color: #4f4f4f;
+  }
+  .p_prices {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    color: #4f4f4f;
+  }
+  
+  .range__wrapper {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap:2rem;
+    box-shadow: 0 4px 20px 1px rgb(0 0 0 / 6%), 0 1px 4px rgb(0 0 0 / 8%);
+    border: 0;
+    padding: 10px 20px;
+    border-radius: 10px
+  }
+  .range__wrapper-content {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 2rem;
+  }
+  .range__heading {
+    font-family: Poppins;
+    font-style: normal;
+   font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    text-align:center;
+    color: #333333;
+    text-transform: capitalize;
+    padding: 10px 0px;
+  }
+  .customRange__content {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+/*     margin-bottom: 10px; */
+  }
+  .date-wrapper{
+    display: flex;
+    align-items: center;
+  }
+  .date-wrapper .date-text {
+    
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 21px;
+    color: #666666;
+    margin-bottom:0;
+    
+  }
+  input#fromDate,
+  input#toDate{
+    
+    font-size: 14px;
+    padding: 8px 2px;
+    text-align: center;
+  }
+  .range__btn-wrapper{
+    text-align:center;
+  }
+  .rangeSubmit__btn,
+  .rangeClear__btn{
+    border: 1px solid #949494;
+    box-sizing: border-box;
+    border-radius: 4px;
+    padding: 7px 24px;
+    text-align: center;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    cursor: pointer;
+    background: #00bac6;
+    outline: none;
+    color: white;
+    border: 0;
+
+  }
+  .rangeSubmit__btn:hover {
+    background: white;
+    color: #00bac6;
+    border: 1px solid #00bac6;
+  }
+  
+  
+  @media(max-width:749px){    
+    .r_dashboard_bg {
+      max-width: 94%;
+      margin: auto;
+    }
+    .r_dashboard_s-cards {
+      flex-direction:column;
+      align-items: unset;
+     
+    }
+    .r_dashboard_b-cards {      
+      display: flex;
+      flex-direction:column;
+      align-items: unset;
+      justify-content: center;
+      margin-bottom:20px;
+    }
+    .t_products_contents p,
+    .no_of_orders,
+    .p_prices{
+      font-size: 12px;
+
+    }
+    .range__wrapper {
+      display: block;
+    }
+    .range__wrapper-content{
+      display:unset;
+      
+    }
+    .customRange__content{
+      margin-bottom: 10px
+    }
+
+  }
+</style>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.0.0/magnific-popup.min.css" integrity="sha512-nIm/JGUwrzblLex/meoxJSPdAKQOe2bLhnrZ81g5Jbh519z8GFJIWu87WAhBH+RAyGbM4+U3S2h+kL5JoV6/wA==" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.0.0/jquery.magnific-popup.min.js" integrity="sha512-+m6t3R87+6LdtYiCzRhC5+E0l4VQ9qIT1H9+t1wmHkMJvvUQNI5MKKb7b08WL4Kgp9K0IBgHDSLCRJk05cFUYg==" crossorigin="anonymous"></script>
+{% include 'mobile-header' %}
+<div class="loader-main">
+	<p><img class=" lazyloaded" src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/image_2.png?v=1640198349" data-src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/image_2.png?v=1640198349" alt="Aqualens Contact lenses"></p>
+</div>
+<div class="r_dashboard_bg">
+{% comment %}{% render 'background-look' %} {% endcomment %}
+  <h1 class="r_dashboard_header"> Retailer Dashboard </h1>  
+
+  <div class="r_dashboard">  
+    
+    <div class="r_dashboard_s-cards">
+    </div>    
+    <div class="range__wrapper mobile-none">
+      <div class="range__heading">Select Range</div>
+      <div class="range__wrapper-content">
+        <div class="customRange__content">
+          <div class="fromDate__content date-wrapper">
+            <label class="date-text" for="fromDate">
+              From &nbsp;&nbsp;
+            </label>
+            <input type="date" id="fromDate" name="from" max="" placeholder="Start Date">
+          </div>
+          <div class="fromDate__content date-wrapper">
+            <label class="date-text" for="toDate">
+              To&nbsp;&nbsp;
+            </label>
+            <input type="date" id="toDate" name="to" min="" placeholder="End Date">
+          </div>
+        </div>  
+        <div class="range__btn-wrapper">
+          <button class="rangeSubmit__btn">									
+            Submit                             
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="r_dashboard_b-cards">
+      <div class="trending_products_wrapper">
+        <div class="card-title">Trending products in particular area.</div>
+        <div class="r_trending_products">
+        </div>
+      </div>
+      <div class="top_products_wrapper">
+        <div class="card-title">Top Selling Products</div>
+        <div class="r_top_selling">
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  function renderDashboard(response){    
+    let additional_discount  = response.additional_discount;
+    let total_profit = response.total_profit; 
+    let total_sales = response.total_sales; 
+    let pruchase_value = response.total_purchase_value ;
+    
+    
+    if(additional_discount > 0){
+      additional_discount  = response.additional_discount;
+    }else{
+      additional_discount = 0;
+    }
+    
+    if(total_profit > 0){
+      total_profit = response.total_profit;      
+    }else{
+      total_profit = 0;
+    }
+    
+    if(total_sales > 0){
+      total_sales = response.total_sales;       
+    }else{
+      total_sales = 0;
+    } 
+    
+    if(pruchase_value > 0 ){
+      pruchase_value = response.total_purchase_value ;
+    }else{
+      pruchase_value = 0;
+    }
+      
+    
+    let top_selling_products = response.top_selling_products;
+    let trending_products  = response.trending_products;         
+    let s_cards_html = `<div class="r_sales_info">
+								<div class="r_icon">
+									<img src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/sales.png?v=1652359812">
+								</div>
+								<div class="r_content">
+									<p class="r_heading">Total sales</p>
+									<p class="r_text">₹ ${total_sales}</p>
+								</div>
+							</div>
+							<div class="r_sales_info">
+								<div class="r_icon">
+									<img src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/profits.png?v=1652359839">
+								</div>
+								<div class="r_content">
+									<p class="r_heading">Profit Generated</p>
+									<p class="r_text">₹ ${total_profit}</p>
+								</div>
+							</div>
+							<div class="r_sales_info">
+								<div class="r_icon">
+									<img src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/offer.png?v=1652359793">
+								</div>
+								<div class="r_content">
+									<p class="r_heading">Additional Discount</p>
+									<p class="r_text">₹ ${additional_discount}</p>
+								</div>
+							</div>
+							<div class="r_sales_info">
+								<div class="r_icon">
+									<img src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/checklist.png?v=1657265708">
+								</div>
+								<div class="r_content">
+									<p class="r_heading">Total Purchase</p>
+									<p class="r_text">₹ ${pruchase_value}</p>
+								</div>
+							</div>`
+        
+    $('.r_dashboard_s-cards').html(s_cards_html);
+        
+    if(trending_products && trending_products.length > 0){
+      let trending_products_container ='';
+      trending_products.forEach(function(i){
+        let r_trending_products = `<div class="t_products">
+                                          <div class="t_products_imgs">
+											  <img src="${i.image}">
+                                          </div>
+                                          <div class="t_products_contents">
+                                              <p>${i.product_title}</p>
+                                              <div class="no_of_orders">No of Orders: ${i.itemsOrdered}</div>
+                                              
+                                          </div>
+									   </div>`
+        trending_products_container =  trending_products_container + r_trending_products; 
+        
+      })
+      $('.r_trending_products').html(trending_products_container);
+    }else{
+      $('.r_trending_products').html("<div class='p_prices'>No Top Trending products are Available in your area.</div>");
+    }
+        
+    if(top_selling_products && top_selling_products.length > 0){
+      let top_products_container ='';
+      top_selling_products.forEach(function(i){
+        let r_trending_products = `<div class="t_products">
+                                          <div class="t_products_imgs">
+											  <img src="${i.image}">
+                                          </div>
+                                          <div class="t_products_contents">
+                                             <p>${i.product_title}</p>
+											 <div class="no_of_orders">No of Orders: ${i.itemsOrdered} </div>
+											<div class="p_prices">Total Sale: ₹ ${i.itemTotalSale }</div>
+                                          </div>
+									   </div>`
+        top_products_container =  top_products_container + r_trending_products; 
+      })
+      $('.r_top_selling').html(top_products_container);
+    }else{
+      $('.r_top_selling').html("<div class='p_prices'>No Top Selling products are Available.</div>");
+    }        
+  }
+  
+  function loadDashboard(custNewToken, fromDate, toDate){
+    var creditSettings = {            
+      "url": baseURL+"/api/v1/retailer/dashboard",
+      "method":"POST",
+      "headers": {
+        "Authorization": "Bearer"+" "+custNewToken,
+      },
+      data: {
+        "start_date": fromDate, //"2022-05-01"
+        "end_date": toDate //"2022-05-19"
+      },
+      dataType: 'json',
+    };
+
+    $.ajax(creditSettings).done(function (response){
+      if(response){
+        $('.loader-main').hide();
+        renderDashboard(response);
+      } 
+    }).fail(function(error){
+      $('.loader-main').hide();
+      let apiError = error.responseJSON.message;
+      if(apiError === 'Unauthorized request'){
+        setNewToken();
+        location.reload();
+      }else{
+        errorPopup(apiError);
+      }
+    })
+  }
+  
+  $(document).ready(function() { 
+    let custNewToken =  sessionStorage.getItem("custNewToken");
+    var utc = new Date().toJSON().slice(0,10).replace(/-/g,'-');
+    var utc_30 = new Date(new Date().setDate(new Date().getDate() - 30)).toJSON().slice(0,10).replace(/-/g,'-');  
+    
+//     var date = new Date();
+//     var firstDay = new Date(date.getFullYear(), date.getMonth(), 2).toJSON().slice(0,10).replace(/-/g,'-'); 
+//     console.log(firstDay)
+    
+    var fromDate = utc_30;
+    var toDate = utc;
+    $("#fromDate").val(utc_30);
+    $("#toDate").val(utc);
+
+    $("#fromDate").attr("max", utc);
+    $("#toDate").attr("max", utc );
+    
+    $('#fromDate').on('change',function(){
+      fromDate = $(this).val();
+      toDate = utc;
+      $('#toDate').prop('min',function(){
+        return fromDate;
+      })
+    })   
+    $('#toDate').on('change',function(){            
+      toDate = $(this).val();
+      $('#fromDate').prop('max',function(){
+        return toDate;
+      })
+    }) 
+   
+    $('.rangeSubmit__btn').click(function(){
+       fromDate = $("#fromDate").val();
+       toDate = $("#toDate").val();
+      loadDashboard(custNewToken, fromDate, toDate);
+    })    
+    loadDashboard(custNewToken, fromDate, toDate);
+  })
+</script>

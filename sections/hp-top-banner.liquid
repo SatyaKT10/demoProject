@@ -1,0 +1,174 @@
+<style>
+  .video-banner__section .video_content{
+    position:relative;
+  }
+  .video-banner__section .video_content .video_desktop{
+    width:100%;    
+  }
+  .video-banner__section .video_content .video_conetnt_text{
+    max-width:658px;
+    position:absolute;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .video-banner__section .video_content  .conetnt_text {
+    margin-bottom: 80px;
+  }
+   .video-banner__section .video_content  .conetnt_text .video_conetnt_text a{
+    text-align:center;
+  }
+  .video-banner__section .video_content .video_conetnt_text .conetnt_text p {
+    font-family: 'Quattrocento';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 170.3%;
+    text-align: center;
+    color: #FFFFFF;
+    padding: 0 15px;
+  }
+  .register_buttonn{
+    background: #4DB8C5;
+    border-radius: 5px;
+    width: 364px;
+    padding: 20px;
+    margin: auto;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 149.3%;
+    text-align: center;
+    color: #FFFFFF;
+
+  } 
+  .btn_vertualTry{
+    display:none;
+  }
+  @media (min-width: 749px) and (max-width: 949px){
+    .video-banner__section .video_content .video_conetnt_text .conetnt_text p {
+      font-size: 32px;
+    }
+    .video-banner__section .video_content .video_conetnt_text{
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+  @media(max-width:749px){
+    .video-banner__section .video_content{
+      background: #26467D;
+    }
+    .video-banner__section .video_content .video_conetnt_text .conetnt_text p {
+      font-size: 32px;
+    }
+    .btn_vertualTry{
+      display:block;
+      background:#26467D;
+    }
+    .veritual_buttonn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      color: white;
+      padding:14px 0 16px 0;
+    }
+    .veritual_buttonn span{
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 149.3%;
+      color: #FFFFFF;
+
+    }
+    .video-banner__section .video_content .video_conetnt_text{
+      width:90%;
+      max-width:unset;
+    }
+  }
+</style>
+<section data-section-id="{{ section.id }}" data-section-type="video_banner" class="video-banner__section" id="bannerSection">
+  <div class="video_content">
+    <video class="video_desktop mobile_none" autoplay muted loop id="myVideo">
+      <source src="https://cdn.shopify.com/videos/c/o/v/df79a36f76b64bf2a48eb2e52bd7809d.mp4" type="video/mp4">
+    </video>
+    <video class="video_mobile desktop_none" autoplay muted loop id="myVideo">
+      <source src="https://cdn.shopify.com/videos/c/o/v/df79a36f76b64bf2a48eb2e52bd7809d.mp4" type="video/mp4">
+    </video>
+    
+    <div class="video_conetnt_text">
+      {% if section.settings.info_text != blank %}
+      <div class="conetnt_text">
+        {{ section.settings.info_text }}
+      </div>
+      {% endif %}
+      {% unless  customer %}
+      <a href="/account/login">
+        <div class="register_buttonn">
+          <span>REGISTER</span>
+          <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0.999982 7.99981L8.58998 7.99981L5.28998 11.2898C5.10168 11.4781 4.99589 11.7335 4.99589 11.9998C4.99589 12.2661 5.10168 12.5215 5.28998 12.7098C5.47828 12.8981 5.73368 13.0039 5.99998 13.0039C6.26628 13.0039 6.52168 12.8981 6.70998 12.7098L11.71 7.70981C11.801 7.61471 11.8724 7.50257 11.92 7.37981C12.02 7.13635 12.02 6.86328 11.92 6.61981C11.8724 6.49706 11.801 6.38492 11.71 6.28981L6.70998 1.28982C6.61702 1.19609 6.50642 1.12169 6.38456 1.07092C6.2627 1.02015 6.13199 0.994016 5.99998 0.994016C5.86797 0.994016 5.73726 1.02015 5.61541 1.07092C5.49355 1.12169 5.38295 1.19609 5.28998 1.28982C5.19625 1.38278 5.12186 1.49338 5.07109 1.61524C5.02032 1.7371 4.99418 1.8678 4.99418 1.99981C4.99418 2.13183 5.02032 2.26253 5.07109 2.38439C5.12186 2.50625 5.19625 2.61685 5.28998 2.70981L8.58998 5.99981L0.999982 5.99981C0.734766 5.99981 0.480411 6.10517 0.292875 6.29271C0.105339 6.48024 -1.75717e-05 6.7346 -1.75949e-05 6.99981C-1.76181e-05 7.26503 0.105339 7.51938 0.292875 7.70692C0.480411 7.89446 0.734765 7.99981 0.999982 7.99981Z" fill="white"/>
+          </svg>
+        </div>
+      </a>
+      {% endunless %}
+    </div>
+    
+  </div>
+</section>
+<a class="btn_vertualTry" href="/account/login">
+  <div class="veritual_buttonn">
+    <span>Get a Free Virtual Try-On</span>
+    <svg width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.3334 7.62502C18.0903 7.62502 17.8571 7.7216 17.6852 7.89351C17.5133 8.06541 17.4167 8.29857 17.4167 8.54169V14.9584C17.4167 15.2015 17.3202 15.4346 17.1483 15.6065C16.9764 15.7784 16.7432 15.875 16.5001 15.875H3.66675C3.42363 15.875 3.19048 15.7784 3.01857 15.6065C2.84666 15.4346 2.75008 15.2015 2.75008 14.9584V7.62502C2.75008 7.38191 2.84666 7.14875 3.01857 6.97684C3.19048 6.80493 3.42363 6.70835 3.66675 6.70835H5.50008C5.69998 6.71879 5.89779 6.66351 6.06331 6.55095C6.22884 6.43839 6.35297 6.27475 6.41675 6.08502L6.91175 4.58169C6.97324 4.39962 7.0904 4.24148 7.24667 4.12963C7.40294 4.01777 7.59041 3.95786 7.78258 3.95835H12.8334C13.0765 3.95835 13.3097 3.86178 13.4816 3.68987C13.6535 3.51796 13.7501 3.2848 13.7501 3.04169C13.7501 2.79857 13.6535 2.56541 13.4816 2.39351C13.3097 2.2216 13.0765 2.12502 12.8334 2.12502H7.73675C7.16067 2.1261 6.59947 2.30806 6.13237 2.64523C5.66526 2.9824 5.31584 3.45775 5.13342 4.00419L4.84008 4.92085H3.66675C2.9374 4.92085 2.23793 5.21059 1.7222 5.72631C1.20648 6.24203 0.916748 6.94151 0.916748 7.67085V15.0042C0.916748 15.7335 1.20648 16.433 1.7222 16.9487C2.23793 17.4645 2.9374 17.7542 3.66675 17.7542H16.5001C17.2294 17.7542 17.9289 17.4645 18.4446 16.9487C18.9604 16.433 19.2501 15.7335 19.2501 15.0042V8.58752C19.2563 8.46334 19.2372 8.3392 19.1939 8.22264C19.1506 8.10608 19.0841 7.99954 18.9984 7.9095C18.9126 7.81947 18.8094 7.74782 18.6951 7.69891C18.5808 7.65001 18.4578 7.62487 18.3334 7.62502ZM10.0834 6.70835C9.35822 6.70835 8.64931 6.9234 8.04632 7.3263C7.44334 7.7292 6.97338 8.30185 6.69586 8.97185C6.41834 9.64184 6.34572 10.3791 6.4872 11.0904C6.62868 11.8016 6.9779 12.455 7.49069 12.9677C8.00348 13.4805 8.65682 13.8298 9.36808 13.9712C10.0793 14.1127 10.8166 14.0401 11.4866 13.7626C12.1566 13.4851 12.7292 13.0151 13.1321 12.4121C13.535 11.8091 13.7501 11.1002 13.7501 10.375C13.7501 9.40256 13.3638 8.46993 12.6761 7.7823C11.9885 7.09466 11.0559 6.70835 10.0834 6.70835ZM10.0834 12.2084C9.72082 12.2084 9.36636 12.1008 9.06487 11.8994C8.76338 11.6979 8.5284 11.4116 8.38964 11.0766C8.25088 10.7416 8.21457 10.373 8.28531 10.0174C8.35605 9.66172 8.53066 9.33505 8.78705 9.07866C9.04345 8.82226 9.37012 8.64765 9.72575 8.57691C10.0814 8.50617 10.45 8.54248 10.785 8.68124C11.12 8.82 11.4063 9.05499 11.6078 9.35647C11.8092 9.65797 11.9167 10.0124 11.9167 10.375C11.9167 10.8613 11.7236 11.3276 11.3798 11.6714C11.036 12.0152 10.5696 12.2084 10.0834 12.2084ZM20.1667 2.12502H19.2501V1.20835C19.2501 0.965239 19.1535 0.732081 18.9816 0.560172C18.8097 0.388264 18.5765 0.291687 18.3334 0.291687C18.0903 0.291687 17.8571 0.388264 17.6852 0.560172C17.5133 0.732081 17.4167 0.965239 17.4167 1.20835V2.12502H16.5001C16.257 2.12502 16.0238 2.2216 15.8519 2.39351C15.68 2.56541 15.5834 2.79857 15.5834 3.04169C15.5834 3.2848 15.68 3.51796 15.8519 3.68987C16.0238 3.86178 16.257 3.95835 16.5001 3.95835H17.4167V4.87502C17.4167 5.11814 17.5133 5.35129 17.6852 5.5232C17.8571 5.69511 18.0903 5.79169 18.3334 5.79169C18.5765 5.79169 18.8097 5.69511 18.9816 5.5232C19.1535 5.35129 19.2501 5.11814 19.2501 4.87502V3.95835H20.1667C20.4099 3.95835 20.643 3.86178 20.8149 3.68987C20.9868 3.51796 21.0834 3.2848 21.0834 3.04169C21.0834 2.79857 20.9868 2.56541 20.8149 2.39351C20.643 2.2216 20.4099 2.12502 20.1667 2.12502Z" fill="white"/>
+    </svg>
+  </div>
+</a>
+<script>
+//   var video = document.getElementById("myVideo");
+//   var btn = document.getElementById("myBtn");
+
+//   function myFunction() {
+//     if (video.paused) {
+//       video.play();
+//       btn.innerHTML = "Pause";
+//     }else{
+//       video.pause();
+//       btn.innerHTML = "Play";
+//     }
+//   }
+</script>
+
+{% schema %}
+  {
+    "name": "Video Banner",
+    "settings": [    	
+		{
+          "type": "richtext",
+          "id": "info_text",
+          "label": "Text",
+		  "default": "<p>Join hands with India’s fastest growing contact lens brand and earn higher margin with every sale!</p>"
+        },
+		{
+          "type": "text",
+          "id": "button_text",
+          "label": "Button text",
+          "default": "Register"
+        }
+	],
+    "presets":[ 
+            { 
+               "name":{ 
+                  "en":"Video Banner"
+               },
+               "category":{ 
+                  "en":"Homepage"
+               }
+            }
+       ]
+  }
+{% endschema %}
+

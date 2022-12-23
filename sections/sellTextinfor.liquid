@@ -1,0 +1,59 @@
+<div class="becomPartnerWrap one" style="background-color: {{section.settings.color}}">
+  <div class="becomP-container">
+    <div class="becomP-content">
+      <div class="step oneS">
+        <ul>
+          {% for block in section.blocks %}
+          <li>
+            <img class="icons" src="{{block.settings.icons | img_url:'master'}}" />
+            <span class="sapnText">{{block.settings.step}}</span>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+   "name":"Sell Information",
+"settings":[
+	  {
+         "type":"color",
+         "id":"color",
+         "label":"Section BG Color"
+      }
+   ],
+   "blocks":[  
+        {  
+           "name":"step",
+           "type": "collection",
+           "settings":[ 
+              {  
+                 "id":"step",
+                 "type":"html",
+                 "label":"step"
+              },
+			  {  
+                 "id":"icons",
+                 "type":"image_picker",
+                 "label":"Step Icoons"
+              }
+           ]
+        }
+     ],
+   "presets":[
+      {
+         "name":"Sell Information",
+         "category":"collection"
+      }
+   ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

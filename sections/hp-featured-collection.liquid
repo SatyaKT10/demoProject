@@ -1,0 +1,459 @@
+<style>
+  .feature__section{
+    margin: 15px auto;
+    max-width: 1341px;
+    padding: 0 15px;
+  }
+  
+  .feature__section--header h2{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-style: normal;
+    font-weight: 600;
+    font-size: calc(28px + (45 - 24) * ((100vw - 375px) / (1440 - 375)));
+    margin-top: calc(35px + (60 - 35) * ((100vw - 375px) / (1440 - 375)));
+    margin-bottom: calc(25px + (60 - 25) * ((100vw - 375px) / (1440 - 375)));
+    line-height: calc(27px + (50 - 27) * ((100vw - 375px) / (1440 - 375)));
+    color: #303030;
+    text-align: center;
+    letter-spacing: 0;
+    text-transform:capitalize;
+  }
+
+  .coll_card{
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 60px;
+    row-gap: 40px;
+  }
+
+  .coll_card--wrapper {
+    flex: 0 0 calc(33.33% - 40px);
+    width: calc(33.33% - 40px);
+    border-radius: 4px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 6px rgb(0 0 0 / 15%);
+    position: relative;
+    margin:0 15px;
+    border: 1px solid #e5e5e5;
+  }
+  
+  .coll_card--title {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 129%;
+    color: #000000;
+    margin: 0 15px;
+    margin-top: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(102, 102, 102, 0.06);
+  }
+  
+  .coll_card--offer {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin: 15px;
+  }
+  
+  .coll_card--offer p{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 129%;
+    letter-spacing: 0.045em;
+    color: #23D3A9;
+  }
+
+  .coll__card--img {
+    position: relative;
+    padding-bottom: 90%;
+    width: 100%!important;
+    background: #FFFFFF;
+  }
+
+  .coll__card--img img{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px 4px 0px 0px;
+  }
+
+/*   .coll_card--slider img{
+    max-width: 100%;
+    object-fit: cover;
+    vertical-align: middle;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-height: 100%;
+  } */
+  
+  .coll_card--image {
+    position: relative;
+  }
+  
+  .coll_card--rating {
+    top: 15px;
+    position: absolute;
+    right: 15px;
+    background: #5965AB;
+    border-radius: 4px;
+    width: 50px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    font-family: Poppins;
+    font-style: normal;
+    line-height: 22px;
+    color: #FFFFFF;
+    font-weight: 400;
+    font-size: 12px;
+  }
+  
+  .coll_card--power {
+    top: 15px;
+    position: absolute;
+    left: 15px;
+    display: block;
+    padding: 0px 8px;
+    border-radius: 4px;
+    background: #5965AB;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 10px;
+    line-height: 22px;
+    color: #FFFFFF;
+    width: -moz-fit-content;
+    width: fit-content;
+  }
+
+  .slick-slider .slick-dots li button:before, .slick-slider .slick-dots li a:before {
+    text-indent: -9999px;
+    border-radius: 100%;
+    background-color: transparent;
+    border: 2px solid #00BAC6;
+    width: 0.75rem;
+    height: 0.75rem;
+    margin: 0.25rem 0 0 0.25rem;
+    opacity: 1;
+  }
+  .slick-slider .slick-dots li.slick-active button:before {
+    background-color: #00BAC6;
+    border-color: #00BAC6;
+    opacity: 1;
+    width: 0.75rem;
+    height: 0.75rem;
+    margin: 0.25rem 0 0 0.25rem;
+  }
+  
+  
+  
+  .js__slider--filter{
+    display: flex;
+    flex-wrap:nowrap;
+    overflow:hidden;
+    overflow-x: scroll;
+    -ms-overflow-style: none; 
+    scrollbar-width: none;
+    gap: 20px;
+    margin: 0 -15px;
+    padding: 15px 15px;
+    margin-bottom:100px;
+  }
+
+  .js__slider--filter::-webkit-scrollbar {
+    display: none;
+  }
+  
+  @media(min-width:1440px){    
+    .feature__section--header h2{
+      font-size: 48px;
+      line-height: 50px;
+      margin-bottom: 60px;
+      margin-top: 60px;
+    }
+  }
+  
+  @media(min-width:749px) and (max-width:949px){ 
+    .coll_card--wrapper {
+      flex: 0 0 calc(50% - 30px);
+      width: calc(50% - 30px);
+    }
+  }  
+
+  @media(max-width:749px){    
+    .coll_card{
+      flex-direction: column;
+      row-gap: 15px;
+    }
+    .coll_card--wrapper {
+      flex: 0 0 85%;
+      width: 85%;
+    }
+
+    .js__slider--filter{
+      flex-direction: row;
+      justify-content: flex-start;
+      gap: 15px;
+      margin: 0 -15px;
+      padding: 15px 15px;
+    }
+  }
+
+</style>
+
+
+
+{% assign feature_slider = section.blocks | where: 'type', 'feature_slider' %}
+
+<style>
+  {% for block in feature_slider  %}
+
+  .coll_discount_bg--{{block.id}} {
+    background-color: {{ block.settings.coll_color_bg }};
+    margin: 25px 10px;
+    border-radius:2px;
+  }
+  .coll_discount_msg--{{block.id}} {
+    color: {{ block.settings.coll_color_text }};
+    text-transform: inherit;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 173%;
+    padding: 7px 14px;
+  }
+
+  {% endfor %}
+</style>
+
+
+
+
+<section data-section-id="{{ section.id }}" data-section-type="feature__category-section" class="feature__section prd__section" id="featureSection">
+  
+  {% if section.settings.section-heading != blank%}
+  <div class="feature__section--header">
+    <h2>{{ section.settings.section-heading }}</h2>
+  </div>
+  {% endif %}
+  
+  <div class="coll_card js__slider--filter">
+    {% for block in feature_slider  %}
+    {% assign collection =  block.settings.card_collection %}    
+    {% if collection != empty%}
+    
+    {% assign productRating =  collection.metafields.custom.product_rating %}
+    <div class="coll_card--wrapper">
+      <a href="{{ collection.url }}" class="coll_card--link" >
+        {% if block.settings.card_image1 != '' or  block.settings.card_image2 !=''  %}
+        <div class="coll_card--image">
+          <div class="coll_card--slider card__slider--coll">
+            {% if block.settings.card_image1 %}
+            <div class="coll__card--image-wrapper">
+              <div class="coll__card--img">
+                <img class="lazyload" src="{{block.settings.card_image1 | img_url :'small'}}" data-src="{{block.settings.card_image1 | img_url :'master'}}"  />
+              </div>
+            </div>
+            {% endif %}
+            {% if block.settings.card_image2 %}
+            <div class="coll__card--image-wrapper">
+              <div class="coll__card--img">
+                <img class="lazyload" src="{{block.settings.card_image1 | img_url :'small'}}" data-src="{{block.settings.card_image2 | img_url :'master'}}"  />
+              </div>
+            </div>
+            {% endif %}
+            {% if block.settings.card_image3 %}
+            <div class="coll__card--image-wrapper">
+              <div class="coll__card--img">
+                <img class="lazyload" src="{{block.settings.card_image3 | img_url :'small'}}" data-src="{{block.settings.card_image3 | img_url :'master'}}"  />
+              </div>
+            </div>
+            {% endif %}
+          </div>
+          
+          {% if productRating %}
+          <div class="coll_card--rating">
+            <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7.5 0L9.18386 5.18237H14.6329L10.2245 8.38525L11.9084 13.5676L7.5 10.3647L3.09161 13.5676L4.77547 8.38525L0.367076 5.18237H5.81614L7.5 0Z" fill="#FFBD50"/>
+            </svg>
+            <span class="coll_card--rating-text">{{ productRating.value  }}</span>
+          </div>
+          {% endif %}
+
+          {% if block.settings.card_power != '' %}
+          <div class="coll_card--power">
+            <span class="coll_card--power-text">{{ block.settings.card_power }}</span>
+          </div>
+          {% endif %}          
+        </div>
+        {% endif %}
+        
+        <div class="coll_card--content">
+          <div class="coll_card--title">
+            {{ collection.title}}
+          </div>
+          
+          {% if block.settings.card_offer != '' %}
+          <div class="coll_card--offer">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M13.5 5.24997H13.2375C13.4087 4.89954 13.4984 4.51496 13.5 4.12497C13.5023 3.60246 13.3481 3.09123 13.0574 2.65709C12.7666 2.22295 12.3526 1.88575 11.8686 1.68892C11.3845 1.49209 10.8527 1.44462 10.3415 1.55263C9.83024 1.66063 9.36304 1.91917 9 2.29497C8.63696 1.91917 8.16976 1.66063 7.65854 1.55263C7.14731 1.44462 6.61546 1.49209 6.13144 1.68892C5.64742 1.88575 5.23339 2.22295 4.94264 2.65709C4.65189 3.09123 4.49773 3.60246 4.5 4.12497C4.5016 4.51496 4.59134 4.89954 4.7625 5.24997H4.5C3.90326 5.24997 3.33097 5.48702 2.90901 5.90898C2.48705 6.33093 2.25 6.90323 2.25 7.49997V8.99997C2.25 9.19888 2.32902 9.38964 2.46967 9.5303C2.61032 9.67095 2.80109 9.74997 3 9.74997H3.75V14.25C3.75 14.8467 3.98705 15.419 4.40901 15.841C4.83097 16.2629 5.40326 16.5 6 16.5H12C12.5967 16.5 13.169 16.2629 13.591 15.841C14.0129 15.419 14.25 14.8467 14.25 14.25V9.74997H15C15.1989 9.74997 15.3897 9.67095 15.5303 9.5303C15.671 9.38964 15.75 9.19888 15.75 8.99997V7.49997C15.75 6.90323 15.5129 6.33093 15.091 5.90898C14.669 5.48702 14.0967 5.24997 13.5 5.24997ZM8.25 15H6C5.80109 15 5.61032 14.921 5.46967 14.7803C5.32902 14.6396 5.25 14.4489 5.25 14.25V9.74997H8.25V15ZM8.25 8.24997H3.75V7.49997C3.75 7.30105 3.82902 7.11029 3.96967 6.96964C4.11032 6.82899 4.30109 6.74997 4.5 6.74997H8.25V8.24997ZM8.25 5.24997H7.125C6.9025 5.24997 6.68499 5.18399 6.49998 5.06037C6.31498 4.93675 6.17078 4.76105 6.08564 4.55549C6.00049 4.34992 5.97821 4.12372 6.02162 3.90549C6.06502 3.68726 6.17217 3.48681 6.3295 3.32947C6.48684 3.17214 6.68729 3.06499 6.90552 3.02158C7.12375 2.97818 7.34995 3.00045 7.55552 3.0856C7.76109 3.17075 7.93679 3.31495 8.0604 3.49995C8.18402 3.68496 8.25 3.90246 8.25 4.12497V5.24997ZM9.75 4.12497C9.75 3.90246 9.81598 3.68496 9.9396 3.49995C10.0632 3.31495 10.2389 3.17075 10.4445 3.0856C10.65 3.00045 10.8762 2.97818 11.0945 3.02158C11.3127 3.06499 11.5132 3.17214 11.6705 3.32947C11.8278 3.48681 11.935 3.68726 11.9784 3.90549C12.0218 4.12372 11.9995 4.34992 11.9144 4.55549C11.8292 4.76105 11.685 4.93675 11.5 5.06037C11.315 5.18399 11.0975 5.24997 10.875 5.24997H9.75V4.12497ZM12.75 14.25C12.75 14.4489 12.671 14.6396 12.5303 14.7803C12.3897 14.921 12.1989 15 12 15H9.75V9.74997H12.75V14.25ZM14.25 8.24997H9.75V6.74997H13.5C13.6989 6.74997 13.8897 6.82899 14.0303 6.96964C14.171 7.11029 14.25 7.30105 14.25 7.49997V8.24997Z" fill="#23D3A9"/>
+            </svg>
+            <p class="coll_card--offer-text">{{ block.settings.card_offer }}</p>
+          </div>
+          {% endif %}              
+        </div> 
+         <div class="coll_discount_margin coll_discount_bg--{{block.id}}">
+        <p class="coll_discount__message coll_discount_msg--{{block.id}}">{{ block.settings.margin_text}}</p>
+      </div>
+      </a>
+      
+ 
+     
+    </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+  
+</section>
+
+
+<script>
+//   $('.js__slider--mobile').slick({
+//     dots: false,
+//     infinite: false,
+//     arrows: false,
+//     variableWidth: true,
+//   });
+  
+  $(document).ready(function(){
+    
+//     $('.card__slider--coll').slick({
+//       dots: true,
+//       infinite: true,
+//       speed: 300,
+//       arrows: false,
+//       slidesToShow: 1,
+//       adaptiveHeight: true
+//     });
+    
+//     function slickForRecommendation(){
+
+//           $(".coll_card").slick({
+//             dots:false,
+//             infinite: true,
+//             slidesToShow: 3,
+//             slidesToScroll: 1,
+//             arrows:true,
+//             autoplay: false,
+//             autoplaySpeed: 2000,
+//             prevArrow:'<div class="slick-prev"><i class="arrow left"></i></div>',
+//             nextArrow:'<div class="slick-next"><i class="arrow right"></i></div>',
+//           });
+        
+//     }
+
+      let slickFlag = false;
+      if ($(window).width() > 1200) {
+//         slickForRecommendation();
+        slickFlag = true;
+      }
+      $( window ).resize(function() {
+        if ($(window).width() > 1200) {
+//           slickForRecommendation();
+          slickFlag = true;
+        }else{
+          if(slickFlag){
+            $('.coll_card').slick('unslick');
+            slickFlag = false;
+          }
+        }
+      });
+
+  }) 
+</script>
+
+
+{% schema %}
+{
+  "name": "Featured Collection",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section-heading",
+      "label": "Section Heading",
+      "default": "Featured Products"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Featured Product Category",
+      "type": "feature_slider",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "card_collection",
+          "label": "Select Product"
+        },
+        {
+          "type": "text",
+          "id": "card_offer",
+          "label": "Offer Info",
+          "default": "Get Solution for Free!"
+        },
+        {
+          "type": "text",
+          "id": "card_power",
+          "label": "Power Info",
+          "default": "Power"
+        },
+        {
+          "type": "image_picker",
+          "id": "card_image1",
+          "label": "Select slider image 1"
+        },
+		{
+          "type": "text",
+          "id": "margin_text",
+          "label": "Text",
+          "default": "Earn up to x% Margin  (Minimum 30% Assured)"
+        },
+		{
+          "type": "color_background",
+          "id": "coll_color_bg",
+          "label": "Bar", 
+          "default": "#7796a8"
+        },
+        {
+          "type": "color",
+          "id": "coll_color_text",
+          "label": "Text",
+          "default": "#fff"
+        }
+      ]
+    }
+  ],
+  "presets":[ 
+        { 
+           "name":{ 
+              "en":"Featured Collection"
+           },
+           "category":{ 
+              "en":"Homepage"
+           }
+        }
+   ]
+}
+{% endschema %}
+

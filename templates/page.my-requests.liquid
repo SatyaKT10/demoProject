@@ -1,0 +1,330 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.0.0/magnific-popup.min.css" integrity="sha512-nIm/JGUwrzblLex/meoxJSPdAKQOe2bLhnrZ81g5Jbh519z8GFJIWu87WAhBH+RAyGbM4+U3S2h+kL5JoV6/wA==" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.0.0/jquery.magnific-popup.min.js" integrity="sha512-+m6t3R87+6LdtYiCzRhC5+E0l4VQ9qIT1H9+t1wmHkMJvvUQNI5MKKb7b08WL4Kgp9K0IBgHDSLCRJk05cFUYg==" crossorigin="anonymous"></script>
+
+
+<div class="" style="padding-top: 52px; margin-bottom: 15px;">
+  <div class="my__request-container">
+    <div class="my__request-empty">
+      <div class="my__request-empty-msg">
+        No Previous Request found!
+      </div>
+    </div>
+    <div class="my__request-btn">
+      <a href="https://aqualensb2b.com/pages/raise-a-request" class="btn-order">Raise a New Request</a>
+    </div>
+    
+    <div class="my__request-wrapper">
+      <div class="my__request-header">
+        Previous Requests
+      </div>
+      <div class="content-wrapper-scroll">
+        <div class="my__request-content-wrapper">
+          <div class="my__request-content">
+            <div class="request__details-wrapper request-wrapper">
+              <div class="request__details">
+                <p class="detail-title">Request Number</p>
+                <p class="detail-text">123142</p>
+              </div>
+              <div class="request__details">
+                <p class="detail-title">Subject</p>
+                <p class="detail-text">Refund/Return</p>
+              </div>
+            </div>
+            <div class="request__content-wrapper request-wrapper">
+              <div class="request__details">
+                <p class="detail-title">Status</p>
+                <p class="detail-text">Closed</p>
+              </div>
+              <div class="request__detail-btn-wrapper">
+                <a href="#" class="request__detail-btn">View Details</a>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="request__status--info" class="white-popup mfp-hide">
+  <div class="request__status--content">
+  </div>
+</div>
+
+
+<script>
+  
+  function renderRequests(requestData){
+    let requestContainer = "";
+    requestData.forEach(function(i){
+
+      let requestNumber = i.id;
+      let requestSubject = i.subject;
+      let requestStatus = i.status;
+      let date = new Date(i.updated_at);
+      let options = {
+        year: "numeric",
+        month: "short",
+        day: "2-digit"
+      }
+      let requestDate = Intl.DateTimeFormat("en-IN", options).format(date);     
+      let requestDetails = i.description;
+      let requestComments = i.comment;
+      
+      let htmlData = ` <div class="my__request-content">
+                          <div class="request__details-wrapper request-wrapper">
+                            <div class="request__details">
+                              <p class="detail-title">Request Number</p>
+                              <p class="detail-text">${requestNumber}</p>
+                            </div>
+                            <div class="request__details">
+                              <p class="detail-title">Subject</p>
+                              <p class="detail-text">${requestSubject}</p>
+                            </div>
+                          </div>
+                          <div class="request__content-wrapper request-wrapper">
+                            <div class="request__details">
+                              <p class="detail-title">Status</p>
+                              <p class="detail-text">${requestStatus}</p>
+                            </div>
+                            <div class="request__detail-btn-wrapper" 
+                              data-id="${requestNumber}" data-subject="${requestSubject}" data-status="${requestStatus}" 
+                              data-date="${requestDate}" data-details="${requestDetails}" data-comments="${requestComments}">
+                              <a href="#request__status--info" class="request__detail-btn">View Details</a>
+                            </div>
+                          </div>
+                        </div>`;
+      
+      requestContainer = requestContainer + htmlData;
+    })
+    $(".my__request-content-wrapper").html(requestContainer);
+  }
+  $(document).ready(function(){
+    let customerId = '{{ customer.id }}';
+    $.ajax({
+      url: baseURL+"/api/issue/"+customerId,
+    })
+    .done(function(response) {
+      if(response.length != 0 ){
+        $(".my__request-empty-msg").hide();
+        $(".my__request-wrapper").show();
+        renderRequests(response);
+      }
+    })
+    .fail(function(error){
+      console.log("Error",error);
+    })
+  })
+  
+  $(document).on('click','.request__detail-btn-wrapper', function(){
+    var requestDetails = "";
+    let requestNumber = $(this).attr('data-id');
+    let subject = $(this).attr('data-subject');
+    let status = $(this).attr('data-status');
+    let date = $(this).attr('data-date');
+    let details = $(this).attr('data-details');
+    let comments = $(this).attr('data-comments');
+   
+    let htmlData = `<div class="request__status--data">
+						<div class="request__id">Request - <span>${requestNumber}</span></div>
+                        <div class="request__content">
+                            <div class="request__heading">Subject</div>
+							<div class="request__para text-capitalize">${subject}</div>
+                        </div>
+                        <div class="request__content">
+                            <div class="request__heading">Status</div>
+                            <div class="request__para text-capitalize">${status}</div>
+                        </div>
+                        <div class="request__content">
+                            <div class="request__heading">Request Date</div>
+                            <div class="request__para text-capitalize">${date}</div>
+                        </div>
+                        <div class="request__content">
+                            <div class="request__heading">Details</div>
+                            <div class="request__para">${details}</div>
+                        </div>
+                        <div class="request__content">
+                            <div class="request__heading">Comments</div>
+                            <div class="request__para">${comments}</div>
+                        </div>
+                    </div>`
+    
+    requestDetails = requestDetails + htmlData;
+    $('.request__status--content').html(requestDetails);
+
+    let popup = $('#request__status--info');
+    customPopUp(popup);
+  })
+</script>
+
+<style>
+  .white-popup {
+    position: unset;
+    background: unset;
+    padding: unset;
+    border-radius:unset;
+    width: unset;
+    max-width: unset;
+    margin: unset;
+}
+  .my__request-container{
+    text-align: center;
+    height: 100vh;
+  }
+  .my__request-empty{
+    padding-top: 50px; 
+  }
+  .my__request-empty-msg{
+    padding-top: 71px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    color: #CBCBCB;
+  }
+  .my__request-btn{
+    padding-top: 42px;
+    padding-bottom: 40px;
+  }
+  .btn-order{
+    background: #00BAC6;
+    border-radius: 4px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: center;
+    padding: 12px 45px;
+    color: #FFFFFF;
+  }
+  .my__request-wrapper{
+    display: none;
+    text-align: left;
+  }
+  .my__request-header{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 27px;
+    color: #333333;
+    border-bottom: 1px solid #F2F2F2;
+    padding: 10px 15px;
+    margin: 0px 0px;
+  }
+  .my__request-content {
+    border-bottom: 1px solid #E0E0E0;
+    padding-top: 12px;
+    padding-bottom: 4px;
+  }
+  .request-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+  }
+  .detail-title {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 15px;
+    color: #999999;
+    margin: 0;
+  }
+  .detail-text {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #4F4F4F;
+  }
+  .request__detail-btn-wrapper{
+    border: 1px solid #00BAC6;
+    border-radius: 4px;
+    padding: 8px 24px;
+  }
+  .request__detail-btn {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: center;
+    color: #00BAC6;
+ }
+  .mfp-content{
+    background: white;
+    width: 90%;
+    border-radius: 4px;
+  }
+  .request__status--data{
+    margin-bottom:25px;
+  }
+ .request__status--data .request__id {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 27px;
+    color: #333333;
+    text-align: center;
+    padding: 13px 0px;
+    border-bottom: 1px solid #D8D8D8;
+  }
+  .request__content {
+    padding-top: 18px;
+    padding-left: 21px;
+    padding-right: 21px;
+    text-align: justify;
+  }
+  .request__content .request__heading {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 15px;
+    color: #999999;
+    margin-bottom:8px;
+  }
+  .request__content .request__para {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #4F4F4F;
+    text-transform: capitalize;
+  }
+  .request__content .text-capitalize{
+    text-transform:capitalize;
+  }
+  .my__request-content-wrapper{
+    padding:0 10px;
+  }
+  .content-wrapper-scroll {
+    width: 95%;
+    margin: auto;
+    height: 100%;
+    max-height: calc(100vh - 348px);
+    overflow-Y: auto;
+    margin-top: 10px;
+    margin-bottom: 0;
+  }
+  
+   @media(max-width:749px){
+    .footer_content,
+    .footer-bg-img{
+      display:none;
+    }
+     .tax__statement-container {
+       height: unset;
+     }
+  }
+</style>
+

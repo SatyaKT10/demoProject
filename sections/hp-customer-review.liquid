@@ -1,0 +1,549 @@
+<style>
+    .setion__separator {
+    height: 48px !important;
+    background: #F8FAFF;
+    width: 100%;
+    border: none;
+    margin: 0px 0;
+    opacity:1;
+  }
+
+  .trial-review-section .content{
+    max-width:1341px;
+    margin:auto;
+    padding:0 15px;
+  } 
+  .trial-review-section .review__section--header h2{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 149.3%;
+    text-align: left;
+    color: rgba(102, 102, 102, 0.4);
+    letter-spacing:0;
+    text-transform: capitalize;
+    margin-top:10px;
+  }
+  .trial-review-section .review__section--subHeader h2{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 149.3%;
+    text-align: left;
+    color: #303030;
+    letter-spacing:0;
+    text-transform: capitalize;
+    margin-top: 17px 0px 50px 0;
+  }
+  .review-slider .review-content{
+    margin-top:117px;
+  }
+  .review-slider .star_review{
+    display: flex;
+    max-width: 140px;
+    margin:0 auto;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .review-slider .star_review svg.inactive *{
+    fill : #c4c4c4;
+  }
+
+  .review-slider .review-content .slider-content .content .author_add{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    max-width: 50%;
+    margin: 0 auto;
+  }
+  .review-slider .review-content .slider-content .content .author_add p{
+    font-size: 12px;
+    line-height: 24px;
+    color: #666666;
+    margin-top:0;
+    padding:0;
+  }
+  .dot_seperator{
+    height: 4px;
+    width: 4px;
+    background: #C4C4C4;
+    border-radius: 50%;
+  }
+  .review-slider .section-title{
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 60px;
+    color:#1F1F1F;
+    margin-bottom: 0;
+  }
+  .review-slider .subtitle{
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: #828282;
+    text-align: center;
+  }
+  .review-slider .review-content .content-wrapper{
+    position: relative;
+    z-index:99;
+
+  }
+  .author_details{
+    margin-top: 12px;
+  }
+
+  .review-slider .review-content .image{
+    position: absolute;
+    z-index:9;
+  }
+  .review-slider .review-content .left-image{
+    left:0;
+    top:0;
+  }
+  .review-slider .review-content .right-image{
+    right:0;
+    top:-75px;
+  }
+
+  .review-slider .review-content .review-slider-section:not(.slick-initialized){
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+  }
+  .review-slider .review-content .review-slider-section:not(.slick-initialized) .slider-content{
+    flex: 0 0 25%;
+  }
+  .review-slider .review-content .review-slider-section .slider-content{
+    position: relative;
+
+  }
+  .review-slider .review-content .review-slider-section .slider-content img{
+    width: 100%;
+  }
+  .review-slider .review-content .review-slider-section .content{
+    position: relative;
+    top: 0;
+    width: 100%;
+    text-align: center;
+  }
+  .review-slider .review-content .slider-content .author_img{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -80px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+  }
+  .review-slider .review-content .slider-content .content{
+    position: relative;
+    background: #F5FFFF;
+    box-shadow: 0px 4px 4px rgb(102 102 102 / 10%);
+    border-radius: 5px;
+
+
+
+  }
+  .review-slider .review-content .slider-content .content h4{
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 27px;
+    color: #474747;
+    padding:0 35px;
+  }
+  .review-slider .review-content .slider-content .content .author-text {
+    margin-bottom: 0;
+    padding: 0 20px;
+    margin-top: 20px;
+    padding-top: 117px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 149.3%;
+    text-align: center;
+    color: #303030;
+  }
+  .review-slider .review-content .slider-content .content .review__content{
+    height:150px;
+    overflow:auto;
+  }
+  .review-slider .review-content .slider-content .content .review__content p {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 149.3%;
+    text-align: center;
+    color: #303030;
+    margin-bottom:0px;
+  }
+
+  .review-slider .review-content .slider-content .content .review_author {
+    padding: 57px 0 67px 0;
+  }
+
+  .review-slider .review-content .slider-content .slider-padding{
+    padding:0 20px;
+    position: relative;
+  }
+  .review-slider .review-content .review-slider-section:not(.slick-initialized) .slider-content .slider-padding{
+    min-height: 314px;
+  }
+
+
+  *{
+    outline: none;
+  }
+  .review-slider .slick-arrow:hover{
+    background: #ffffff;
+  }
+  .review-slider .slick-arrow: svg{
+    fill: #474747;
+  }
+  .review-slider .slick-list{
+    overflow:visible;
+  }
+
+  /*   .review-slider .slick-dots li button:before{
+  border:0 !important;
+  } */
+  .review-slider .slick-prev:before{
+    content:"";
+  }
+  .review-slider .slick-next:before{
+    content:"";
+  }
+  .review-slider .slick-next:focus{
+    display:none;
+  }
+  .review-slider .slick-prev:focus{
+    display:none;
+  }
+  .review-slider .arrow {
+    border: solid #3069B3;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 4px;
+  }
+  .review-slider .right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    position: absolute;
+    top: 35%;
+    right: 42%;
+  }
+
+  .review-slider .left {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+    position: absolute;
+    top: 35%;
+    left: 40%;
+  }
+  .review-slider .slick-prev {
+    position: absolute;
+    display: block;   
+    width:40px;
+    height:40px;
+    background:white;
+    border:1px solid #3069B3;
+    border-radius:20px;
+    line-height: 0px;
+    font-size: 0px;
+    cursor: pointer;
+    top: -27% ;
+    right:98px;
+    left:unset;
+    -webkit-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    padding: 0;
+    z-index: 700;
+  }
+  .review-slider .slick-next {
+    position: absolute;
+    display: block;   
+    width:40px;
+    height:40px;
+    background:white;
+    border:1px solid #3069B3;
+    border-radius:20px;
+    line-height: 0px;
+    font-size: 0px;
+    cursor: pointer;
+    top: -27%;
+    right:0px !important;
+    -webkit-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    padding: 0;
+    z-index: 700;
+  }
+  .review-slider .slick-slider {
+    margin-bottom: 0;
+  }
+  .review-slider .slick-active button{
+    outline:none;
+  }   
+
+  @media(max-width: 749px){
+    .review-slider .review-content{
+      margin-top:17px;
+    }
+    .trial-review-section .review__section--header h2 {    
+      text-align: center;
+      margin-top: 48px;
+    }
+    .trial-review-section .review__section--subHeader h2 {
+      text-align: center;
+      margin-top: 17px 0px 50px 0;
+      font-size:28px;
+    }
+    .review-slider .slick-prev{
+      top:50%;
+      left:0;
+    }
+    .review-slider .slick-next{
+      top:50%;
+      right:0px;
+    }
+    .review-slider .review-content .slider-content .author_img{
+      transform: unset;
+    }
+    .review-slider .review-content .slider-content .content .author-text{
+      margin-bottom: 0;
+      padding: unset;
+      margin-top: 32px;
+      padding-top: unset;
+    }
+    .review-slider .review-content .slider-content .content .author-text {
+      margin-bottom: 24px;
+    }
+    .review-slider .slick-list {
+      /* padding: 0 15% 0 0; */
+      position: relative;
+      background: #F5FFFF;
+      box-shadow: 0px 4px 4px rgb(102 102 102 / 10%);
+      border-radius: 5px;
+    }
+    .review-slider .review-content .slider-content .content {
+      position: relative;
+      background: #F5FFFF;
+      box-shadow: unset;
+      /* border-radius: 5px; */
+    }
+    .review-slider .review-content .slider-content .author_img {
+      position: unset;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      margin: auto;
+    }
+
+    .review-slider .review-content .slider-content .slider-padding{
+      padding:0 10px;
+    }
+    .review-slider .review-content .slider-content .content .review_author {
+      padding: 32px 0 10px 0;
+    }
+    .review-slider .review-content{
+      margin-top: 70px;
+    }
+    .review-slider .review-content{
+      margin-top: 17px;
+    }
+
+    .review-slider .review-content .slider-content .content p{
+      padding: 0 20px;
+    }
+    .review-slider .review-content .slider-content .content h4{
+      padding: 0 30px;
+    }
+    .review-slider .review-content .review-slider-section .content{
+      width: 100%;
+      padding: 28px 10px 18px 10px;
+    }
+
+    .review-slider .subtitle{
+      font-size: 12px;
+      line-height: 18px;
+    }
+    .review-slider .review-content .content-wrapper{
+      padding:0;
+    }
+    .review-slider .review-content .review-slider-section:not(.slick-initialized) .slider-content{
+      flex: 0 0 85%;
+    }
+
+  }
+</style>
+<hr class="setion__separator">
+<section data-section-id="{{ section.id }}" data-section-type="aq_review-section" id="trial-landing-review" class="trial-review-section review-slider">
+  <div class="content">
+    {% if section.settings.section-heading != blank %}
+    <div class="review__section--header">
+      <h2>{{ section.settings.section-heading }}</h2>
+    </div>
+    {% endif %}
+    {% if section.settings.section-sub-heading != blank %}
+    <div class="review__section--subHeader">
+      <h2>{{ section.settings.section-sub-heading }}</h2>
+    </div>
+    {% endif %}
+    <div class="review-content">
+      <div class="content-wrapper">
+        <div class="review-slider-section">
+          {% for block in section.blocks %}
+          {% if block.settings.review-heading != '' %}
+          <div class="slider-content">
+            <div class="slider-padding">
+              <div class="content">
+                {% if block.settings.author_img %}
+                <div class="author_img">
+                  <img class="lazyload" src="{{block.settings.author_img | img_url :'master'}}" data-src="{{block.settings.author_img | img_url :'master'}}" alt="Image"  />
+                </div>
+                {% endif %}
+                <div class="author_details">
+                  {% if block.settings.review-author != '' %}
+                  <p class="author-text"><span style="color:#333333;font-weight: 500;"> {{block.settings.review-author}}</span></p>
+                  {% endif %}
+                </div>
+
+                <div class="review__content">
+                  <p>{{block.settings.review-text}}</p>
+                </div>
+                <div class="review_author review__author-{{block.id}}">
+                  {% if block.settings.review-stars != '' %}
+                  <div class="star_review" data-stars ="{{block.settings.review-stars}}">
+                    {% render 'star_icon' %}
+                    {% render 'star_icon' %}
+                    {% render 'star_icon' %}
+                    {% render 'star_icon' %}
+                    {% render 'star_icon' %}
+                    <script>
+                      dataStars = {{block.settings.review-stars}};
+                      stars =  $('.review__author-{{block.id}} .star_review svg');
+                                 stars.each(function(i){
+                        j = i+1;
+                        if(j > dataStars){
+                          $(this).addClass("inactive");
+                        }
+                      })
+                    </script>
+
+                  </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<script>
+  $(function(){
+    $('.review-slider-section').slick({
+      infinite: true,
+      slidesToShow: 3,
+      slidesToScroll: 3,
+      autoplay: false,
+      arrows : true,
+      dots : false,
+      infinite: false,
+      prevArrow:'<div class="slick-prev"><i class="arrow left"></i></div>',
+      nextArrow:'<div class="slick-next"><i class="arrow right"></i></div>',
+      responsive: [
+        {
+            breakpoint: 1200,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+              arrows:true,
+              dots:false,
+              autoplay: false,
+              autoplaySpeed: 2000
+            }
+          },
+        {
+          breakpoint: 749,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: true,
+            dots: false
+          }
+        }
+
+      ]
+    });
+    $('.review-slider-section').slick('setPosition');
+  })
+</script>
+
+{% schema %}
+{
+  "name": "Review section",
+  "settings": [
+		{
+          "type": "text",
+          "id": "section-heading",
+          "label": "Section Heading",
+          "default": "Our Customers"
+        },
+		{
+          "type": "text",
+          "id": "section-sub-heading",
+          "label": "Section Sub Heading",
+          "default": "What are our partners saying?"
+        }
+  ],
+  "blocks": [
+    {
+      "type": "blocks",
+      "name": "Review blocks",
+      "settings": [
+		{
+          "type": "image_picker",
+          "id": "author_img",
+          "label": "Select author image"
+        },
+		{
+          "type": "text",
+          "id": "review-author",
+          "label": "Enter Review Author Name"
+        },
+        {
+          "type": "richtext",
+          "id": "review-text",
+          "label": "Enter review text"
+        },
+        {
+          "type": "text",
+          "id": "review-stars",
+          "label": "Enter review star in number"
+        }       
+      ]
+    }
+  ],
+  "presets":[ 
+              { 
+                 "name":{ 
+                    "en":"Review section"
+                 },
+                 "category":{ 
+                    "en":"Homepage"
+                 }
+              }
+         ]
+}
+{% endschema %}

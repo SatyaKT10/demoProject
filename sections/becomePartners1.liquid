@@ -1,0 +1,75 @@
+<div class="becomPartnerWrap one" style="background-color: {{section.settings.color}}">
+  <div class="becomP-container">
+    <div class="becomP-content">
+      <div class="header">
+        <h4 class="heading">{{section.settings.scetion-title}}</h4>
+        <h3 class="sub-heading">{{section.settings.sub-title}}</h3>
+      </div>
+      <div class="step oneS">
+        <ul>
+          {% for block in section.blocks %}
+          <li>
+            <img class="icons" src="{{block.settings.icons | img_url:'master'}}" />
+            <span class="sapnText">{{block.settings.step}}</span>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+   "name":"Become a partner one",
+   "settings":[
+      {
+         "type":"text",
+         "id":"scetion-title",
+         "label":"Section Title",
+         "default":"Become an Aqualens partner in"
+      },
+      {
+         "type":"text",
+         "id":"sub-title",
+         "label":"Section Title",
+         "default":"3 simple steps"
+      },
+	  {
+         "type":"color",
+         "id":"color",
+         "label":"Section BG Color"
+      }
+   ],
+   "blocks":[  
+        {  
+           "name":"step",
+           "type": "collection",
+           "settings":[ 
+              {  
+                 "id":"step",
+                 "type":"html",
+                 "label":"step"
+              },
+			  {  
+                 "id":"icons",
+                 "type":"image_picker",
+                 "label":"Step Icoons"
+              }
+           ]
+        }
+     ],
+   "presets":[
+      {
+         "name":"Become a partner one",
+         "category":"collection"
+      }
+   ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,831 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.0.0/magnific-popup.min.css" integrity="sha512-nIm/JGUwrzblLex/meoxJSPdAKQOe2bLhnrZ81g5Jbh519z8GFJIWu87WAhBH+RAyGbM4+U3S2h+kL5JoV6/wA==" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.0.0/jquery.magnific-popup.min.js" integrity="sha512-+m6t3R87+6LdtYiCzRhC5+E0l4VQ9qIT1H9+t1wmHkMJvvUQNI5MKKb7b08WL4Kgp9K0IBgHDSLCRJk05cFUYg==" crossorigin="anonymous"></script>
+<div class="page-width" style="background: #F8F8F8; padding-top: 52px;">
+  <div class="view__order-section">
+    <div class="view__order-status">
+      <div class="view__order-flex" data-value="{{ 'customer.orders.order_number' | t }}" >
+        <p class="view__order-title">Order Number</p> 
+        <p class="view__order-text">{{ order.order_number }}</p>
+      </div>
+      <hr class="status-separator">
+      <div class="view__order-flex" data-value="{{ 'customer.orders.date' | t }}">
+        <p class="view__order-title">Order Placed on</p> 
+        <p class="view__order-text">{{ order.created_at | time_tag: format: 'date' }}</p>
+      </div>
+      <hr class="status-separator">
+      <div class="view__order-flex" data-value="Order-Delivered-on">
+        <p class="view__order-title">Order Delivered on</p> 
+        <p class="view__order-text">{{ order.created_at | time_tag: format: 'date' }}</p>
+      </div>
+      <hr class="status-separator">
+      <div class="view__order-flex" data-value="{{ 'customer.orders.payment_status' | t }}">
+        <p class="view__order-title">Payment Status</p> 
+        <p class="view__order-text">{{ order.financial_status_label }}</p>
+      </div>
+      <hr class="status-separator">
+      <div class="view__order-download-invoice">
+        <a href="#order-status-popup" class="btn--invoice order-status-popup">Track Order</a>
+      </div>
+    </div>
+    
+    <div class="view__order-buy-it-again view__order-sub-section">
+      <p class="view__order-buy-it-again-title view__order-sub-section-title">Buy It Again</p>
+      <div class="view__order-buy-it-again-icon view__order-sub-section-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="6" height="9" viewBox="0 0 6 9" fill="none">
+			<path d="M3.38055 4.70996L0.833221 7.25729C0.557221 7.53329 0.557221 7.98129 0.833221 8.25729C1.10922 8.53329 1.55722 8.53329 1.83322 8.25729L4.90922 5.18129C5.16989 4.92063 5.16989 4.49863 4.90922 4.23863L1.83322 1.16263C1.55722 0.886629 1.10922 0.886629 0.83322 1.16263C0.55722 1.43863 0.55722 1.88663 0.83322 2.16263L3.38055 4.70996Z" fill="#4F4F4F"/>
+		</svg>
+      </div>
+    </div>
+    
+     {% comment %}
+    <div class="view__order-return view__order-sub-section">
+      <p class="view__order-return-title view__order-sub-section-title">Return / Exchange </p>
+      <div class="view__order-return-icon view__order-sub-section-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="6" height="9" viewBox="0 0 6 9" fill="none">
+          <path d="M3.38055 4.70996L0.833221 7.25729C0.557221 7.53329 0.557221 7.98129 0.833221 8.25729C1.10922 8.53329 1.55722 8.53329 1.83322 8.25729L4.90922 5.18129C5.16989 4.92063 5.16989 4.49863 4.90922 4.23863L1.83322 1.16263C1.55722 0.886629 1.10922 0.886629 0.83322 1.16263C0.55722 1.43863 0.55722 1.88663 0.83322 2.16263L3.38055 4.70996Z" fill="#4F4F4F"/>
+        </svg>  
+      </div>
+    </div>
+     {% endcomment %}
+    {% comment %}
+    This variable is used to calculate total quantity of order
+    {% endcomment %}
+    {% assign total_qty = '' %}
+    
+    <div class="view__order-details-wrapper">
+      <div class="view__order-details view__order-sub-section">
+        <p class="view__order-details-title view__order-sub-section-title">View Order Details </p>
+        <div class="view__order-details-icon view__order-sub-section-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="6" height="9" viewBox="0 0 6 9" fill="none">
+            <path d="M3.38055 4.70996L0.833221 7.25729C0.557221 7.53329 0.557221 7.98129 0.833221 8.25729C1.10922 8.53329 1.55722 8.53329 1.83322 8.25729L4.90922 5.18129C5.16989 4.92063 5.16989 4.49863 4.90922 4.23863L1.83322 1.16263C1.55722 0.886629 1.10922 0.886629 0.83322 1.16263C0.55722 1.43863 0.55722 1.88663 0.83322 2.16263L3.38055 4.70996Z" fill="#4F4F4F"/>
+          </svg>  
+        </div>
+      </div>
+      {% assign variant_array = '' %}
+      
+      {% for line_item in order.line_items %}
+      {% assign variant_array = variant_array | append:line_item.product.handle | append:',' %}
+      {% endfor %}
+      
+      {% assign variant_array = variant_array | split:',' | uniq  %}
+      
+      {% for handle_array in variant_array %}
+      {% assign product_new = all_products[handle_array] %}
+      {% assign product_handle = product_new.handle %}
+
+
+      <div class="view__order-details-content-wrapper">
+        <div  class="view__order-product-wrapper">
+          <div class="view__order-product-header" data-value="{{ 'customer.order.product' | t }}">
+            <div class="view__order-product-header-icon">{{ product_new.featured_image | img_url: '60x60' | img_tag }}</div>
+            <div class="view__order-product-header-text">
+              {{ product_new.title | link_to: product_new.url }}
+            </div>
+          </div>
+          <div class="view__order-product-title">
+            {% assign tag_solution = '' %}
+            {% assign color_tag = '' %}
+            {% assign speciality_tag = '' %}
+            {% assign color_tag_power ='' %}
+            {% for tag in product_new.tags %}
+            {% if tag contains 'clear' or tag contains 'speciality' %}
+            <p class="view__order-product-title-text">Power</p> 
+            <p class="view__order-product-title-text">Qty.</p>
+            {% assign speciality_tag = 'speciality' %}
+            {% elsif tag contains 'color--zero' %}
+            <p class="view__order-product-title-text">Color</p> 
+            <p class="view__order-product-title-text">Qty.</p>
+            {% assign color_tag = 'zero Powered' %}
+            {% elsif tag contains 'color--powered' %}
+            <p class="view__order-product-title-text">color(Power)</p> 
+            <p class="view__order-product-title-text">Qty.</p>
+            {% assign color_tag_powe ='powered' %}
+            {% elsif tag contains 'solution' or tag contains 'accessories' %}
+            {% assign tag_solution = 'solution' %}
+            {% else %}               
+            {% endif %}             
+            {% endfor %}
+          </div>
+          {% for line_item in order.line_items %}
+          {% if line_item.product.handle == handle_array %}
+          {% assign total_qty = total_qty | plus:line_item.quantity %}
+          <div id="{{ line_item.key }}" class="view__order-product-content {% if tag_solution  contains 'solution' %}solution-product{% endif %}">
+            <div class="view__order-product-power">  
+              {%- assign variant_options = 'template ' | split: ' ' -%}
+              {%- if line_item.product.has_only_default_variant != true -%}
+              {%- assign variant_options = line_item.options_with_values -%}
+              {%- endif -%}
+              {%- assign property_size = line_item.properties | size -%}
+
+              <ul class="view__order-product-power-details{% if line_item.product.has_only_default_variant and property_size == 0 %} hide{% endif %}">
+                {%- for option in variant_options -%}
+                <li class="view__order-product-power-details__item {% if line_item.product.has_only_default_variant %} hide{% endif %}" data-cart-item-option>{{ option.value }}</li>
+                {%- endfor -%}
+
+                {%- assign properties = 'template ' | split: ' ' -%}
+                {%- if property_size > 0 -%}
+                {%- assign properties = line_item.properties -%}
+                {%- endif -%}
+
+                {%- for p in properties -%}
+                {%- unless p.last == blank -%}
+				{% if p.first contains 'power' or p.first contains 'cyl' or p.first contains 'axis' %}
+                <li class="view__order-product-power-details__item {%if property_size == 0%} hide{% endif %}">
+                  {% if speciality_tag contains 'speciality' %}
+                  <span>{{  p.first | replace: "power", "SPH" | replace: "cyl", "CYL" | replace:"axis","Axis" }}:</span>
+                  {% else %}
+                  <span></span>
+                  {% endif %}
+
+                  <span>
+                    {%- if color_tag contains 'zero Powered'-%}
+                    {%- elsif color_tag_power contains 'powered'-%}
+                    ({{ p.last }})
+                    {%- elsif speciality_tag contains 'speciality'-%}
+                    {{ p.last }} &nbsp;&nbsp;<span class="pipe-sign">|</span> &nbsp;&nbsp;
+                    {%- else -%}
+                    {{ p.last }}
+                    {%- endif -%}
+                  </span>
+                </li>
+                {% endif %}
+                {%- endunless -%}
+                {%- endfor -%}
+              </ul>
+            </div>
+            
+            <div class="view__order-product-qty" data-value="{{ 'customer.order.quantity' | t }}">
+              {% if tag_solution  contains 'solution' %}
+              <span>Qty: </span>
+              {% endif %}
+              {{ line_item.quantity }}
+            </div>
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    
+    <div class="view__order-summary">
+      <div class="view__order-summary-header view__order-sub-section-header">
+        <p class="view__order-summary-header-text view__order-sub-section-header-text">Order Summary</p>
+      </div>
+      <div class="view__order-flex" data-value="{{ 'customer.orders.quantity' | t }}" >
+        <p class="view__order-title">Total Qty</p> 
+        <p class="view__order-text">{{ total_qty }}</p>
+      </div>
+      <hr class="status-separator">
+      <div class="view__order-flex" data-value="{{ 'customer.order.subtotal' | t }}">
+        <p class="view__order-title">Sub Total</p> 
+        <p class="view__order-text">{{ order.line_items_subtotal_price | money_without_currency }}</p>
+      </div>
+      <hr class="status-separator">
+      {%- if order.cart_level_discount_applications != blank -%}
+      <div>
+        {%- for discount_application in order.cart_level_discount_applications -%}
+        <div class="view__order-flex" data-value="{{ 'customer.order.discount' | t }}">
+          <p class="view__order-title">Discount</p>
+          <p class="view__order-text">{{ discount_application.total_allocated_amount | money_without_currency }}</p>
+        </div>
+        <hr class="status-separator">
+        {%- endfor -%}
+      </div>
+      {%- endif -%}
+      
+      {%- for shipping_method in order.shipping_methods -%}
+      <div class="view__order-flex" data-value="{{ 'customer.order.shipping' | t }}">
+        <p class="view__order-title">Shipping</p>
+        <p class="view__order-text">{{ shipping_method.price | money_without_currency }}</p>
+      </div>
+      <hr class="status-separator">
+      {%- endfor -%}
+      
+      <div class="view__order-flex" data-value="{{{ 'customer.order.total' | t }}">
+        <p class="view__order-title">Total</p> 
+        <p class="view__order-text">{{ order.total_price | money_without_currency }}</p>
+      </div>
+    </div>
+    
+	
+    <div class="view__order-address-container">
+      <div class="view__order-address-header view__order-sub-section-header">
+        <p class="view__order-address-header-text view__order-sub-section-header-text">Billing Details</p>
+      </div>
+      <div class="view__order-address">
+        {% if order.billing_address %}
+        {{ order.billing_address | format_address }}
+        <p class="view__order-address-margin">Phone: {{ order.billing_address.phone }}</p>
+        {% else %}
+        {{ order.shipping_address | format_address }}
+        <p class="view__order-address-margin">Phone: {{ order.shipping_address.phone }}</p>
+        {% endif %}
+      </div>
+      
+      <div class="view__order-address-header view__order-sub-section-header">
+        <p class="view__order-address-header-text view__order-sub-section-header-text">Shipping Details</p>
+      </div>
+      <div class="view__order-address">
+        {{ order.shipping_address | format_address }}
+        <p class="view__order-address-margin">Phone: {{ order.shipping_address.phone }}</p>
+      </div>
+      
+      <div class="view__order-address-header view__order-sub-section-header">
+        <p class="view__order-address-header-text view__order-sub-section-header-text">Payment Details</p>
+      </div>
+      <div class="view__order-address">
+        <p class="view__order-address-margin">Paid using:&nbsp; 
+          {% for transaction in order.transactions %}
+          {{ transaction.gateway }}
+          {% endfor %}
+        </p>
+        
+        <p class="view__order-address-margin">Wallet Amount Used:&nbsp; 
+          {% if order.attributes %}
+          {% for attribute in order.attributes %}
+          {% if attribute contains 'wallet_amount_used'%}
+          {{ attribute | last }}
+          {% endif %}
+          {% endfor %}
+          {% endif %}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>  
+
+<div class="track-popup">
+  <div id="order-status-popup" class="white-popup mfp-hide">
+    <div class="order__status-nav">
+      <div class="status-nav-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="14" viewBox="0 0 18 14" fill="none">
+          <path d="M7.00004 0.341797C6.74416 0.341797 6.48801 0.441219 6.29301 0.636719L0.636756 6.29297C0.245756 6.68397 0.245756 7.31703 0.636756 7.70703L6.29301 13.3633C6.68401 13.7543 7.31707 13.7543 7.70707 13.3633L7.79301 13.2773C8.18401 12.8863 8.18401 12.2533 7.79301 11.8633L3.92972 8H17C17.552 8 18 7.552 18 7C18 6.448 17.552 6 17 6H3.92972L7.79301 2.13672C8.18401 1.74572 8.18401 1.11266 7.79301 0.722656L7.70707 0.636719C7.51157 0.441219 7.25591 0.341797 7.00004 0.341797Z" fill="#474747"/>
+        </svg>
+      </div>
+      <div class="status-nav-title">
+        Order Status
+      </div>
+      <div class="header__cart">
+        <a href="/cart">
+          <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
+            <path d="M7.25277 0.75C6.98333 0.75 6.71413 0.853582 6.50863 1.05908L5.75277 1.81494H8.75277L7.99691 1.05908C7.79141 0.853582 7.52221 0.75 7.25277 0.75ZM11.0028 0.75C10.7333 0.75 10.4641 0.853582 10.2586 1.05908L9.50277 1.81494H12.5028L11.7469 1.05908C11.5414 0.853582 11.2722 0.75 11.0028 0.75ZM2.55941 1.81494L1.25423 1.8252C1.15495 1.82464 1.05655 1.84381 0.964732 1.88158C0.872914 1.91935 0.789507 1.97497 0.719349 2.04522C0.649191 2.11547 0.593678 2.19895 0.556027 2.29081C0.518377 2.38268 0.499339 2.48111 0.500018 2.58039C0.500696 2.67967 0.521078 2.77782 0.559981 2.86917C0.598884 2.96051 0.655533 3.04322 0.726645 3.11251C0.797757 3.18179 0.881916 3.23626 0.974242 3.27277C1.06657 3.30928 1.16522 3.3271 1.26449 3.3252L2.06722 3.31934L4.53695 9.24609L3.639 10.6816C3.01024 11.6857 3.77478 13.0649 4.95882 13.0649H13.2528C13.3522 13.0663 13.4508 13.048 13.5431 13.0109C13.6353 12.9739 13.7192 12.9188 13.79 12.8491C13.8608 12.7793 13.917 12.6961 13.9553 12.6044C13.9937 12.5127 14.0134 12.4143 14.0134 12.3149C14.0134 12.2155 13.9937 12.1171 13.9553 12.0255C13.917 11.9338 13.8608 11.8506 13.79 11.7808C13.7192 11.711 13.6353 11.656 13.5431 11.619C13.4508 11.5819 13.3522 11.5635 13.2528 11.5649H4.95882C4.87537 11.5649 4.86575 11.5485 4.91048 11.477C4.91097 11.4771 4.91146 11.4771 4.91195 11.477L5.79378 10.0649H11.3939C11.9384 10.0649 12.4409 9.76922 12.7049 9.29297L15.4061 4.42822C15.6843 3.92872 15.3228 3.31494 14.7513 3.31494H3.69027L3.25814 2.27637C3.20075 2.1387 3.10362 2.02127 2.97915 1.93908C2.85469 1.85689 2.70855 1.81367 2.55941 1.81494ZM5.00277 13.8149C4.60494 13.8149 4.22341 13.973 3.94211 14.2543C3.6608 14.5356 3.50277 14.9171 3.50277 15.3149C3.50277 15.7128 3.6608 16.0943 3.94211 16.3756C4.22341 16.6569 4.60494 16.8149 5.00277 16.8149C5.40059 16.8149 5.78212 16.6569 6.06343 16.3756C6.34473 16.0943 6.50277 15.7128 6.50277 15.3149C6.50277 14.9171 6.34473 14.5356 6.06343 14.2543C5.78212 13.973 5.40059 13.8149 5.00277 13.8149ZM12.5028 13.8149C12.1049 13.8149 11.7234 13.973 11.4421 14.2543C11.1608 14.5356 11.0028 14.9171 11.0028 15.3149C11.0028 15.7128 11.1608 16.0943 11.4421 16.3756C11.7234 16.6569 12.1049 16.8149 12.5028 16.8149C12.9006 16.8149 13.2821 16.6569 13.5634 16.3756C13.8447 16.0943 14.0028 15.7128 14.0028 15.3149C14.0028 14.9171 13.8447 14.5356 13.5634 14.2543C13.2821 13.973 12.9006 13.8149 12.5028 13.8149Z" fill="#4F4F4F"/>
+            </svg></span>
+          <span class="cart-count"> {{ cart.item_count }}</span>
+        </a>
+      </div>
+    </div>
+    <div class="status__width--bg">
+      <div class="order__number--text">
+        <h4 class="order__number--heading">Order Number</h4>
+        <p class="order__number--content">{{ order.order_number }}</p>
+      </div>
+      <div class="reach__out">
+        <p class="reach__out--content">
+          To ensure faster and smooth delivery operations we are sending multiple shipments to you if necessary. Please feel free to reach out to us on +91 9876543210 for any doubts/issues.
+        </p>
+      </div>
+      <div class="status__mg--div">
+        <div class="status__mg--wrapper">
+         
+        </div>
+        <div class="status__summary">
+          <div class=order__summary--heading>
+            Order Summary
+          </div>
+          <div class="status__data">
+            <span class="status__qty--heading status__data--style">Total Nos. of Shipments</span>
+            <span class="status__shipment--no content__style">1</span>
+          </div>
+          <div class="status__data">
+            <span class="status__qty--heading status__data--style">Total Amount</span>
+            <span class="status__total--amount content__style">{{ order.total_price | money_without_currency }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+<script>
+  $('.status-nav-icon svg').click(function(){
+    $.magnificPopup.close();
+  })
+  $('.order-status-popup').magnificPopup({
+      type:'inline',
+      midClick: true // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
+    });
+  
+  
+  $(".btn--invoice").click(function (e) {
+    var order_number = {{ order.order_number }};
+    var temp = 0;
+    var settings = {
+      "url": "http://checkout.aqualensb2b.com/api/vsm/shipment-data/"+order_number
+    };
+    $.ajax(settings).done(function (response) {
+      var shipmentContainer = "";
+      if(response.data != "Your order is currently being processed, please check back in sometime for more detail"){
+          response.data.forEach(function(i){
+            let date = new Date(i.delivery_date);
+            temp++;            
+            const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+            var day = date.getDate()+"th";
+            var month = months[date.getMonth()];
+            var year = date.getFullYear();           
+            let htmlData = `<div class="status__mg--content">
+                <div class="status__shipment--id">
+                  Shipment #${temp} - <span class="shipment--id">${i.shipment_id}</span>
+                </div>
+                <div class="status__data">
+                  <span class="status__qty--heading status__data--style">Total Qty</span>
+                  <span class="status__qty--content content__style">${i.qty}</span>
+                </div>
+                <div class="status__data">
+                  <span class="status__data--heading status__data--style">Total Amount</span>
+                  <span class="status__amount--content content__style">${i.amount}</span>
+                </div>
+                <div class="status__data">
+                  <span class="status__data--heading status__data--style">Payment Mode</span>
+                  <span class="status__mode--content content__style">${i.payment_mode}</span>
+                </div>
+                <div class="status__data">
+                  <span class="status__data--heading status__data--style">Shipment Status</span>
+                  <span class="status__shipment--content content__style">${i.shipment_status}</span>
+                </div>
+                <div class="status__data">
+                  <span class="status__data--heading status__data--style">Expected Delivery</span>
+                  <span class="status__date--content content__style">${day+"  "+month+", "+year}</span>
+                </div>
+              </div>`
+
+            shipmentContainer = shipmentContainer + htmlData;
+          })
+        
+      $('.status__mg--wrapper').html(shipmentContainer);
+      $('.status__shipment--no').html(temp);
+      }
+      else{
+        $('.status__mg--wrapper').html("Your order is currently being processed, please check back in sometime for more detail");
+        $('.status__summary').hide();
+      }
+    })
+    .fail(function (error){
+      console.log(error);
+    })
+  });
+
+ 
+//   $.ajax({
+//     url : 'https://lenskart.martmonk.com/website/orderManagement/apiOrderFullfillment',
+//     type: 'POST',
+//     data : JSON.stringify({
+//       "orderId" : '{{order.id}}',
+//     }),
+//     success:function(data){ 
+//       var getData = JSON.parse(data);
+//       if(getData.response){
+//         if(getData.fulfillment){
+//           console.log(getData.fulfillment);
+//           var getHtml = "";
+//           $(getData.fulfillment).each(function() {
+//             var getFulfill = $(this);
+//             var remainingAmt = getFulfill[0].total_amount - getFulfill[0].total_paid_amount;
+            
+//              	getHtml += '<div class="innerfull-wrapper"><div class="fulfill-wrapper">';
+// 				getHtml += '<div class="label-wrapper"><div class="label-value">Status - '+getFulfill[0].stage+'</div></div>';
+// 				getHtml += '<div class="label-wrapper"><div class="label-value">'+getFulfill[0].payment_method+'</div></div>';
+// 				getHtml += '<div class="label-wrapper"><div class="label-value">Amount Pending - Rs.'+remainingAmt+'</div></div>';
+// 				getHtml += '</div>'  
+// 				getHtml += '<table class="order-table"><thead><tr><th scope="col">Product</th><th scope="col">SKU</th><th scope="col">Quantity</th><th scope="col">Total</th></tr></thead><tbody>';
+				
+            
+//             $(this.lineItem).each(function() {
+//               var lineItem = $(this);
+//               getHtml += '<tr><td data-label="Product"><span>'+lineItem[0].title+'</span><div class="extra-details"><span class="full-label">'+lineItem[0].qty_fullfilled+' of '+lineItem[0].qty_ordered+' Fulfilled</span></div></td>'
+//               getHtml += '<td data-label="SKU">'+lineItem[0].sku+'</td>'
+//               getHtml += '<td data-label="Quantity">'+lineItem[0].qty_fullfilled+'</td>'
+//               getHtml += '<td data-label="Total">Rs. '+lineItem[0].price*lineItem[0].qty_fullfilled+'</td></tr>'
+              
+//             });
+//             getHtml += '</tbody></table></div>';
+//           });
+//             $('#fulfill-section').append(getHtml);
+//         }
+//       }
+//     }
+//   });
+</script>
+
+<script>
+  //JS for toggle
+  $(document).on('click','.view__order-details',function(){
+    $(this).parent().find('.view__order-details-content-wrapper').slideToggle(); //toggleClass('view__order-details-active');
+    $(this).find('.view__order-details-icon').toggleClass('view__order-details-icon-active');    
+  })
+  
+  $(document).on('click', '.view__order-buy-it-again', function(){
+    let finalData = [];
+    {% for line_item in order.line_items %}
+      var lineData = {};
+    
+      lineData.sku = {{ line_item.sku }};
+      lineData.quantity = {{ line_item.quantity }};
+      lineData.id= {{ line_item.variant_id }};
+      
+      var properties = {};
+      {% for property in line_item.properties %}
+      	{%- unless property.last == blank -%}
+    	{% if property.first contains 'power' %}
+    		properties.power = {{ property.last }}
+      	{% elsif property.first contains 'cyl' %}
+      		properties.cyl = {{ property.last }}
+      	{% elsif property.first contains 'axis' %}
+      		properties.axis = {{ property.last }} 
+      	{% endif %}
+        {% endunless %}   
+      {% endfor %}
+	  lineData.properties = properties
+      
+      finalData.push(lineData);
+    
+    {% endfor %}
+    
+    
+    if(Object.keys(finalData).length){
+      $.ajax({
+        url : '/cart/add.js',
+        type: 'POST',
+        dataType: 'JSON',
+        data : {items:finalData},
+      })
+      .done(function(){
+        setTimeout(function () { 
+          window.location.href = '/cart';
+        }, 2000); 
+
+      })
+      .fail(function(error){
+        console.log("Error",error);
+      })
+    }
+  }) 
+</script>
+
+<style>
+  .white-popup {
+    position: unset;
+    background: unset;
+    padding: unset;
+    border-radius: unset;
+    width: unset;
+    max-width: unset;
+    margin: unset;
+  }
+  .view__order-status{
+    background: #FFFFFF;
+    padding: 15px;
+    margin-bottom: 5px;
+  }
+  .status-separator{
+    margin: 15px 0px;
+    border: 1px solid #E0E0E0;
+    background-color: #E0E0E0;
+  }
+  .view__order-flex{
+    display: flex;
+  }
+  .view__order-text {
+    flex: 50%;
+    margin-bottom: 0;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    color: #333333;
+  }
+  .view__order-title {
+    flex: 50%;
+    margin-bottom: 0;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    color: #666666;
+  }
+  .view__order-sub-section {
+    display: flex;
+    padding: 15px;
+    margin-bottom: 2px;
+    background-color: #FFFFFF;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .view__order-details{
+    margin-bottom: 0px;
+  }
+  .view__order-sub-section-title {
+    margin-bottom: 0px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    color: #666666;
+  }
+  .view__order-summary{
+    background: #FFFFFF;
+    padding: 15px 15px 18px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+  }
+  .view__order-sub-section-header {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #333333;
+    margin-bottom: 10px;
+  }
+  .view__order-summary-header{
+    margin-bottom: 15px;
+  }
+  .view__order-address-container {
+    background-color: #FFFFFF;
+    padding: 15px;
+  }
+  .view__order-address {
+    background: #F8F8F8;
+    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 15px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    color: #666666;
+  }
+  .view__order-address-margin {
+    margin-bottom: 0px;
+  }
+  .btn--invoice{
+    border: 1px solid #00BAC6;
+    border-radius: 3px;
+    padding: 10px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: center;
+    color: #00BAC6;    
+  }
+  .view__order-download-invoice {
+    text-align: center;
+    margin: 25px 0px 10px;
+  }
+  .view__order-details-icon{
+    transition: all 0.5s ease;
+  }
+  .view__order-details-icon-active{
+    transform: rotate(90deg);
+  }
+  .view__order-details-wrapper{
+    background: #FFFFFF;
+  }
+  .view__order-details-content-wrapper {
+    display: none;
+    padding-bottom: 1px;
+  }
+  .view__order-details-active{
+    display: block;
+  }
+  .view__order-product-wrapper {
+    border: 1px solid #E0E0E0;
+    border-radius: 4px;
+    margin: 0px 15px 15px;
+  }
+  .view__order-product-header {
+    display: flex;
+    align-items: center;
+    padding: 15px 15px 4px;
+  }
+  .view__order-product-header-icon {
+    min-width: 60px;
+  }
+  .view__order-product-header-text {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    color: #333333;
+    padding-left: 15px;
+  }
+  .view__order-product-title {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 0px;
+    background: #F8F8F8;
+  }
+  .view__order-product-title-text {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    color: #474747;
+    margin-bottom: 0px;
+    padding:8px 15px;
+  }
+  .view__order-product-content {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0px;
+    margin: 0px 15px;
+    border-bottom: 1px solid #F2F2F2;
+  }
+  .view__order-product-power {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 18px;
+    color: #828282;
+    display: flex;
+  }
+  .view__order-product-qty {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+    color: #4F4F4F;
+  }
+  .solution-product{
+    justify-content:unset;
+    padding: 0px 0px 10px 90px;
+    margin: 0;
+    border-bottom: 0px;
+  }
+  .view__order-product-power-details{
+    display: flex;
+    align-items: baseline;
+  }
+  .view__order-product-power-details__item{
+    
+  }
+  .view__order-product-power-details__item:last-child .pipe-sign{
+   display:none;
+  }
+  
+/*   new */
+  .mfp-container{
+   padding:0 0 !important; 
+  }
+  .mfp-content{
+    background:white !important;
+    height:100vh;
+  }
+  #order-status-popup .mfp-close{
+    display:none !important;
+  }
+  .order__status-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 13px 20px;
+    border: 1px solid #D8D8D8;
+  }
+  .status-nav-title {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    display: flex;
+    color: #333333;
+  }
+  .order__number--text {
+    display: flex;
+    align-items: center;
+    padding: 0px 15px;
+  }
+  .order__number--text .order__number--heading{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 22px;
+    color: #666666;
+    margin-top: 18px;
+    flex:0 0 50%;
+  }
+  .order__number--text .order__number--content{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 22px;
+    color: #333333;
+  }
+  .reach__out{
+    background: #F8F8F8;
+    border-radius: 4px;
+  }
+  .reach__out .reach__out--content{
+    padding: 17px 15px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    text-align: justify;
+    color: #666666;
+  }
+  .status__mg--div {
+    margin-top: 18px;
+    background: #F8F8F8;
+    padding: 22px 0px 1px 0px;
+  }
+  .status__shipment--id {
+    padding: 16px 15px 0px 15px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #333333;
+  }
+  .status__mg--content {
+    background: white;
+  }
+  .status__data {
+    margin: 15px 15px;
+    border-bottom: 1px solid #E0E0E0;
+    padding-bottom: 10px;
+    display: flex;
+  }
+  .status__data--style {
+    flex: 0 0 50%;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    color: #666666;
+  }
+  .content__style {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    color: #333333;
+  }
+  .status__summary {
+    background: white;
+    margin-top: 20px;
+  }
+  .order__summary--heading {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #333333;
+    padding: 15px 16px 0px;
+  }
+  .mfp-wrap {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh !important;
+    z-index: 1043;
+    position: fixed !important;
+    outline: 0!important;
+    -webkit-backface-visibility: hidden;
+    overflow: hidden auto !important;
+    bottom: 0 !important;
+  }
+  @media(min-width:749px){
+    .view__order-section {
+      max-width: 375px;
+      margin: auto;
+      margin-top: 10px;
+    }
+    .page-width{
+      max-width:100%
+    }
+  }
+  @media(max-width:749px){
+    .footer_content{
+      display:none;
+    }
+  }
+</style>

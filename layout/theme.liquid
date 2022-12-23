@@ -1,0 +1,584 @@
+<!doctype html>
+<html class="no-js" lang="{{ shop.locale }}">
+  <head>
+    <!-- WIZROCKET INTEGRATION VARIABLES -->
+    {% include 'wizrocket_variables_generator' %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="{{ settings.color_button }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
+    <link rel="manifest" href="/apps/litefy/manifest/">
+    {%- if settings.favicon != blank -%}
+    <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+    {%- endif -%}
+
+    {%- capture seo_title -%}
+    {%- if request.page_type == 'search' and search.performed == true -%}
+    {{ 'general.search.heading' | t: count: search.results_count }}: {{ 'general.search.results_with_count' | t: terms: search.terms, count: search.results_count }}
+    {%- else -%}
+    {{ page_title }}
+    {%- endif -%}
+    {%- if current_tags -%}
+    {%- assign meta_tags = current_tags | join: ', ' -%} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
+    {%- endif -%}
+    {%- if current_page != 1 -%}
+    &ndash; {{ 'general.meta.page' | t: page: current_page }}
+    {%- endif -%}
+    {%- assign escaped_page_title = page_title | escape -%}
+    {%- unless escaped_page_title contains shop.name -%}
+    &ndash; {{ shop.name }}
+    {%- endunless -%}
+    {%- endcapture -%}
+    <title>{{ seo_title | strip }}</title>
+
+    {%- if page_description -%}
+    <meta name="description" content="{{ page_description | escape }}">
+    {%- endif -%}
+
+    {% include 'social-meta-tags' %}
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    
+    
+    <!-- Hotjar Tracking Code for https://aqualensb2b.com/ -->
+    <script>
+        (function(h,o,t,j,a,r){
+            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+            h._hjSettings={hjid:2869389,hjsv:6};
+            a=o.getElementsByTagName('head')[0];
+            r=o.createElement('script');r.async=1;
+            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+    </script>
+    
+    {{ 'popup.css' | asset_url | stylesheet_tag }}
+    {{ 'theme.scss.css' | asset_url | stylesheet_tag }}
+    {{ 'custom.scss.css' | asset_url | stylesheet_tag }}
+
+    <!-- Bootstrap for Retailer Login Page -->
+    {%- if page.handle contains 'retailer-login' -%}
+    {{ 'bootstrap.css' | asset_url | stylesheet_tag }}
+    {%- endif -%}
+
+    {% if template contains 'collection' %}
+    {{ 'mm-filter-v2.scss.css' | asset_url | stylesheet_tag }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    {% endif %}
+
+    <script>
+      var theme = {
+        breakpoints: {
+          medium: 750,
+          large: 990,
+          widescreen: 1400
+        },
+        strings: {
+          addToCart: {{ 'products.product.add_to_cart' | t | json }},
+          soldOut: {{ 'products.product.sold_out' | t | json }},
+          unavailable: {{ 'products.product.unavailable' | t | json }},
+          regularPrice: {{ 'products.product.regular_price' | t | json }},
+          salePrice: {{
+          'products.product.sale_price' | t | json }},
+          sale: {{ 'products.product.on_sale' | t | json }},
+            showMore: {{ 'general.filters.show_more' | t | json }},
+              showLess: {{ 'general.filters.show_less' | t | json }},
+                addressError: {{ 'sections.map.address_error' | t | json }},
+                  addressNoResults: {{ 'sections.map.address_no_results' | t | json }},
+                    addressQueryLimit: {{ 'sections.map.address_query_limit_html' | t | json }},
+                      authError: {{ 'sections.map.auth_error_html' | t | json }},
+                        newWindow: {{ 'general.accessibility.link_messages.new_window' | t | json }},
+                          external: {{ 'general.accessibility.link_messages.external' | t | json }},
+                            newWindowExternal: {{ 'general.accessibility.link_messages.new_window_and_external' | t | json }},
+                              removeLabel: {{ 'cart.label.remove' | t: product: '[product]' | json }},
+                                update: {{ 'cart.label.update' | t | json }},
+                                  quantity: {{ 'cart.label.quantity' | t | json }},
+                                    discountedTotal: {{ 'cart.label.discounted_total' | t | json }},
+                                      regularTotal: {{ 'cart.label.regular_total' | t | json }},
+                                        priceColumn: {{ 'cart.label.price_column' | t | json }},
+                                          quantityMinimumMessage: {{ 'products.product.quantity_minimum_message' | t | json }},
+                                            cartError: {{ 'cart.general.cart_error' | t | json }},
+                                              removedItemMessage: {{ 'cart.general.removed_item_html' | t: quantity: '[quantity]', link: '[link]' | json }},
+                                                unitPrice: {{ 'products.product.unit_price_label' | t | json }},
+                                                  unitPriceSeparator: {{ 'general.accessibility.unit_price_separator' | t | json }},
+                                                    oneCartCount: {{ 'cart.popup.cart_count' | t: count: 1 | json }},
+                                                      otherCartCount: {{ 'cart.popup.cart_count' | t: count: '[count]' | json }},
+                                                        quantityLabel: {{ 'cart.popup.quantity_label' | t: quantity_count: '[count]' | json }}
+      },
+        moneyFormat: {{ shop.money_format | json }},
+          moneyFormatWithCurrency: {{ shop.money_with_currency_format | json }}
+      }
+
+      document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+    </script>
+
+
+    {%- if request.page_type contains 'customers/' -%}
+    <script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer="defer"></script>
+    {%- endif -%}
+
+
+    <script src="{{ 'lazysizes.js' | asset_url }}" async="async"></script>
+    <script src="{{ 'vendor.js' | asset_url }}"></script>
+    <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'custoJs.js' | asset_url }}" defer="defer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery.redirect@1.1.4/jquery.redirect.min.js" defer="defer"></script>
+    {{ content_for_header }}
+    {% include 'footer-script' %}
+    
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    
+    {% if template contains 'customers' %}
+    {{ "shopify_common.js" | shopify_asset_url | script_tag }}
+    {{ "customer_area.js"  | shopify_asset_url | script_tag }}
+    {% endif %}
+    
+    
+    <style>
+      .b2b__apk{
+        display:none;
+      }
+      @media(max-width:749px){
+        .b2b__apk{
+          display:block;
+          position:fixed;
+          width:100%;
+          bottom:0px;
+          background:white;
+          padding:30px 0px;;
+          border-radius:4px;  
+          text-align: center;
+          box-shadow: 0px -1px 5px #888;
+        }
+        .b2b__apk h2 {
+          font-size: 14px;
+          font-family: sans-serif;
+          font-weight: 500;
+          text-transform: capitalize;
+          letter-spacing: 0;
+
+        }
+        .b2b__apk a {
+          color:white;
+          background: #00bac6;
+          padding: 10px 10px;
+          border-radius: 4px;
+          font-family: Poppins;
+        }
+        .app_card_close{
+          position: absolute;
+          top: 5px;
+          right: 20px;
+        }
+      }
+    </style>
+    
+  
+  {% render 'qikify-apps' %}
+    
+    
+    <!-- Clevertap -->    
+    <script type="text/javascript">
+      var clevertap = {event:[], profile:[], account:[], onUserLogin:[], notifications:[], privacy:[]};
+      clevertap.account.push({"id": "6ZR-Z65-KZ6Z"});
+      clevertap.privacy.push({optOut: false}); //set the flag to true, if the user of the device opts out of sharing their data
+      clevertap.privacy.push({useIP: false}); //set the flag to true, if the user agrees to share their IP data
+      (function () {
+        var wzrk = document.createElement('script');
+        wzrk.type = 'text/javascript';
+        wzrk.async = true;
+        wzrk.src = ('https:' == document.location.protocol ? 'https://d2r1yp2w7bby2u.cloudfront.net' : 'http://static.clevertap.com') + '/js/a.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wzrk, s);
+      })();
+
+      {% if customer %}
+      clevertap.profile.push({
+        "Site": {
+          "Name": "{{customer.name}}",
+          "Email": "{{customer.email}}"
+        }
+      });
+      {% endif %}      
+    </script>
+    
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-227121509-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-227121509-1');
+    </script>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                                                          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                                })(window,document,'script','dataLayer','GTM-NZDPV87');</script>
+    <!-- End Google Tag Manager -->
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NZDPV87"
+                      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RVHCZ7WXMW"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-RVHCZ7WXMW');
+    </script>
+
+</head>
+
+  <body id="{{ page_title | handle }}" class="template-{{ request.page_type | handle }}" {% if customer %}data-customer="{{customer.id}}"{% endif %}>
+
+    {% if customer %}
+    <input type="hidden" id="customerid" value="{{customer.id}}" />
+    {% endif %}
+    <a class="in-page-link visually-hidden skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
+
+    <div id="SearchDrawer" class="search-bar drawer drawer--top" role="dialog" aria-modal="true" aria-label="{{ 'general.search.placeholder' | t }}">
+      <div class="search-bar__table">
+        <div class="search-bar__table-cell search-bar__form-wrapper">
+          <form class="search search-bar__form" action="{{ routes.search_url }}" method="get" role="search">
+            <input class="search__input search-bar__input" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" aria-label="{{ 'general.search.placeholder' | t }}">
+            <button class="search-bar__submit search__submit btn--link" type="submit">
+              {% include 'icon-search' %}
+              <span class="icon__fallback-text">{{ 'general.search.submit' | t }}</span>
+            </button>
+          </form>
+        </div>
+        <div class="search-bar__table-cell text-right">
+          <button type="button" class="btn--link search-bar__close js-drawer-close">
+            {% include 'icon-close' %}
+            <span class="icon__fallback-text">{{ 'general.search.close' | t }}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    {%- if settings.enable_ajax -%}
+    {% include 'cart-popup' %}
+    {%- endif -%}
+    {% if page.handle == 'retailer-login' %}
+    {% section 'login-page-header' %}
+    {% else %}
+    {% section 'hp-header-new' %}
+    {% endif %}    
+    {% if template contains 'index' or template contains 'collection' %}
+    {% section 'navigation-filter' %}
+    {% endif %}
+    
+    {% if template contains 'index' %}
+    <style>
+      .solution-offer-home{
+        display:block;
+      }
+    </style>
+    {% else %}
+    <style>
+      .solution-offer-home{
+        display:none;
+      }
+    </style>
+    {% endif %}
+
+
+    <div class="page-container" id="PageContainer">
+      {% include 'popup' %}
+      <main class="main-content js-focus-hidden" id="MainContent" role="main" tabindex="-1">
+        {{ content_for_layout }}
+      </main>
+
+      <div id="slideshow-info" class="visually-hidden" aria-hidden="true">
+        {{- 'sections.slideshow.navigation_instructions' | t -}}
+      </div>
+
+    </div>
+    <ul hidden>
+      <li id="a11y-refresh-page-message">{{ 'general.accessibility.refresh_page' | t }}</li>
+      <li id="a11y-selection-message">{{ 'general.accessibility.selection_help' | t }}</li>
+    </ul>
+
+    {% if template.name == 'index' %}
+    <style>
+      #MainContent{
+        padding: 0;
+      }
+    </style>
+
+    {% endif %}
+
+    {% unless template.name == 'index' %}
+    {% section 'lockDown-offer' %}
+    {% endunless %}
+    {% if template.suffix != "ar-filter" %}
+      {% section 'hp-footer-new' %}
+    {% endif %}
+    {% comment %}
+    {% if template.name == 'index' %}    
+    <div class="b2b__apk">      
+      <div class="app_card_close">
+        <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1.99007 0.000434763C1.79114 0.000487008 1.59674 0.0598657 1.43173 0.170979C1.26672 0.282093 1.1386 0.439893 1.06374 0.624205C0.988886 0.808517 0.970697 1.01097 1.0115 1.20567C1.05231 1.40037 1.15025 1.57848 1.29281 1.71723L6.58578 7.0102L1.29281 12.3032C1.19684 12.3953 1.12021 12.5057 1.06743 12.6278C1.01464 12.7499 0.986757 12.8814 0.985403 13.0144C0.98405 13.1475 1.00926 13.2794 1.05954 13.4026C1.10983 13.5258 1.1842 13.6377 1.27827 13.7318C1.37235 13.8258 1.48426 13.9002 1.60743 13.9505C1.73061 14.0008 1.86259 14.026 1.99563 14.0246C2.12867 14.0233 2.2601 13.9954 2.38223 13.9426C2.50436 13.8898 2.61473 13.8132 2.70687 13.7172L7.99984 8.42426L13.2928 13.7172C13.385 13.8132 13.4953 13.8898 13.6175 13.9426C13.7396 13.9954 13.871 14.0233 14.0041 14.0246C14.1371 14.026 14.2691 14.0008 14.3922 13.9505C14.5154 13.9002 14.6273 13.8259 14.7214 13.7318C14.8155 13.6377 14.8899 13.5258 14.9401 13.4026C14.9904 13.2794 15.0156 13.1475 15.0143 13.0144C15.0129 12.8814 14.985 12.7499 14.9323 12.6278C14.8795 12.5057 14.8028 12.3953 14.7069 12.3032L9.4139 7.0102L14.7069 1.71723C14.8514 1.57677 14.9501 1.39593 14.99 1.19841C15.03 1.00089 15.0093 0.795905 14.9308 0.610319C14.8523 0.424733 14.7195 0.267204 14.5499 0.158375C14.3803 0.0495457 14.1817 -0.0055056 13.9803 0.000434763C13.7205 0.0081759 13.4739 0.116755 13.2928 0.303169L7.99984 5.59614L2.70687 0.303169C2.61368 0.207375 2.50224 0.13123 2.37912 0.0792331C2.25601 0.0272363 2.12372 0.000442554 1.99007 0.000434763Z" fill="#333333"></path>
+        </svg>                    
+      </div>      
+      <h2>Download AqualensB2b Application</h2>
+      <a href="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/Aqualens_B2B.apk?v=1649932753">Download &nbsp;<img src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/icons8-download-30.png?v=1649936029"></a>
+    </div>    
+    {% endif %}
+    {% endcomment %}
+    
+    <!-- popup for error -->
+    <div id="error_popup" class="error_popup white-popup mfp-hide">
+
+    </div>
+     <!-- popup for info -->
+    <div id="info_popup" class="info_popup white-popup mfp-hide">
+
+    </div>
+    <!-- popup for info j&J -->
+    <div id="notif_popup" class="notif_popup white-popup mfp-hide">
+
+    </div>
+    
+    
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.6/gsap.min.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.6/CSSRulePlugin.min.js" type="text/javascript"></script>
+ 
+  <script>  
+//     https://checkout-preprod.aqualensb2b.com
+    let baseURL ='';
+    {% if content_for_header contains "previewBarInjector.init();" %}
+    {% assign  baseURL = 'https://checkout.aqualensb2b.com' %}
+    baseURL = '{{ baseURL}}';
+    {% else %}
+    {% assign baseURL = 'https://checkout.aqualensb2b.com' %}
+    baseURL = '{{ baseURL }}'
+    {% endif %} 
+    
+     // wallet section
+    let mode = 'live';
+    {% if content_for_header contains "previewBarInjector.init();" %}
+    	{% assign  mode = 'test' %}
+    	mode = '{{mode}}';
+    {% endif %}  
+    
+    // wallet section end
+    
+    
+  </script>
+  
+  
+  
+   <script>
+    // Clear cart on click of logout
+    $(function() {
+      $(document).on('click','.log__out',function(e){
+        e.preventDefault();
+        $.ajax({
+          type: "POST",
+          url: '/cart/clear.js',
+          success: function(){
+            window.location.href =  'https://aqualensb2b.com/account/logout'
+          },
+          dataType: 'json'
+        });
+      })
+    });
+    // Clear cart when automatic logged out after 24 hr
+     {% comment %}
+    {% if customer %}
+    
+    {% else %}
+    $(function(e) {     
+        e.preventDefault();
+        $.ajax({
+          type: "POST",
+          url: '/cart/clear.js',
+          success: function(){
+            window.location.href =  'https://aqualensb2b.com/account/logout'
+          },
+          dataType: 'json'
+        });   
+    });
+    {% endif %}
+     {% endcomment %}
+      /******************** setting new token if token expired  ********************/
+     
+     function setNewToken(){
+       {% if customer %}
+       let cid = '{{customer.id}}';
+       console.log("shikha");
+       var settings = {                                     
+         "url": baseURL+'/api/v1/session/create/'+cid
+       };
+       $.ajax(settings).done(function (response) {
+         if(response.status  == true ){
+           sessionStorage.setItem("custNewToken",response.token);
+           console.log(response.token);
+         }
+       });
+       {% endif %}
+     }
+     
+     
+  </script>
+  
+  <script>
+    
+    //     GA and clevertap events
+    $(document).on('click',".site-nav__link--event",function(event) {
+      //     debugger;
+
+      let dataTitle = $(this).attr("data-title");
+      if(dataTitle == "Virtual TRY-ON"){
+        clevertap.event.push("Virtual-Try-On");
+      }else{
+        clevertap.event.push("categories", {
+          "Category":dataTitle
+        });     
+      }    
+
+      let displayMode = 'browser';
+      const mqStandAlone = '(display-mode: standalone)';
+      if (navigator.standalone || window.matchMedia(mqStandAlone).matches || navigator.userAgent.toLowerCase().includes('wv')) {
+        displayMode = 'standalone';
+        if(dataTitle == "Virtual TRY-ON"){ 
+          dataLayer.push({
+            'event': 'Virtual TRY-ON_pwa',  
+
+          })
+        }else{
+          dataLayer.push({
+            'event': 'categories_pwa',
+            'Category':dataTitle
+          })
+        }
+      }else{
+
+        if(dataTitle == "Virtual TRY-ON"){ 
+          dataLayer.push({
+            'event': 'Virtual TRY-ON',  
+
+          })
+        }else{
+          dataLayer.push({
+            'event': 'categories',
+            'Category':dataTitle
+          })
+        }
+
+      } 
+    })
+
+    $(document).on('click',".site-nav__link--event--mobile",function(event) {
+      //     debugger;
+      let dataTitle = $(this).attr("data-title");
+      if(dataTitle == "Virtual TRY-ON"){
+        clevertap.event.push("Virtual-Try-On");
+      }else{
+        clevertap.event.push("MobileNavigation", {
+          "Category":dataTitle
+        });     
+      }    
+
+      let displayMode = 'browser';
+      const mqStandAlone = '(display-mode: standalone)';
+      if (navigator.standalone || window.matchMedia(mqStandAlone).matches || navigator.userAgent.toLowerCase().includes('wv')) {
+        displayMode = 'standalone';
+        if(dataTitle == "Virtual TRY-ON"){ 
+          dataLayer.push({
+            'event': 'Virtual TRY-ON_pwa',  
+
+          })
+        }else{
+          dataLayer.push({
+            'event': 'categories_pwa',
+            'Category':dataTitle
+          })
+        }
+      }else{
+        if(dataTitle == "Virtual TRY-ON"){ 
+          dataLayer.push({
+            'event': 'Virtual TRY-ON',  
+
+          })
+        }else{
+          dataLayer.push({
+            'event': 'categories',
+            'Category':dataTitle
+          })
+        }
+
+      } 
+
+
+    })
+
+    //     end
+</script>
+   <script>
+     $(document).on('click','.app_card_close',function(){
+       $('.b2b__apk').hide();
+     }) 
+     // clevertap events
+     $(document).on('click','.b2b__apk a',function(){
+       $('.b2b__apk').hide();        
+       clevertap.event.push("b2bApp",{ 
+         "Download":'yes',
+         "Date":  "{{ "now" | date: "%Y-%m-%d" }}"
+       });
+     }) 
+
+     $(document).ready(function(){
+       let displayMode = 'browser';
+       const mqStandAlone = '(display-mode: standalone)';
+       if (navigator.standalone || window.matchMedia(mqStandAlone).matches || navigator.userAgent.toLowerCase().includes('wv')) {
+         displayMode = 'standalone';
+         $('.b2b__apk').hide();
+       }
+     })
+
+     const urlParams = new URLSearchParams(location.search);
+ if(urlParams.has('utm_source')){
+    let paramObject = {};
+    for (const [key, value] of urlParams) {
+      paramObject[key] = value;
+    }
+   console.log(paramObject);
+if((paramObject.utm_source == "saathi_app") && paramObject.multi_pass){
+      let multipassUrl = `/account/login/multipass/${paramObject.multi_pass}`
+      sessionStorage.setItem("utm_source",paramObject.utm_source)
+  
+      $.ajax({
+        url: `/account/login/multipass/${paramObject.multi_pass}`
+      }).done(function(){
+        
+        window.location.reload();
+      })
+    }
+    window.history.pushState({}, document.title, window.location.pathname);
+  }
+
+
+     
+  </script>
+  
+</html>

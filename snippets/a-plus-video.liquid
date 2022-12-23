@@ -1,0 +1,70 @@
+<style>
+    .a_plus_video {
+        max-width: 1240px;
+        margin: auto;
+    }
+
+    .a_plus_video h2 {
+        font-family: 'Poppins' !important;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 32px;
+        line-height: 21px;
+        text-align: center;
+        color: #333333;
+        margin-top: 40px;
+        margin-bottom:20px;
+        text-transform: capitalize;
+        letter-spacing: 0;
+    }
+
+    .a_plus_video_content {
+        position: relative;
+        /* height/width*100 = x %  - for padding-bottom */
+        padding-bottom: 56%;
+        width: 100% !important;
+        background: #FFFFFF;
+        border-radius: 4px;
+    }
+
+    .a_plus_video_content video {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        padding: 2px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    @media(max-width:749px) {
+        .a_plus_video_content video {
+            padding: 0 10px;
+        }
+        .a_plus_video h2 {
+       
+        font-size: 14px;
+        
+    }
+    }
+</style>
+
+{% assign aPlusVideoPlaceHolder = product.metafields.global.product-video-placeholder %}
+{% assign aPlusVideoURL = product.metafields.global.product-video %}
+
+<div class="a_plus_video">
+    {% if aPlusVideoPlaceHolder and aPlusVideoURL %}
+    <h2>Watch & Learn All About Lenses</h2>
+    {% endif %}
+    {% if aPlusVideoPlaceHolder and aPlusVideoURL %}
+    <div class="a_plus_video_content">
+        <video  controls id="aPlusVideoPopup" poster="{{ aPlusVideoPlaceHolder}}" controls>
+            <source class="lazyload" data-src="{{aPlusVideoURL}}" src="{{aPlusVideoURL}}" type="video/mp4">
+            <source class="lazyload" data-src="{{aPlusVideoURL}}" src="{{aPlusVideoURL}}" type="video/ogg">
+        </video>
+    </div>
+    {% endif %}
+</div>

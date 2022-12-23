@@ -1,0 +1,63 @@
+<div class="whySellWrap">
+  <div class="whySellCon">
+    <div class="whyContent">
+      <div class="left-c">
+        <img src="{{section.settings.bannerImage | img_url: 'master'}}" class="whtsellB" alt="" />
+      </div>
+      <div class="right-c">
+        <div class="right-container">
+          <h3 class="title">{{section.settings.scetion-title}}</h3>
+          <ul>
+            {% for block in section.blocks %}
+            <li>{{block.settings.question}}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+   "name":"Why Aqualens",
+   "settings":[
+      {
+         "type":"text",
+         "id":"scetion-title",
+         "label":"Section Title",
+         "default":"Why sell Aqualens products?"
+      },
+      {
+        "type":"image_picker",
+        "id":"bannerImage",
+        "label":"image"
+      }
+   ],
+   "blocks":[  
+        {  
+           "name":"Question",
+           "type": "collection",
+           "settings":[ 
+              {  
+                 "id":"question",
+                 "type":"html",
+                 "label":"Why sell aualens content"
+              }
+           ]
+        }
+     ],
+   "presets":[
+      {
+         "name":"Why Aqualens",
+         "category":"collection"
+      }
+   ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

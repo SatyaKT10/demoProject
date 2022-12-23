@@ -1,0 +1,69 @@
+function addAllItems(array){
+  Shopify.queue = [];
+  var newArray = array;
+  for (var i = 0; i < newArray.length; i++) {
+    Shopify.queue.push(newArray[i]);
+  }
+  Shopify.moveAlongP = function() {
+    if (Shopify.queue.length) {
+      var len = 0;
+      var request = Shopify.queue.shift();
+      var data = request;
+      $.ajax({
+        type: 'POST',
+        url: '/cart/add.js',
+        dataType: 'json',
+        data: data,
+        success: function(res){
+          len = len+1;
+          Shopify.moveAlongP();
+          if(len == 1){
+            setTimeout(function(){
+              location.href="/cart"
+            },1000);
+          }
+        },
+        error: function(){
+          if (Shopify.queue.length){
+            Shopify.moveAlongP()
+          } else {
+
+          }
+        }
+      });
+    }
+    else {
+    }
+  };
+  Shopify.moveAlongP();
+};
+
+$(document).on('click','.solution-offer-home .footer-c button', function(e){
+  e.preventDefault();
+  var vid = 32022499033148;
+  var customer = $("#customerid").val();
+  if(typeof customer === 'undefined'){
+    location.href= "/account/login"
+  }
+  else{
+    var qty = 15;
+    var data = {
+      id: vid,
+      quantity: qty,
+      properties: {
+        'combo': true,
+      }
+    };
+    var data1 = {
+      id: 32022497165372,
+      quantity: qty,
+      properties: {
+        'combo': true,
+      }
+    };
+
+    var mainA = [data,data1]
+    addAllItems(mainA);
+  }
+
+})

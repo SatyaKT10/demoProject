@@ -1,0 +1,39 @@
+<header class="login__header">
+  <div class="page-width">
+    <div class="row">
+      <div class="col-xs-12 col-sm-3 logo">
+        {{ 'logo.svg' | file_url | img_tag }}
+      </div>
+      <div class="col-xs-12 col-sm-6">
+        <div class="login__tabs">
+          <ul>
+            <li role="presentation" class="active">
+              <a href="javascript:void(0);" data-tab="BasicInformation">Basic</a>
+            </li>
+            <li role="presentation">
+              <a href="javascript:void(0);" data-tab="BasicConfiguration">Logistics</a>
+            </li>
+            <li role="presentation">
+              <a href="javascript:void(0);" data-tab="LegalFinancialDetails">Legal</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-3">
+      </div>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+  {
+    "name": "Section name",
+    "settings": []
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,84 @@
+<section class="image__with__text--section"
+  data-section-type="product-image-text"
+  data-section-id="{{ section.id }}"
+  data-section-data>
+    <div class="page-width">   
+    <div class="image__with__text__content">
+      <div class="image__with__text__content--wrapper">
+        {% assign headertext = section.settings.headertext %}
+        {% assign text = section.settings.text %}
+        {% assign link = section.settings.link %}
+
+        {% if headertext != blank %}
+        <h2 class="image__with__text__content--headertext">{{ headertext }}</h2>
+        {% endif %}
+        {% if text != blank %}
+        <p class="image__with__text__content--text">{{ text }}</p>
+        {% endif %}
+        {% if section.settings.link-text != blank %}
+        <a href="{% if link != blank %}{{ link }}{% endif %}" class="image__with__text__content--btn">{{section.settings.link-text}} </a>
+        {% endif %}
+      </div>
+    </div>                 
+  </div>
+</section>
+<style>
+  .image__with__text__content {
+    background: url({{ section.settings.bannerimage | img_url: 'master' }});
+    background-size: 100%;
+    background-repeat: no-repeat;
+  }
+  @media only screen and (max-width: 669px){
+    .image__with__text__content {
+      background-size: cover;
+      background-position: center;
+    }
+  }
+  @media only screen and (min-width:670px) and (max-width: 1069px) {
+    .image__with__text__content {
+      background-size: 100% 100%;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Image With Text Section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "bannerimage",
+      "label": "Banner Image"
+    },
+    {
+      "type": "text",
+      "id": "headertext",
+      "label": "Header Text"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text"
+    },
+	{
+      "type": "text",
+      "id": "link-text",
+      "label": "Link Text"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link"
+    }
+  ],
+	"presets": [
+      {
+        "category": "Block",
+        "name": "Image With Text",
+        "blocks": []
+		}
+	]
+}
+{% endschema %}
+
+

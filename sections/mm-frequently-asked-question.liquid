@@ -1,0 +1,58 @@
+<section id="asked_question--section"
+  data-section-type="product-image-text"
+  data-section-id="{{ section.id }}"
+  data-section-data>
+  <div class="page-width">
+      <div class="asked_question--container">
+       <h2 class="asked_question--heading">{{ section.settings.header }}</h2>
+       <center><hr class="about_hr"></center>
+       <div class="asked_question--container--wrapper">
+         {% for block in section.blocks %}
+          
+          {% assign questiontext = block.settings.questiontext %}
+          {% assign answertext = block.settings.answertext %}
+         <div class="asked_question--block">
+           
+           <div class="asked_question--qa">
+             <p class="asked_question--question">{{ questiontext }}</p>
+             <div class="asked_question--answer">{{ answertext }}</div>
+           </div>
+         </div>
+     	{% endfor %}
+       </div>
+     </div>
+  </div>
+</section>
+
+
+{% schema %}
+{
+  "name": "Frequently asked question",
+  "settings": [    
+      {
+        "type": "text",
+        "id": "header",
+        "label": "Heading"
+      }	
+  ],
+
+  "blocks": [
+    {
+      "name": "frequent-question",
+      "type": "text",
+      "settings": [
+		{
+          "type": "text",
+          "id": "questiontext",
+          "label": "Question"
+        },
+		{
+          "type": "textarea",
+          "id": "answertext",
+          "label": "Answer"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

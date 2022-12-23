@@ -1,0 +1,47 @@
+//global form style
+.form-vertical{
+  padding: 45px 35px;
+  color: #000;
+  h1{
+    font: 600 28px/42px Poppins;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+  }
+  label,input{
+  font: 400 15px/23px Poppins;
+  width: 100%;
+  }
+  label{
+  font-weight: 600;
+    margin-bottom: 10px;
+  }
+  input{
+  border: 2px solid #EEEEEE;
+  border-radius: 4px;
+    &::placeholder{
+    opacity:0.4;
+    }
+  }
+}
+#CustomerLoginForm{
+  max-width: 442px;
+  margin: 0 auto;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 4px;
+  #RecoverPassword{
+    font: 400 13px/20px Poppins;
+    color: #7E7E7E;
+  }
+  input.btn{
+    width: 100%;
+    background: #2CB3BE;
+    border-radius: 4px;
+    letter-spacing: 0.18px;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    border:0;
+    font-size:18px;
+    padding: 13px;
+  }
+}

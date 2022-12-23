@@ -1,0 +1,27 @@
+{% assign totalQuestion = product.metafields.global.totalquestion %}
+{% assign productD = product.description | split: '<!------faqstartnew------->' | last %}
+{% assign productDF = productD | split: '<!------faqendnew------->' | first %}
+
+<div class="p_faq_wrapper">
+  <div class="p_faq_conatiner text-columns-with-images-section">
+    <div class="section-heading">
+      <h2>Frequently Asked Questions</h2>
+    </div>
+    {{productDF}}
+  </div>
+</div>
+
+<script>
+  $(document).on('click','#loadmore', function(){
+    var thisE = $(this);
+    var parents = thisE.parents('.section-content');
+    parents.find('.second_content').toggleClass('active');
+    if(parents.find('.second_content').hasClass('active')){
+    thisE.html('Read Less')
+    }
+    else{
+    thisE.html('Read more')
+    }
+
+  })
+</script>

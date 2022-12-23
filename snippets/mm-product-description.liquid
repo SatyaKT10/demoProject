@@ -1,0 +1,22 @@
+{% assign main_description = product.description | split: '<!--split-->' %}
+<div class="page-width">
+  <div class="single_product__description">
+    <div class="product__description">
+      
+      <div class="product-single__description rte">
+        {% for description in main_description %}
+          {% if forloop.index == 1 %}  
+              {{ description }}
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class="product-brand_description">
+        {% for description in main_description %}
+          {% if forloop.index == 2 %}  
+              {{ description }}
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>

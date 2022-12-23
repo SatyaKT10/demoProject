@@ -1,0 +1,33 @@
+<div class="section_seven cropHome">
+  <a href="/collections/all">
+    <img src="{{section.settings.MainBannerD | img_url: 'master'}}" class="mobile_none" />
+    <img src="{{section.settings.MainBannerM | img_url: 'master'}}" class="desktop_none" />
+  </a>
+</div>
+
+
+
+{% schema %}
+{
+   "name":"Homepage Static Banner",
+   "settings":[
+      {  
+        "id":"MainBannerD",
+        "type":"image_picker",
+        "label":"BannerDesktop"
+      },
+	  {  
+        "id":"MainBannerM",
+        "type":"image_picker",
+        "label":"BannerMobile"
+      }
+   ],
+
+   "presets":[
+      {
+         "name":"Homepage Static Banner",
+         "category":"collection"
+      }
+   ]
+}
+{% endschema %}

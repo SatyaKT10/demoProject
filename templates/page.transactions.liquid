@@ -1,0 +1,1060 @@
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+<style>
+  .transaction__bg .order-header {
+    color: black;
+    font-weight: 700;
+    font-size: 17px;
+    text-align: center;
+    padding: 10px 0px;
+  }
+  .transactions-page-width{
+      padding-top:0px; 
+    }
+  @media(max-width:749px){
+    .transaction__bg .order-header {
+      display:none
+    }
+    .transactions-page-width{
+      padding-top:52px; 
+    }
+  }
+  </style>
+{% include 'mobile-header' %}
+
+<div class="loader-main">
+	<p><img class=" lazyloaded" src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/image_2.png?v=1640198349" data-src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/image_2.png?v=1640198349" alt="Aqualens Contact lenses"></p>
+</div>
+
+<div class="transaction__bg">
+   <div class="order-header"> My Transactions </div>
+<div class="transactions-page-width" style="background: #F8F8F8;margin-bottom: -5px;">
+  {% render 'background-look' %}
+  <div class="transactions__nav-wrapper">
+    <div class="transactions__nav">
+<!--       <div class="nav__box">
+        All
+      </div>
+   <div class="nav__box">
+        Refunds
+      </div>
+      <div class="nav__box">
+        Cashback
+      </div>
+      <div class="nav__box">
+        Pending
+      </div> -->
+    </div>
+  </div>
+  <div class="transactions__container">
+    <div class="transaction__content">
+      <div class="transactions__nav-wrapper-desktop">
+        <div class="transactions__nav">
+          <div class="nav__box">
+            All Transactions
+          </div>
+<!--           <div class="nav__box">
+            Refunds
+          </div>
+          <div class="nav__box">
+            Cashback
+          </div>
+          <div class="nav__box">
+            Pending
+          </div> -->
+        </div>
+      </div>
+      <div class="transactions__wrapper">
+
+      </div>
+    </div>
+    <div class="transactions__filters">
+      <div class="transactions__filters-nav">
+        <div class="filters-nav-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="14" viewBox="0 0 18 14" fill="none">
+            <path d="M7.00004 0.341797C6.74416 0.341797 6.48801 0.441219 6.29301 0.636719L0.636756 6.29297C0.245756 6.68397 0.245756 7.31703 0.636756 7.70703L6.29301 13.3633C6.68401 13.7543 7.31707 13.7543 7.70707 13.3633L7.79301 13.2773C8.18401 12.8863 8.18401 12.2533 7.79301 11.8633L3.92972 8H17C17.552 8 18 7.552 18 7C18 6.448 17.552 6 17 6H3.92972L7.79301 2.13672C8.18401 1.74572 8.18401 1.11266 7.79301 0.722656L7.70707 0.636719C7.51157 0.441219 7.25591 0.341797 7.00004 0.341797Z" fill="#474747"/>
+          </svg>
+        </div>
+        <div class="filters-nav-title">
+          Filter By
+        </div>
+        <div class="header__cart">
+          <a href="/cart">
+            <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
+              <path d="M7.25277 0.75C6.98333 0.75 6.71413 0.853582 6.50863 1.05908L5.75277 1.81494H8.75277L7.99691 1.05908C7.79141 0.853582 7.52221 0.75 7.25277 0.75ZM11.0028 0.75C10.7333 0.75 10.4641 0.853582 10.2586 1.05908L9.50277 1.81494H12.5028L11.7469 1.05908C11.5414 0.853582 11.2722 0.75 11.0028 0.75ZM2.55941 1.81494L1.25423 1.8252C1.15495 1.82464 1.05655 1.84381 0.964732 1.88158C0.872914 1.91935 0.789507 1.97497 0.719349 2.04522C0.649191 2.11547 0.593678 2.19895 0.556027 2.29081C0.518377 2.38268 0.499339 2.48111 0.500018 2.58039C0.500696 2.67967 0.521078 2.77782 0.559981 2.86917C0.598884 2.96051 0.655533 3.04322 0.726645 3.11251C0.797757 3.18179 0.881916 3.23626 0.974242 3.27277C1.06657 3.30928 1.16522 3.3271 1.26449 3.3252L2.06722 3.31934L4.53695 9.24609L3.639 10.6816C3.01024 11.6857 3.77478 13.0649 4.95882 13.0649H13.2528C13.3522 13.0663 13.4508 13.048 13.5431 13.0109C13.6353 12.9739 13.7192 12.9188 13.79 12.8491C13.8608 12.7793 13.917 12.6961 13.9553 12.6044C13.9937 12.5127 14.0134 12.4143 14.0134 12.3149C14.0134 12.2155 13.9937 12.1171 13.9553 12.0255C13.917 11.9338 13.8608 11.8506 13.79 11.7808C13.7192 11.711 13.6353 11.656 13.5431 11.619C13.4508 11.5819 13.3522 11.5635 13.2528 11.5649H4.95882C4.87537 11.5649 4.86575 11.5485 4.91048 11.477C4.91097 11.4771 4.91146 11.4771 4.91195 11.477L5.79378 10.0649H11.3939C11.9384 10.0649 12.4409 9.76922 12.7049 9.29297L15.4061 4.42822C15.6843 3.92872 15.3228 3.31494 14.7513 3.31494H3.69027L3.25814 2.27637C3.20075 2.1387 3.10362 2.02127 2.97915 1.93908C2.85469 1.85689 2.70855 1.81367 2.55941 1.81494ZM5.00277 13.8149C4.60494 13.8149 4.22341 13.973 3.94211 14.2543C3.6608 14.5356 3.50277 14.9171 3.50277 15.3149C3.50277 15.7128 3.6608 16.0943 3.94211 16.3756C4.22341 16.6569 4.60494 16.8149 5.00277 16.8149C5.40059 16.8149 5.78212 16.6569 6.06343 16.3756C6.34473 16.0943 6.50277 15.7128 6.50277 15.3149C6.50277 14.9171 6.34473 14.5356 6.06343 14.2543C5.78212 13.973 5.40059 13.8149 5.00277 13.8149ZM12.5028 13.8149C12.1049 13.8149 11.7234 13.973 11.4421 14.2543C11.1608 14.5356 11.0028 14.9171 11.0028 15.3149C11.0028 15.7128 11.1608 16.0943 11.4421 16.3756C11.7234 16.6569 12.1049 16.8149 12.5028 16.8149C12.9006 16.8149 13.2821 16.6569 13.5634 16.3756C13.8447 16.0943 14.0028 15.7128 14.0028 15.3149C14.0028 14.9171 13.8447 14.5356 13.5634 14.2543C13.2821 13.973 12.9006 13.8149 12.5028 13.8149Z" fill="#4F4F4F"/>
+              </svg></span>
+            <span class="cart-count"> {{ cart.item_count }}</span>
+          </a>
+        </div>
+      </div>
+      <div class="transactions__filters-wrapper">
+      <div class="transactions__filters-headings">
+        <a href="#filters-content-1" class="filters-header-link">
+          <p class="filters-header">
+            Time Period
+          </p>
+          <div class="filters-header-icon-wrapper"><span class="filters-header-icon filters-radio-icon"></span></div>
+        </a>
+        <a href="#filters-content-2" class="filters-header-link">
+          <p class="filters-header">
+            Payment Type
+          </p>
+          <div class="filters-header-icon-wrapper"><span class="filters-header-icon"></span></div>
+        </a>
+        <a href="#filters-content-3" class="filters-header-link">
+          <p class="filters-header">
+            Payment Method
+          </p>
+          <div class="filters-header-icon-wrapper"><span class="filters-header-icon"></span></div>
+        </a>
+      </div>
+      <div class="transactions__filters-contents">        
+        <div class="filters-contents-wrapper" id="filters-content-1">
+          <div class="filter-content-data">
+            <input type="radio" id="time-period1" value="current" name="time-period">
+            <label for="time-period1" class="filter-content-text">
+              Current Month <span></span>
+            </label>            
+          </div>
+          <div class="filter-content-data">
+            <input type="radio" id="time-period2" value="1" name="time-period">
+            <label for="time-period2" class="filter-content-text">
+              Last Month <span></span>
+            </label>
+          </div>
+          <div class="filter-content-data">
+            <input type="radio" id="time-period3" value="3" name="time-period">
+            <label for="time-period3" class="filter-content-text">
+              Last 3 Months <span></span>
+            </label>
+          </div>
+          <div class="filter-content-data">
+            <input type="radio" id="time-period4" value="last_year" name="time-period">
+            <label for="time-period4" class="filter-content-text">
+              Last Year<span></span>
+            </label>
+          </div>
+          <div class="filter-content-data">
+            <input type="radio" id="time-period5" value="date_range" name="time-period">
+            <label for="time-period5" class="filter-content-text">
+              Custom Range<span></span>
+            </label>
+          </div>
+          <div class="filter-content-custom">
+            <div class="from-date date-wrapper">
+              <label class="date-text" for="fromDate">
+                From
+              </label>
+              <input type="text" id="fromDate" name="from" placeholder="Start Date" autocomplete="off" disabled>
+              <i class="date__arrow-down"></i>
+            </div>
+            <div class="to-date date-wrapper">
+              <label class="date-text" for="toDate">
+                To
+              </label>
+              <input type="text" id="toDate" name="to" placeholder="End Date" autocomplete="off" disabled>
+              <i class="date__arrow-down"></i>
+            </div>
+          </div>
+        </div>
+        <div class="filters-contents-wrapper" id="filters-content-2">
+          <div class="filter-content-header">
+            <input type="checkbox" id="payment-type1" value="debit" name="payment-type">
+            <label for="payment-type1" class="filter-content-text">
+              Debit
+            </label>
+          </div>
+          <div class="filter-content-header">
+            <input type="checkbox" id="payment-type2" value="credit" name="payment-type">
+            <label for="payment-type2" class="filter-content-text">
+              Credit
+            </label>
+          </div>
+          <div class="filter-content-header">
+            <input type="checkbox" id="payment-type3" value="aquawallet" name="payment-type">
+            <label for="payment-type3" class="filter-content-text">
+              Wallet
+            </label>
+          </div>
+        </div>
+        <div class="filters-contents-wrapper" id="filters-content-3">
+          <div class="filter-content-header">
+            <input type="checkbox" id="payment-method1" value="card" name="payment-method">
+            <label for="payment-method1" class="filter-content-text">
+              Credit/Debit Card
+            </label>
+          </div>
+          <div class="filter-content-header">
+            <input type="checkbox" id="payment-method2" value="netbanking" name="payment-method">
+            <label for="payment-method2" class="filter-content-text">
+              Net Banking
+            </label>
+          </div>
+          <div class="filter-content-header">
+            <input type="checkbox" id="payment-method3" value="upi" name="payment-method">
+            <label for="payment-method3" class="filter-content-text">
+              UPI
+            </label>
+          </div>
+          <div class="filter-content-header">
+            <input type="checkbox" id="payment-method4" value="others" name="payment-method">
+            <label for="payment-method4" class="filter-content-text">
+              Others
+            </label>
+          </div>
+          <div class="filter-content-header">
+            <input type="checkbox" id="payment-method5" value="e-wallet" name="payment-method">
+            <label for="payment-method5" class="filter-content-text">
+              Aquawallets
+            </label>
+          </div>
+          <div class="filter-content-header">
+            <input type="checkbox" id="payment-method6" value="cod" name="payment-method">
+            <label for="payment-method6" class="filter-content-text">
+              COD
+            </label>
+          </div>
+        </div>
+      </div>
+      </div>
+      <div class="date__error-wrapper">
+        <div class="date-error">Please Choose Start & End Date</div>
+      </div>
+      <div class="transactions__filters-footer">
+        <button class="filter-btn-submit">Submit</button>
+        <button class="filter-btn-cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+  <div class="transactions__filter-btn">
+    <button class="filter-btn">Filter</button>
+  </div>
+</div>
+</div>
+<style>
+  .transactions__nav-wrapper {
+    background: #FFFFFF;
+    border-bottom: 1px solid #E0E0E0;
+    padding: 0 20px;
+  }
+  .transactions__nav-wrapper-desktop {
+    background: #FFFFFF;
+    border-bottom: 1px solid #E0E0E0;
+    padding: 0 20px;
+  }
+  .transactions__nav-wrapper-desktop{
+    display:none;
+  }
+  .transactions__nav {
+    display: flex;
+    justify-content: center;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #666666;
+  }
+  .nav__box {
+    padding: 12px 0 11px;
+  }
+  .nav__box-active{
+    color: #00BAC6;
+    border-bottom: 2px solid #00BAC6;
+  }
+  .transactions__details {
+    background: #FFFFFF;
+    padding: 15px;
+    margin-bottom: 4px;
+  }
+  .transactions__content {
+    display: grid;
+    grid-auto-flow: column;
+    column-gap: 10px;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  .transactions__name {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #333333;
+    margin: 0;
+    text-transform: capitalize;
+  }
+  .transactions__date {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 15px;
+    color: #333333;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  .transactions__title {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 15px;
+    color: #999999;
+    margin: 0;
+  }
+  .transactions__text {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    color: #666666;
+    margin: 0;
+  }
+  .transactions__amount {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+    color: #333333;
+    text-align: right;
+  }
+  .transactions__price{
+    display: inline-block;
+    background: rgba(243, 113, 109, 0.1);
+    border-radius: 21px;
+    padding: 7px 10px;
+  }
+  .transactions__time {
+    padding-left: 5px;
+  }
+  .transactions__filter-btn {
+    padding: 10px 15px;
+    background: #FFFFFF;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 999;
+    border-top: 1px solid #E0E0E0;
+  }
+  button.filter-btn {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: center;
+    color: #00BAC6;
+    border: 1px solid #00BAC6;
+    border-radius: 4px;
+    width: 100%;
+    background: #FFFFFF;
+    padding: 12px 0px;
+  }
+  .transactions__filters {
+    background: #FFFFFF;
+    top: 0;
+    left: -100%;
+    flex: 1 1 100%;
+    max-width: 100%;
+    position: fixed;
+    width: 100%;
+    background: #fff;
+    z-index: 1001;
+  }
+  .transactions__filters-wrapper{
+    display: flex;
+    height: calc(100vh - 119px);
+  }
+  .transactions__filters-headings {
+    flex: 1 1 40%;
+    max-width: 40%;
+    border-right: 1px solid #E0E0E0;
+  }
+  .transactions__filters-contents {
+    flex: 1 1 60%;
+    max-width: 60%;
+    padding: 15px 19px 15px 15px;
+  }
+  .filters-header {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #333333;
+    padding: 15px 16px;
+    margin:0;
+ }
+  .filters-header-active{
+    background: rgba(0, 156, 224, 0.1);
+  }
+  .filter-content-header {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    color: #666666;
+    padding: 14px 0px;
+  }
+  .date-wrapper {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 21px;
+    color: #666666;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-bottom: 17px;
+    position: relative;
+ }
+  .date-wrapper input{
+    flex: 1 1 65%;
+    max-width: 65%;
+  }
+  .date-wrapper .date-text{
+    flex: 1 1 35%;
+    max-width: 35%;
+    padding-right: 10px;
+    text-align: right;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 21px;
+    color: #666666;
+  }
+  .transactions__container {
+/*     display: flex;
+    flex-wrap: wrap; */
+/*     height: 100vh;
+    overflow: auto; */
+    margin-bottom:20px;
+  }
+  .transactions__wrapper {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+  .filters-contents-wrapper{
+    display: none;
+  }
+  .filters-content-active{
+    display: block;
+  }
+  .transactions__filters-nav {
+    display: flex;
+    padding: 13px 20px;
+    border-bottom: 1px solid #D8D8D8;
+    justify-content: space-between;
+  }
+  .filters-nav-icon {
+    cursor: pointer;
+  }
+  .filters-nav-title {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #333333;
+  }
+  .transactions__filters-footer {
+    padding: 10px 15px;
+    width: 100%;
+    border-top: 1px solid #E0E0E0;
+    display: flex;
+  }
+  .filter-btn-submit {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: center;
+    color: #FFFFFF;
+    border: 1px solid #00BAC6;
+    border-radius: 4px;
+    max-width: 100%;
+    padding: 12px 0px;
+    flex: 1 1 50%;
+    margin-right: 10px;
+    background: #00BAC6;
+  }
+  .filter-btn-cancel {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: center;
+    color: #00BAC6;
+    border: 1px solid #00BAC6;
+    border-radius: 4px;
+    max-width: 100%;
+    background: #FFFFFF;
+    padding: 12px 0px;
+    flex: 1 1 50%;
+  }
+  .filters-header-link{
+    display: block;
+    position: relative;
+    max-width: 100%;
+  }
+  .filters-header-icon-wrapper{
+    position: absolute;
+    top: 8px;
+    right: 12px;
+  }
+  .filters-header-icon {
+    display: none;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 6px;
+    width: 6px;
+    background-color: #00BAC6;
+    border-radius: 50%;
+  }
+  .filters-header-icon-active{
+    display: block;
+  }
+  .filter-content-data input[type="radio"]{
+    display:none;
+  }
+  .filter-content-data .filter-content-text{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    color: #666666;
+    padding: 14px 0px;
+    margin: 0;
+  }
+  .filter-content-data input[type="radio"] + label span {
+    display:inline-block;
+    width:13px;
+    height:13px;
+    cursor:pointer;
+    -moz-border-radius:  50%;
+    border-radius:  50%;
+    border: .1rem solid #00BAC6;
+  }
+  .filter-content-data input[type="radio"]:checked + label span{
+    background: radial-gradient(#00BAC6 0%, #00BAC6 40%, transparent 50%, transparent);
+  }
+  .date__error-wrapper{
+    padding: 10px 15px;
+    width: 100%;
+    display: none;
+    position: fixed;
+    left: 0;
+    bottom: 68px;
+    background: #FFFFFF;
+    transition: all 0.5s ease;
+  }
+  .date-error{
+    background: #333333;
+    border-radius: 4px;
+    padding: 12px 15px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #FFFFFF;
+  }
+  .date__arrow-down{
+    border: solid #4F4F4F;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 2px;
+    position: absolute;
+    right: 14px;
+    top: 15px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+  }
+  .no_transaction {
+    margin-top: 50px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    color: #999999;
+  }
+  
+  .filter-content-header input[type="checkbox"]{
+    display: none;
+  }
+  .filter-content-header input[type="checkbox"] +label{
+    position: relative;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    font-size: 14px;
+  }
+  .filter-content-header input[type="checkbox"] +label:before{
+    content: '';
+    display: inline-block;
+    vertical-align: text-top;
+    width: 12px;
+    height: 12px;
+    background: white;
+    border:  1px solid #00BAC6;
+    box-shadow: 0 0 0 1px #00bac6;
+  }
+  .filter-content-header input[type="checkbox"]:checked +label:before{
+    background: #00BAC6;
+  }
+  .filter-content-header input[type="checkbox"]:checked +label:after{
+    content: "";
+    position: absolute;
+    right: 4px;
+    top: 6px;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  @media(min-width:749px){
+    .transactions__container {
+      display: flex;
+      flex-wrap: unset;
+      height: unset;
+      overflow: unset;
+      width: 60%;
+      gap: 20px;
+      margin: auto;
+      justify-content:center;
+    }
+    .transactions__filters{
+      display:none !important;
+    }
+
+    .transactions__wrapper {
+      max-width: 100%;
+      flex: 0 0 50%;
+    }
+    .transactions-page-width {
+      position:relative !important;
+    }
+    
+    .transaction__bg{
+      background:#F8F8F8;
+      
+    }
+    .footer_content{
+      display:none;
+    }
+    .footer-bg-img{
+      display:none;
+    }
+    .transactions__filters-nav
+    .filters-nav-icon,
+    .transactions__filters-nav
+    .header__cart{
+      display:none;
+    }
+    .transactions__filter-btn{
+      display:none;
+    }
+    .transactions__filters {
+      background: #FFFFFF;
+      top: unset;
+      left: unset;
+      flex: 0 0 50%;
+      max-width: 100%;
+      position: unset;
+      width: 100%;
+      background: #fff;
+      z-index:unset;
+      height: 100%;
+    }
+    .transactions__filters-wrapper{
+      height:unset;
+    }
+    .transactions__nav-wrapper{
+      width: 29.2%;
+      margin-left: 20%;
+    }
+    .transactions__nav-wrapper{
+      display:none;
+    }
+    .transactions__nav-wrapper-desktop{
+      display:block;
+    }
+    .transaction__content {
+      flex: 0 0 50%;
+    }
+  }
+  @media(max-width:749px){
+    .footer_content{
+      display:none;
+    }
+    .transactions__filters{
+      display:block !important;
+    }
+  }
+  
+  
+  
+   .loader-main {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    z-index: 999999999;
+    /*   background: rgba(0,0,0,0.31); */
+    background:white;
+    opacity: 0.9;
+  }
+  .loader-main p{
+    /*     background: #ddd; */
+    height: 100px;
+    /*     border-radius: 1000px; */
+    width: 100px;
+
+  }
+</style>
+
+<script>
+  //json data
+  function loadjsonData(customerId,dateFilter,paymentMode,paymentType,startDate,endDate){
+    $.ajax({
+      type: 'GET',
+      url: baseURL+'/api/transactions',
+      data: {
+        "customer_id": customerId,
+        "date_filter":dateFilter,
+        "payment_mode":paymentMode,
+        "payment_type":paymentType,
+        "start_date": startDate,
+        "end_date": endDate
+      },
+      dataType: 'json',
+    })
+    .done(function(response) {
+      if(response.status == true){
+        $('.loader-main').hide();
+        render(response.transactions);
+      }
+    })
+    .fail(function(error){
+      console.log("Error",error);
+    })
+  }
+  
+  //html render function helper
+  function render(transactionsData){
+    if(transactionsData.length != 0){
+      let transactionsConatiner = "";
+      transactionsData.forEach(function(i){
+        if(i){
+          let timeStamp = new Date(i.payment_timestamp);
+
+          let options = {
+            year: "2-digit",
+            month: "short",
+            day: "numeric",
+          }
+          let options2 = {
+            hour: "numeric",
+            minute: "numeric",
+          }
+
+          let date = Intl.DateTimeFormat("en-IN", options).format(timeStamp); //timeStamp.toDateString();
+          let time = Intl.DateTimeFormat("en-IN", options2).format(timeStamp); //timeStamp.toLocaleTimeString();
+          let paymentMode = i.payment_mode;
+          if(paymentMode == "cod"){
+            paymentMode = "COD";
+          }
+          let orderId;
+          if(i.shopify_order_id){
+            orderId = i.shopify_order_id;
+          }else{
+            orderId = i.wallet_id;
+          }
+
+          let paymentId;
+          if(i.payment_id){
+            paymentId = i.payment_id;
+          }else{
+            paymentId = i.razor_payment_id;
+          }
+
+
+          let htmlData = `<div class="transactions__details">
+			<p class="transactions__name">${paymentMode}</p>
+			<p class="transactions__date">${date}<span class="transactions__time">(${time})</span> </p>
+			<div class="transactions__content">
+				<div class="transactions__order">
+					<p class="transactions__title">Order ID</p>
+					<p class="transactions__text">${orderId}</p>
+  				</div>
+				<div class="transactions__id">
+					<p class="transactions__title">Transaction ID</p>
+					<p class="transactions__text">${paymentId}</p>
+  				</div>
+				<div class="transactions__amount">
+					<p class="transactions__price">Rs. ${i.amount}</p>
+  				</div>
+  			</div>
+  		  </div>`
+          transactionsConatiner = transactionsConatiner + htmlData;
+        }
+      })
+      $(".transactions__wrapper").html(transactionsConatiner);
+    }else{
+      $(".transactions__wrapper").html('<div class="no_transaction">No Transaction to show.<br>Choose Other Filter.</div>');
+    }
+  }
+  
+  $(document).ready(function() {
+    
+    // For Nav bar on Transaction
+    let $navBox = $('.nav__box');
+    $('.nav__box:first').addClass('nav__box-active');
+    $navBox.on('click', function() {
+      let $self = $(this);
+      $navBox.removeClass('nav__box-active');
+      $self.addClass('nav__box-active');
+    });
+    
+    // Initial Tranaction Load with none filter selected
+    let customerId = '{{ customer.id }}';
+    let dateFilter = "";
+    let paymentMode = [];
+    let paymentType = [];
+    let startDate = "";
+    let endDate = "";
+    loadjsonData(customerId,dateFilter,paymentMode,paymentType,startDate,endDate)
+    
+    //Toggling class on the basis of selected header in filter
+    
+    let $title = $('.filters-header');
+    let $content = $('.filters-contents-wrapper');
+    $('.filters-header:first').addClass('filters-header-active');
+    $('.filters-contents-wrapper:first').addClass('filters-content-active')
+    $title.on('click', function() {
+      let $self = $(this);
+      $title.removeClass('filters-header-active');
+      $self.addClass('filters-header-active');
+    });
+
+    $(".filters-header-link").click(function(e) {
+      let scrollBlock = $(this).attr("href");
+      $content.removeClass('filters-content-active');
+      $(scrollBlock).addClass('filters-content-active');
+      return false;
+    });
+    
+    // Open Filter on click of filter button
+    let $filterButton = $('.filter-btn');
+    let $filterContent = $('.transactions__filters');
+    $filterButton.on("click",function(){
+      if(!$filterContent.hasClass("has--opened")){
+        $filterContent.addClass("has--opened");
+        $filterContent.animate({left:"0"},500);
+      }
+    });
+    
+    // Select Time Period
+    $('[name="time-period"]').click(function(){
+      //$('.filters-radio-icon').hide();
+      dateFilter = $(this).val();
+      $('[name="time-period"]').removeClass("filter-active");
+      $(this).addClass("filter-active");
+      if(dateFilter == "date_range"){
+        $("#fromDate").prop('disabled', false);
+        $("#toDate").prop('disabled', false);
+        $("#fromDate").trigger("change");
+        $("#toDate").trigger("change");
+      }else{
+        $("#fromDate").prop('disabled', true)
+        .val("");
+        $("#toDate").prop('disabled', true)
+        .val("");
+      }
+
+      // Add active blue dot on title      
+      let contentId = "#"+$(this).parents('.filters-content-active').attr("id")
+      $(".filters-header-link").each(function(i,e){
+        let headerLink = $(e).attr("href");
+        if(headerLink == contentId){
+          $('[href = '+ contentId +']').find('.filters-radio-icon').show();       
+        }
+      })
+
+    })
+
+    // Select Payment Type
+    $('[name="payment-type"]').click(function(){
+      $(this).toggleClass("filter-active");
+      
+      // Remove Filter from paymentType array if unchecked after checked
+      if($(this).prop('checked')){
+      	paymentType.push($(this).val());
+      }	else{
+        paymentType = $(paymentType).not([$(this).val()]).get();
+      }
+      
+      // Add and remove active blue dot on title on basis of selected filter
+      let contentId = "#"+$(this).parents('.filters-content-active').attr("id")
+      $(".filters-header-link").each(function(i,e){
+        let headerLink = $(e).attr("href");
+        if(headerLink == contentId){
+          if($('[name="payment-type"]:checked').length !=0 ){
+            $('[href = '+ contentId +']').find('.filters-header-icon').show();
+          }
+          else{
+            $('[href = '+ contentId +']').find('.filters-header-icon').hide();
+          }
+        }
+      })
+    })
+    
+    // Select Payment Method
+    $('[name="payment-method"]').click(function(){
+      $(this).toggleClass("filter-active");
+      let $self = $(this);
+      
+      // Remove Filter from paymentMode array if unchecked after checked
+      if($(this).prop('checked')){
+      	paymentMode.push($(this).val());
+      }	else{
+        paymentMode = $(paymentMode).not([$(this).val()]).get();
+      }
+      
+      // Add and remove active blue dot on title on basis of selected filter
+      let contentId = "#"+$(this).parents('.filters-content-active').attr("id")
+      $(".filters-header-link").each(function(i,e){
+        let headerLink = $(e).attr("href");
+        if(headerLink == contentId){
+          if($('[name="payment-method"]:checked').length !=0 ){
+            $('[href = '+ contentId +']').find('.filters-header-icon').show();
+          }
+          else{
+            $('[href = '+ contentId +']').find('.filters-header-icon').hide();
+          }
+        }
+      })
+    })
+    
+    
+    // submit button
+    $('.filter-btn-submit').click(function(){
+      startDate = $("#fromDate").val();
+      endDate = $("#toDate").val();
+      
+      // Helper in removal of unsubmitted selected filter
+      $('[name="time-period"]').removeClass("filter-submit");
+      $('[name="payment-type"]').removeClass("filter-submit");
+      $('[name="payment-method"]').removeClass("filter-submit");
+      $(".filter-active").addClass("filter-submit");
+      
+      // To Load HTML
+      if((dateFilter === "date_range") && (startDate == "" || endDate == "")){
+        $('.filters-nav-icon').css({
+          "cursor": "auto",
+          "pointer-events": "none"
+        }); 
+        $('.filter-btn-cancel').prop('disabled',true);
+        $(".date__error-wrapper").show();
+        setTimeout(function() { 
+          $('.date__error-wrapper').fadeOut(); 
+        }, 1000);
+      }else{
+        $(".transactions__wrapper").html("");
+        loadjsonData(customerId,dateFilter,paymentMode,paymentType,startDate,endDate);
+		
+        $('.filters-nav-icon').css({
+          "cursor": "pointer",
+          "pointer-events": "auto"
+        });  
+        $('.filter-btn-cancel').prop('disabled',false);
+        
+        // To close Filter slider
+        if($filterContent.hasClass("has--opened")){
+          $filterContent.removeClass("has--opened");
+          $filterContent.animate({left:"-100%"},500);
+        }
+      }
+    })
+    
+    //close filter on click
+    let closeFilter = $('.filters-nav-icon, .filter-btn-cancel');
+    closeFilter.click(function(){
+
+	  // To remove unsubmitted selected filter
+      
+      $(".filter-active").trigger("click");
+      $(".filter-active").prop('checked',false);
+      $(".filter-active").removeClass("filter-active");
+      $(".filter-submit").each(function(i,ele){
+        $(ele).trigger("click");
+        $(ele).prop('checked',true);
+        $(ele).addClass("filter-active");
+      })
+      if(startDate != "" && endDate != ""){
+        $("#fromDate").val(startDate);
+        $("#toDate").val(endDate);
+      }
+      if($('[name="time-period"]:checked').length == 0){
+        $('.filters-radio-icon').hide();
+        dateFilter = "";
+        $("#fromDate").prop('disabled', true)
+        .val("");
+        $("#toDate").prop('disabled', true)
+        .val("");
+      }
+
+      // To close Filter slider
+      if($filterContent.hasClass("has--opened")){
+        $filterContent.removeClass("has--opened");
+        $filterContent.animate({left:"-100%"},500);
+      }
+    })
+    
+    //Date Range for Start and End Date
+    let dateFormat = "mm/dd/yy";
+    var from = $( "#fromDate" ).datepicker()
+    .on( "change", function() {
+      to.datepicker( "option", "minDate", getDate( this ) );
+    });
+    var to = $( "#toDate" ).datepicker()
+    .on( "change", function() {
+      from.datepicker( "option", "maxDate", getDate( this ) );
+    });
+
+    function getDate( element ) {
+      var date;
+      try {
+        date = $.datepicker.parseDate( dateFormat, element.value );
+      } catch( error ) {
+        date = null;
+      }
+      return date;
+    }
+  })
+</script>

@@ -1,0 +1,24 @@
+<!-- page-breadcrumb -->
+
+<div class="page-width"> 
+  <div class="container page-breadcrumb">
+    <div class="row mm-collection-breadcrumb">
+	  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <nav class="breadcrumb" role="navigation" aria-label="breadcrumbs">
+          <a href="/" title="Home">Home</a>  
+          {% if template contains 'page' and page.url %}
+            <span aria-hidden="true">></span>
+            {% if current_tags %}
+              {% capture url %}/collections/{{ page.handle }}{% endcapture %}
+              {{ page.title | link_to: url }}
+              <span aria-hidden="true">/</span>
+              <span>{{ current_tags | join: " + " }}</span>
+            {% else %}
+              <span class="collection-title">{{ page.title }}</span>
+            {% endif %}
+          {% endif %}
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>

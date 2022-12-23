@@ -1,0 +1,40 @@
+<style>
+  .offer_info_section {
+    border-bottom: 1px solid #d8d8d8;
+    margin-bottom: 20px;
+    padding: 0px 0px 20px;
+  }
+  .offer_info_section h2 {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 21px;
+    color: #43a047;
+    text-transform: capitalize;
+  }
+  .offers_data_list {
+    display: flex;
+    flex-wrap: wrap;
+}
+p.offer_list_data {
+    flex: 0 0 48%;
+    padding:0 10px 0 0;
+}
+  .offer_info_section .offers_data_list p{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    color: #333333;
+    padding-top: 5px;
+    margin-bottom : 4px;
+  }
+</style>
+{% if product.description contains '<!--------offerInfo--------->' %} 
+    {% assign aPlusBanner = product.description | split: '<!--------offerInfo--------->'| last%} 
+    {% assign aBanner = aPlusBanner | split: '<!--------offerInfoEnd------>' | first %}
+ {% endif %}
+ {{ aBanner }}
+ 

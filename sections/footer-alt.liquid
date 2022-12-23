@@ -1,0 +1,461 @@
+<script>
+  function getParameterValue(name){
+    name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+    var regexS = "[\\?&]"+name+"=([^&#]*)";
+    var regex = new RegExp( regexS );
+    var results = regex.exec( window.location.href );
+    if( results == null ) return "";
+    else return results[1];
+  }
+  $(document).ready(function(){
+    var check_checkout = getParameterValue('success_checkout');
+    if(check_checkout == 'true'){
+      $.ajax({
+        method: "POST",
+        url: "/cart/clear.js",
+        dataType: "json",
+        success: function(res){
+          location.href="/";
+        }
+
+
+      })
+    }
+  })
+</script>
+
+<footer class="footer__section">
+  <div class = "footer_content">
+  <div class="page-width footer__top-wrapper">   
+    <div class="grid footer_top__wrapper">
+        
+    {% for block in section.blocks %}
+      {% if block.type == 'newsletter' %}
+        <div class="grid__item newsletter__subscription footer__newsletter-block--{{block.id}} ">
+          {%if block.settings.footer_logo%}
+          <a href = "{{block.settings.footer_logo_url}}" class = "site-logo logo_click">
+            <img alt = "Aqualens contact lenses" src = "{{block.settings.footer_logo | img_url:'master'}}"/>
+          </a>
+          {%endif%}
+          <div class="newsletter__subscription-wrapper">
+            <p class = "heading">{{ block.settings.newsletter_title }}</p>
+            <div class="join-aqua">
+               <input class="stdcode_f" type="text" value="+91" disabled>
+              <input class="phone_f" type='number' pattern="[0-9\-]*"   name="tele" maxlength="10" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
+              <button class="join_club">Join The Aqua Club</button>
+            </div>
+
+            <div class="error-notification-f"></div>
+           
+             <p class = "text">{{block.settings.nl_social_share_title}}</p>
+              <ul class="no-bullets social-icons">
+                {% if settings.social_instagram_link != blank %}
+                <li>
+                  <a href="{{ settings.social_instagram_link | escape }}" target="_blank" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Instagram' }}" socialName="Instagram">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29.486 29.486">
+                      <defs>
+                        <style>
+                          .prefix__cls-1{fill:#22cfe6}
+                        </style>
+                      </defs>
+                      <g id="prefix__Icon_ionic-logo-instagram" data-name="Icon ionic-logo-instagram" transform="translate(-4.5 -4.5)">
+                        <path id="prefix__Path_52" d="M25.386 6.957a6.161 6.161 0 016.143 6.143v12.286a6.161 6.161 0 01-6.143 6.143H13.1a6.161 6.161 0 01-6.143-6.143V13.1A6.161 6.161 0 0113.1 6.957h12.286m0-2.457H13.1a8.625 8.625 0 00-8.6 8.6v12.286a8.625 8.625 0 008.6 8.6h12.286a8.625 8.625 0 008.6-8.6V13.1a8.625 8.625 0 00-8.6-8.6z" class="prefix__cls-1" data-name="Path 52"/>
+                        <path id="prefix__Path_53" d="M25.468 12.686a1.843 1.843 0 111.843-1.843 1.838 1.838 0 01-1.843 1.843z" class="prefix__cls-1" data-name="Path 53" transform="translate(1.761 .414)"/>
+                        <path id="prefix__Path_54" d="M18.622 13.707a4.914 4.914 0 11-4.914 4.914 4.919 4.919 0 014.914-4.914m0-2.457a7.372 7.372 0 107.372 7.372 7.373 7.373 0 00-7.372-7.372z" class="prefix__cls-1" data-name="Path 54" transform="translate(.622 .622)"/>
+                      </g>
+                    </svg>
+                  </a>
+                </li>
+      
+                {% if settings.social_facebook_link != blank %}
+                <li>
+                  <a href="{{ settings.social_facebook_link | escape }}" target="_blank" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Facebook' }}" socialName="Facebook">
+                    <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 14.461 27">
+                      <path id="prefix__Icon_awesome-facebook-f" d="M15.123 15.188l.75-4.886h-4.689V7.13a2.443 2.443 0 012.755-2.64h2.131V.33A25.993 25.993 0 0012.287 0C8.425 0 5.9 2.34 5.9 6.577V10.3H1.609v4.886H5.9V27h5.282V15.188z" data-name="Icon awesome-facebook-f" transform="translate(-1.609)" style="fill:#22cfe6"/>
+                    </svg>
+                  </a>
+                </li>
+                {% endif %}
+
+                {% if settings.social_youtube_link != blank %}
+                <li>
+                  <a href="{{ settings.social_youtube_link | escape }}" target="_blank" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'YouTube' }}"  socialName="YouTube">
+                    <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 35.987 25.151">
+                      <path id="prefix__Icon_simple-youtube" d="M35.243 9.307a4.51 4.51 0 00-3.132-3.132c-2.805-.752-14.094-.752-14.094-.752s-11.26-.015-14.094.752A4.51 4.51 0 00.791 9.307a46.871 46.871 0 00-.783 8.708 46.87 46.87 0 00.783 8.675 4.511 4.511 0 003.132 3.132c2.8.753 14.094.753 14.094.753s11.259 0 14.094-.753a4.511 4.511 0 003.132-3.132 46.871 46.871 0 00.75-8.674 46.87 46.87 0 00-.75-8.707zM14.413 23.4V12.612l9.4 5.4z" data-name="Icon simple-youtube" transform="translate(-.007 -5.424)" style="fill:#22cfe6"/>
+                    </svg>
+                  </a>
+                </li>
+                {% endif %}
+                {% if settings.social_twitter_link != blank %}
+                <li>
+                  <a href="{{ settings.social_twitter_link | escape }}" target="_blank" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Twitter' }}" socialName="Twitter">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30.849 25.07">
+                      <path id="prefix__Icon_metro-twitter" d="M33.419 7.785a12.654 12.654 0 01-3.635 1 6.348 6.348 0 002.783-3.5 12.67 12.67 0 01-4.019 1.536 6.335 6.335 0 00-10.785 5.773A17.968 17.968 0 014.718 5.976a6.336 6.336 0 001.959 8.45 6.3 6.3 0 01-2.867-.792v.08a6.333 6.333 0 005.077 6.206 6.339 6.339 0 01-2.858.108 6.335 6.335 0 005.912 4.4 12.7 12.7 0 01-7.86 2.709 12.836 12.836 0 01-1.51-.089 17.913 17.913 0 009.7 2.844c11.641 0 18.007-9.644 18.007-18.007q0-.412-.018-.819a12.857 12.857 0 003.158-3.276z" data-name="Icon metro-twitter" transform="translate(-2.571 -4.817)" style="fill:#22cfe6"/>
+                    </svg>
+                  </a>
+                </li>
+                {% endif %}
+
+              </ul>
+             {% endif %}
+          </div>   
+        </div>
+      {% endif %}
+    {% endfor %}
+      
+      {% for block in section.blocks %}
+      {% if block.type == 'social' %}
+        <div class="grid__item  footer__menu footer__menu-block--{{block.id}}">
+         <div class="footer__menu_container">
+           
+             <p class = "footer__menu_title">{{block.settings.nl_social_share_title}}</p>
+              <ul class="no-bullets social-icons">
+                {% if settings.social_instagram_link != blank %}
+                <li>
+                  <a href="{{ settings.social_instagram_link | escape }}" target="_blank" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Instagram' }}" socialName="Instagram">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29.486 29.486">
+                      <defs>
+                        <style>
+                          .prefix__cls-1{fill:#22cfe6}
+                        </style>
+                      </defs>
+                      <g id="prefix__Icon_ionic-logo-instagram" data-name="Icon ionic-logo-instagram" transform="translate(-4.5 -4.5)">
+                        <path id="prefix__Path_52" d="M25.386 6.957a6.161 6.161 0 016.143 6.143v12.286a6.161 6.161 0 01-6.143 6.143H13.1a6.161 6.161 0 01-6.143-6.143V13.1A6.161 6.161 0 0113.1 6.957h12.286m0-2.457H13.1a8.625 8.625 0 00-8.6 8.6v12.286a8.625 8.625 0 008.6 8.6h12.286a8.625 8.625 0 008.6-8.6V13.1a8.625 8.625 0 00-8.6-8.6z" class="prefix__cls-1" data-name="Path 52"/>
+                        <path id="prefix__Path_53" d="M25.468 12.686a1.843 1.843 0 111.843-1.843 1.838 1.838 0 01-1.843 1.843z" class="prefix__cls-1" data-name="Path 53" transform="translate(1.761 .414)"/>
+                        <path id="prefix__Path_54" d="M18.622 13.707a4.914 4.914 0 11-4.914 4.914 4.919 4.919 0 014.914-4.914m0-2.457a7.372 7.372 0 107.372 7.372 7.373 7.373 0 00-7.372-7.372z" class="prefix__cls-1" data-name="Path 54" transform="translate(.622 .622)"/>
+                      </g>
+                    </svg>
+                  </a>
+                </li>
+      
+                {% if settings.social_facebook_link != blank %}
+                <li>
+                  <a href="{{ settings.social_facebook_link | escape }}" target="_blank" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Facebook' }}" socialName="Facebook">
+                    <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 14.461 27">
+                      <path id="prefix__Icon_awesome-facebook-f" d="M15.123 15.188l.75-4.886h-4.689V7.13a2.443 2.443 0 012.755-2.64h2.131V.33A25.993 25.993 0 0012.287 0C8.425 0 5.9 2.34 5.9 6.577V10.3H1.609v4.886H5.9V27h5.282V15.188z" data-name="Icon awesome-facebook-f" transform="translate(-1.609)" style="fill:#22cfe6"/>
+                    </svg>
+                  </a>
+                </li>
+                {% endif %}
+
+                {% if settings.social_youtube_link != blank %}
+                <li>
+                  <a href="{{ settings.social_youtube_link | escape }}" target="_blank" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'YouTube' }}"  socialName="YouTube">
+                    <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 35.987 25.151">
+                      <path id="prefix__Icon_simple-youtube" d="M35.243 9.307a4.51 4.51 0 00-3.132-3.132c-2.805-.752-14.094-.752-14.094-.752s-11.26-.015-14.094.752A4.51 4.51 0 00.791 9.307a46.871 46.871 0 00-.783 8.708 46.87 46.87 0 00.783 8.675 4.511 4.511 0 003.132 3.132c2.8.753 14.094.753 14.094.753s11.259 0 14.094-.753a4.511 4.511 0 003.132-3.132 46.871 46.871 0 00.75-8.674 46.87 46.87 0 00-.75-8.707zM14.413 23.4V12.612l9.4 5.4z" data-name="Icon simple-youtube" transform="translate(-.007 -5.424)" style="fill:#22cfe6"/>
+                    </svg>
+                  </a>
+                </li>
+                {% endif %}
+                {% if settings.social_twitter_link != blank %}
+                <li>
+                  <a href="{{ settings.social_twitter_link | escape }}" target="_blank" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Twitter' }}" socialName="Twitter">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30.849 25.07">
+                      <path id="prefix__Icon_metro-twitter" d="M33.419 7.785a12.654 12.654 0 01-3.635 1 6.348 6.348 0 002.783-3.5 12.67 12.67 0 01-4.019 1.536 6.335 6.335 0 00-10.785 5.773A17.968 17.968 0 014.718 5.976a6.336 6.336 0 001.959 8.45 6.3 6.3 0 01-2.867-.792v.08a6.333 6.333 0 005.077 6.206 6.339 6.339 0 01-2.858.108 6.335 6.335 0 005.912 4.4 12.7 12.7 0 01-7.86 2.709 12.836 12.836 0 01-1.51-.089 17.913 17.913 0 009.7 2.844c11.641 0 18.007-9.644 18.007-18.007q0-.412-.018-.819a12.857 12.857 0 003.158-3.276z" data-name="Icon metro-twitter" transform="translate(-2.571 -4.817)" style="fill:#22cfe6"/>
+                    </svg>
+                  </a>
+                </li>
+                {% endif %}
+
+              </ul>
+             {% endif %}
+          </div>   
+        </div>
+      
+      {% endif %}
+    {% endfor %}
+      
+    {% for block in section.blocks %}
+      {% if block.type == 'menu' %}
+        <div class="grid__item footer__menu footer__menu-block--{{block.id}} ">
+          <div class="footer__menu_container">
+            {% if block.settings.menu_title != blank %}
+            <p class="footer__menu_title">{{ block.settings.menu_title }}</p>
+            {% endif %}
+
+            {%- assign footer_linklist = block.settings.menu -%}
+            {% if linklists[footer_linklist].links.size > 0 %}
+            <ul class="footer__menu_items">
+              {% for link in linklists[footer_linklist].links %}
+              <li class="fmenu_item"><a href="{{ link.url }}">{{ link.title }}</a></li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+
+   {% for block in section.blocks %}
+      {% if block.type == 'support' %}
+      <div class="grid__item support__section footer__support-block--{{block.id}}  ">
+        <div class="footer__menu_container">  
+          {% if block.settings.support_title != blank %}
+          <p class="footer__menu_title">{{ block.settings.support_title }}</p>
+          {% endif %}
+          <ul class="footer__menu_items">
+            <a class="phone-no" href="tel:{{block.settings.footer_phone}}">{{block.settings.footer_phone}}</a>
+            <a class="email" href ="mailTo:{{block.settings.footer_email}}">{{block.settings.footer_email}}</a>      
+            <p class="timing">{{block.settings.footer_timing}}</p>
+          </ul>
+        </div> 
+      </div>
+      {% endif %}
+    {% endfor %}
+      
+    </div>
+  </div>
+</div>
+  <div class="footer-bg-img">
+    <img alt="Aqualens contact lenses" src = "{{section.settings.footer-bg-img | img_url:'master'}}"/>
+  </div>
+</footer>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+
+    $(function(){
+      if(window.screen.width >= 1025 ) {
+        // Desktop
+        $( '.footer__menu_title' ).off( "click");
+        $('.footer__menu_container .footer__menu_items').show();
+      }
+      else {
+        //Closing all menu on mobile device
+        $('.footer__menu_container .footer__menu_items').show();
+        $( ".footer__menu_title" ).on( "click", function() {
+          $(this).parents(".footer__menu_container").toggleClass("fmenu_open");
+          $($(this).parents(".footer__menu_container")).find('.footer__menu_items').slideToggle();
+        });
+      }
+    });
+  });
+
+  $(document).ready(function () {
+    $(".social-icons li a").click(function (event) { 
+      event.preventDefault();
+//        dataLayer.push({
+//           'event': 'all_pages_3_footer_click',
+//           'pagetype': '{{template.name}}',
+//           'click_text': $(this).attr('socialName'),
+//           'logged_in_status': '{% if customer %} true {% else %} false {% endif %}'
+//         });
+      window.open( $(this).attr('href'), '_blank');
+    });
+    $(".join_club").click(function (event) {
+      dataLayer.push({
+          'event': 'all_pages_3_footer_click',
+          'pagetype': '{{template.name}}',
+          'click_text': $(this).text(),
+          'logged_in_status': '{% if customer %} true {% else %} false {% endif %}'
+        });
+      var phoneFooter = $('.phone_f').val() ;
+      if(phoneFooter != '') {
+        if(phoneFooter.match('[0-9]{10}'))  {
+          $('.otpsms-text').val(phoneFooter);
+          $("#opensigninpop").click(); 
+          $(".otpsms").click();
+        }
+        else{
+          $('.error-notification-f').text('Please Enter Complete Mobile Number');
+          $('.error-notification-f').show();
+        }
+      }
+      else {
+        $('.error-notification-f').text('Please Enter Mobile No');
+        $('.error-notification-f').show();
+      }
+    })
+  });
+</script>
+
+<style>
+  
+ 
+  {% for block in section.blocks %}
+  .footer__menu.footer__menu-block--{{block.id}}{
+    flex: 0 0 {{ block.settings.container_width }}%;
+    padding: 0;
+  }
+
+
+  .newsletter__subscription.footer__newsletter-block--{{block.id}}{
+    flex: 0 0 {{ block.settings.container_width }}%;
+  }
+  .support__section.footer__support-block--{{block.id}}{
+    flex: 0 0 {{ block.settings.container_width }}%;
+  }
+  .support__section {
+    flex:0 0 20%;
+  }
+  @media (max-width: 1024px){
+    .footer__menu.footer__menu-block--{{block.id}}{
+      flex: 0 0 100%;
+    }
+
+
+    .newsletter__subscription.footer__newsletter-block--{{block.id}}{
+      flex: 0 0 100%;
+    }
+
+
+  }
+  {% endfor %}
+
+ 
+</style>
+{% schema %}
+  {
+    "name": "Footer",
+    "max_blocks": 5,
+    "settings": [
+      {
+            "type": "image_picker",
+            "id": "footer-bg-img",
+            "label": "Footer Background Image Desktop"
+        },
+      {
+            "type": "image_picker",
+            "id": "footer-bg-img-mobile",
+            "label": "Footer Background Image Mobile"
+        }
+    ],
+  "blocks": [
+
+    {
+        "type": "support",
+        "name": "Support",
+        "limit": 1,
+        "settings": [
+          
+          {
+            "type": "range",
+            "id": "container_width",
+            "label": "Column width",
+            "default": 20,
+            "min": 15,
+            "max": 95,
+            "unit": "%"
+          },
+          {
+          "type":"text",
+          "id":"support_title",
+          "label":"Support Title",
+          "default":"Support"
+          },
+          {
+            "type": "text",
+            "id": "footer_email",
+            "label": "Footer Email"
+          },
+          {
+            "type": "text",
+            "id": "footer_phone",
+            "label": "Phone"
+          },
+          {
+            "type": "text",
+            "id": "footer_timing",
+            "label": "Phone Hours"
+          }
+        ]
+      },
+      {
+        "type": "menu",
+        "name": "Menu",
+        "settings": [
+      {
+            "type": "range",
+            "id": "container_width",
+            "label": "Column width",
+            "default": 20,
+            "min": 15,
+            "max": 95,
+            "unit": "%"
+          },
+          {
+            "type": "text",
+            "id": "menu_title",
+            "label": "Heading",
+            "default": "Shop"
+          },
+          {
+            "type": "link_list",
+            "id": "menu",
+            "label": "Choose a menu",
+            "default": "footer"
+          }
+        ]
+      },
+      {
+        "type": "newsletter",
+        "name": "Newsletter",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "range",
+            "id": "container_width",
+            "label": "Column width",
+            "default": 20,
+            "min": 15,
+            "max": 95,
+            "unit": "%"
+          },
+          {
+            "type": "image_picker",
+            "id": "footer_logo",
+            "label": "Footer Logo"
+          },
+          {
+            "type": "url",
+            "id": "footer_logo_url",
+            "label": "Footer Logo Url"
+          },
+          {
+            "type": "text",
+            "id": "newsletter_title",
+            "label": "Heading",
+            "default": "Newsletter"
+          },
+          {
+            "type": "checkbox",
+            "id": "nl_social_share",
+            "label": "Show Social Share Icons"
+          },
+          {
+            "type": "text",
+            "id": "nl_social_share_title",
+            "label": "Social Share Title"
+          }
+        ]
+      },
+      {
+        "type": "social",
+        "name": "social-icons",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "range",
+            "id": "container_width",
+            "label": "Column width",
+            "default": 20,
+            "min": 15,
+            "max": 95,
+            "unit": "%"
+          },
+          {
+            "type": "checkbox",
+            "id": "nl_social_share",
+            "label": "Show Social Share Icons"
+          },
+          {
+            "type": "text",
+            "id": "nl_social_share_title",
+            "label": "Social Share Title"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

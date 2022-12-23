@@ -1,0 +1,65 @@
+<section id="about_how-it-works--section"
+  data-section-type="about-image-text"
+  data-section-id="{{ section.id }}"
+  data-section-data>
+ <div class="page-width">
+   <div class="about-container">
+     <div class="about-container-wrapper">
+       <h2 class="block-heading">{{ section.settings.headertext }}</h2>
+       <center><hr class="about_hr"></center>
+       <div class="about-container_wrapper__block">
+         {% for block in section.blocks %}
+          {% assign bannerimg = block.settings.bannerimage %}
+          {% assign steptext = block.settings.steptext %}
+          {% assign content = block.settings.content %}
+         <div class="about-container_innerblock">
+           <div class="innerblock_image"><img src="{{ bannerimg | img_url: "master" }}"/></div>
+           <div class="innerblock_content">
+             <p class="innerblock_step">{{ steptext }}</p>
+             <div class="innerblock_text">{{ content }}</div>
+           </div>
+         </div>
+     {% endfor %}
+       </div>
+     </div>
+   </div>  
+ </div>
+</section>
+
+
+{% schema %}
+{
+  "name": "About Banner Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "headertext",
+      "label": "Header"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "About-banner-Image",
+  	  "type": "about-banner",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "bannerimage",
+          "label": "Banner Image"
+        },
+		{
+          "type": "text",
+          "id": "steptext",
+          "label": "Sub-Banner Header"
+    	},
+        {
+          "type": "textarea",
+          "id": "content",
+          "label": "Sub-Banner Content"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

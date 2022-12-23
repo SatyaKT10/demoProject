@@ -1,0 +1,266 @@
+<style>
+  .tax__statement-container{
+    height: 100vh;
+    overflow: auto;
+  }
+  .tax__statement-empty-msg{
+    text-align: center;    
+  }
+  .tax__statement-wrapper {
+    display: none;
+  }
+  .tax__statement-empty-msg-text{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #333333;
+    padding-bottom: 42px;
+    padding-top: 121px;
+  }
+  .btn-request{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #FFFFFF;
+    background: #00BAC6;
+    border-radius: 4px;
+    text-align: center;
+    padding: 12px 57px;
+  }
+  .tax__statement-new{
+    padding: 10px 15px;
+    background: #FFFFFF;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 999;
+    border-top: 1px solid #E0E0E0;
+  }
+  .tax__statement-new-btn{
+    background: #00BAC6;
+    border-radius: 4px;
+    text-align: center;
+    padding: 11px 0px 10px;
+  }
+  .tax__statement-new-btn a{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #FFFFFF;
+  }
+  .tax__statement-page-header {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 27px;
+    color: #333333;
+    padding: 10px 15px;
+    border-bottom: 1px solid #F2F2F2;
+  }
+  .tax__statement-content-wrapper {
+    padding: 0px 15px;
+  }
+  .tax__statement-content {
+    border-bottom: 1px solid #F2F2F2;
+    padding: 12px 0px 20px;
+  }
+  .tax__statement-label {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 15px;
+    color: #999999;
+  }
+  .tax__statement-text {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #4F4F4F;
+    padding-bottom: 15px;
+  }
+  .tax__statement-btn-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 10px;
+    padding-top: 5px;
+  }
+  .tax__statement-btn {
+    background: #FFFFFF;
+    border: 1px solid #00BAC6;
+    border-radius: 4px;
+    padding: 7px 0px;
+    text-align: center;
+  }
+  .tax__statement-btn a {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #00BAC6;
+  }
+  .file__info {
+    color: cadetblue;
+    text-transform: capitalize;
+    margin-top: 5px;
+  }
+  .no_transaction {
+    margin-top: 50px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    color: #999999;
+  }
+  
+   @media(max-width:749px){
+    .footer_content,
+    .footer-bg-img{
+      display:none;
+    }
+     .tax__statement-container {
+       height: unset;
+     }
+  }
+</style>
+{% include 'mobile-header' %}
+<div class="tax-page-width" style="padding-top:52px;">
+  <div class="tax__statement-container">
+    <div class="tax__statement-empty">
+      <div class="tax__statement-empty-msg">
+        <div class="tax__statement-empty-msg-text">
+          No Tax statement to show.<br>
+          Request a new statement
+        </div>
+        <a href="https://aqualensb2b.com/pages/tax-request" class="btn-request">Request New</a>
+      </div>
+    </div>
+    <div class="tax__statement-wrapper">
+      <div class="tax__statement-page-header">
+        Previous Tax Statements
+      </div>
+      <div class="tax__statement-content-wrapper">
+
+      </div>
+      <div class="tax__statement-new">
+        <div class="tax__statement-new-btn">
+          <a href="https://aqualensb2b.com/pages/tax-request">Request New Tax Statement</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--  <div class="file__info"></div> -->
+<script>
+  function renderTax(data){
+    $(".tax__statement-empty").hide();
+    let taxContainer = "";
+    let item_file ="";
+    data.forEach(function(item){
+	item_file =item.file;
+      let request_id = item.id;
+      let options = {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      };
+      
+      let options2 = {
+        year: "numeric",
+        month: "long",
+      };
+      
+      let requestDate = Intl.DateTimeFormat("en-IN", options).format(new Date(item.request_date));
+      let fromDate = Intl.DateTimeFormat("en-IN", options2).format(new Date(item.from_date));
+      let toDate = Intl.DateTimeFormat("en-IN", options2).format(new Date(item.to_date));
+      
+//       if(item.file != null){
+      let taxHtml = `<div class="tax__statement-content" data-tax-id='${item.id}' data-tax-name='${item.name}'>
+          <div class="tax__statement-range">
+            <div class="tax__statement-label">Date Range:</div>
+            <div class="tax__statement-text">${fromDate} - ${toDate}</div>
+          </div>
+          <div class="tax__statement-date">
+            <div class="tax__statement-label">Requested on</div>
+            <div class="tax__statement-text">${requestDate}</div>
+          </div>
+          <div class="tax__statement-btn-wrapper">
+            <div class="tax__statement-download tax__statement-btn">
+              <a href='${item.file}' download class="tax-btn download-btn">Download</a>
+            </div>
+             <div class="tax__statement-email tax__statement-btn" data-requestId="${request_id}">
+              <a href="#" class="tax-btn email-btn">Send on Email</a>
+            </div>
+          </div>
+
+        </div>`;
+//       }
+      taxContainer += taxHtml;
+    })
+    if(item_file != null){
+      $(".tax__statement-content-wrapper").html(taxContainer);
+      $(".tax__statement-wrapper").show();
+      $(".tax__statement-page-header").show();   
+    }else{
+      $(".tax__statement-content-wrapper").html('<div class="no_transaction">Files are not uploaded yet.<br> We will notify soon</div>');
+      $(".tax__statement-wrapper").show();
+      $(".tax__statement-page-header").hide();     
+    }
+  }
+  
+  
+  $(document).ready(function(){
+    let customerId = '{{ customer.id }}';
+    $.ajax({
+      method: 'GET',
+      url: baseURL+"/api/tax/status/" + customerId,
+      data: {
+        "date_filter": "",
+      },
+      dataType: 'json',
+    })
+    .done(function(response) {
+      console.log(response);
+      if(response.status == true && response.data.length){
+        renderTax(response.data);
+      }
+    })
+    .fail(function(error){
+      console.log("Error",error);
+    })
+  })
+   
+  $(document).on('click','.tax__statement-email', function(){
+    let requestId = $(this).attr("data-requestId");
+//     let $this = $(this);
+    $.ajax({
+      url: baseURL+"/api/tax/sendtoemail/"+requestId
+    })
+    .done(function(response) {
+//       $this.parents(".tax__statement-content").find(".file__info").html(response.data+".");
+//       $this.parents(".tax__statement-content").find(".file__info").show(); 
+     
+//       setTimeout(function() { 
+//         $(".file__info").fadeOut(); 
+//       }, 2000);
+    })
+    .fail(function(error){
+      console.log("Error",error);
+    })
+  })
+</script>
+

@@ -1,0 +1,8 @@
+{% layout none %}
+{% paginate collection.products by 1000 %}
+[
+  {% for product in collection.products %}
+   {{ product | json }}{% if forloop.last == false %},{% endif %}
+  {% endfor %}
+]
+{% endpaginate %}

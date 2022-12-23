@@ -1,0 +1,143 @@
+<div id="form--section">
+<div class="form_wrapper" id="landing_form">
+  <div id="header">
+    <div class="img_wrapper">
+      <img src="logo.png" alt=""/>
+    </div>
+  </div> 
+<div class="content_Wrapper upload_section" id="bank">
+    <div class="form_content" id="signup_form_content">
+      <div class="heading_content">
+        <h3>Enter Your Bank Details</h3>
+      </div>
+      <form class="signup_form" id="update_details" data-id="{{customer.id}}">
+         <div class="input_Wrapper">
+          <label> Enter Account Name *</label>
+          <input type="text" name="bank_account_name" placeholder="Enter your Account Name" id="account_name">
+          <p class="warning" id="name_error">Name cannot be empty</p>
+         </div>
+         <div class="input_Wrapper">
+          <label> Enter your Account Number *</label>
+          <input type="password" name="bank_account_number" placeholder="Enter your Account number" id="account_verify">
+         </div>
+        <div class="input_Wrapper">
+          <label>Verify your Account Number *</label>
+          <input type="text" placeholder="Enter your Account number" id="account_number">
+          <p class="warning" id="verification_failed">Account number do not match</p>
+          <p class="success" id="verification_success">Account number matched</p>
+        </div>
+         <div class="input_Wrapper">
+          <label for="enter_IFSC">Enter your IFSC Code </label>
+          <input type="text" id="enter_IFSC" class="input_field" placeholder="Enter your IFSC Number" name="ifsc_code">
+          <button id="submit_form" class="input_button">verify</button>
+         </div>
+
+      <div id="detail_form" class="signup_form" >
+        <div class="flex">
+          <div class="input_Wrapper half_width">
+            <label for="city">City</label>
+            <input type="text" placeholder=""   value="" id="city" name="billing_city" disabled>
+          </div>
+          <div class="input_Wrapper half_width">
+            <label for="bankcode">Bank Name</label>
+            <input type="text" placeholder="" name="bank_name" value=""id="bankcode" disabled>
+          </div>
+        </div>
+        <div class="flex">
+          <div class="input_Wrapper half_width">
+            <label for="state">State</label>
+            <input type="text" placeholder=""  value="" name="billing_state" id="state" disabled>
+          </div>
+          <div class="input_Wrapper half_width">
+            <label for="country">Country</label>
+            <input type="text" placeholder=""  value="" name="billing_country" id="country">
+          </div>
+        </div>
+        <div class="input_Wrapper">
+          <label for="address">Address</label>
+          <input type="text" placeholder=""  value="" id="address">
+        </div>
+
+        <a id="signup_submit" href="/pages/boarding">Signup</a>
+      </div>
+     </form>
+   </div>
+  </div>
+</div>
+  
+<script>
+
+  $(function(){
+      $('#detail_form').hide();
+     $('#submit_form').prop('disabled',true);
+  $('.warning, .success').hide();
+    $("#account_name, #account_verify, #account_number").on('keyup', function(){
+      let account_name = $("#account_name").val();
+     let account_num = $("#account_number").val();
+     let account_verify =$("#account_verify").val();
+      if(account_verify == account_num){
+      $('#verification_success').show();
+        $('#verification_failed').hide();
+      }
+      if(account_verify != account_num){
+      $('#verification_failed').show();
+        $('#verification_success').hide();
+        $('#submit_form').prop('disabled',true);
+      }
+      else if(account_num == '' && account_verify == ''){
+      $('.warning, .success').hide();
+      $('#submit_form').prop('disabled',true);
+      } 
+      else if(account_name == ''){
+         $('#submit_form').prop('disabled',true);
+         $('#name_error').show();
+      }
+      else{
+         $('#submit_form').prop('disabled',false);
+        $('.warning').hide();
+      }
+      
+    });
+    
+
+  
+  $('#submit_form').click(function(e){
+    e.preventDefault();
+    
+  let ifsc = $('.input_field').val();
+  $.ajax({
+  url: 'https://ifsc.razorpay.com/'+ifsc,
+    success: function(res){
+    console.log(res)
+    $('#city').val(""+res.CITY);
+     $('#bankcode').val(""+res.BANKCODE);
+    $('#state').val(""+res.STATE);
+      $('#country').val("INDIA");
+      $('#address').val(""+res.ADDRESS);
+      $('#detail_form').show();
+    }
+  })
+  });
+    
+    //send details
+//     $('#signup_submit').on('click', function(e){
+    //   e.preventDefault();
+//       let customer_id = $('#update_details').attr('data-id');
+//       console.log(customer_id);
+//       let url = $(this).attr('href');
+//      var data = $('#update_details').serialize();
+//       var params = {
+//         'data': data, 
+//         'customer_id': customer_id 
+//       }
+//      $.ajax({
+//       method: "POST",
+//       url: "http://lenskart.martmonk.com/website/retailerManagement/reatilerProfileUpdation",
+//        data: params
+//      })
+//       .done(function( res ){
+//         console.log(res);
+//       });
+//     })
+  });
+</script>

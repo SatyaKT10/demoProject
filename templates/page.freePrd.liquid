@@ -1,0 +1,265 @@
+<script>
+  {% if customer %}  
+  {% else %}
+  window.location.href = "https://aqualensb2b.com/account/login";
+  {% endif %}
+</script>
+
+{% include 'mobile-header' %}
+<div class="loader-main">
+	<p><img class=" lazyloaded" src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/image_2.png?v=1640198349" data-src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/image_2.png?v=1640198349" alt="Aqualens Contact lenses"></p>
+</div>
+<div class="free__prdBackground">
+   <div class="order-header">Free Products</div>
+  <div class="free__prd" >
+  </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.0.0/magnific-popup.min.css" integrity="sha512-nIm/JGUwrzblLex/meoxJSPdAKQOe2bLhnrZ81g5Jbh519z8GFJIWu87WAhBH+RAyGbM4+U3S2h+kL5JoV6/wA==" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.0.0/jquery.magnific-popup.min.js" integrity="sha512-+m6t3R87+6LdtYiCzRhC5+E0l4VQ9qIT1H9+t1wmHkMJvvUQNI5MKKb7b08WL4Kgp9K0IBgHDSLCRJk05cFUYg==" crossorigin="anonymous"></script>
+
+<style>
+  @media(max-width:749px){
+    .free__prdBackground .order-header {
+      display:none;
+    }
+  }
+  @media(min-width:749px){
+    .free__prdBackground{
+      background: #F8F8F8;
+    }
+    .free__prd{
+      height: auto;
+      border-radius: 4px;
+      background: white;
+      box-shadow: 0 0 6px #00000029;
+      max-width:500px;
+      margin:auto;
+      margin-top: 54px;
+    }
+   
+  }
+  .free__prdBackground .order-header {
+    color: black;
+    font-weight: 700;
+    font-size: 17px;
+    text-align: center;
+    padding: 10px 0px;
+  }
+  .free__prd {
+    margin-top: 0px;
+    background: #F8F8F8;
+    max-width:500px;
+    padding: 1px 0px;
+  }
+  .freePrd__card {
+    margin: 15px 15px 10px 15px;
+    padding: 15px;
+    border-radius: 4px;
+    background:#FFFFFF;
+  }
+  .freePrd__details {
+    display: flex;
+    border-bottom: 1px solid #F8F8F8;
+    padding-bottom: 16px;
+  }
+  .freePrd__img {
+    border: 1px solid #F8F8F8;
+    box-sizing: border-box;
+    border-radius: 4px;
+    max-width: 90px;
+    height: 90px;
+    margin-right:30px;
+  }
+  .freePrd__img img{
+    width: 100%;
+    height: 100%;
+  }
+  .freePrd__text {
+    flex: 0 0 55%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .freePrd__order-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+  }
+  .freePrd__order-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom:16px;
+  }
+  h4.text__heading {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 15px;
+    color: #999999;
+    margin-bottom: 1px;
+  }
+  p.text__content {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    display: flex;
+    align-items: center;
+    color: #333333;
+  }
+  .seeDetails__btn {
+    border: 1px solid #00BAC6;
+    box-sizing: border-box;
+    border-radius: 4px;
+    padding: 10px 17px 8px;
+    text-align: center;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #00BAC6;
+    cursor:pointer;
+  }
+  .seeDetails__btn a{
+    color: #00BAC6;
+  }
+  .freeSol__style{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 18px;
+    color: #999999;
+
+  }
+  .loader-main {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    z-index: 999999999;
+    background:white;
+    opacity: 0.9;
+  }
+  .loader-main p{
+    height: 100px;
+    width: 100px;
+  }
+</style>
+<script>
+  $(document).ready(function() { 
+    let custNewToken =  sessionStorage.getItem("custNewToken");
+      var creditSettings = {            
+        "url": baseURL+"/api/v1/customers/orders/credits",
+        "method":"GET",
+        "headers": {
+          "Authorization": "Bearer"+" "+custNewToken,
+        }
+      };
+      $.ajax(creditSettings).done(function (response) {
+        if(response.status == true){
+          $('.loader-main').hide();
+          if(response.data.length > 0 ){
+          
+        var freePrdContainer = '';
+        var orderEstimateDate = '';
+        console.log(response);
+        response.data.forEach(function(i){                    
+          const months = ["Jan","Feb","March","April","May","June","July","Aug","Sep","Oct","Nov","Dec"];
+          var orderD = new Date(i.order_date);
+          var orderDay = orderD.getDate();        
+          var orderMonth = months[orderD.getMonth()];
+          var orderYear = orderD.getFullYear();
+          
+          var estD = new Date(i.free_order_date);
+          var estDay = estD.getDate();
+          var estMonth = months[estD.getMonth()];
+          var estYear = estD.getFullYear();
+          var status = i.status.toLowerCase();
+          
+          var shopify_order_id = i.order_id;
+          var conditionHtml = '';
+          var orderDataHtml ='';
+          
+          if (status == "yes") {            
+            conditionHtml += `<a href="https://aqualensb2b.com/pages/order-details?order=${i.cta_id}" class="seeDetails__btn">
+                                   See Details
+                                </a>`
+            orderEstimateDate = estDay + "  " + estMonth + ", " + estYear;
+            orderDataHtml += `<div class="order__headingText order_date-none">
+                                <h4 class="text__heading">Free Order ID</h4>
+                                <p class="text__content estimateDate">${i.free_order_id}</p>
+                               </div>
+							   <div class="order__headingText order_date-none">
+                                <h4 class="text__heading">Free Order Date</h4>
+                                <p class="text__content estimateDate">${orderEstimateDate}</p>
+                               </div>`
+          }
+
+
+              let htmlData = '';
+              htmlData += `<div class="freePrd__card">
+                                          <div class="freePrd__content">
+                                              <div class="freePrd__details">
+                                                  <div class="freePrd__img">
+                                                      <img src="${i.image}" alt="">
+                                                  </div>
+                                                  <div class="freePrd__text">
+                                                      <div class="freePrd__order-details">
+                                                          <div class="order__headingText">
+                                                              <h4 class="text__heading">Order placed </h4>
+                                                              <p class="text__content">${orderDay+"  "+orderMonth+", "+orderYear}</p>
+                                                          </div>
+                                                          <div class="order__headingText">
+                                                              <h4 class="text__heading">Qty</h4>
+                                                              <p class="text__content">${i.quantity}</p>
+                                                          </div>
+                                                      </div>`
+              htmlData += conditionHtml;
+              htmlData +=  `</div>
+                           </div>
+                             <div class="freePrd__order-info">
+                              <div class="order__headingText">
+                                 <h4 class="text__heading">Order ID </h4>
+                                 <p class="text__content">${shopify_order_id}</p>
+                              </div>`
+              htmlData += orderDataHtml; 
+              htmlData +=  `</div>
+                           </div>
+                          </div>`
+
+              freePrdContainer = freePrdContainer + htmlData;
+
+        })
+        $('.free__prd').html(freePrdContainer);
+          
+          } else{
+            $('.free__prd').html('<div style="text-align:center;color:#22cfe6;padding: 100px 0px;font-size: 20px;font-weight: 600;">Order is not processed yet.</div>');
+          }
+      }else{
+        $('.loader-main').hide();
+        $('.free__prd').html('<div style="text-align:center;padding: 100px 0px;padding: 100px 0px;font-size: 20px;font-weight: 600;">No Order Found</div>');
+          }
+      }).fail(function(error){
+        $('.loader-main').hide();
+        let apiError = error.responseJSON.message;
+        errorPopup(apiError);
+          if(apiError === 'Unauthorized request'){
+          setNewToken();
+          location.reload();
+        }else{
+          errorPopup(apiError);
+        }
+      })
+   
+
+  })
+</script>

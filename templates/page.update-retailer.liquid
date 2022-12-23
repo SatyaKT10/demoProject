@@ -1,0 +1,192 @@
+{% if customer %}
+<section id="retailer-section">
+  <div class="page-width retailer-div">
+    <div class="retailer__update">
+      <div class="success-div">
+        <p class="success-msg">Your profile update request has been submitted for an approval. It will reflect on your account directly once it's approved.</p>
+        <a href="/account" class="account-btn">Go to Account</a>
+      </div>
+      
+      <form id="retailer_update" method="POST" action="https://lenskart.martmonk.com/website/retailerManagement/reatilerProfileUpdation">
+        <div class="">
+        	<div class="login__content">
+          <div class="tab__content active">
+            <h2>Basic Store Details</h2>
+            <div class="tab__content--inner">
+              <label for="facility-type">
+                <span>Product Type<sup>*</sup></span>
+                <select class="form-field required" name="facility_type[]" id="facility-type" multiple="multiple">
+                </select>
+              </label>
+              <div class="fieldset">
+                <label for="facility-code">
+                  <span>Facility Code<sup>*</sup></span>
+                  <input type="text" name="facility_code" placeholder="Enter Facility Code" class="form-field required" id="facility-code" />
+                </label>
+                <label for="facility-name">
+                  <span>Facility Name<sup>*</sup></span>
+                  <input type="text" name="facility_name" placeholder="Enter Facility Name" class="form-field required" id="facility-name" />
+                </label>
+              </div>
+              <div class="fieldset">
+                <label for="website">
+                  <span>Website</span>
+                  <input type="text" name="website" placeholder="Enter Website" class="form-field" id="website" />
+                </label>
+                <label for="primary-name">
+                  <span>Primary Contact Name<sup>*</sup></span>
+                  <input type="text" name="primary_contact_name" placeholder="Enter Name" class="form-field required" id="primary-name" />
+                </label>
+              </div>
+              <div class="fieldset">
+                <label for="primary-email">
+                  <span>Primary Contact Email<sup>*</sup></span>
+                  <input type="email" name="primary_contact_email" placeholder="Enter Email" class="form-field" id="primary-email" />
+                </label>
+                <label for="secondary-email">
+                  <span>Secondary Contact Email</span>
+                  <input type="email" name="secondary_contact_email" placeholder="Enter Email" class="form-field" id="secondary-email" />
+                </label>
+              </div>
+              <div class="fieldset">
+                <label for="primary-no">
+                  <span>Primary Contact Phone<sup>*</sup></span>
+                  <input type="tel" name="primary_contact_phone" placeholder="Enter Phone Number" class="form-field" id="primary-no" />
+                </label>
+                <label for="secondary-no">
+                  <span>Secondary Contact Phone</span>
+                  <input type="tel" name="secondary_contact_phone" placeholder="Enter Phone Number" class="form-field" id="secondary-no" />
+                </label>
+              </div>
+              <label for="address-line1">
+                <span>Billing Address Line1<sup>*</sup></span>
+                <input type="text" name="billing_addess1" placeholder="Enter Address Line1" class="form-field required" id="address-line1" />
+              </label>
+              <div class="fieldset">
+                <label for="address-line2">
+                  <span>Billing Address Line2</span>
+                  <input type="text" name="billing_addess2" placeholder="Enter Address Line2" class="form-field" id="address-line2" />
+                </label>
+                <label for="pincode">
+                  <span>Billing Address Pincode<sup>*</sup></span>
+                  <input type="number" name="billing_pincode" placeholder="Enter Pincode" class="form-field required" id="pincode" />
+                </label>
+              </div>
+              <div class="fieldset">
+                <label for="city">
+                  <span>Billing Address City<sup>*</sup></span>
+                  <input type="text" name="billing_city" placeholder="Enter City" class="form-field required" id="city" />
+                </label>
+                <label for="state">
+                  <span>Billing Address State<sup>*</sup></span>
+                  <input type="text" name="billing_state" placeholder="Enter State" class="form-field required" id="state" />
+                </label>
+              </div>
+              <div class="fieldset">
+                <label for="country">
+                  <span>Billing Address Country</span>
+                  <input type="text" name="billing_country" value="India" readonly="readonly" class="form-field" id="country" />
+                </label>
+                <label for="billing-contact">
+                  <span>Billing Address Phone<sup>*</sup></span>
+                  <input type="tel" name="billing_phone" placeholder="Enter Phone Number" class="form-field required" id="billing-contact" />
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="tab__content active">
+            <h2>Logistics Related Details</h2>
+            <div class="tab__content--inner">
+              <label for="shipping-address-line1">
+                <span>Shipping Address Line1<sup>*</sup></span>
+                <input type="text" name="shipping_address1" placeholder="Enter Address Line1" class="form-field required" id="shipping-address-line1" />
+              </label>
+              <label for="shipping-address-line2">
+                <span>Shipping Address Line2</span>
+                <input type="text" name="shipping_address2" placeholder="Enter Address Line2" class="form-field" id="shipping-address-line2" />
+              </label>
+              <div class="fieldset">
+                <label for="landmark">
+                  <span>Landmark</span>
+                  <input type="text" name="landmark" placeholder="Enter Landmark" class="form-field" id="landmark" />
+                </label>
+                <label for="shipping-address-pincode">
+                  <span>Shipping Address Pincode<sup>*</sup></span>
+                  <input type="number" name="shipping_pincode" placeholder="Enter Pincode" class="form-field required" id="shipping-address-pincode" />
+                </label>
+              </div>
+              <div class="fieldset">
+                <label for="shipping-city">
+                  <span>Shipping Address City<sup>*</sup></span>
+                  <input type="text" name="shipping_city" placeholder="Enter City" class="form-field required" id="shipping-city" />
+                </label>
+                <label for="shipping-state">
+                  <span>Shipping Address State<sup>*</sup></span>
+                  <input type="text" name="shipping_state" placeholder="Enter State" class="form-field required" id="shipping-state" />
+                </label>
+              </div>
+              <div class="fieldset">
+                <label for="shipping-country">
+                  <span>Shipping Address Country</span>
+                  <input type="text" name="shipping_country" value="India" readonly="readonly" class="form-field" id="shipping-country" />
+                </label>
+                <label for="shipping-phone">
+                  <span>Shipping Address Phone<sup>*</sup></span>
+                  <input type="tel" name="shipping_phone" placeholder="Enter Phone Number" class="form-field" id="shipping-phone" />
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="tab__content active">
+            <h2>Legal / Financial Details</h2>
+            <div class="tab__content--inner">
+              <label for="pan">
+                <span>PAN<sup>*</sup></span>
+                <input type="text" name="pan" placeholder="Enter PAN" class="form-field required" id="pan" />
+              </label>
+              <label for="gstin">
+                <span>GSTIN</span>
+                <input type="text" name="gstin" placeholder="Enter GSTIN" class="form-field" id="gstin" />
+              </label>
+              <label for="cst">
+                <span>CST Number</span>
+                <input type="text" name="cst_number" placeholder="Enter CST Number" class="form-field" id="cst" />
+              </label>
+              <label for="service-tax">
+                <span>Service Tax Number</span>
+                <input type="text" name="service_tax_number" placeholder="Enter Service Tax Number" class="form-field" id="service-tax" />
+              </label>
+              <label for="bank-name">
+                <span>Bank Name</span>
+                <input type="text" name="bank_name" placeholder="Enter Bank Name" class="form-field" id="bank-name" />
+              </label>
+              <label for="ac-name">
+                <span>Bank A/c Name</span>
+                <input type="text" name="bank_account_name" placeholder="Enter Bank A/c Name" class="form-field" id="ac-name" />
+              </label>
+              <label for="ac-no">
+                <span>Bank A/c Number</span>
+                <input type="text" name="bank_account_number" placeholder="Enter Bank A/c Number" class="form-field" id="ac-no" />
+              </label>
+              <label for="ifsc">
+                <span>IFSC Code</span>
+                <input type="text" name="ifsc_code" placeholder="Enter IFSC Code" class="form-field" id="ifsc" />
+              </label>
+              <input type="hidden" name="customer_id" value="{{ customer.id }}" />
+              <input type="hidden" name="verified" value="{% if customer.tags contains 'verified_retailer' %}1{%else%}0{%endif%}" />
+              <label for="submit">
+                <button type="submit" id="submit">SUBMIT</button>
+              </label>
+            </div>
+          </div>
+        </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+{% else %}
+<script>
+  window.location.href = "/account/login";
+</script>
+{% endif %}

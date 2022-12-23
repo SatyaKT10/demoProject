@@ -1,0 +1,47 @@
+{% if product.description contains '<!-----TechnicalInformation------>' %}
+{% assign pdes = product.description | split:'<!-----TechnicalInformation------>' | last %}
+{% if pdes %}
+<!-- <div class="technical_info_wrap">
+  <div class="technical_cntnr">
+    {{pdes}}
+  </div>
+</div> -->
+{% endif %}
+{% endif %}
+
+{% if product.description contains '<!-----TechnicalInformationNew------>' %}
+<div class="technical_info_wrap">
+  <div class="technical_cntnr">
+    <div class="p-content">
+      <div class="p-left">
+        <img src="https://cdn.shopify.com/s/files/1/0084/6957/7794/files/bowl.PNG?v=1585826325">
+      </div>
+      <div class="p-right">
+        {% if product.description contains '<!-----TechnicalInformationNew------>' %}
+        {% assign pdesE = product.description | split: '<!-----TechnicalInformationNew------>'| last %}
+        {% assign pdesD = pdesE | split: '<!-----TechnicalInformationendNew------>' | first %}
+        {% if pdesD %}
+        {{pdesD}}
+        {% endif %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% if product.description contains '<!-----TechnicalSpecNew------>' %}
+<div class="technical_sepecs">
+  <div class="technical_cntnr">
+    <div class="m-header">
+     Product Specifications
+    </div>
+    {% if product.description contains '<!-----TechnicalSpecNew------>' %}
+        {% assign pdesA = product.description | split: '<!-----TechnicalSpecNew------>'| last %}
+        {% assign pdesB = pdesA | split: '<!-----TechnicalSpecendNew------>' | first %}
+        {% if pdesB %}
+        {{pdesB}}
+        {% endif %}
+        {% endif %}
+  </div>
+</div>
+{% endif %}

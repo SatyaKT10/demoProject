@@ -1,0 +1,321 @@
+<style>
+  footer.footer__new {
+    background:#FFFCF5;
+
+  }
+  .footer__new--social {
+    width: 90%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 100px 0px 50px;
+    /*     border-bottom: 2px solid #F2F2F2; */
+    flex-wrap: wrap;
+
+  }
+  .footer__social--icons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+  }
+  .social__icons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 47px;
+  }
+  .social__icons .icons--amazon{
+    margin-top:8px;
+  }
+  .social__heading {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    text-align: center;
+    color: #828282;
+  }  
+  .footer__new--content {
+    width: 90%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 19px 0 150px;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  p.footer__new--title {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 27px;
+    color: #333333;
+    margin-bottom: 10px;
+  }
+  button.customer-submit-btn {
+    background: #00BAC6;
+    border-radius: 4px;
+    width: 217px;
+    padding: 10px 0px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;   
+    text-align: center;
+    color: #FFFFFF;
+  }
+  .footer__new--items .fnew_item {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 203.4%;
+    color: #333333;
+    text-transform: capitalize;
+  }
+
+  .footer__new--support {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap:2rem;
+    
+  }
+  p.support--mail {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 203.4%;
+    color: #333333;
+  }
+  p.support--number {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 203.4%;
+    color: #333333;
+  }
+  span.code--time {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 203.4%;
+    color: grey;
+  }
+  .followUS--icons {
+    display: flex;
+    gap: 12px;
+  }
+  .footer__hp--logo a img{
+/*     height: 25px; */
+    width: 200px;
+      height: auto;
+  }
+  @media(max-width:749px){
+    .footer__new--content .footer__menu--item{
+      flex: 0 0 50%;
+      width: 50%;
+      /*       padding: 0 32px; */
+
+    }
+    footer.footer__new {
+      background: #FFFCF5;;
+      border-top: 10px solid #F8F8F8;
+    }
+    .footer__hp--logo {
+      width: 100%;
+      /*       border-bottom: 1px solid #F2F2F2; */
+      margin: auto;
+      text-align: left;
+    }
+    .footer__hp--logo a img{
+      /*       margin-bottom:20px;
+      margin-top: 30px; */
+
+      width: 170px;
+      height: auto;
+    }
+    .footer__new--social {
+      width: 90%;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0px 0px 0px;
+      /*       border-bottom: 1px solid #F2F2F2; */
+      flex-direction: column;
+      margin-top:54px
+    }
+    .footer__social--icons {
+      display: unset;
+    }
+    .social__icons {
+      margin: 20px 0px;
+    }
+    .social__heading {
+      margin-top: 14px;
+    }
+    p.footer__new--title {
+      text-align:center;
+      margin-bottom:0px;
+/*       margin-top: 20px; */
+    }
+    .footer__new--content {
+      width: unset;
+      padding: 19px 0 150px;
+      flex-wrap: wrap;
+      flex-direction: row;
+      gap:unset;
+      padding: 63px 32px 142px;
+    }
+    .footer__connect--experts {
+      padding-bottom: 20px;
+      border-bottom: 1px solid #F2F2F2;
+    }
+    .footer__support--contacts {
+      text-align: center;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #F2F2F2;
+    }
+    p.support--number {
+      margin-top: 10px;
+    }
+    .footer__new--followUS {
+/*       padding-bottom: 40px; */
+    }
+    .followUS--icons {
+      display: flex;
+      gap: 12px;
+      /*     justify-content: center; */
+      margin-top: 10px;
+
+    }
+    p.footer__new--title{
+      text-align:left;
+    }
+    .footer__new--support {
+      margin-top:40px;
+
+    }
+  }
+</style>
+  
+
+
+<footer class="footer__new footer__section" data-section-id="{{ section.id }}" data-section-type="footer-new-section">
+  <div class="footer__new--social">
+    <div class="footer__hp--logo">
+      <a class="store__logo" href="/">
+        <img class="lazyload" data-src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/Aqualens-retailer_App-01.png?v=1656499056" alt="Aqualens logo">
+      </a>
+    </div>
+  </div>
+
+  <div class="footer__new--content">
+    {% for block in section.blocks %}
+    {% if block.type == 'menu' %}
+    <div class="footer__menu--item footer__new--menu footer__menu-block--{{block.id}} ">
+      <div class="footer__new--container">
+        {% if block.settings.menu_title != blank %}
+        <p class="footer__new--title">{{ block.settings.menu_title }}</p>
+        {% endif %}
+
+        {%- assign footer_linklist = block.settings.menu -%}
+        {% if linklists[footer_linklist].links.size > 0 %}
+        <div class="footer__new--items">
+          {% for link in linklists[footer_linklist].links %}
+          <div class="fnew_item"><a href="{{ link.url }}">{{ link.title }}</a></div>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+
+    <div class="footer__new--support">
+      
+      <div class="footer__new--container">        
+        <p class="footer__new--title">Support</p>
+        <div class="footer__new--items">          
+          <div class="fnew_item"><a href="#">partnersupport@aqualens.in</a></div>                 
+        </div>
+      </div>
+      <div class="footer__new--followUS">
+        <p class="footer__new--title">Social Links</p>
+        <div class="followUS--icons">
+          <a href="https://www.instagram.com/aqualens.in" target="_blank" rel="noopener">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M14.0001 10.6927C13.3461 10.6927 12.7068 10.8866 12.163 11.25C11.6192 11.6133 11.1954 12.1297 10.9451 12.7339C10.6948 13.3382 10.6294 14.003 10.757 14.6444C10.8845 15.2859 11.1995 15.8751 11.6619 16.3375C12.1244 16.8 12.7136 17.1149 13.355 17.2425C13.9964 17.3701 14.6613 17.3046 15.2655 17.0543C15.8697 16.804 16.3861 16.3802 16.7495 15.8364C17.1128 15.2927 17.3067 14.6533 17.3067 13.9993C17.3067 13.5651 17.2212 13.1351 17.055 12.7339C16.8889 12.3328 16.6453 11.9682 16.3382 11.6612C16.0312 11.3541 15.6667 11.1106 15.2655 10.9444C14.8643 10.7782 14.4343 10.6927 14.0001 10.6927ZM27.2401 7.42602C27.2331 6.39636 27.0435 5.37611 26.6801 4.41268C26.4125 3.7077 25.9984 3.06747 25.4652 2.53426C24.932 2.00105 24.2917 1.58697 23.5868 1.31935C22.6233 0.955967 21.6031 0.766363 20.5734 0.759349C18.8534 0.666016 18.3467 0.666016 14.0001 0.666016C9.65341 0.666016 9.14675 0.666016 7.42675 0.759349C6.39709 0.766363 5.37684 0.955967 4.41341 1.31935C3.70843 1.58697 3.06821 2.00105 2.535 2.53426C2.00178 3.06747 1.5877 3.7077 1.32008 4.41268C0.9567 5.37611 0.767096 6.39636 0.760081 7.42602C0.666748 9.14602 0.666748 9.65268 0.666748 13.9993C0.666748 18.346 0.666748 18.8527 0.760081 20.5727C0.774433 21.606 0.96378 22.6293 1.32008 23.5993C1.58652 24.3011 2.00025 24.9376 2.53341 25.466C3.06434 26.0024 3.70593 26.4165 4.41341 26.6793C5.37684 27.0427 6.39709 27.2323 7.42675 27.2393C9.14675 27.3327 9.65341 27.3327 14.0001 27.3327C18.3467 27.3327 18.8534 27.3327 20.5734 27.2393C21.6031 27.2323 22.6233 27.0427 23.5868 26.6793C24.2942 26.4165 24.9358 26.0024 25.4667 25.466C25.9999 24.9376 26.4136 24.3011 26.6801 23.5993C27.0431 22.6312 27.2327 21.6066 27.2401 20.5727C27.3334 18.8527 27.3334 18.346 27.3334 13.9993C27.3334 9.65268 27.3334 9.14602 27.2401 7.42602ZM23.8534 18.0927C23.8106 18.9155 23.635 19.726 23.3334 20.4927C23.0746 21.1323 22.6898 21.7133 22.2019 22.2012C21.714 22.689 21.133 23.0738 20.4934 23.3327C19.7194 23.6175 18.9044 23.7751 18.0801 23.7994C17.0267 23.7994 16.7467 23.7994 14.0001 23.7994C11.2534 23.7994 10.9734 23.7994 9.92008 23.7994C9.09572 23.7751 8.28073 23.6175 7.50675 23.3327C6.84555 23.087 6.24845 22.695 5.76008 22.186C5.27697 21.7077 4.90387 21.1298 4.66675 20.4927C4.38082 19.7195 4.22756 18.9036 4.21341 18.0793C4.21341 17.026 4.21341 16.746 4.21341 13.9993C4.21341 11.2527 4.21341 10.9727 4.21341 9.91935C4.22756 9.09512 4.38082 8.2792 4.66675 7.50602C4.91246 6.84482 5.30445 6.24772 5.81342 5.75935C6.29386 5.27885 6.8711 4.90614 7.50675 4.66602C8.28073 4.38122 9.09572 4.22363 9.92008 4.19935C10.9734 4.19935 11.2534 4.19935 14.0001 4.19935C16.7467 4.19935 17.0267 4.19935 18.0801 4.19935C18.9044 4.22363 19.7194 4.38122 20.4934 4.66602C21.1546 4.91172 21.7517 5.30371 22.2401 5.81268C22.7232 6.29101 23.0963 6.86886 23.3334 7.50602C23.6182 8.28 23.7758 9.09499 23.8001 9.91935C23.8001 10.9727 23.8001 11.2527 23.8001 13.9993C23.8001 16.746 23.8934 17.026 23.8534 18.0793V18.0927ZM21.7201 8.17268C21.5613 7.74199 21.311 7.35087 20.9865 7.0263C20.6619 6.70173 20.2708 6.45143 19.8401 6.29268C19.2487 6.0877 18.6259 5.9884 18.0001 5.99935C16.9601 5.99935 16.6667 5.99935 14.0001 5.99935C11.3334 5.99935 11.0401 5.99935 10.0001 5.99935C9.3711 6.0055 8.74817 6.12286 8.16008 6.34602C7.73599 6.49756 7.34901 6.73763 7.02486 7.05028C6.70071 7.36293 6.44683 7.741 6.28008 8.15935C6.08645 8.75317 5.99185 9.37481 6.00008 9.99935C6.00008 11.0393 6.00008 11.3327 6.00008 13.9993C6.00008 16.666 6.00008 16.9593 6.00008 17.9993C6.0133 18.6276 6.13044 19.2493 6.34675 19.8393C6.5055 20.27 6.75579 20.6612 7.08037 20.9857C7.40494 21.3103 7.79606 21.5606 8.22675 21.7194C8.79564 21.9286 9.39429 22.0456 10.0001 22.066C11.0401 22.066 11.3334 22.066 14.0001 22.066C16.6667 22.066 16.9601 22.066 18.0001 22.066C18.6291 22.0599 19.252 21.9425 19.8401 21.7194C20.2708 21.5606 20.6619 21.3103 20.9865 20.9857C21.311 20.6612 21.5613 20.27 21.7201 19.8393C21.9432 19.2513 22.0606 18.6283 22.0667 17.9993C22.0667 16.9593 22.0667 16.666 22.0667 13.9993C22.0667 11.3327 22.0667 11.0393 22.0667 9.99935C22.0671 9.36975 21.9496 8.74565 21.7201 8.15935V8.17268ZM14.0001 19.0927C13.3318 19.0927 12.6702 18.9608 12.053 18.7047C11.4358 18.4486 10.8752 18.0732 10.4033 17.6001C9.93136 17.1269 9.55745 16.5653 9.30294 15.9475C9.04843 15.3296 8.91833 14.6676 8.92008 13.9993C8.92008 12.9914 9.21914 12.0061 9.7794 11.1683C10.3397 10.3304 11.1359 9.67757 12.0674 9.29246C12.9988 8.90735 14.0236 8.80727 15.012 9.00488C16.0004 9.20249 16.9079 9.68891 17.6197 10.4026C18.3314 11.1162 18.8155 12.025 19.0105 13.0139C19.2055 14.0028 19.1028 15.0273 18.7152 15.9577C18.3277 16.8882 17.6728 17.6827 16.8334 18.2408C15.9941 18.7988 15.008 19.0953 14.0001 19.0927ZM19.3334 9.90602C19.0387 9.87482 18.7659 9.73564 18.5677 9.51531C18.3694 9.29498 18.2597 9.00907 18.2597 8.71268C18.2597 8.41629 18.3694 8.13039 18.5677 7.91006C18.7659 7.68972 19.0387 7.55055 19.3334 7.51935C19.6282 7.55055 19.9009 7.68972 20.0992 7.91006C20.2974 8.13039 20.4071 8.41629 20.4071 8.71268C20.4071 9.00907 20.2974 9.29498 20.0992 9.51531C19.9009 9.73564 19.6282 9.87482 19.3334 9.90602Z" fill="#4DB8C5"/>
+            </svg>
+          </a>
+          <a href="https://www.facebook.com/aqualens/" target="_blank" rel="noopener">
+            <svg width="30" height="22" viewBox="0 0 30 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M29.6666 7.94665C29.7326 6.03818 29.3152 4.144 28.4533 2.43998C27.8685 1.74078 27.0569 1.26893 26.16 1.10665C22.45 0.770012 18.7247 0.632038 15 0.693312C11.2888 0.629257 7.5769 0.762779 3.87995 1.09331C3.14905 1.22627 2.47265 1.5691 1.93329 2.07998C0.733288 3.18665 0.599954 5.07998 0.466621 6.67998C0.273171 9.55673 0.273171 12.4432 0.466621 15.32C0.505195 16.2205 0.63928 17.1144 0.866621 17.9866C1.02739 18.6601 1.35265 19.2831 1.81329 19.8C2.35631 20.3379 3.04847 20.7003 3.79995 20.84C6.67451 21.1948 9.57091 21.3419 12.4666 21.28C17.1333 21.3466 21.2266 21.28 26.0666 20.9066C26.8366 20.7755 27.5482 20.4127 28.1066 19.8666C28.4799 19.4932 28.7587 19.0361 28.92 18.5333C29.3968 17.0701 29.631 15.5388 29.6133 14C29.6666 13.2533 29.6666 8.74665 29.6666 7.94665ZM11.9866 14.8V6.54665L19.88 10.6933C17.6666 11.92 14.7466 13.3066 11.9866 14.8Z" fill="#4DB8C5"/>
+            </svg>
+          </a>
+          <a href="https://www.youtube.com/channel/UCJowRweHgj1l_jfDfHt5K6g" target="_blank" rel="noopener">
+            <svg width="28" height="22" viewBox="0 0 28 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M27.3334 2.73361C26.3312 3.16841 25.2713 3.45583 24.1867 3.58695C25.331 2.90337 26.1884 1.82799 26.6001 0.56028C25.5248 1.20036 24.3478 1.65134 23.1201 1.89361C22.2995 1.00371 21.2067 0.411341 20.0132 0.209415C18.8196 0.00748824 17.5928 0.207424 16.5251 0.777865C15.4575 1.34831 14.6093 2.25699 14.1137 3.36139C13.6181 4.4658 13.5031 5.70347 13.7867 6.88028C11.6127 6.77031 9.486 6.20422 7.54495 5.21876C5.60391 4.23331 3.89188 2.85054 2.52008 1.16028C2.03893 2.0005 1.78611 2.95204 1.78675 3.92028C1.78504 4.81946 2.0057 5.7051 2.42909 6.49837C2.85247 7.29163 3.46544 7.96789 4.21341 8.46695C3.34405 8.44329 2.49326 8.21001 1.73341 7.78695V7.85361C1.73993 9.11347 2.18141 10.3324 2.98317 11.3042C3.78493 12.2761 4.89776 12.9411 6.13341 13.1869C5.65776 13.3317 5.16391 13.408 4.66675 13.4136C4.3226 13.4096 3.97931 13.3784 3.64008 13.3203C3.99196 14.404 4.67291 15.3511 5.58818 16.0298C6.50345 16.7085 7.60752 17.085 8.74675 17.1069C6.82302 18.6206 4.44793 19.4468 2.00008 19.4536C1.5544 19.4551 1.10906 19.4284 0.666748 19.3736C3.16599 20.9873 6.0785 21.8439 9.05342 21.8403C11.1063 21.8616 13.1429 21.4736 15.0442 20.6991C16.9455 19.9245 18.6734 18.7788 20.127 17.3289C21.5806 15.8791 22.7307 14.1541 23.5102 12.2548C24.2896 10.3555 24.6828 8.31992 24.6667 6.26695C24.6667 6.04028 24.6667 5.80028 24.6667 5.56028C25.713 4.78003 26.6154 3.82351 27.3334 2.73361Z" fill="#4DB8C5"/>
+            </svg>
+          </a>
+          <a href="https://twitter.com/aqualens_in?lang=en" target="_blank" rel="noopener">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M25.8667 0.666016H2.13341C1.74443 0.666016 1.37138 0.820539 1.09632 1.09559C0.821272 1.37065 0.666748 1.7437 0.666748 2.13268V25.866C0.666748 26.0586 0.704685 26.2493 0.778392 26.4273C0.852098 26.6052 0.960132 26.7669 1.09632 26.9031C1.23252 27.0393 1.3942 27.1473 1.57215 27.221C1.75009 27.2947 1.94081 27.3327 2.13341 27.3327H14.9067V16.9993H11.4401V12.9993H14.9067V9.99935C14.8349 9.29502 14.9181 8.58352 15.1504 7.91473C15.3827 7.24595 15.7584 6.63608 16.2514 6.1279C16.7443 5.61972 17.3424 5.22554 18.0038 4.973C18.6653 4.72046 19.3739 4.61568 20.0801 4.66602C21.1179 4.65963 22.1551 4.71305 23.1867 4.82602V8.42602H21.0667C19.3867 8.42602 19.0667 9.22602 19.0667 10.386V12.9593H23.0667L22.5467 16.9594H19.0667V27.3327H25.8667C26.0594 27.3327 26.2501 27.2947 26.428 27.221C26.606 27.1473 26.7676 27.0393 26.9038 26.9031C27.04 26.7669 27.1481 26.6052 27.2218 26.4273C27.2955 26.2493 27.3334 26.0586 27.3334 25.866V2.13268C27.3334 1.94008 27.2955 1.74936 27.2218 1.57141C27.1481 1.39347 27.04 1.23179 26.9038 1.09559C26.7676 0.9594 26.606 0.851366 26.428 0.777659C26.2501 0.703952 26.0594 0.666016 25.8667 0.666016Z" fill="#4DB8C5"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+      {% comment %}
+      <a href="">
+        <div class="footer_play_icon">
+          <img src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/image_42_1.png?v=1655910147">
+        </div>
+      </a>
+      {% endcomment %}
+    </div>
+  </div>
+  
+  
+</footer>
+
+  
+{% schema %}
+  {
+    "name": "Footer New",
+    "settings": [
+          
+    ],
+    "blocks": [
+      {
+        "type": "menu",
+        "name": "Menu",
+        "limit":3,
+        "settings": [
+          {
+            "type": "text",
+            "id": "menu_title",
+            "label": "Heading",
+            "default": "Shop"
+          },
+          {
+            "type": "link_list",
+            "id": "menu",
+            "label": "Choose a menu",
+            "default": "footer"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+  

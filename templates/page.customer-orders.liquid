@@ -1,0 +1,202 @@
+<script>
+  {% if customer %}  
+  {% else %}
+  window.location.href = "https://aqualensb2b.com/account/login";
+  {% endif %}
+</script>
+{% include 'mobile-header' %}
+<div class="page-width" style="padding-top: 52px; margin-bottom: 15px;">
+  <div class="customer__orders-container">
+    <div class="customer__orders-empty">
+      <div class="customer__orders-empty-msg">
+        There are no previous orders to show!<br>
+        All orders placed will be shown here
+      </div>
+    </div>
+    <div class="customer__orders-btn">
+      <a href="https://aqualensb2b.com/pages/customer-details" class="btn-order">Place New Order</a>
+    </div>
+    <div class="customer__orders-wrapper">
+      <div class="customer__orders-header">
+        Previous Orders
+      </div>
+      <div class="customer__orders-content-wrapper">
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    function renderCustomerOrders(orderData){
+    let OrderContainer = "";
+    orderData.forEach(function(i){
+      let orderId = i.b2c_order_id;
+      let cashbackAmount = i.cashback_amount;
+      let productType = i.product_type;
+      
+      let timeStamp = new Date(i.created_at);
+      let options = {
+            year: "numeric",
+            month: "short",
+            day: "2-digit",
+          }
+      let orderDate = Intl.DateTimeFormat("en-IN", options).format(timeStamp);
+      let customerName = i.b2c_customer_data.first_name +" "+ i.b2c_customer_data.last_name;
+      let customerPhone = i.b2c_customer_data.phone;
+      
+      let queryString = `${orderId}&${productType}`;
+      let hrefView = `https://aqualensb2b.com/pages/customer-order-details?${queryString}`
+      
+      let htmlData = `<div class="customer__orders-content">
+          <div class="order__details-wrapper">
+            <div class="customer-wrapper">
+              <div class="order__details">
+                <p class="detail-title">Order Date</p>
+                <p class="detail-text">${orderDate}</p>
+              </div>
+              <div class="order__details">
+                <p class="detail-title">Customer Details</p>
+                <p class="detail-text">${customerName}<br>
+                ${customerPhone}</p>
+              </div>
+            </div>
+            <div class="customer-wrapper">
+              <div class="order__details">
+                <p class="detail-title">Order ID</p>
+                <p class="detail-text">${orderId}</p>
+              </div>
+              <div class="order__details">
+                <p class="detail-title">Cashback Credit</p>
+				<p class="detail-text" style="color:#00BAC6;">Rs. ${cashbackAmount}</p>
+              </div>
+            </div>
+          </div>
+          <div class="order__detail-btn-wrapper">
+			<a href='${hrefView}' class="order__detail-btn">View Order Details</a>
+          </div>
+        </div>`;
+      
+      OrderContainer = OrderContainer + htmlData;
+    })
+    $(".customer__orders-content-wrapper").html(OrderContainer);
+  }
+  $(document).ready(function(){
+    let customerId = '{{ customer.id }}';
+//     https://checkout.aqualensb2b.com
+    $.ajax({
+      url: baseURL+"/api/b2c/getorders/"+customerId,
+    })
+    .done(function(response) {
+      console.log(response);
+      if(response.status == true && response.data != "no orders available"){
+        $(".customer__orders-empty-msg").hide();
+        $(".customer__orders-wrapper").show();
+        renderCustomerOrders(response.data);
+      }
+    })
+    .fail(function(error){
+      console.log("Error",error);
+    })
+  })
+</script>
+
+<style>
+  .customer__orders-container{
+    text-align: center;
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .customer__orders-empty{
+    padding-top: 50px; 
+  }
+  .customer__orders-empty-msg{
+    padding-top: 71px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    color: #CBCBCB;
+  }
+  .customer__orders-btn{
+    padding-top: 42px;
+    padding-bottom: 84px;
+  }
+  .btn-order{
+    background: #00BAC6;
+    border-radius: 4px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: center;
+    padding: 12px 45px;
+    color: #FFFFFF;
+  }
+  .customer__orders-wrapper{
+    display: none;
+    text-align: left;
+  }
+  .customer__orders-header{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 27px;
+    color: #333333;
+    border-bottom: 1px solid #F2F2F2;
+    padding: 10px 15px;
+    margin: 0px -15px;
+  }
+  .customer__orders-content {
+    border-bottom: 1px solid #E0E0E0;
+    padding-top: 12px;
+    padding-bottom: 7px;
+  }
+  .detail-title {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 15px;
+    color: #999999;
+    margin: 0;
+  }
+  .detail-text {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #4F4F4F;
+  }
+  .order__detail-btn-wrapper{
+    text-align: center;
+  }
+  .order__detail-btn {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: center;
+    color: #00BAC6;
+ }
+  .order__details-wrapper {
+    display: flex;
+    justify-content: space-between;
+  }
+  .order__details {
+    margin-bottom: 15px;
+  }
+  @media only screen and (min-width: 750px){
+    .medium-up--one-half {
+      width: 30% !important;;
+    }
+  }
+
+ 
+</style>

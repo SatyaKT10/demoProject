@@ -1,0 +1,397 @@
+{% include 'mobile-header' %}
+<div class="customer-details page-width" style="padding-top: 52px; margin-bottom: 15px;">
+  <div class="customer__details-container">
+    <div class="customer__details-header">
+      Enter Customer Details
+    </div>
+    <div class="customer__details-content">
+      <div class="input-field">
+        <label for="customerPhone">Phone Number<span style="color:red;">*</span></label>
+        <span class="phoneCode">+91</span>
+        <input type="tel" name="phone" id="customerPhone" maxlength="10" oninput="this.value=this.value.replace(/[^0-9]/g,'');"  required>
+        <p class="error" style = "color:red;"></p>
+      </div>
+      <div class="input-field">
+        <label for="customerName">Full Name<span style="color:red;">*</span></label>
+        <input type="text" name="name" id="customerName" required>
+        <p class="error" style = "color:red;"></p>
+      </div>
+      <div class="input-field">
+        <label for="customerEmail">Email Address</label>
+        <input type="text" name="email" id="customerEmail">
+      </div>
+      <div class="input-field">
+        <label for="customerAddress">Address<span style="color:red;">*</span></label>
+        <textarea name="address" id="customerAddress" required></textarea>
+        <p class="error" style = "color:red;"></p>
+      </div>
+      <div class="input-field">
+        <label for="customerPin">Pin Code<span style="color:red;">*</span></label>
+        <input type="text" name="pin" id="customerPin" maxlength="6" oninput="this.value=this.value.replace(/[^0-9]/g,'');" required>
+        <p class="error" style = "color:red;"></p>
+      </div>
+      <div class="input-field">
+        <label for="customerCity">City</label>
+        <input type="text" name="city" id="customerCity">
+      </div>
+      <div class="input-field">
+        <label for="customerState">State</label>
+        <input type="text" name="state" id="customerState">
+      </div>
+    </div>
+    <div class="customer__details-btn-wrapper">
+      <button class="customer__details-btn">Next</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function() {
+    let baseUrl = "https://subscriber.aqualens.in/";
+    let flag = true;
+    let phoneVal = "";
+    let zipVal = "";
+    let nameVal = "";
+    let addVal = "";
+    let cityVal = "";
+    let stateVal = "";
+    
+    function validData(){
+      $(".error").each(function(i,e){
+        if($(e).html() != "" || phoneVal == "" || zipVal == "" || nameVal == "" || addVal == ""){
+          flag = false;
+          $(".customer__details-btn").prop("disabled",true).removeClass("details-btn-active");
+        }else{
+          flag = true;
+          $(".customer__details-btn").prop("disabled",false).addClass("details-btn-active");
+        }
+      })
+      return flag;
+    }
+    validData();
+    
+    
+    $("#customerPhone").on("input",function(){
+      let $self = $(this);
+      if($(this).val().length == 10){
+        phoneVal = $(this).val();
+        $(this).parent().find(".error").html("");
+        
+        $.ajax({
+          url: baseUrl + "api/v1/verify/customer/" + $(this).val(),
+        })
+        .done(function(res) {
+          let response = res[0];
+          console.log(response);
+          
+          if(response.status == true){
+            sessionStorage.setItem("customerIdB2C", response.data);
+            sessionStorage.setItem("bearerTokenB2C", response.token);
+          }
+          else{
+            $self.parent().find(".error").html("Please enter valid phone number");
+          }
+          validData();
+        })
+        .fail(function(error){
+          $self.parent().find(".error").html("Something went wrong");
+          validData();
+          console.log("Error",error);
+        })
+      }
+      else{
+        phoneVal = "";
+        if($(this).val().length > 0){
+          $(this).parent().find(".error").html("Phone number must be 10 digits");
+        }else{
+          $(this).parent().find(".error").html("Please enter phone number");
+        }
+      }
+      validData();
+    })
+    
+    $("#customerPin").on("input",function(){
+      let $self = $(this);
+      
+      cityVal = "";
+      stateVal = "";
+      $("#customerCity").val("");
+      $("#customerState").val("");
+      
+      if($(this).val().length == 6){
+        zipVal = $(this).val();
+        $(this).parent().find(".error").html("");
+//        https://checkout.aqualensb2b.com 
+        $.ajax({
+          url: baseURL+"/lenskart/check-pincode/"+$(this).val(),
+        })
+        .done(function(response) {
+          if(response != "ERROR" && response.result.canDeliver == "Yes"){
+            cityVal = response.result.city;
+            stateVal = response.result.state;
+            $("#customerCity").val(response.result.city);
+            $("#customerState").val(response.result.state);
+          }
+          else{
+            $self.parent().find(".error").html("Delivery not available at this pin code");
+          }
+          validData();
+        })
+        .fail(function(error){
+          $self.parent().find(".error").html("Something went wrong");
+          validData();
+          console.log("Error",error);
+        })
+      }
+      else{
+        zipVal = "";
+        if($(this).val().length > 0){
+          $(this).parent().find(".error").html("Pin code must be 6 digits");
+        }else{
+          $(this).parent().find(".error").html("Please enter pin code");
+        }
+      }
+      validData();
+    })
+    
+    $("#customerName").on("input",function(){
+      if($(this).val().length > 0){
+        nameVal = $(this).val()
+        $(this).parent().find(".error").html("");
+      }else{
+        nameVal = "";
+        $(this).parent().find(".error").html("Please enter full name");
+      }
+      validData();
+    })
+    
+    $("#customerAddress").on("input",function(){
+      if($(this).val().length > 0){
+        addVal = $(this).val();
+        $(this).parent().find(".error").html("");
+      }else{
+        addVal = "";
+        $(this).parent().find(".error").html("Please enter address");
+      }
+      validData();
+    })
+    
+    
+    $(".customer__details-btn").on("click",function(){
+      let shippingAdd = {};
+      let full_name = nameVal.trim().split(" ");
+      let first_name = full_name[0];
+      let last_name = full_name[full_name.length - 1];
+      let customer_id = sessionStorage.getItem("customerIdB2C");
+      let email = $("#customerEmail").val();
+      if(email == ""){
+        email = phoneVal + "@guest.com";
+      }
+      
+      let city = $("#customerCity").val();
+      let state = $("#customerState").val();
+      if(city == ""){
+        city = cityVal;
+      }
+      if(state == ""){
+        state = stateVal;
+      }
+      shippingAdd = {
+        email: email,
+        first_name: first_name,
+        last_name: last_name,
+        city: city,
+        country: "IN",
+        province: state,
+        address1: addVal,
+        zip: zipVal,
+        phone: phoneVal,
+        customer_id: customer_id,
+        cart_id: "N/A"
+      }
+            
+      let bearerTokenB2C = sessionStorage.getItem("bearerTokenB2C");
+      $.ajax({
+        url: baseUrl + "api/v1/shipping-address",
+        method: "POST",
+        headers: {
+          "Authorization": "Bearer"+" "+bearerTokenB2C,
+          "Content-Type": "application/json",
+        },
+        data: JSON.stringify(shippingAdd),
+      })
+      .done(function(response) {
+        if(response.status == true){
+          sessionStorage.setItem("cartIdB2C", response.data.cart_id);
+          sessionStorage.setItem("customerDataB2C", JSON.stringify(shippingAdd));
+        }
+      })
+      .done(function(){
+        setTimeout(function () { 
+          window.location.href = 'https://aqualensb2b.com/pages/customer-products';
+        }, 1000);
+      })
+      .fail(function(error){
+        console.log("Error",error);
+      })
+    })
+  })
+</script>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Quattrocento&display=swap');
+  
+  .customer__details-container{
+    height: 100vh;
+    padding-top: 44px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .customer__details-header{
+    font-family: 'Quattrocento', serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 27px;
+    color: #474747;
+    letter-spacing: 1px;
+    padding-bottom: 20px;
+  }
+  
+  .customer__details-btn-wrapper{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 999;
+  }
+  .customer__details-btn{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: center;
+    color: #FFFFFF;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    width: 100%;
+    background: #D8D8D8;
+    padding: 12px 0px;
+    outline: 0;
+  }
+  .details-btn-active {
+    background: #00BAC6;
+  }
+  .input-field{
+    padding-bottom: 15px;
+  }
+  .input-field #customerPhone{
+    margin-top:0px;
+  }
+  .input-field label{
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 18px;
+    color: #4F4F4F;
+    margin: 0;
+    padding-bottom: 2px;
+  }
+  .input-field input{
+    background: #FFFFFF;
+    border: 1px solid #BDBDBD;
+    border-radius: 4px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #474747;
+    width: 100%;
+    height: 40px;
+    padding: 10px 13px;
+  }
+  .input-field textarea{
+    background: #FFFFFF;
+    border: 1px solid #BDBDBD;
+    border-radius: 4px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #474747;
+    width: 100%;
+    height: 40px;
+    padding: 12px 13px;
+    resize: none;
+  }
+  .input-field .phoneCode {
+    background: #FFFFFF;
+    border: 1px solid #BDBDBD;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #474747;
+    height: 40px;
+    padding: 9px 8px;
+    border-right: 0px;
+    width: 40px;
+    margin-right: -5px;
+    display: inline-block;
+    border-radius: 4px 0px 0px 4px;
+  }
+  .input-field #customerPhone{
+    width: calc(100% - 40px);
+    border-left: 0px;
+    margin: 0;
+    padding-left: 0px;
+    border-radius: 0px 4px 4px 0px;
+  }
+  
+/*    for desktop  */
+  
+  @media(min-width:749px){
+    .customer__details-btn-wrapper {
+      position: relative;
+      z-index:unset;
+    }
+    .customer__details-container {
+      height: auto;
+      padding-top: 44px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      width: 50%;
+      margin: auto;
+      padding: 20px 15px;
+      border-radius:4px;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      background:white;
+      box-shadow: 0 0 6px #00000029;
+      max-width:450px;
+    }
+    .input-field {
+      padding-bottom: 5px;
+    }
+    .input-field #customerPhone{
+      margin-top:0px;
+    }
+    .customer-details{
+      background: #f8f8f8;
+    }
+    .page-width{
+      max-width:100% !important;
+    }
+    .customer__details-btn-wrapper{
+      margin-top:10px;
+    }
+  }
+  @media (min-width: 749px)
+    .grid__width {
+      width: 30% !important;
+    }
+</style>

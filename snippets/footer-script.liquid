@@ -1,0 +1,398 @@
+<script>
+
+  $(document).ready(function(){
+    //index page - on hover change background image
+    var main_url = $(".index__hero-image").css('background-image');
+    var main_title = $(".index__text-block h1").text();
+    var main_text = $(".index__text-block p").text();
+
+    $(".index__spot").hover(function () {
+      var image_url = $(this).css('background-image');
+      var spottitle = $(this).find('.spot_titles h1').text();
+      var spottext = $(this).find('.spot_titles p').text();
+
+      $(".index__hero-image").css({
+        'background-image' : image_url
+      });
+      setTimeout(function(){
+        $(".index__hero-image").addClass('deblur');
+      }, 200);
+
+      $(".index__text-block h1").text(spottitle);
+      $(".index__text-block p").text(spottext);
+
+      setTimeout(function(){
+        $(".index__text-block h1").addClass('move');
+        $(".index__text-block p").addClass('move');
+      }, 400);
+
+    },
+                            function() {
+      $(".index__text-block h1").removeClass('move');
+      $(".index__text-block p").removeClass('move');
+      $(".index__hero-image").css({
+        'background-image' : main_url
+      });
+      $(".index__hero-image").removeClass('deblur');
+      $(".index__text-block h1").text(main_title);
+      $(".index__text-block p").text(main_text);
+
+      setTimeout(function(){
+        $(".index__hero-image").addClass('deblur');
+      }, 200);
+
+      setTimeout(function(){
+        $(".index__text-block h1").addClass('move');
+        $(".index__text-block p").addClass('move');
+      }, 400);
+    });
+
+  });
+
+</script>
+
+<script>
+  $(document).ready(function () {
+    
+    var customer_id;
+    var whatsapp_tags = [];
+    var optin_tag;
+    
+    $(".otpsms").click(function (event) { 
+      var thisE = $(this);
+      thisE.addClass('disableBtn');
+      var countdigit;
+      var phoneno = $('.otpsms-text').val();
+      $('.mm-number').html(phoneno);
+      if(phoneno != ''){
+        if(phoneno.match('[0-9]{10}'))  {
+          thisE.find("#button_text").text('Sending...');
+          var userIdGup = '2000186438';
+          var userPGup = '2pwA7F';
+          $('.loadingicon1').css('display','inline-block').fadeOut(3000);
+          var mysenturl = baseURL+'/api/customer/signup'
+
+          var proxy = 'https://cors-anywhere.herokuapp.com/';
+          var formdata = new FormData();
+          formdata.append("mobile_number", phoneno); 
+          //           clever tap event         
+          clevertap.event.push("requestedotp",{
+            "Date":  "{{ "now" | date: "%Y-%m-%d" }}"
+          });
+          //           GA events
+          let displayMode = 'browser';
+          const mqStandAlone = '(display-mode: standalone)';
+          if (navigator.standalone || window.matchMedia(mqStandAlone).matches || navigator.userAgent.toLowerCase().includes('wv')) {
+            displayMode = 'standalone';
+            dataLayer.push({
+              'event': 'requestedotp_pwa',
+              "Date":  "{{ "now" | date: "%Y-%m-%d" }}"
+            })
+          }else{
+            dataLayer.push({
+              'event': 'requestedotp',
+              "Date":  "{{ "now" | date: "%Y-%m-%d" }}"
+            })
+          } 
+          //          events end
+        var settingsdata = {
+            "url": baseURL+"/api/customer/signup",
+            "method": "POST",
+            "processData": false,
+            "contentType": false,
+            "data": formdata
+          };
+          $.ajax(settingsdata).done(function (response) {        
+            if(response.status){
+             let  customer_id = response.customer_id;// Getting customer id
+  
+              console.log(response);
+              
+//               whatsapp_tags = response.tags.split(',');
+//               console.log(whatsapp_tags);
+//               debugger;
+              whatsapp_tags.forEach(function(e,i){              
+                if(e.includes("whatsappoptin_yes")){
+                  optin_tag = e;
+                  console.log(optin_tag);
+                }
+              })
+              
+//               console.log(optin_tag);
+              if(optin_tag){
+                $('.whatsapp-notify').hide();
+              }else{
+                $('.whatsapp-notify').show();
+              }
+              
+            thisE.removeClass('disableBtn');
+                thisE.find("#button_text").text('PROCEED');
+                $(".error-notification2").html('OTP has been sent successfully.');
+                $(".error-notification2").css({color: 'green',display: 'block'});
+                $('.verifyotp-section').removeClass('hide');
+                $('.sendotp-section').hide();
+                $('.smsdigit1').focus();
+
+                resendotpcountdown();
+            }
+             else{
+                thisE.removeClass('disableBtn');
+                $(".error-notification").html(response.data);
+                $(".error-notification").css({display: 'block'});
+               thisE.find("#button_text").text(' GET VERIFICATION CODE');
+
+              }
+          })
+          
+        
+        }
+        else{
+          thisE.removeClass('disableBtn');
+          $('.error-notification').text('Please Enter Complete Mobile Number');
+          $('.error-notification').show();
+        }            
+      }
+      else{
+        thisE.removeClass('disableBtn');
+        $('.error-notification').text('Please enter correct Mobile No');
+        $('.error-notification').show();
+      }
+    });
+
+    function multipaslogin(token,link_status){
+
+      $.ajax({
+        url: "/account/login/multipass/"+token,
+        success: function(res)
+        {           
+          if(link_status != null ){
+            document.location.href = link_status;
+          }else{
+            document.location.href = '/pages/store-details';
+          }          
+        },
+        error: function (error) {
+          console.log(error);
+        }
+      })
+    }
+    
+    //   Run this code when Verify OTP Button Clicked
+    $(".otpsmsvery").click(function (e) {
+      var thisE = $(this);
+      thisE.addClass('disableBtn');
+      thisE.find("#button_text").text('Verifying...');
+      var userIdGup = '2000186438';
+      var userPGup = '2pwA7F';
+      var smsdigit1 = $('.smsdigit1').val();
+      var smsdigit2 = $('.smsdigit2').val();
+      var smsdigit3 = $('.smsdigit3').val();
+      var smsdigit4 = $('.smsdigit4').val();
+
+      var sentsmsforvarify = smsdigit1+smsdigit2+smsdigit3+smsdigit4;
+
+      if(smsdigit1 == '' || smsdigit2 == '' || smsdigit3 == '' || smsdigit4 == ''){
+        var ok = 0;
+      }
+
+      var phoneno = $('.otpsms-text').val();
+          
+      // for whatsapp optin first time user
+      
+     
+      if($(this).parents('.verifyotp-section').find(".whatsapp-notify input[type=checkbox]").prop("checked")){
+        $.ajax({
+          url: baseURL+"/api/whatsapp/opt-in/"+customer_id+"/"+phoneno
+        })
+        .done(function(response){
+          console.log(response);
+        })
+        .fail(function(error){
+          console.log(error);
+        })
+      }
+      
+      //end
+      
+      if(ok != 0){
+        
+        $.ajax({
+          
+          url: baseURL+"/api/customer/verify/otp/"+phoneno+"/"+sentsmsforvarify,
+          success: function(res)
+          {  
+            
+            if(res.status) {
+              var loginToken = res.data.login_token;
+              var link_status = sessionStorage.getItem("status_link");
+              multipaslogin(loginToken,link_status);   
+              sessionStorage.removeItem("status_link"); 
+              //               clevertap events
+              clevertap.event.push("verifiedotp",{
+                "Date":  "{{ "now" | date: "%Y-%m-%d" }}"
+              });
+              //           GA events
+              let displayMode = 'browser';
+              const mqStandAlone = '(display-mode: standalone)';
+              if (navigator.standalone || window.matchMedia(mqStandAlone).matches || navigator.userAgent.toLowerCase().includes('wv')) {
+                displayMode = 'standalone';
+                dataLayer.push({
+                  'event': 'verifiedotp_pwa',
+                  "Date":  "{{ "now" | date: "%Y-%m-%d" }}"
+                })
+              }else{
+                dataLayer.push({
+                  'event': 'verifiedotp',
+                  "Date":  "{{ "now" | date: "%Y-%m-%d" }}"
+                })
+              } 
+              //          events end
+              
+            }
+           else{
+            $('.error-notification2').text('Please enter correct OTP');
+              $('.error-notification2').css("color","red");
+             $('.error-notification2').show();
+             thisE.removeClass('disableBtn');
+             thisE.find("#button_text").text('VERIFY NUMBER');
+           }
+          
+          },
+          error: function (error) {
+            console.log(error);
+            $('.error-notification2').text('Someting went wrong');
+            $('.error-notification2').css("color","red");
+            $('.error-notification2').show();
+            thisE.removeClass('disableBtn');
+            thisE.find("#button_text").text('VERIFY NUMBER');
+          }
+        })
+        
+        
+
+      }
+      else{
+        thisE.removeClass('disabled');
+        $('.error-notification2').text('Please enter OTP');
+        $('.error-notification2').show();
+      }
+        
+            
+    });
+    
+    
+    // setting customer token    
+    // we can also use a session validator api    
+    {% if customer %}
+    let cid = '{{customer.id}}';
+    if(!sessionStorage.getItem("custNewToken")){
+      var settings = {                                     
+        "url": baseURL+'/api/v1/session/create/'+cid
+//         "url": 'https://checkout.aqualensb2b.com/api/v1/session/create/'+cid
+
+      };
+      $.ajax(settings).done(function (response) {
+        if(response.status  == true ){
+          sessionStorage.setItem("custNewToken",response.token);
+          console.log(response.token);
+        }
+      });
+    }   
+    {% else %}
+    sessionStorage.removeItem("custNewToken");
+    {% endif %}
+
+    
+    
+
+    // Hide error line
+    $(".otpsms-very").change(function() {
+      $('.error-notification2').hide();
+    });
+
+
+
+    $(".resendotp span").click(function () {
+      $(".otpsms").click();
+      $('.resendotp span').addClass('not-active-link');
+     $('#countdown').show();
+     
+         
+    });
+
+    $(".otpsms-very").keyup(function () {
+      if (this.value.length == this.maxLength) {
+        var $next = $(this).next('.otpsms-very');
+        if ($next.length)
+          $(this).next('.otpsms-very').focus();
+        else
+          $(this).blur();
+
+      }
+    });
+    
+  
+    
+    
+//     for whatsapp opt-in
+//     $('.otpsmsvery').click(function(){
+//       var phoneno = $('.otpsms-text').val();
+//       if($(this).parents('.verifyotp-section').find(".whatsapp-notify input[type=checkbox]").checked){
+//         $.ajax({
+//           url: "https://checkout.aqualensb2b.com/api/whatsapp/opt-in/"+phoneno
+//         })
+//       }
+//     })   
+//     end
+
+     });
+
+  function resendotpcountdown(){
+
+    setTimeout(function(){
+      $('.resendotp span').removeClass('not-active-link');
+    }, 30000);
+
+    var timeleft = 29;
+    var downloadTimer = setInterval(function(){
+      document.getElementById("countdown").innerHTML = timeleft;
+      timeleft -= 1;
+      if(timeleft <= 0){
+        clearInterval(downloadTimer);
+        document.getElementById("countdown").innerHTML = "";
+         $('.error-notification2').hide();
+      }
+    }, 1000);
+  }
+  $(document).on('click','.custom-banner-wrap .phonsub',function(e){
+    e.preventDefault();
+    var thisE = $(this);
+    var submit = true;
+    var mob = thisE.prev().val();
+    if(mob == ''){
+      submit = false;
+    }
+    else{
+      if(mob.length != 10){
+         submit = false;
+      }
+    }
+    if(submit == true){
+      thisE.parents('.refer-body').find('.error').html('');
+      var mainp = $("#ac-wrapper");
+      mainp.addClass('top-fixed');
+      mainp.find('.sendotp-section .otpsms-text[type="number"]').val(mob);
+      mainp.find('.sendotp-section .otpsms.button-style').click();
+      mainp.css('display','block');
+    }
+    else{
+      thisE.parents('.refer-body').find('.error').addClass('active');
+      thisE.parents('.refer-body').find('.error').html('somthing went wrong');
+    }
+  })
+
+  
+  
+  
+</script>
+

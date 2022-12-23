@@ -1,0 +1,47 @@
+<section id="usp_section">
+  <div class="page-width">
+    <div class="usb_Wrapper">
+      <div class="usp_section_wrap">
+          {% for block in section.blocks %}
+            {% assign image = block.settings.pimage %}
+            {% assign para = block.settings.tpara %}
+            <div class="usp_section_wrap_imgtxt">
+              <div class="usp_section_wrap_img">
+                <img src="{{ image | img_url: "master" }}"/>
+              </div>
+              <div class="usp_section_wrap_txt">
+                <p>{{para}}</p>
+              </div>
+          </div>
+        {% endfor %}
+      </div>
+  	</div>
+  </div>
+</section>
+
+  {% schema %}
+    {
+      "name": "USP Block",
+      "blocks": [
+        {
+          "type": "SellerImage",
+          "name": "Blocks",
+          "settings": [
+              {
+                "type":"image_picker",
+                "id":"pimage",
+                "label":"Image"
+              },
+              {
+                "type":"text",
+                "id":"tpara",
+                "label":"Heading"
+              }
+           ],
+			"limit": 4
+        }
+      ]
+    }
+  {% endschema %}
+  
+

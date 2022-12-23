@@ -1,0 +1,129 @@
+<section class="home-page-product" data-section-type="product-slider-section" data-section-id="{{section.id}}">
+  <div class="page-width">
+
+    {% assign collection = collections[section.settings.collection] %}
+      {% if collection != empty %}
+        <h2>{{ collection.title }}</h2>
+        <hr id="hr">
+        <div class="product-list">
+          
+          <h2>Daily one-time</h2>
+          <div class="flex">
+          {% for product in collection.products %}
+            {% if product.available %}
+              {% if product.title contains 'Daily one-time'%}
+                <div class="product-block">
+                  <div class="product-block-img">
+                    <a href="{{ product.url | within:collection }}">
+                      <img src="{{ product.featured_image.src | img_url:'master' }}" alt="{{ product.featured_image.src.alt | default:'Image' }}">
+                    </a>
+                  </div>
+                  <div class="product-block-info">
+                    <a href="{{ product.url | within:collection }}">
+                      <h4 class="product__title">{{ product.title }}</h4>
+                    </a>
+                    {% if product.compare_at_price > product.price %}
+                      <span class="product__price">
+                        {{ product.price | money }}
+                      </span>
+                      <span class="product__original-price">
+                        {{ product.compare_at_price | money }}
+                      </span>
+                      {% else %}
+                      <span class="product__price">
+                        {{ product.price | money }}
+                      </span>
+                    {% endif %}
+                  </div>
+                  
+                </div>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+          </div>
+          
+          <h2>Monthly</h2>
+          <div class="flex">
+           {% for product in collection.products %}
+            {% if product.available %}
+              {% if product.title contains 'Monthly time' %}
+                <div class="product-block">
+                    <div class="product-block-img">
+                    <a href="{{ product.url | within:collection }}">
+                      <img src="{{ product.featured_image.src | img_url:'master' }}" alt="{{ product.featured_image.src.alt | default:'Image' }}">
+                    </a>
+                  </div>
+                  <div class="product-block-info">
+                    <a href="{{ product.url | within:collection }}">
+                      <h4 class="product__title">{{ product.title }}</h4>
+                    </a>
+                    {% if product.compare_at_price > product.price %}
+                      <span class="product__price">
+                        {{ product.price | money }}
+                      </span>
+                      <span class="product__original-price">
+                        {{ product.compare_at_price | money }}
+                      </span>
+                      {% else %}
+                      <span class="product__price">
+                        {{ product.price | money }}
+                      </span>
+                    {% endif %}
+                  </div>
+                </div>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+          </div>
+                    
+
+         </div>
+      {% endif %}
+  </div>
+</section>
+
+<style>
+  .home-page-product{
+    margin-top:20px;
+  }
+  #hr{
+    margin:20px 0;
+  }
+  .flex{
+    display:flex;
+    flex-flow:row wrap;
+  }
+  .product-block{
+    display:flex;
+    width:33.33%;
+  }
+  .product-block-img{
+    flex: 0 0 40%;
+  }
+   .product-block-info{
+    flex: 0 0 50%;
+  }
+  .product-block-img a img{
+    height: 10vw;
+    width: 10vw;
+    object-fit: contain;
+    object-position: center;
+    border: 1px solid #E0E0E0;
+    border-radius: 5px;
+  }
+  h2{
+    text-transform:capitalize;
+  }
+  </style>
+{% schema %}
+  {
+    "name": "Section name",
+    "settings": [
+		{
+			"type": "collection",
+			"id": "collection",
+			"label": "Collection"
+		}
+	]
+  }
+{% endschema %}

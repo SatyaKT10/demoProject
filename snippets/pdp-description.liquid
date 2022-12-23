@@ -1,0 +1,267 @@
+<style>
+    .pdp__description-tabs {
+      background: rgba(89, 101, 171, 0.1);
+      display: flex;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    .pdp__description-tabs .pdp__description-tab p {
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 21px;
+      color: #5965AB;
+      padding: 11px 20px 0px;
+      margin: 0 auto;
+    }
+    .pdp__description-tab {
+      flex-basis: 33.33%;
+      flex-grow: 1;
+      cursor: pointer;
+    }
+    .pdp__description-tab p:after {
+      content: '';
+      display: block;
+      margin: auto;
+      margin-top: 10px;
+      height: 3px;
+      width: 0px;
+      background: transparent;
+      transition: width .5s ease, background-color .5s ease;
+    }
+    .pdp__description-tab p:hover:after {
+      width: 100%;
+      background: #5965AB;
+    }
+    .pdp__description-tabs .tab-active {
+      background: rgba(89, 101, 171, 0.1);
+    }
+  /*   .pdp__description-tabs .tab-active p{
+      border-bottom: 3px solid #5965AB;
+    } */
+    .pdp__description-tabs .tab-active p:after{
+      width: 100%;
+      background: #5965AB;
+    }
+    .pdp__description-content{
+      display: none;
+    }
+    .pdp__description-content.tab-content-active{
+      display: block;
+    }
+    .pdp-datails ul {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-top: 15px;
+  }
+    .pdp-datails ul li {
+      list-style-type: none;
+      padding-bottom: 15px;
+      width: 48%;
+  }
+    .pdp-datails ul li .l-icon img {
+      width: 50px;
+      height: 50px;
+  }
+    .pdp-datails  .l-content .heading {
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 21px;
+      color: #333333;
+      padding-top: 5px;
+  }
+    .pdp-datails  .l-content .content {
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 12px;
+      line-height: 18px;
+      color: #666666;
+  }
+    .pdp-specs .p-content{
+      margin-top: 15px;
+    }
+    .pdp-specs .p-content .p-left ul, .pdp-specs .p-content .p-right ul{
+      margin: 0;
+      padding: 0;
+    }
+    .pdp-specs .p-content .p-left ul li, .pdp-specs .p-content .p-right ul li{
+      list-style-type: none;
+      display: flex;
+      flex-wrap: nowrap;
+      padding-bottom: 10px;
+    }
+    .pdp-specs .p-content p{
+      text-align: left;
+      font-family: Poppins;
+      font-style: normal;
+      font-size: 14px;
+      line-height: 21px;
+      flex-basis: 50%;
+      margin: 0;
+    }
+    .pdp-specs .p-content p.ht{
+      font-weight: normal;
+      color: #999999;
+      display: flex;
+      justify-content: space-between;
+      padding-right: 10px;
+    }
+    .pdp-specs .p-content p.hc{
+      font-weight: 500;
+      color: #333333;
+    }
+    .pdp-faqs .section-content-new{
+      margin-top: -10px;
+      padding-bottom: 15px;
+    }
+    .pdp-faqs .section--content-new{
+      border-bottom: 1px solid #E0E0E0;
+    }
+    .pdp-faqs .question {
+      display: flex;
+      align-items: center;
+      padding: 10px 0px;
+      border-top: 1px solid #E0E0E0;
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 21px;
+      color: #474747;
+      cursor: pointer;
+      position: relative;
+      padding-right: 22px;
+    }
+    .pdp-faqs .first_content .question:first-child{
+      border-top: none;
+    }
+    .pdp-faqs .question .qa {
+      position: absolute;
+      right: 0;
+      padding: 3px;
+      display: inline-block;
+      border: solid #474747;
+      border-width: 0px 2px 2px 0px;
+      margin-left: 10px;
+      margin-right: 10px;
+      transition: all 0.5s ease;
+      transform: rotate( -45deg );
+      -webkit-transform: rotate( -45deg );
+    }
+    .pdp-faqs .question.faq-active .qa {
+      transform: rotate( 45deg );
+      -webkit-transform: rotate( 45deg );
+    }
+    .pdp-faqs .answare {
+      display: none;
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 21px;
+      color: #666666;
+      padding-bottom: 10px;
+    }
+    .pdp-faqs .answare a {
+      color: #00BAC6;
+      font-weight: 500;
+      margin: auto 5px;
+    }
+    @media(max-width:749px){
+      .pdp__description-tabs {
+        margin-left: -15px;
+        margin-right: -15px;
+      }
+      .pdp__description-tabs .pdp__description-tab p {
+        padding: 11px 15px 0px;
+      }
+    }
+  </style>
+  
+  
+  {% if product.description contains '<!-----TechnicalInformationNew------>' %}
+      {% assign pdpDesc = product.description | split: '<!-----TechnicalInformationNew------>'| last %}
+      {% assign pdpD = pdpDesc | split: '<!-----TechnicalInformationendNew------>' | first %}
+  {% endif %}
+  
+  {% if product.description contains '<!-----TechnicalSpecNew------>' %}
+      {% assign pdpSpec = product.description | split: '<!-----TechnicalSpecNew------>'| last %}
+      {% assign pdpS = pdpSpec | split: '<!-----TechnicalSpecendNew------>' | first %}
+  {% endif %}
+  
+  {% if product.description contains '<!------faqendnew------->' %}
+    {% assign totalQuestion = product.metafields.global.totalquestion %}
+    {% assign pdpFaq = product.description | split: '<!------faqstartnew------->' | last %}
+    {% assign pdpF = pdpFaq | split: '<!------faqendnew------->' | first %}
+  {% endif %}
+  
+  {% if product.description %}
+    <div class="pdp__description-container">
+      <div class="pdp__description-tabs">
+        {% if pdpD %}
+            <div class="pdp__description-tab tab-active" data-content="tab-content-1"><p>Description</p></div>
+        {% endif %}
+        {% if pdpS %}
+            <div class="pdp__description-tab" data-content="tab-content-2"><p>Specification</p></div>
+        {% endif %}
+        {% if pdpF %}
+            <div class="pdp__description-tab" data-content="tab-content-3"><p>FAQ'S</p></div>
+        {% endif %}
+      </div>
+      {% if pdpD %}
+        <div id="tab-content-1" class="pdp__description-content pdp-datails tab-content-active">{{ pdpD }}</div>
+      {% endif %}
+      {% if pdpS %}
+        <div id="tab-content-2" class="pdp__description-content pdp-specs">{{ pdpS }}</div>
+      {% endif %}
+      {% if pdpF %}
+        <div id="tab-content-3" class="pdp__description-content pdp-faqs">{{ pdpF }}</div>
+      {% endif %}
+    </div>
+  {% endif %}
+  
+  <script>
+    $(document).ready(function(){
+      let pdpTabs = $(".pdp__description-tab");
+      let pdpContentTabs = $(".pdp__description-content");
+      
+      $(document).on("click",".pdp__description-tab",function(){
+        pdpTabs.removeClass("tab-active");
+        pdpContentTabs.removeClass("tab-content-active");
+        $(this).addClass("tab-active");
+        let dataContent = $(this).attr("data-content");
+  
+        pdpContentTabs.each(function(){
+          let contentId = $(this).attr("id");
+          if(dataContent == contentId){
+            $(this).addClass("tab-content-active");
+          }
+        })
+      })
+      
+      let faqQuestion = $(".question");
+      $(".question:first").addClass("faq-active");
+      $(".answare:first").show();
+      
+      $(document).on("click",".question",function(){     
+        let $self = $(this);
+        if($self.hasClass("faq-active")) {
+          $self.removeClass("faq-active");
+          $self.next(".answare").slideToggle();
+        }
+        else{
+          faqQuestion.removeClass("faq-active");
+          $(".answare").slideUp();
+          $self.addClass("faq-active");
+          $self.next(".answare").slideToggle();
+        }
+      })
+    })
+  </script>

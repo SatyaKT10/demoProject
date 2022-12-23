@@ -1,0 +1,4034 @@
+<script>
+  {% if customer %}  
+  {% else %}
+  window.location.href = "https://aqualensb2b.com/account/login";
+  {% endif %}
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.0.0/magnific-popup.min.css" integrity="sha512-nIm/JGUwrzblLex/meoxJSPdAKQOe2bLhnrZ81g5Jbh519z8GFJIWu87WAhBH+RAyGbM4+U3S2h+kL5JoV6/wA==" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.0.0/jquery.magnific-popup.min.js" integrity="sha512-+m6t3R87+6LdtYiCzRhC5+E0l4VQ9qIT1H9+t1wmHkMJvvUQNI5MKKb7b08WL4Kgp9K0IBgHDSLCRJk05cFUYg==" crossorigin="anonymous"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+<style>
+  .disabledbutton {
+    pointer-events: none;
+    opacity: 0.4;
+  }
+  .loader-main {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    z-index: 999999999;
+    background:white;
+    opacity: 0.9;
+  }
+  .loader-main p{
+    height: 100px;
+    width: 100px;
+
+  }
+  
+    /*  block without gst customer */
+  .inActiveCustomer{ 
+    display:none;
+    background: #000;
+    left: 0;
+    top:0;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    z-index: 9999;
+    text-align:center;
+  }
+  .small__notif_inactive{
+    color: #000;
+    background: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    padding: 20px;
+    border-radius: 4px;
+    
+  }
+  .small__notif_inactive p {
+    color: #000;
+    font-weight: 600;
+    font-family: poppins;
+  }
+  
+  
+/*  block without gst customer */
+  .gstIncomplete{ 
+    display:none;
+    background: #000;
+    left: 0;
+    top:0;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    z-index: 9999;
+    text-align:center;
+  }
+  .small__notif{
+    color: #000;
+    background: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    padding: 20px;
+    border-radius: 4px;
+    
+  }
+  .small__notif p {
+    color: #000;
+    font-weight: 600;
+    font-family: poppins;
+  }
+  .back-to-home {
+    margin-top:20px;
+  }
+
+  .back-to-home a{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    text-decoration: underline;
+    color: #00BAC6;
+  }
+/*  loader  */
+  .loader-div {
+    background: #000;
+    top: 62px;
+    left: 0;
+    top:8%;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    z-index: 9999;
+    opacity: 85%;
+    display:none;
+  }
+  .loader {
+    height: 50px;
+    width: 50px;
+    border: 5px solid #333;
+    border-radius: 50%;
+    border-top: 5px solid #999;
+    opacity: 1;
+    margin: 0 auto;
+    margin-top: 20%;
+    animation-name: spin;
+    animation-duration: 1000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+  /*  Shipping info  */
+
+  .shipping_charge .shipping-heading{
+    letter-spacing: 0;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 28px;
+  }
+  .shipping_charge .shipping-price{
+    letter-spacing: 0;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 28px;
+  }
+  
+/*  wallet info  */
+  .wallet_info{
+    display:none;
+  }
+  .wallet_info_flex {
+    display: flex;
+    justify-content: space-between;
+    color: green;
+  }
+  .wallet_info_flex .wallet-heading{
+    letter-spacing: 0;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 28px;
+  }
+.wallet_info_flex .wallet-price{
+    letter-spacing: 0;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 28px;
+  }
+ .cart_header-content .text-link--accent:not([disabled]):hover{
+    color:white !important;
+  }
+  @media(max-width:749px){
+    .addressFormWrapper {
+      height: 100%;
+      max-height: calc(100vh - 220px);
+      overflow-Y: auto;
+      white-space: nowrap;
+    }
+  }
+</style>
+{{ 'cart-style.scss.css' | asset_url | stylesheet_tag }}
+<!-- offer aug  6969493848124 Aqualens 10H Monthly (2 Lens Pack)-->
+
+{% assign case10H2LP = 0 %}
+{% assign qty10H2LP = 0 %}
+{% assign newQty10H2LP = 0 %}
+{% assign product10H2LP = 6969493848124 %}
+{% assign offer_10H2LP = false %}
+{% assign offerFlat_10H2LP = 0 %}
+
+{% for item in cart.items %}
+{% if item.product_id == product10H2LP %}
+{% assign qty10H2LP = qty10H2LP | plus:item.quantity  %}
+{% endif %}
+{% endfor %}
+
+{% assign newQty10H2LP = qty10H2LP | divided_by:70 %}
+
+{% if qty10H2LP >= 9  and qty10H2LP < 24 %}
+{% assign case10H2LP = 14000 %}
+{% assign offer_10H2LP = true %}
+{% assign offerFlat_10H2LP =  offerFlat_10H2LP | plus:140 %}
+{% endif %}
+{% if qty10H2LP >= 24  and qty10H2LP < 38 %}
+{% assign case10H2LP = 56000 %}
+{% assign offer_10H2LP = true %}
+{% assign offerFlat_10H2LP =  offerFlat_10H2LP | plus:560 %}
+{% endif %}
+{% if qty10H2LP >= 38  and qty10H2LP < 70 %}
+{% assign case10H2LP = 112000 %}
+{% assign offer_10H2LP = true %}
+{% assign offerFlat_10H2LP =  offerFlat_10H2LP | plus:1120 %}
+{% endif %}
+{% if newQty10H2LP > 0 %}
+{% assign case10H2LP = 280000 | times: newQty10H2LP %}
+{% assign offer_10H2LP = true %}
+{% assign offerFlat_10H2LP =  offerFlat_10H2LP | plus:case10H2LP | divided_by:100 %}
+{% endif %}
+
+
+
+<!-- offer July  -->
+<!-- Aqualens Daily Lens - 10 LP  -->
+
+{% assign case10LPjuly = 0 %}
+{% assign qty10LPjuly = 0 %}
+{% assign newQty10LPjuly = 0 %}
+{% assign product10LPjuly = 4512178372668 %}
+{% assign super_offer_10LP = false %}
+{% assign superFlat_offer_10LP = 0 %}
+
+{% for item in cart.items %}
+{% if item.product_id == product10LPjuly %}
+{% assign qty10LPjuly = qty10LPjuly | plus:item.quantity  %}
+{% endif %}
+{% endfor %}
+
+{% assign newQty10LPjuly = qty10LPjuly | divided_by:11 %}
+
+{% if newQty10LPjuly > 0 %}
+{% assign case10LPjuly = 17400 | times: newQty10LPjuly %}
+{% assign super_offer_10LP = true %}
+{% assign superFlat_offer_10LP =  superFlat_offer_10LP | plus:case10LPjuly | divided_by:100 %}
+{% endif %}
+
+<!--end Aqualens Daily Lens - 10 LP   -->
+
+<!--  CODE fOR June offer  -->
+<!-- 100ml Solution Offer -->
+{% assign case100ML = 0 %}
+{% assign qty100ML = 0 %}
+{% assign product100ML = 4702903074876 %}
+{% assign solutionFlat100ML = false %}
+{% assign offer_sol_100ML = 0 %}
+
+{% for item in cart.items %}
+{% if item.product_id == product100ML %}
+{% assign qty100ML = qty100ML| plus:item.quantity  %}
+{% endif %}
+{% endfor %}
+
+{% if qty100ML >= 25 and qty100ML < 50 %}
+{% assign case100ML = 7500 %}
+{% assign solutionFlat100ML = true %}
+{% assign offer_sol_100ML =  offer_sol_100ML | plus:75 %}
+{% endif %} 
+{% if qty100ML >= 50 and qty100ML < 100 %}
+{% assign case100ML = 25000 %}
+{% assign solutionFlat100ML = true %}
+{% assign offer_sol_100ML =  offer_sol_100ML | plus:250 %}
+{% endif %} 
+{% if qty100ML >= 100 and qty100ML < 500 %}
+{% assign case100ML = 100000 %}
+{% assign solutionFlat100ML = true %}
+{% assign offer_sol_100ML =  offer_sol_100ML | plus:1000 %}
+{% endif %} 
+{% if qty100ML >= 500 %}
+{% assign case100ML = 650000 %}
+{% assign solutionFlat100ML = true %}
+{% assign offer_sol_100ML =  offer_sol_100ML | plus:6500 %}
+{% endif %} 
+<!-- end of 100ml solution offer -->
+	
+<!-- Aquacolor Daily Plano - 2 Lens Candy Pack offer -->
+
+{% assign case2LCP = 0 %}
+{% assign qty2LCP = 0 %}
+{% assign product2LCP = 4608783712316 %}
+{% assign offer_candy_pack  = false %}
+{% assign offer_flat_candy_pack  = 0 %}
+
+{% for item in cart.items %}
+{% if item.product_id == product2LCP %}
+{% assign qty2LCP = qty2LCP | plus:item.quantity  %}
+{% endif %}
+{% endfor %}
+
+{% if qty2LCP >= 24  and qty2LCP < 65  %}
+{% assign case2LCP = qty2LCP | times:16 | times:100 %}
+{% assign offer_candy_pack = true %}
+{% assign offer_flat_candy_pack =  offer_flat_candy_pack | plus:case2LCP | divided_by:100 %}
+{% endif %}
+{% if qty2LCP >= 65  and qty2LCP < 140  %}
+{% assign case2LCP = qty2LCP | times:22 | times:100 %}
+{% assign offer_candy_pack = true %}
+{% assign offer_flat_candy_pack =  offer_flat_candy_pack | plus:case2LCP | divided_by:100 %}
+{% endif %}
+{% if qty2LCP >= 140 %}
+{% assign case2LCP = qty2LCP | times:28 | times:100 %}
+{% assign offer_candy_pack = true %}
+{% assign offer_flat_candy_pack =  offer_flat_candy_pack | plus:case2LCP | divided_by:100 %}
+{% endif %}
+
+<!-- end of candy pack offer -->
+<!-- end of june offer -->
+
+<!-- september offer update combo 120ml -->
+{% assign caseCombo120ML = 0 %}
+{% assign qtyCombo120ML = 0 %}
+{% assign productCombo120ML = 7018799398972 %}
+{% assign solutionComboFlat120ML = false %}
+{% assign offerComboFlat = 0 %}
+
+{% for item in cart.items %}
+{% if item.product_id == productCombo120ML %}
+{% assign qtyCombo120ML = qtyCombo120ML| plus:item.quantity  %}
+{% endif %}
+{% endfor %}
+
+{% if qtyCombo120ML >= 10 %}
+{% assign caseCombo120ML = qtyCombo120ML  | times:20 | times:100 %}
+{% assign solutionComboFlat120ML = true %}
+{% assign offerComboFlat =  offerComboFlat | plus:caseCombo120ML | divided_by:100 %}
+{% endif %}
+<!-- End -->
+
+<!-- Offer 4 -->
+<!--  CODE fOR 1. Aqualens Contact Lens Solution 500 ML in multiples -->
+{% assign case500ML = 0 %}
+{% assign qty500ML = 0 %}
+{% assign newQty500ML = 0 %}
+{% assign product500ML = 4512181190716 %}
+{% assign solutionFlat500ML = false %}
+{% assign offerFlat_4_1 = 0 %}
+
+{% for item in cart.items %}
+{% if item.product_id == product500ML %}
+{% assign qty500ML = qty500ML| plus:item.quantity  %}
+{% assign newQty500ML = qty500ML | divided_by: 5 %}
+{% endif %}
+{% endfor %}
+{% comment %}
+{% if newQty500ML > 0 %}
+{% assign case500ML = qty500ML  | times:3500 %}
+{% assign solutionFlat500ML = true %}
+{% assign offerFlat_4_1 =  offerFlat_4_1 | plus:case500ML | divided_by:100 %}
+{% endif %}
+{% endcomment %}
+<!-- End -->
+
+
+<!-- Offer 5 -->
+<!--  CODE fOR 1. 360ml Solution Offer  in multiples -->
+{% assign case360ML = 0 %}
+{% assign qty360ML = 0 %}
+{% assign newQty360ML = 0 %}
+{% assign product360ML = 4512178143292 %}
+{% assign solutionFlat360ML = false %}
+{% assign offerFlat_5_1 = 0 %}
+
+{% for item in cart.items %}
+{% if item.product_id == product360ML %}
+{% assign qty360ML = qty360ML| plus:item.quantity  %}
+{% assign newQty360ML = qty360ML | divided_by:10 %}
+{% endif %}
+{% endfor %}
+{% comment %}
+{% if newQty360ML > 0 %}
+{% assign case360ML = 100000 | times:newQty360ML %}
+{% assign solutionFlat360ML = true %}
+{% assign offerFlat_5_1 =  offerFlat_5_1 | plus:case360ML | divided_by:100 %}
+{% endif %}
+{% endcomment %}
+<!-- End -->
+
+<!-- Offer 6 -->
+<!--  CODE fOR 1. 60ml Solution Offer -->
+{% assign case60ML = 0 %}
+{% assign qty60ML = 0 %}
+{% assign newQty60ML = 0 %}
+{% assign product60ML = 4512179126332 %}
+{% assign solutionFlat60ML = false %}
+{% assign offerFlat_5_2 = 0 %}
+
+{% for item in cart.items %}
+{% if item.product_id == product60ML %}
+{% assign qty60ML = qty60ML| plus:item.quantity  %}
+{% endif %}
+{% endfor %}
+
+{% assign newQty60ML = qty60ML | divided_by:100 %}
+
+{% if qty60ML >= 30 and qty60ML < 50 %}
+{% assign case60ML = 48000 %}
+{% assign solutionFlat60ML = true %}
+{% assign offerFlat_5_2 =  offerFlat_5_2 | plus:480 %}
+{% endif %}
+{% if qty60ML >= 50 and qty60ML < 100 %}
+{% assign case60ML = 105000 %}
+{% assign solutionFlat60ML = true %}
+{% assign offerFlat_5_2 =  offerFlat_5_2 | plus:1050 %}
+{% endif %}
+{% if newQty60ML > 0  and newQty60ML < 10 %}
+{% assign case60ML = 260000 | times:newQty60ML %}
+{% assign solutionFlat60ML = true %}
+{% assign offerFlat_5_2 =  offerFlat_5_2 | plus:case60ML | divided_by:100 %}
+{% endif %}
+
+{% if qty60ML >= 1000 and qty60ML < 2000 %}
+{% assign case60ML = 2800000 %}
+{% assign solutionFlat60ML = true %}
+{% assign offerFlat_5_2 =  offerFlat_5_2 | plus:28000 %}
+{% endif %}
+
+{% assign bulkQty60ML = qty60ML | divided_by:2000 %}
+{% if bulkQty60ML > 0 %}
+{% assign case60ML = 6100000 | times:bulkQty60ML %}
+{% assign solutionFlat60ML = true %}
+{% assign offerFlat_5_2 =  offerFlat_5_2 | plus:case60ML | divided_by:100 %}
+{% endif %}
+
+{% comment %}
+{% if qty60ML >= 48 and qty60ML < 96 %}
+{% assign case60ML = 38400 %}
+{% assign juneFlag = true %}
+{% endif %}
+{% if qty60ML >= 96 and qty60ML < 252 %}
+{% assign case60ML = 124800 %}
+{% assign juneFlag = true %}
+{% endif %}
+{% if qty60ML >= 252 and qty60ML < 504 %}
+{% assign case60ML = 453600 %}
+{% assign juneFlag = true %}
+{% endif %}
+{% if qty60ML >= 504 %}
+{% assign case60ML = 1159200 %}
+{% assign juneFlag = true %}
+{% endif %}
+{% endcomment %}
+
+
+
+
+<!-- End -->
+
+
+<!-- Offer 7 -->
+<!--  CODE fOR 1.Aqualens 10H Monthly (3 Lens Pack) -->
+{% assign case3LP = 0 %}
+{% assign qty3LP = 0 %}
+{% assign newQty3LP = 0 %}
+{% assign product3LP = 4512181026876 %}
+{% assign offer_7_1 = false %}
+{% assign offerFlat_7_1 = 0 %}
+
+{% for item in cart.items %}
+{% if item.product_id == product3LP %}
+{% assign qty3LP = qty3LP | plus:item.quantity  %}
+{% endif %}
+{% endfor %}
+
+{% assign newQty3LP = qty3LP | divided_by:100 %}
+
+{% if qty3LP >= 10  and qty3LP < 23 %}
+{% assign case3LP = 17500 %}
+{% assign offer_7_1 = true %}
+{% assign offerFlat_7_1 =  offerFlat_7_1 | plus:175 %}
+{% endif %}
+{% if qty3LP >= 23  and qty3LP < 35 %}
+{% assign case3LP = 52500 %}
+{% assign offer_7_1 = true %}
+{% assign offerFlat_7_1 =  offerFlat_7_1 | plus:525 %}
+{% endif %}
+{% if qty3LP >= 35  and qty3LP < 62 %}
+{% assign case3LP = 87500 %}
+{% assign offer_7_1 = true %}
+{% assign offerFlat_7_1 =  offerFlat_7_1 | plus:875 %}
+{% endif %}
+{% if qty3LP >= 62  and qty3LP < 100 %}
+{% assign case3LP = 210000 %}
+{% assign offer_7_1 = true %}
+{% assign offerFlat_7_1 =  offerFlat_7_1 | plus:2100 %}
+{% endif %}
+{% if newQty3LP > 0 %}
+{% assign case3LP = 437500 | times: newQty3LP %}
+{% assign offer_7_1 = true %}
+{% assign offerFlat_7_1 =  offerFlat_7_1 | plus:case3LP | divided_by:100 %}
+{% endif %}
+
+<!--  CODE fOR 2.Aqualens 10H Monthly (6 Lens Pack) -->
+{% assign case6LP = 0 %}
+{% assign qty6LP = 0 %}
+{% assign newQty6LP = 0 %}
+{% assign product6LP = 4512181125180 %}
+{% assign offer_7_2 = false %}
+{% assign offerFlat_7_2 = 0 %}
+
+{% for item in cart.items %}
+{% if item.product_id == product6LP %}
+{% assign qty6LP = qty6LP | plus:item.quantity  %}
+{% endif %}
+{% endfor %}
+
+{% assign newQty6LP = qty6LP | divided_by:100 %}
+
+{% if qty6LP >= 10  and qty6LP < 23 %}
+{% assign case6LP = 35000 %}
+{% assign offer_7_2 = true %}
+{% assign offerFlat_7_2 =  offerFlat_7_2 | plus:350 %}
+{% endif %}
+{% if qty6LP >= 23  and qty6LP < 35 %}
+{% assign case6LP = 105000 %}
+{% assign offer_7_2 = true %}
+{% assign offerFlat_7_2 =  offerFlat_7_2 | plus:1050 %}
+{% endif %}
+{% if qty6LP >= 35  and qty6LP < 62 %}
+{% assign case6LP = 175000 %}
+{% assign offer_7_2 = true %}
+{% assign offerFlat_7_2 =  offerFlat_7_2 | plus:1750 %}
+{% endif %}
+{% if qty6LP >= 62  and qty6LP < 100 %}
+{% assign case6LP = 420000 %}
+{% assign offer_7_2 = true %}
+{% assign offerFlat_7_2 =  offerFlat_7_2 | plus:4200 %}
+{% endif %}
+{% if newQty6LP > 0 %}
+{% assign case6LP = 875000 | times:newQty6LP %}
+{% assign offer_7_2 = true %}
+{% assign offerFlat_7_2 =  offerFlat_7_2 | plus:case6LP | divided_by:100 %}
+{% endif %}
+<!-- End -->
+
+<!-- Offer 8 -->
+<!--  CODE fOR 1.Aquacolor Monthly Plano - 2LP-->
+{% assign case2LP = 0 %}
+{% assign qty2LP = 0 %}
+{% assign newQty2LP = 0 %}
+{% assign product2LP = 4512180437052 %}
+{% assign offer_8_1 = false %}
+{% assign offerFlat_8_1 = 0 %}
+
+{% for item in cart.items %}
+{% if item.product_id == product2LP %}
+{% assign qty2LP = qty2LP | plus:item.quantity  %}
+{% endif %}
+{% endfor %}
+
+{% assign newQty2LP = qty2LP | divided_by: 100 %}
+
+{% if qty2LP >= 14  and qty2LP < 28  %}
+{% assign case2LP = 56000 %}
+{% assign offer_8_1 = true %}
+{% assign offerFlat_8_1 =  offerFlat_8_1 | plus:560 %}
+{% endif %}
+{% if qty2LP >= 28  and qty2LP < 48  %}
+{% assign case2LP = 168000 %}
+{% assign offer_8_1 = true %}
+{% assign offerFlat_8_1 =  offerFlat_8_1 | plus:1680 %}
+{% endif %}
+{% if qty2LP >= 48  and qty2LP < 100  %}
+{% assign case2LP = 336000 %}
+{% assign offer_8_1 = true %}
+{% assign offerFlat_8_1 =  offerFlat_8_1 | plus:3360 %}
+{% endif %}
+
+{% if newQty2LP > 0  %}
+{% assign case2LP = 980000 | times:newQty2LP %}
+{% assign offer_8_1 = true %}
+{% assign offerFlat_8_1 =  offerFlat_8_1 | plus:case2LP | divided_by:100 %}
+{% endif %}
+
+<!-- 1.Aquacolor Monthly Plano 1LP -->
+
+{% assign planocase1LP = 0 %}
+{% assign planoqty1LP = 0 %}
+{% assign newplanoqty1LP = 0 %}
+{% assign product1LP = 4512178667580 %}
+{% assign offer_plano_1LP = false %}
+{% assign offerFlat_plano_1LP = 0 %}
+
+{% for item in cart.items %}
+{% if item.product_id == product1LP %}
+{% assign planoqty1LP = planoqty1LP | plus:item.quantity  %}
+{% endif %}
+{% endfor %}
+
+{% assign newplanoqty1LP = planoqty1LP | divided_by: 100 %}
+
+{% if planoqty1LP >= 14  and planoqty1LP < 28  %}
+{% assign planocase1LP = 28000 %}
+{% assign offer_plano_1LP = true %}
+{% assign offerFlat_plano_1LP =  offerFlat_plano_1LP | plus:280 %}
+{% endif %}
+
+{% if planoqty1LP >= 28  and planoqty1LP < 48  %}
+{% assign planocase1LP = 84000 %}
+{% assign offer_plano_1LP = true %}
+{% assign offerFlat_plano_1LP =  offerFlat_plano_1LP | plus:840 %}
+{% endif %}
+
+{% if planoqty1LP >= 48  and planoqty1LP < 100  %}
+{% assign planocase1LP = 168000 %}
+{% assign offer_plano_1LP = true %}
+{% assign offerFlat_plano_1LP =  offerFlat_plano_1LP | plus:1680 %}
+{% endif %}
+
+{% if newplanoqty1LP > 0  %}
+{% assign planocase1LP = 490000 | times:newplanoqty1LP %}
+{% assign offer_plano_1LP = true %}
+{% assign offerFlat_plano_1LP =  offerFlat_plano_1LP | plus:planocase1LP | divided_by:100 %}
+{% endif %}
+
+
+
+<!--  CODE fOR 2. Aqualens 24H Monthly (6 Lens Pack) this is not 1LP product only variable seems like 1LP product -->
+{% assign case1LP = 0 %}
+{% assign qty1LP = 0 %}
+{% assign newQty1LP = 0 %}
+{% assign product1LP = 4512181256252 %}
+{% assign offer_8_2 = false %}
+{% assign offerFlat_8_2 = 0 %}
+
+{% for item in cart.items %}
+{% if item.product_id == product1LP %}
+{% assign qty1LP = qty1LP | plus:item.quantity  %}
+{% endif %}
+{% endfor %}
+
+{% comment %}
+{% assign newQty1LP = qty1LP | divided_by:18 %}
+
+{% if qty1LP >= 8  and qty1LP < 18 %}
+{% assign case1LP = 69900 %}
+{% assign offer_8_2 = true %}
+{% assign offerFlat_8_2 =  offerFlat_8_2 | plus:699 %}
+{% endif %}
+
+{% if newQty1LP > 0 %}
+{% assign case1LP = 209700 | times:newQty1LP %}
+{% assign offer_8_2 = true %}
+{% assign offerFlat_8_2 =  offerFlat_8_2 | plus:case1LP | divided_by:100 %}
+{% endif %}
+{% endcomment %}
+<!-- End -->
+
+
+<!-- Offer 9 -->
+<!--  CODE fOR 1. Aquacolor Daily Plano - 10LP-->
+
+
+<!-- Offer 9 changed by shakir -->
+
+{% assign case10LP = 0 %}
+{% assign qty10LP = 0 %}
+{% assign product10LP = 4512179847228 %}
+{% assign offer_9_1 = false %}
+{% assign offerFlat_9_1 = 0 %}
+
+{% for item in cart.items %}
+{% if item.product_id == product10LP %}
+{% assign qty10LP = qty10LP| plus:item.quantity  %}
+{% endif %}
+{% endfor %}
+
+{% if qty10LP >= 5 and qty10LP < 15 %}
+{% assign case10LP = qty10LP | times:70 | times:100 %}
+{% assign offer_9_1 = true %}
+{% assign offerFlat_9_1 =  offerFlat_9_1 | plus: case10LP | divided_by:100  %}
+{% endif %}
+
+{% if qty10LP >= 15 and qty10LP < 30 %}
+{% assign case10LP = qty10LP | times:90 | times:100 %}
+{% assign offer_9_1 = true %}
+{% assign offerFlat_9_1 =  offerFlat_9_1 | plus: case10LP  | divided_by:100 %}
+{% endif %}
+
+{% if qty10LP >= 30 and qty10LP < 50 %}
+{% assign case10LP = qty10LP | times:100 | times:100 %}
+{% assign offer_9_1 = true %}
+{% assign offerFlat_9_1 =  offerFlat_9_1 | plus: case10LP  | divided_by:100 %}
+{% endif %}
+
+{% if qty10LP >= 50 and qty10LP < 100 %}
+{% assign case10LP = qty10LP | times:110 | times:100 %}
+{% assign offer_9_1 = true %}
+{% assign offerFlat_9_1 =  offerFlat_9_1 | plus: case10LP | divided_by:100 %}
+{% endif %}
+
+{% if qty10LP >= 100 %}
+{% assign case10LP = qty10LP | times:120 | times:100 %}
+{% assign offer_9_1 = true %}
+{% assign offerFlat_9_1 =  offerFlat_9_1 | plus: case10LP | divided_by:100 %}
+{% endif %}
+
+<!-- Offer 9 end -->
+
+
+<!--  CODE fOR 2. Aquacolor Daily Power - 5LP-->
+{% assign case5LP = 0 %}
+{% assign qty5LP = 0 %}
+{% assign product5LP = 4647939047484 %}
+{% assign offer_9_2 = false %}
+{% assign offerFlat_9_2 = 0 %}
+
+{% for item in cart.items %}
+{% if item.product_id == product5LP %}
+{% assign qty5LP = qty5LP | plus:item.quantity  %}
+{% endif %}
+{% endfor %}
+
+{% if qty5LP >= 21 %}
+{% assign case5LP = 20000 %}
+{% assign offer_9_2 = true %}
+{% assign offerFlat_9_2 =  offerFlat_9_2 | plus:200 %}
+{% endif %}
+<!-- End -->
+
+<!-- Offer 10 -->
+<!--  CODE fOR 1. Aqualens Daily Lens - 30 LP-->
+{% assign case30LP = 0 %}
+{% assign qty30LP = 0 %}
+{% assign newQty30LP = 0 %}
+{% assign product30LP = 4512178503740 %}
+{% assign offer_10_1 = false %}
+{% assign offerFlat_10_1 = 0 %}
+
+{% for item in cart.items %}
+{% if item.product_id == product30LP %}
+{% assign qty30LP = qty30LP | plus:item.quantity  %}
+{% assign newQty30LP = qty30LP | divided_by:11 %}
+{% endif %}
+{% endfor %}
+
+{% if newQty30LP > 0 %}
+{% assign case30LP = 48900 | times:newQty30LP %}
+{% assign offer_10_1 = true %}
+{% assign offerFlat_10_1 =  offerFlat_10_1 | plus:case30LP | divided_by:100 %}
+{% endif %}
+
+<!--  CODE fOR 2. Aqualens 24 H NXT Monthly Contact Lens (3 Lens/Box),-->
+{% assign case3LPB = 0 %}
+{% assign qty3LPB = 0 %}
+{% assign newQty3LPB2 = 0 %}
+{% assign product3LPB = 4696814256188 %}
+{% assign offer_10_2 = false %}
+{% assign offerFlat_10_2 = 0 %}
+
+{% for item in cart.items %}
+{% if item.product_id == product3LPB %}
+{% assign qty3LPB = qty3LPB | plus:item.quantity  %}
+{% endif %}
+{% endfor %}
+{% assign newQty3LPB2 = qty3LPB | divided_by:42 %}
+{% comment %}
+{% if qty3LPB >= 9 and  qty3LPB < 18 %}
+{% assign case3LPB = 49000 %}
+{% assign offer_10_2 = true %}
+{% assign offerFlat_10_2 =  offerFlat_10_2 | plus:490 %}
+{% endif %}
+{% if qty3LPB >= 18 and  qty3LPB < 42 %}
+{% assign case3LPB = 147000 %}
+{% assign offer_10_2 = true %}
+{% assign offerFlat_10_2 =  offerFlat_10_2 | plus:1470 %}
+{% endif %}
+{% if newQty3LPB2 > 0 %}
+{% assign case3LPB = 588000 | times:newQty3LPB2%}
+{% assign offer_10_2 = true %}
+{% assign offerFlat_10_2 =  offerFlat_10_2 | plus:case3LPB |divided_by:100 %}
+{% endif %}
+{% endcomment %}
+<!-- End -->
+
+<!-- Aqualens 24H Toric Monthly - 3LP -->
+{% assign prdtoric3LP = 4568512102460 %}
+{% assign toric3LP = 0 %}
+{% assign toricqty3LP = 0 %}
+{% assign newtoricQty3LP = 0 %}
+{% assign offer_toric_3LP = false %}
+{% assign offerFlat_toric_3LP = 0 %}
+
+{% for item in cart.items %}
+{% if item.product_id == prdtoric3LP %}
+{% assign toricqty3LP = toricqty3LP | plus:item.quantity  %}
+{% assign newtoricQty3LP = toricqty3LP | divided_by:4 %}
+{% endif %}
+{% endfor %}
+{% comment %}
+{% if newtoricQty3LP > 0 %}
+{% assign toric3LP = 69900 | times:newtoricQty3LP %}
+{% assign offer_toric_3LP = true %}
+{% assign offerFlat_toric_3LP =  offerFlat_toric_3LP | plus:toric3LP | divided_by:100 %}
+{% endif %}
+{% endcomment %}
+
+
+
+<!--  variables for skipGst,mini-combo,and free soluions -->
+{% assign skipGst = false %}
+{% assign combo = 0 %}
+{% assign combo2 = 0 %}
+{% assign lockdO = false %}
+{% assign lockdO2 = false %}
+{% assign solution360 = 32022497165372 %}
+{% assign solution120 = 32022499033148 %}
+{% assign oldSolution60 = 32022498771004 %}
+{% assign solution60 = 39468900778044 %}
+
+<!-- for  mini combo offers -->
+{% for itemC in cart.items %}
+{% if itemC.id == solution360 and itemC.quantity >= 15 %}
+{% assign combo = combo | plus:1 %}
+{% assign combo2 = combo2 | plus:1 %}
+{% endif %}
+{% if itemC.id == solution120 and itemC.quantity >= 15 %}
+{% assign combo = combo | plus:1 %}
+{% assign combo2 = combo2 | plus:1 %}
+{% endif %}
+{% if itemC.id == solution360 and itemC.quantity >= 2 and itemC.quantity < 15 %}
+{% assign combo2 = combo2 | plus:1 %}
+{% endif %}
+{% if itemC.id == solution120 and itemC.quantity >= 5 and itemC.quantity < 15 %}
+{% assign combo2 = combo2 | plus:1 %}
+{% endif %}
+{% if itemC.id == oldSolution60 and itemC.quantity >= 10 %}
+{% assign combo2 = combo2 | plus:1 %}
+{% endif %}
+{% endfor %}
+
+{% assign alreadyTaken = false %}
+{% assign alreadyTaken2 = false %} 
+
+{% if customer %}
+{% for tag in customer.tags %}
+{% if tag contains 'combo_true' %}
+{% assign alreadyTaken = true %}
+{% endif %}
+{% if tag contains 'combo2_true' %}
+{% assign alreadyTaken2 = true %}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+{% if combo == 2 and alreadyTaken != true %}
+{% assign lockdO = true %}
+{% endif %}
+
+{% if combo2 == 3 and alreadyTaken2 != true %}
+{% assign lockdO2 = true %}
+{% endif %}
+
+{% assign maxP = 400000 %}
+{% assign maxP1 = 130000 %}
+
+<!-- End -->
+
+<!-- 5 free 60ml on every 1500 -->
+{% assign cartPriceCal = 0 %}
+{% for itemFreeSol in cart.items %}
+{% if itemFreeSol.product.type == "Color Lens" or itemFreeSol.product.type == "Clear Lens" %}
+{% if itemFreeSol.product.title contains 'Aquacolor Daily Plano - 2 Lens Candy Pack' %}
+{% assign cartPricePer = 0 %}
+{% assign cartPriceCal = cartPriceCal %}
+{% else %}
+{% assign cartPricePer = itemFreeSol.original_line_price | divided_by: 100 %}
+{% assign cartPriceCal = cartPriceCal | plus : cartPricePer %}
+{% endif %}
+{% endif %}
+{% endfor %}
+
+{% assign cartPrice = cart.total_price | divided_by: 100 %}
+{% assign freeSolutionPack = false %}
+{% assign solCartPrice = cartPrice %}
+{% assign solQty = 0 %}
+{% assign eosFlag = false %}
+{% assign solution_tax_price = 0 %}
+
+{% for itemFreeSol in cart.items %}
+{% for property in itemFreeSol.properties %}
+{% if property.first=='eos' and property.last == 'true' %}
+{% assign freeSolutionPack = true %}
+{% assign priceMinus = itemFreeSol.original_line_price |  divided_by: 100  %}
+{% assign solution_tax_price = solution_tax_price | plus: itemFreeSol.original_line_price %}
+{% assign solCartPrice = solCartPrice | minus : priceMinus  %}
+  {% if property.first=='eos'and property.last == 'true' %}
+ 	 {% assign solQty = itemFreeSol.quantity %}
+  {% endif %}
+{% endif %}
+{% endfor %}
+{% endfor %}
+
+{% assign loopExecutev= false %}
+
+{% if  freeSolutionPack %}
+{% assign solCartPriceC = solCartPrice  %}
+{% assign solCartPriceVal =  solCartPrice | times:100 %}
+{% else %}
+{% assign solCartPriceC = cartPrice %}
+{% assign solCartPriceVal =  cartPrice | times:100 %}
+{% endif %}
+
+{% comment %}
+{% if  cartPriceCal >= 3000 %}
+{% assign NoOfBottle = 10 %}
+{% endif %}
+{% endcomment %}
+
+{% comment %} {% assign multipleBottle = cartPriceCal | divided_by: 3000 %} {% endcomment %}
+{% assign flat10H2LP = case10H2LP | divided_by:100 %}
+{% assign flat3LP = case3LP | divided_by:100 %}
+{% assign flat10LPjuly = case10LPjuly | divided_by:100 %}
+{% assign flat6LP = case6LP | divided_by:100 %}
+{% assign flat2LP = case2LP | divided_by:100 %}
+{% assign flat2LCP = case2LCP | divided_by:100 %}
+{% assign flatPlano1LP = planocase1LP | divided_by:100 %}
+{% assign flat1LP = case1LP | divided_by:100 %}
+{% assign flat10LP = case10LP | divided_by:100 %}
+{% assign flat5LP = case5LP | divided_by:100 %} 
+{% assign flat30LP = case30LP | divided_by:100 %}
+{% assign flat3LPB = case3LPB | divided_by:100 %} 
+{% assign flattoric3LP = toric3LP | divided_by:100 %} 
+
+{% comment %}
+Commented for may offer
+{% assign multipleBottle = cartPriceCal | minus:flat10H2LP | minus:flat3LP | minus:flat10LPjuly | minus:flat6LP | minus:flat2LP | minus:flat1LP | minus:flat10LP | minus:flat5LP | minus:flat30LP | minus:flat3LPB | minus:flattoric3LP | minus:flatPlano1LP | divided_by: 1500 %} 
+{% assign NoOfBottle = multipleBottle | times: 5  %}  
+{% endcomment %}
+{% comment %}
+old code
+{% if freeSolutionPack and NoOfBottle > solQty and solCartPriceC >= 3000 %}
+{% assign loopExecutev= true %}
+{% endif %}
+{% if freeSolutionPack != "true" and NoOfBottle > solQty and solCartPriceC >= 3000 %}
+{% assign loopExecutev= true %}
+{% endif %}
+{% endcomment %}
+
+{% comment %}
+Commented for may offer
+{% if freeSolutionPack and NoOfBottle > solQty and solCartPriceC >= 1500 %}
+{% assign loopExecutev= true %}
+{% endif %}
+{% if freeSolutionPack != "true" and NoOfBottle > solQty and solCartPriceC >= 1500 %}
+{% assign loopExecutev = true %}
+{% endif %}
+
+
+{% assign noOfBottleAdded = NoOfBottle | minus: solQty %}
+{% assign noOfBottleDeleted =  solQty | plus : noOfBottleAdded %}
+{% assign noOfBottleAddedPrice = noOfBottleAdded %}
+{% endcomment %}
+<!-- End -->
+
+
+<!-- toric offer-2 AQ-527 buy 1  Aqualens 24H Toric Monthly - 3LP get 1  60ml soution  -->
+{% assign product_qty = 0 %}
+{% assign product_qty2 = 0 %}
+{% assign product_qty3 = 0 %}
+
+{% for itemFreeSol in cart.items %}
+{% if itemFreeSol.product.tags contains '2bpp' %}
+{% assign product_qty = product_qty | plus:itemFreeSol.quantity %}
+{% endif %}
+{% endfor %}
+{% assign product_qty = product_qty | times:2 %}
+
+{% for itemFreeSol in cart.items %}
+{% if itemFreeSol.product.tags contains '1bpp' %}
+{% assign product_qty2 = product_qty2 | plus:itemFreeSol.quantity %}
+{% endif %}
+{% endfor %}
+
+{% for itemFreeSol in cart.items %}
+{% if itemFreeSol.product.tags contains '1b2p' %}
+{% assign product_qty3 = product_qty3 | plus:itemFreeSol.quantity %}
+{% endif %}
+{% endfor %}
+{% assign product_qty3 = product_qty3 | divided_by: 2 %}
+
+
+{% assign cartTotalPrice = cart.total_price | divided_by: 100 %}
+{% assign free120Pack = false %}
+{% assign totalPrice = cartTotalPrice %}
+{% assign sol120Qty = 0 %}
+
+{% assign sol120Price = 0 %}
+{% for itemFreeSol in cart.items %}
+{% for property in itemFreeSol.properties %}
+{% if property.first=='toricoffer' and property.last == "true" %}
+{% assign free120Pack = true %}
+{% assign itemPriceMinus = itemFreeSol.original_line_price |  divided_by: 100  %}
+{% assign sol120Price = sol120Price | plus : itemPriceMinus %}
+{% assign totalPrice = totalPrice | minus : itemPriceMinus  %}
+{% assign sol120Qty = itemFreeSol.quantity %}
+{% endif %}
+{% endfor %}
+{% endfor %}
+{% assign solExecute  = false %}
+
+{% if free120Pack %}
+{% assign sol120CartPriceC = totalPrice  %}
+{% assign sol120CartPriceVal =  totalPrice  | times:100 %}
+{% else %}
+{% assign sol120CartPriceC = cartPrice %}
+{% assign sol120CartPriceVal =  cartPrice | times:100 %}
+{% endif %}
+
+ 
+{% assign bottleNo = product_qty | plus: product_qty2 | plus: product_qty3 %}
+{% if free120Pack != 'true' and bottleNo > sol120Qty %}
+{% assign solExecute = true %}
+{% endif %}
+{% assign number_of_bottle_added = bottleNo | minus: sol120Qty %}
+{% assign number_of_bottle_deleted =  sol120Qty | plus : number_of_bottle_added %}
+
+
+{% comment %}
+{% assign number_of_bottle = product_qty %} 
+{% if number_of_bottle > sol120Qty %}
+{% assign solExecute  = true %}
+{% endif %}
+{% assign number_of_bottle_added = number_of_bottle | minus: sol120Qty %}
+{% assign number_of_bottle_deleted =  sol120Qty | plus : number_of_bottle_added %}
+{{ product_qty }},
+{{ solExecute }},
+{{ number_of_bottle }},
+{{ bottleNo }},
+{{ free120Pack }},
+{{ sol120Price }},
+{{ sol120Qty  }}
+{% endcomment %}
+
+
+<!-- End -->
+
+<!-- code For June Offer Buy 16 or more Solution120ml get 12 solution60ml -->
+{% assign product120ML = 4512179322940 %}
+{% assign qty120ml = 0 %}
+{% assign qty60ml = 0 %}
+{% assign price60ml = 0 %}
+{% assign soljune =  false %}
+{% assign totalQty120ml = 0 %}
+
+
+{% for item in cart.items %}
+{% if item.product_id == product120ML %}
+{% assign totalQty120ml = totalQty120ml | plus:item.quantity %}
+{% for property in item.properties %}
+{% if  property.first == 'type' and property.last == 'FREE' %} 
+{% assign qty120ml = qty120ml | plus:item.quantity  %}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endfor %}
+
+{% comment %}
+{% assign solJuneFree = 0 %}
+{% for itemFreeSol in cart.items %}
+{% for property in itemFreeSol.properties %}
+{% if property.first == 'juneoffer3' and property.last == 'true' %}
+{% assign solJuneFree = solJuneFree | plus: itemFreeSol.quantity %} 
+{% endif %}
+{% endfor %}
+{% endfor %}
+
+{% assign leftQty120ml = totalQty120ml | minus:qty120ml %}
+{% assign newQty120ML = leftQty120ml | divided_by:16 %}
+{% if newQty120ML > 0 %}
+{% assign qty60ml = 12 | times:newQty120ML %}
+{% assign price60ml = qty60ml| times:1 | times: 100 %}
+{% else %}
+{% assign qty60ml = 0 %}
+{% assign price60ml = 0 %}
+{% endif %}
+{% endcomment %}
+{% comment %}
+{% if leftQty120ml >= 16 %}
+{% assign qty60ml = 12 %}
+{% assign price60ml = qty60ml| times:1 | times: 100 %}
+{% else %}
+{% assign qty60ml = 0 %}
+{% assign price60ml = 0 %}
+{% endif %}
+{% endcomment %}
+
+{% if qty60ml > solJuneFree %}
+{% assign soljune  = true %}
+{% endif %}
+{% assign qty60mlAdded = qty60ml | minus: solJuneFree %} 
+{% assign qty60mlDeleted =  solJuneFree | plus :  qty60mlAdded %} 
+
+
+<!-- End -->
+
+<!-- 120ml one time per user -->
+{% assign alreadyTaken120ML = false %}
+{% if customer %}
+{% for tag in customer.tags %}
+{% if tag contains 'city_bangalore' %}
+{% assign alreadyTaken120ML = true %}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+{% assign product120MLfeb = 4512179322940 %}
+{% assign case120MLfeb = 0 %}
+{% assign qty120MLfeb = 0 %}
+{% assign solutionFlat120MLfeb = false %}
+{% assign offerFlat120MLfeb = 0 %}
+
+{% comment %}
+{% for item in cart.items %}
+{% if item.product_id == product120MLfeb %}
+{% assign qty120MLfeb = qty120MLfeb | plus:item.quantity  %}
+{% endif %}
+{% endfor %}
+
+{% if alreadyTaken120ML == true %}
+{% if qty120MLfeb >= 10 %}
+{% assign case120MLfeb = 60000 %}
+{% assign solutionFlat120MLfeb = true %}
+{% assign offerFlat120MLfeb  =  offerFlat120MLfeb | plus:case120MLfeb | divided_by:100 %}
+{% endif %}
+{% endif %}
+
+{% assign newQty120MLfeb = qty120MLfeb | divided_by:20 %}
+
+{% if newQty120MLfeb > 0 %}
+{% assign case120MLfeb = 140000 | times:newQty120MLfeb %}
+{% assign solutionFlat120MLfeb = true %}
+{% assign offerFlat120MLfeb = 0 %}
+{% assign offerFlat120MLfeb  =  offerFlat120MLfeb | plus:case120MLfeb | divided_by:100 %}
+{% endif %}
+{% endcomment %}
+
+<!-- adding discount of new customer one time per user -->
+
+{% assign newFree60 = true %}
+{% for itemFreeSol in cart.items %}
+{% for property in itemFreeSol.properties %}
+{% if property.first == 'julyNewOffer' and property.last == 'newCustomer' %}
+{% assign newFree60 = false %}
+{% endif %}
+{% endfor %}
+{% endfor %}
+
+{% assign free3solution = 0 %}
+{% assign freeProductYes = false %}
+{% assign cartAmount =  cart.total_price | divided_by:100  | plus: 0 %}
+{% assign customerOrderCount =  customer.orders_count %}
+{% if  cart.total_price >= 100000 and customerOrderCount <= 0 %}
+{% assign freeProductYes = true %}
+{% assign free3solution = 3 %}
+{% endif %}
+
+
+<!-- End -->
+{% assign freePId = 6633551986748 %}
+{% assign freeQTY = 0 %}
+{% assign freePrice = 0 %}
+
+{% for item in cart.items %}
+{% if item.product_id == freePId %}
+{% assign freeQTY = freeQTY | plus:item.quantity  %}
+{% assign freePrice = freeQTY | times:100 %}
+{% endif %}
+{% endfor %}
+
+{% assign jjCartInfo = false %}
+
+{% if cart.item_count < 5 %}
+{% unless jjCartInfo %}
+{% for item in cart.items %}
+{% if item.product.vendor == 'Johnson & Johnson'  %}
+{% assign jjCartInfo = true %}
+{% endif %}
+{% endfor %}
+{% endunless %}
+{% endif %}
+
+<script>
+  $(document).ready(function () {
+    
+    {% if newFree60  and freeProductYes  %}  
+    var finalData = [];
+    var getProperties = {
+      'julyNewOffer' :'newCustomer','type':"FREE"
+    }
+    finalData.push({
+      quantity: 3,
+      id: 39468900778044,
+      properties: getProperties
+    });
+
+
+    $.ajax({
+      url : '/cart/add.js',
+      type: 'POST',
+      dataType: 'JSON',
+      data : {items:finalData},
+      success:function(response){ 
+        window.location.href = '/cart';
+
+      }
+    })
+    
+    {% elsif freeProductYes == false and newFree60 == false %}
+    
+    $.ajax({
+      url : '/cart/change.js',
+      type: 'POST',
+      dataType: 'JSON',
+      data : {quantity: 0, id:39468900778044} 
+    })
+    .done(function(response){ 
+
+      window.location.href = '/cart';
+    })
+
+    {% endif %}
+
+    {% comment %}
+    {% if  loopExecutev == true %}
+    var finalData = [];
+    var getProperties = {
+      'eos' :"true",'type':"FREE"
+    }
+
+    finalData.push({
+      quantity: {{noOfBottleAdded}},
+      id: 39468900778044,
+      properties: getProperties
+    });
+
+    
+    $.ajax({
+      url : '/cart/add.js',
+      type: 'POST',
+      dataType: 'JSON',
+      data : {items:finalData},
+      success:function(response){ 
+        window.location.href = '/cart';
+
+      }
+    })
+
+    {% elsif noOfBottleAdded < 0 %}  
+    let eosOffer = false;
+    {% for line_item in cart.items %}
+    {% for property in line_item.properties %}
+    {%- unless property.last == blank -%}
+    {% if property.first contains 'eos' %}
+    eosOffer = true;
+    {% endif %}
+    {% endunless %}   
+    {% endfor %}
+    {% endfor %}
+    if(eosOffer){
+      
+      $.ajax({
+        url : '/cart/change.js',
+        type: 'POST',
+        dataType: 'JSON',
+        data : {quantity: {{noOfBottleDeleted}},
+                id:39468900778044},  
+        success:function(response){ 
+          window.location.href = '/cart';
+        }
+      })  
+    }
+    {% endif %}
+ {% endcomment %}
+    
+//     toric offer buy one get one 120ml solution    
+    {% if solExecute == true %}
+      var finalData120 = [];
+      var getProperties3 = {
+        'toricoffer': "true",'type':"FREE"
+      }
+      //120
+      finalData120.push({
+        quantity: {{ number_of_bottle_added }},
+        id: 39468900778044,
+        properties: getProperties3
+      });
+
+
+      $.ajax({
+        url : '/cart/add.js',
+        type: 'POST',
+        dataType: 'JSON',
+        data : {items:finalData120},
+        success:function(response){      
+          window.location.href = '/cart';
+        }
+      })
+
+    {% elsif number_of_bottle_deleted < sol120Qty %}
+
+      var finalData120 = [];
+      var getProperties3 = {
+        'toricoffer': "true",'type':"FREEAPR"
+      }
+      $.ajax({      
+        url : '/cart/change.js',
+        type: 'POST',
+        dataType: 'JSON',
+        //solutiom120
+        data : {quantity: {{ number_of_bottle_deleted }},
+                id:39468900778044},
+        success:function(response){
+          window.location.href = '/cart';
+        }
+      })
+    {% endif %}
+      
+//  end
+
+    // For June Offer Buy 15 or more Solution120ml get 12 solution60ml
+      {% comment %}
+    {% if soljune == true %}
+    var finalData120 = [];
+    var getProperties3 = {
+      'juneoffer3': "true",'type':"FREE"
+    }
+    finalData120.push({
+      quantity:{{ qty60mlAdded }} ,
+      id: 39468900778044,
+      properties: getProperties3
+    });
+   
+    $.ajax({
+      url : '/cart/add.js',
+      type: 'POST',
+      dataType: 'JSON',
+      data : {items:finalData120},
+      success:function(response){      
+        window.location.href = '/cart';
+      }
+    })
+    {% elsif qty60mlDeleted < solJuneFree %}   
+    
+    let juneOffer = false;
+    {% for line_item in cart.items %}
+    {% for property in line_item.properties %}
+    {%- unless property.last == blank -%}
+    {% if property.first contains 'juneoffer3' %}
+    juneOffer = true;
+    {% endif %}
+    {% endunless %}   
+    {% endfor %}
+    {% endfor %}
+    if(juneOffer){
+      
+      $.ajax({      
+        url : '/cart/change.js',
+        type: 'POST',
+        dataType: 'JSON',
+        //solution 60ml
+        data : {quantity: {{ qty60mlDeleted }},
+                id:39468900778044},
+        success:function(response){
+          window.location.href = '/cart';
+        }
+      })
+    }
+    {% endif %}
+    //End
+    {% endcomment %}
+    $('.clearCart').click(function(e){
+      $.ajax({
+        url : '/cart/clear.js',
+        type: 'POST',
+        dataType: 'JSON',
+        success:function(response){ 
+          window.location.href = '/collections/all';
+        }
+      })
+    })
+  })
+</script>
+{% include 'mobile-header' %}
+{% if jjCartInfo  %}
+
+<div class="cart_info-jj">
+  <p>You need to add minimum 5 quantity in the cart for J&J products.</p>
+</div>
+{% endif %}
+
+
+<!--  Incomplete GST        -->
+<div class="gstIncomplete_wrapper">  
+  <div class="gstIncomplete">
+    <div class="small__notif"> 										
+      <p>GST details under review. Kindly contact your sales executive.</p>										 <div class="back-to-home">
+      <a href="https://aqualensb2b.com/">Back to Home</a>
+      </div>
+    </div>  	                                 
+  </div>
+</div>
+
+
+<!--   customer not active      -->
+<div class="inActiveCustomer_wrapper">  
+  <div class="inActiveCustomer">
+    <div class="small__notif_inactive"> 										
+      <p>GST details under review. Kindly contact your sales executive.</p>
+      <div class="back-to-home">
+        <a href="https://aqualensb2b.com/">Back to Home</a>
+      </div>
+    </div>  	                                 
+  </div>
+</div>
+
+<div class="loader-div">
+  <div class="loader"></div>
+</div>
+<!-- <div class="loader-main">
+  <p><img class=" lazyloaded" src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/image_2.png?v=1640198349" data-src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/image_2.png?v=1640198349" alt="Aqualens Contact lenses"></p>
+</div> -->
+{% assign product_vendor = '' %}
+{% assign product_title = '' %}
+<div class="background_color" data-section-id="{{ section.id }}" data-section-type="cart-template" data-ajax-enabled="{{ section.settings.cart_ajax_enable }}">
+  <div {% if cart.item_count == 0 %}class="hide" {% endif %}data-cart-wrapper class="dataCartWrapper">  
+    
+    {% if cart.item_count > 0 %}
+      <div class="cart-header cart-header-desktop">  
+        <div class="cart_header-content">
+        <a href="{{ routes.all_products_collection_url }}" class="text-link text-link--accent text-link--accent-new">          
+          Continue Shopping  
+          
+        </a> 
+        <div href="#" class="clearCart">Clear Cart &nbsp;<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6.22222 0L5.33333 0.8H0.888889C0.398222 0.8 0 1.1584 0 1.6C0 2.0416 0.398222 2.4 0.888889 2.4H15.1111C15.6018 2.4 16 2.0416 16 1.6C16 1.1584 15.6018 0.8 15.1111 0.8H10.6667L9.77778 0H6.22222ZM1.19618 4L2.57986 14.5859C2.68475 15.3923 3.44411 16 4.34722 16H11.6545C12.5576 16 13.3161 15.3915 13.4201 14.5859L14.8038 4H1.19618ZM6.22222 5.6C6.71289 5.6 7.11111 5.9584 7.11111 6.4V13.6H6.22222C5.73156 13.6 5.33333 13.2416 5.33333 12.8V6.4C5.33333 5.9584 5.73156 5.6 6.22222 5.6ZM9.77778 5.6C10.2684 5.6 10.6667 5.9584 10.6667 6.4V12.8C10.6667 13.2416 10.2684 13.6 9.77778 13.6H8.88889V6.4C8.88889 5.9584 9.28711 5.6 9.77778 5.6Z" fill="#F3716D"/>
+          </svg>
+        </div>
+        </div>
+      </div>
+      {% endif %} 
+    
+    <div class="cart-section-content">
+      <div class="cart-section-contentFlex1">
+        <div class="orderSummary__heading--icon">
+          <div class="orderSummary__heading">Order Summary</div>
+          <div class="orderSummary__icon">
+            <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5.07101 5.99997L1.25001 9.82097C0.836014 10.235 0.836014 10.907 1.25001 11.321C1.66401 11.735 2.33601 11.735 2.75001 11.321L7.36401 6.70697C7.75501 6.31597 7.75501 5.68297 7.36401 5.29297L2.75001 0.67897C2.33601 0.264971 1.66401 0.264971 1.25001 0.67897C0.836014 1.09297 0.836014 1.76497 1.25001 2.17897L5.07101 5.99997Z" fill="#4F4F4F"/>
+            </svg>
+          </div>
+        </div>
+      <div class="cart-flex">
+        <div data-cart-line-items class="cart_container">
+          <h2 class="heading">Your Cart</h2>
+          {% assign variant_array = '' %}        
+          {% for item in cart.items %}
+          {% assign variant_array = variant_array | append:item.product.handle | append:',' %}   
+          {% endfor %}
+        
+          {% assign variant_array = variant_array | split:',' | uniq  %}   
+          {% assign item_tax = '' %}
+          {% for handle_array in variant_array %}
+          {% assign product_new = all_products[handle_array] %}          
+          {% assign product_handle = product_new.handle %}
+          {% assign product_vendor = product_new.vendor %}
+        
+          <div class="cart_row_details" data-product-title="{{ product_handle }}" data-cart-product-id="{{ product_new.product_id }}" data-cart-sku="{{product_new.sku}}" data-cart-item data-cart-item-key="{{ product_new.key }}" data-cart-item-url="{{ product_new.url }}" data-cart-item-title="{{ product_new.title }}" data-cart-item-index="{{ forloop.index }}" data-cart-item-quantity="{{ product_new.quantity }}">
+
+            <div class="cart__meta small--text-left" data-cart-table-cell>
+              <div class="cart__product-information {% if freeProductItem %} FreeproductS {% endif %}">
+                <div class="image-title-wrapper">
+    
+                  <div class="cart__image-wrapper">
+                    <img class="cart__image{% if product_new.featured_image == null %} hide{% endif %}" src="{{ product_new.featured_image | img_url: 'x190' }}" alt="{{ product_new.featured_image.alt | escape }}" data-cart-item-image style="pointer-events:none;">
+                  </div>
+                 
+                  <div class="list-view-item__title">
+                    {% comment %}
+                    <a href="{{ product_new.url }}" class="cart__product-title" data-cart-item-title style="pointer-events:none;">
+                      {{ product_new.title }}
+                    </a>
+                    {% endcomment %}
+                    <a href="https://aqualensb2b.com/collections/all" class="cart__product-title" data-cart-item-title>
+                      {{ product_new.title }}
+                    </a>
+                  </div>
+                  
+                  <p class="cart__remove">
+                    {% comment %}place this in anchor tag if need {{ 'cart.general.remove' | t }} {% endcomment %} 
+                    <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="text-link text-link--accent" aria-label="{{ 'cart.label.remove' | t: product: product_new.title }}" data-cart-remove><img src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/Vector_cb992db7-cb39-4a78-9ac1-df5ded15ed82.png?v=1616563438"></a>
+                  </p>
+                </div>
+
+                <div class="power-qty-heading heading-solution">
+                  {% assign color_tag ='' %}
+                  {% assign color_tag_power ='' %}
+                  {% assign speciality_tag = '' %}
+                  {% assign solution_tag = '' %}
+                  {% assign accessories_tag = '' %}                  
+                  {% assign tax_tag = '' %}
+                  {% for tag in  product_new.tags %}  
+                 
+                  {% if tag contains 'tax:'%}
+                  {% assign tax_tag = tag | remove:'tax:' %} 
+                  {% endif %}
+                                 
+                  {% if product_vendor == 'Johnson & Johnson' and tag contains 'jj--clear'  %}                  
+                  <h5>Power</h5>
+                  <h5>Qty.</h5> 
+                  {% elsif  product_vendor == 'Aqualens' and tag contains 'clear' %}                  
+                  <h5>Power</h5>
+                  <h5>Qty.</h5> 
+                  {% elsif tag contains 'speciality' %}
+                  <h5>Power</h5>
+                  <h5>Qty.</h5>    
+                  {% assign speciality_tag = 'speciality' %}
+                  {% elsif tag contains 'zero Powered' or tag contains 'jj_color' %}
+                  {% assign color_tag = 'zero Powered' %}
+                  <h5>Color</h5>
+                  <h5>Qty.</h5>    
+                  {% elsif tag contains 'powered' %}
+                  <h5>Color(Power)</h5>
+                  <h5>Qty.</h5>    
+                  {% assign color_tag_power ='powered' %}
+                  {% elsif tag contains 'solution' %}                  
+                  {% assign solution_tag ='solution' %}
+                  {% elsif tag contains 'accessories' %}                  
+                  {% assign accessories_tag ='accessories' %}
+                  {% else %} 
+                  {% endif %}  
+                  {% endfor %}
+
+                </div>
+              </div>
+            </div>
+
+            {% assign cart_row_price = '' %}
+            {% assign freeProductItem = false %}
+            {% for item in cart.items %}
+            {% if item.product.handle == handle_array %}
+
+            {% for property in item.properties %}
+            {% if property.last == "FREE" or  property.last =="FREEAPR" or property.last=="freejune" %}
+            {% assign freeProductItem = true %}
+            {% endif %}
+            {% endfor %}
+            {% assign cart_row_price = cart_row_price | plus:item.original_line_price %}
+
+
+            <div class="cart__row {% if freeProductItem %}FreeproductS{% endif %}" data-variant-id="{{ item.id }}" data-cart-product-id="{{ item.product_id }}" data-cart-sku="{{item.sku}}" data-cart-item data-cart-item-key="{{ item.key }}" data-cart-item-url="{{ item.url }}" data-cart-item-title="{{ item.title }}" data-cart-item-index="{{ forloop.index }}" data-cart-item-quantity="{{ item.quantity }}">
+              {% if tax_tag %}
+              {% assign price_with_tax = item.original_line_price %}
+              {% assign tax_rate = tax_tag | plus:100 %}
+              {% assign price_without_tax = price_with_tax | times:100 | divided_by: tax_rate %}
+              {% assign tax_price = price_with_tax | minus:price_without_tax %}
+              {% assign item_tax = item_tax | plus:tax_price %}
+              {% endif %}
+             
+              <div class="product-power-qty">                
+                {% if solution_tag contains 'solution' %}
+                <p class="qty-sol">Qty:</p>
+                {% elsif accessories_tag contains 'accessories' %}
+                <p class="qty-sol">Qty:</p>
+                {% else %}
+                <div class="product-title">
+                  {%- assign variant_options = 'template ' | split: ' ' -%}
+                  {%- if item.product.has_only_default_variant != true -%}
+                  {%- assign variant_options = item.options_with_values -%}
+                  {%- endif -%}
+                  {%- assign property_size = item.properties | size -%}
+                  {% unless freeProductItem %}
+                  <ul class="product-details product_lineItem{% if item.product.has_only_default_variant and property_size == 0 %} hide{% endif %}" data-cart-item-details aria-label="{{ 'cart.label.product_details' | t }}" data-line-sku="{{ item.sku }}"
+                      {% comment %} values For non-jit implementation on cart page {% endcomment %} {% for p in item.properties %} {{ p.first }}="{{ p.last }}" {% endfor %}>
+                    {%- for option in variant_options -%}
+                    <li class="product-details__item product-details__item--variant-option{% if item.product.has_only_default_variant %} hide{% endif %}" data-cart-item-option>{{ option.value }}</li>
+                    {%- endfor -%}
+
+                    {%- comment -%}
+                    Optional, loop through custom product line items if available
+
+                    Line item properties come in as having two parts. The first part will be passed with the default form,
+                    but p.last is the actual custom property and may be blank. If it is, don't show it.
+
+                    For more info on line item properties, visit:
+                    - http://docs.shopify.com/support/your-store/products/how-do-I-collect-additional-information-on-the-product-page-Like-for-a-monogram-engraving-or-customization
+                    {%- endcomment -%}
+
+                    {%- assign properties = 'template ' | split: ' ' -%}
+                    {%- if property_size > 0 -%}
+                    {%- assign properties = item.properties -%}
+                    {%- endif -%}
+
+                    {%- for p in properties -%}
+                    {%- unless p.last == blank -%}
+                    <li class="product-details__item product-details__item--property{%if property_size == 0%} hide{% endif %}" data-cart-item-property>
+                      {% if speciality_tag contains 'speciality' %}
+                      <span class="product-details__item-label" data-cart-item-property-name>{{  p.first | replace: "power", "sph"  }}&nbsp:&nbsp</span>
+                      {% else %}
+                       <span class="product-details__item-label" data-cart-item-property-name></span>
+                      {% endif %}
+
+                      {%- comment -%}
+                      Check if there was an uploaded file associated
+                      {%- endcomment -%}
+                      <span data-cart-item-property-value>
+                        {%- if p.last contains '/uploads/' -%}
+                        <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                        {%- elsif color_tag contains 'zero Powered'-%}
+                        {%- elsif color_tag_power contains 'powered'-%}
+                        ({{ p.last }})
+                        {%- elsif speciality_tag contains 'speciality'-%}
+                        {{ p.last }} <span class="pipe-sign">|</span> &nbsp;
+                        {%- else -%}
+                        {{ p.last }}
+                        {%- endif -%}
+                      </span>
+                    </li>
+                    {%- endunless -%}
+                    {%- endfor -%}
+                  </ul>
+
+                  {% endunless %}
+
+                </div>
+                {% endif %}
+               
+                <div class="cart__quantity-td text-right small--hide">
+                  <div class="cart__qty">
+                    
+                   
+<!--                     <label for="updates_large_{{ item.key }}" class="cart__qty-label" data-quantity-label-desktop>{{ 'cart.label.quantity' | t }}</label> -->
+                    <input id="updates_large_{{ item.key }}" {% if freeProductItem %} disabled {% endif %} class="cart__qty-input qty-input" type="number"
+                           name="updates[]" value="{{ item.quantity }}" min="0" pattern="[0-9]*"
+                           data-quantity-input data-quantity-item="{{ forloop.index }}" data-quantity-input-desktop {% for p in properties %}{% if p.first contains 'max_qty' %} data-max-quantity="{{ p.last }}" {% endif %}{% endfor %}>
+                    
+                    {% if solution_tag contains 'solution' %}
+                     <p class="qty-para qty-para-solution" data-quantity-input data-quantity-item="{{ forloop.index }}" data-quantity-input-desktop>{{ item.quantity }}</p>
+                    {% elsif accessories_tag contains 'accessories' %}
+                     <p class="qty-para qty-para-accessories" data-quantity-input data-quantity-item="{{ forloop.index }}" data-quantity-input-desktop>{{ item.quantity }}</p>
+                    {% else %}
+                     <p class="qty-para" data-quantity-input data-quantity-item="{{ forloop.index }}" data-quantity-input-desktop>{{ item.quantity }}</p>
+                    {% endif %}
+                  </div>
+                  <div class="cart__qty-error-message-wrapper cart__qty-error-message-wrapper--desktop hide" role="alert" data-cart-quantity-error-message-wrapper>
+                    <span class="visually-hidden">{{ 'general.accessibility.error' | t }} </span>
+                    {% include 'icon-error' %}
+                    <span class="cart__qty-error-message" data-cart-quantity-error-message></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% if freeProductItem %}
+            {% if product_new.title contains 'Free Aqualens Contact Lens Solution 60 ML' %}
+            <div class="free__products--info">
+              This is a FREE Product basis your scheme lifting. These FREE products will be dispatched to you within the next 15 working days clubbing all eligible FREE material.<a href="#product__delivery--info" class="free__info--popup"><span>Click Here</span></a> for more details.
+            </div>
+          
+            {% endif %}
+            {% endif %}
+            {% endif %}
+
+            {% endfor %}
+            
+            <div class="cart_row_edit_price">
+              {% comment %} for edit and save button {% endcomment %}
+              {% if freeProductItem %}
+              <div style="visibility:hidden;">Hide</div>
+              {% else %}
+              <div class="cart_row_edit edit-qty">
+                <img src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/Vector_b79a86ef-12ff-44d6-bf2b-33572a43d43b.png?v=1617114688"><span class="edit">Edit</span>
+              </div>
+              <div class="save-card">
+                <p>Save</p>
+              </div>
+              {% endif %}
+              <div data-cart-item-regular-price-group>
+                {% if freeProductItem %}
+                <span dff data-cart-item-regular-price class="priceSol">Free</span>
+                {% else %}
+                <span class="priceSol" data-cart-item-regular-price>{{ cart_row_price | money }}</span>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+
+        </div>
+      </div>
+
+<!--       Clear cart and and continue shopping -->
+      {% if cart.item_count > 0 %}
+      <div class="cart-header cart-header-mobile">  
+        <div class="cart_header-content">
+        <a href="{{ routes.all_products_collection_url }}" class="text-link text-link--accent text-link--accent-new">          
+          Continue Shopping        
+        </a> 
+        <div href="#" class="clearCart">Clear Cart &nbsp;<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6.22222 0L5.33333 0.8H0.888889C0.398222 0.8 0 1.1584 0 1.6C0 2.0416 0.398222 2.4 0.888889 2.4H15.1111C15.6018 2.4 16 2.0416 16 1.6C16 1.1584 15.6018 0.8 15.1111 0.8H10.6667L9.77778 0H6.22222ZM1.19618 4L2.57986 14.5859C2.68475 15.3923 3.44411 16 4.34722 16H11.6545C12.5576 16 13.3161 15.3915 13.4201 14.5859L14.8038 4H1.19618ZM6.22222 5.6C6.71289 5.6 7.11111 5.9584 7.11111 6.4V13.6H6.22222C5.73156 13.6 5.33333 13.2416 5.33333 12.8V6.4C5.33333 5.9584 5.73156 5.6 6.22222 5.6ZM9.77778 5.6C10.2684 5.6 10.6667 5.9584 10.6667 6.4V12.8C10.6667 13.2416 10.2684 13.6 9.77778 13.6H8.88889V6.4C8.88889 5.9584 9.28711 5.6 9.77778 5.6Z" fill="#F3716D"/>
+          </svg>
+        </div>
+        </div>
+      </div>
+      {% endif %} 
+      
+<!--       Apply offer  -->
+      
+      <div class="applyOffer" style="display:none;">
+        <div class="applyOffer__heading"><svg width="22" height="21" viewBox="0 0 22 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8.15233 0.00195201C7.759 -0.0229386 7.36956 0.179827 7.17381 0.548827L5.89061 2.96875L3.19334 3.44141C2.64434 3.53741 2.27159 4.05151 2.34959 4.60351L2.73241 7.31445L0.828109 9.28125C0.440109 9.68225 0.440109 10.3177 0.828109 10.7187L2.73241 12.6875L2.34959 15.3984C2.27159 15.9504 2.64434 16.4635 3.19334 16.5605L5.89061 17.0332L7.17381 19.4512C7.43481 19.9432 8.04 20.1415 8.541 19.8965L11 18.6934L13.4609 19.8945C13.9619 20.1395 14.5642 19.9432 14.8262 19.4512L16.1094 17.0332L18.8066 16.5605C19.3556 16.4645 19.7303 15.9485 19.6523 15.3965L19.2695 12.6855L21.1738 10.7187C21.5588 10.3187 21.5589 9.68225 21.1719 9.28125L19.2676 7.3125L19.6504 4.60156C19.7284 4.04956 19.3537 3.53645 18.8047 3.43945L16.1074 2.9668L14.8242 0.548827C14.5642 0.057827 13.9609 -0.139532 13.4609 0.105468L11 1.30664L8.53905 0.105468C8.41405 0.0442176 8.28344 0.0102489 8.15233 0.00195201ZM7.99998 5C9.10498 5 9.99998 5.895 9.99998 7C9.99998 8.105 9.10498 9 7.99998 9C6.89498 9 5.99998 8.105 5.99998 7C5.99998 5.895 6.89498 5 7.99998 5ZM13.4433 5.85742C13.6333 5.83017 13.8345 5.876 14 6C14.331 6.249 14.3984 6.71783 14.1504 7.04883L9.05077 13.8496C8.80177 14.1816 8.33098 14.248 7.99998 14C7.66898 13.751 7.60159 13.2822 7.84959 12.9512L12.9492 6.15039C13.0737 5.98439 13.2533 5.88467 13.4433 5.85742ZM7.99998 6C7.73477 6 7.48041 6.10536 7.29288 6.29289C7.10534 6.48043 6.99998 6.73478 6.99998 7C6.99998 7.26522 7.10534 7.51957 7.29288 7.70711C7.48041 7.89464 7.73477 8 7.99998 8C8.2652 8 8.51956 7.89464 8.70709 7.70711C8.89463 7.51957 8.99998 7.26522 8.99998 7C8.99998 6.73478 8.89463 6.48043 8.70709 6.29289C8.51956 6.10536 8.2652 6 7.99998 6ZM14 11C15.105 11 16 11.895 16 13C16 14.105 15.105 15 14 15C12.895 15 12 14.105 12 13C12 11.895 12.895 11 14 11ZM14 12C13.7348 12 13.4804 12.1054 13.2929 12.2929C13.1053 12.4804 13 12.7348 13 13C13 13.2652 13.1053 13.5196 13.2929 13.7071C13.4804 13.8946 13.7348 14 14 14C14.2652 14 14.5196 13.8946 14.7071 13.7071C14.8946 13.5196 15 13.2652 15 13C15 12.7348 14.8946 12.4804 14.7071 12.2929C14.5196 12.1054 14.2652 12 14 12Z" fill="#00BAC6"/>
+          </svg>&nbsp;&nbsp;Apply Offer</div>
+        <div class="applyOffer__icon">
+          <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5.07101 5.99997L1.25001 9.82097C0.836014 10.235 0.836014 10.907 1.25001 11.321C1.66401 11.735 2.33601 11.735 2.75001 11.321L7.36401 6.70697C7.75501 6.31597 7.75501 5.68297 7.36401 5.29297L2.75001 0.67897C2.33601 0.264971 1.66401 0.264971 1.25001 0.67897C0.836014 1.09297 0.836014 1.76497 1.25001 2.17897L5.07101 5.99997Z" fill="#4F4F4F"/>
+          </svg>
+        </div>
+      </div>
+      
+      
+      
+      {% assign item_discount = '' %}
+      {% assign sol120Price = sol120Price | times:100 %}
+     
+      {% assign item_total_price = '' %}
+      {% assign sol120WithoutTax = sol120Price | times:100 | divided_by:118 %}
+      {% assign sol120tax = sol120Price | minus:sol120WithoutTax %}
+      
+      {% assign free_solution_price = solution_tax_price %}
+      {% assign free_solution_withou_tax = solution_tax_price | times:100 | divided_by:118 %}
+      {% assign free_solution_tax = solution_tax_price | minus:free_solution_withou_tax %}
+      {% assign item_tax = item_tax | minus: free_solution_tax | minus: sol120tax %}
+    
+  
+      {% if freeSolutionPack %}
+      {% if lockdO %}
+      {% assign lockd_disP = 210000 %}
+      {% assign totalCart = cart.total_price | minus: lockd_disP %}
+      {% assign item_total_price = totalCart | minus : free_solution_price | minus: sol120Price %}
+      {% assign item_discount = item_discount | plus:  lockd_disP | plus: free_solution_price | plus: sol120Price %}
+      {% elsif lockdO2 %}
+      {% assign lockd_disP = 42000 %}
+      {% assign totalCart = cart.total_price | minus: lockd_disP %}
+      {% assign item_total_price = totalCart | minus :free_solution_price | minus: sol120Price %}
+      {% assign item_discount = item_discount | plus:  lockd_disP | plus: free_solution_price | plus: sol120Price %}
+      {% else %}
+      {% assign totalCart = cart.total_price  %}
+      {% assign item_total_price = totalCart | minus : free_solution_price | minus: sol120Price %}
+      {% assign item_discount = item_discount | plus: free_solution_price | plus: sol120Price %}
+      {% endif %}
+      {% else %}
+      {% if lockdO %}
+      {% assign lockd_disP = 0 %}
+      {% assign item_total_price = cart.total_price | minus: lockd_disP | minus: sol120Price %}
+      {% assign item_discount = item_discount | plus:  lockd_disP | plus: sol120Price %}
+      {% elsif lockdO2 %}
+      {% assign lockd_disP = 42000 %}
+      {% assign item_total_price = cart.total_price | minus: lockd_disP | minus: sol120Price %}
+      {% assign item_discount = item_discount | plus:  lockd_disP | plus: sol120Price %}
+      {% else %}
+      {% assign item_total_price = cart.total_price | minus: sol120Price %}
+      {% assign item_discount = cart.total_discount | plus: sol120Price   %}
+      {% endif %}
+      {% endif %}
+                        
+      <div class="cart__footer">      
+        <div class="cart__footer-wrapper">
+          <div class="">
+            <h2 class="cart__footer-header">Bill Details</h2>
+            <div class="cart__footer-item-price cart__footer-flex">
+              <span class="price-heading">Item Total({{ cart.item_count | minus:freeQTY }})</span>
+              <span class="total-price">{{ cart.original_total_price | minus:freePrice | money }}</span>
+            </div>
+            <div class="cart__footer-discount  cart__footer-flex">
+              <span class="discount-heading">Discount</span>
+              <span class="discount-price">-{{ item_discount  | minus:sol120Price | plus:price60ml | plus:case10H2LP | plus:case3LP | plus:case6LP | plus:case2LP | plus:case2LCP | plus:case1LP | plus:case10LP | plus:case5LP  | plus:case30LP | plus:case3LPB | plus:case360ML | plus:case60ML |  plus:case120MLfeb | plus:toric3LP | plus:planocase1LP | plus:case500ML | plus:case100ML | plus:case10LPjuly | plus:caseCombo120ML | money }}</span>
+            </div>
+            <div class="cart__footer-tax  cart__footer-flex">
+              {% assign tax_price = cart.original_total_price | times:18 | divided_by: 100 %}
+              <span class="tax-heading">Tax Included</span>
+              <span class="tax-price">{{ item_tax | money }}</span>
+            </div>
+            
+            {% assign toPayAmount =  item_total_price | minus:freePrice | plus:sol120Price | minus:price60ml | minus:case10H2LP | minus:case3LP | minus:case6LP | minus:case2LP | minus:case2LCP | minus:case1LP | minus:case10LP | minus:case5LP | minus:case30LP | minus:case3LPB | minus:case360ML | minus:case60ML | minus:case120MLfeb | minus:toric3LP | minus:planocase1LP | minus:case500ML | minus:case100ML | minus:case10LPjuly  | minus:caseCombo120ML %}           
+            {% assign shipping_charge = 0 %}
+            {% assign toPayAmount = toPayAmount | divided_by:100 %}
+<!--             comment -->{% comment %}
+              {% if toPayAmount < 1200 %}
+               {% assign shipping_charge = 9900 %}
+              {% endif %}{% endcomment %}
+<!--             endcomment -->
+             <div class="shipping_charge  cart__footer-flex">
+              <span class="shipping-heading">Shipping Charge</span>
+              <span class="shipping-price">{{ shipping_charge | money }}</span>
+            </div>
+            
+            <div class="wallet_info cart__footer-flex">
+              <div class="wallet_info_flex">
+                <span class="wallet-heading">Wallet Used</span>
+                <span class="wallet-price"></span>
+              </div>
+            </div>
+            <hr style="margin:5px 0px;height: 2px;">
+          </div>
+          <div class="cart__footer-final-price  cart__footer-flex">
+            <span class="final-price-heading">Amount To Pay</span>
+            {% assign amount_to_pay =  item_total_price | plus:shipping_charge | minus:freePrice | plus:sol120Price | minus:price60ml | minus:case10H2LP | minus:case3LP | minus:case6LP | minus:case2LP | minus:case2LCP | minus:case1LP | minus:case10LP | minus:case5LP | minus:case30LP | minus:case3LPB | minus:case360ML | minus:case60ML | minus:case120MLfeb | minus:toric3LP | minus:planocase1LP | minus:case500ML | minus:case100ML | minus:case10LPjuly | minus:caseCombo120ML  %}
+            {% assign final_amount_to_pay = amount_to_pay | money %}
+            <span id="final_price_amount" class="final-price-amount">{{ amount_to_pay  | money }}</span>
+          
+          </div>
+        </div>
+      </div>
+     
+        {% if lockdO %}
+          <input type="hidden" value="false" id="lockdownOffer" />
+        
+		{% elsif lockdO2 %}
+          <input type="hidden" value="true" id="lockdownOffer2" />
+        {% else %}
+          <input type="hidden" value="false" id="lockdownOffer" />
+        {% endif %}
+               
+        {% comment %} for 120ml solution pe user {% endcomment %}        
+        {% if solutionFlat120MLfeb %}
+          <input type="hidden" value="{{ offerFlat120MLfeb }}" id="offerFlat120MLfeb"/>
+        {% else %}
+          <input type="hidden" value=0 id="offerFlat120MLfeb"/>
+        {% endif %}
+                
+         {% comment %} for 500ml solution Q4.  {% endcomment %}        
+        {% if solutionFlat500ML %}
+          <input type="hidden" value="{{ offerFlat_4_1 }}" id="solutionFlat500ML" />
+        {% else %}
+          <input type="hidden" value=0 id="solutionFlat500ML" />
+        {% endif %}
+
+         {% comment %} for combo 120ml solution Q4.  {% endcomment %}        
+         {% if solutionComboFlat120ML %}
+         <input type="hidden" value="{{ offerComboFlat }}" id="solutionComboFlat120ML" />
+       {% else %}
+         <input type="hidden" value=0 id="solutionComboFlat120ML" />
+       {% endif %}
+        
+        {% comment %} for 360ml solution Q4.  {% endcomment %}        
+        {% if solutionFlat360ML %}
+          <input type="hidden" value="{{ offerFlat_5_1 }}" id="solutionFlat360ML" />
+        {% else %}
+          <input type="hidden" value=0 id="solutionFlat360ML" />
+        {% endif %}
+ 		{% comment %} for 60ml solution Q4.  {% endcomment %}        
+        {% if solutionFlat60ML %}
+          <input type="hidden" value="{{ offerFlat_5_2 }}" id="solutionFlat60ML" />
+        {% else %}
+          <input type="hidden" value=0 id="solutionFlat60ML" />
+        {% endif %}
+
+        {% comment %} for 100ml solution Q4.  {% endcomment %}        
+        {% if solutionFlat100ML %}
+          <input type="hidden" value="{{ offer_sol_100ML }}" id="solutionFlat100ML" />
+        {% else %}
+          <input type="hidden" value=0 id="solutionFlat100ML" />
+        {% endif %}
+        
+        
+        {% comment %} for offer 7 {% endcomment %}        
+        {% if super_offer_10LP %}
+          <input type="hidden" value="{{superFlat_offer_10LP}}" id="super_offer_10LP" />
+        {% else %}
+          <input type="hidden" value=0 id="super_offer_10LP" />
+        {% endif %}
+        
+          {% comment %} for offer 7 {% endcomment %}        
+        {% if offer_10H2LP %}
+          <input type="hidden" value="{{offerFlat_10H2LP}}" id="offer_10H2LP" />
+        {% else %}
+          <input type="hidden" value=0 id="offer_10H2LP" />
+        {% endif %}
+
+        {% comment %} for offer 7 {% endcomment %}        
+        {% if offer_7_1 %}
+          <input type="hidden" value="{{offerFlat_7_1}}" id="offer_7_1" />
+        {% else %}
+          <input type="hidden" value=0 id="offer_7_1" />
+        {% endif %}
+             
+        {% if offer_7_2 %}
+        	<input type="hidden" value="{{offerFlat_7_2}}" id="offer_7_2" />
+        {% else %}
+       		<input type="hidden" value=0 id="offer_7_2" />
+        {% endif %}
+        
+         {% comment %} for offer 8 {% endcomment %}        
+        {% if offer_8_1 %}
+          <input type="hidden" value="{{ offerFlat_8_1 }}" id="offer_8_1" />
+        {% else %}
+          <input type="hidden" value=0 id="offer_8_1" />
+        {% endif %}
+        {% comment %} for 2lcp candy pack {% endcomment %}        
+        {% if offer_candy_pack %}
+          <input type="hidden" value="{{offer_flat_candy_pack }}" id="offer_candy_pack" />
+        {% else %}
+          <input type="hidden" value=0 id="offer_candy_pack" />
+        {% endif %}
+             
+        {% if offer_8_2 %}
+        	<input type="hidden" value="{{offerFlat_8_2}}" id="offer_8_2" />
+        {% else %}
+       		<input type="hidden" value=0 id="offer_8_2" />
+        {% endif %}
+        
+         {% comment %} for offer 9 {% endcomment %}        
+        {% if offer_9_1 %}
+          <input type="hidden" value="{{offerFlat_9_1}}" id="offer_9_1" />
+        {% else %}
+          <input type="hidden" value=0 id="offer_9_1" />
+        {% endif %}
+             
+        {% if offer_9_2 %}
+        	<input type="hidden" value="{{offerFlat_9_2}}" id="offer_9_2" />
+        {% else %}
+       		<input type="hidden" value=0 id="offer_9_2" />
+        {% endif %}
+        
+        {% comment %} for offer 10 {% endcomment %}        
+        {% if offer_10_1 %}
+          <input type="hidden" value="{{offerFlat_10_1}}" id="offer_10_1" />
+        {% else %}
+          <input type="hidden" value=0 id="offer_10_1" />
+        {% endif %}
+             
+        {% if offer_10_2 %}
+        	<input type="hidden" value="{{offerFlat_10_2}}" id="offer_10_2" />
+        {% else %}
+       		<input type="hidden" value=0 id="offer_10_2" />
+        {% endif %}
+		  
+        {% if offer_toric_3LP %}
+          <input type="hidden" value="{{ offerFlat_toric_3LP }}" id="offer_toric_3LP" />
+        {% else %}
+          <input type="hidden" value=0 id="offer_toric_3LP" />
+        {% endif %}
+        
+        {% if offer_plano_1LP %}
+          <input type="hidden" value="{{ offerFlat_plano_1LP }}" id="offer_plano_1LP" />
+        {% else %}
+          <input type="hidden" value=0 id="offer_plano_1LP" />
+        {% endif %}
+        
+<!--      choose   wallet  amount  -->
+        
+        {% if product_vendor != 'Johnson & Johnson'%}
+        <div class="wallet__reedem">
+
+        </div>
+        {% endif %}
+        
+        <!--  pay on delivery   -->
+        <div class="payOnDelivery">
+          <label class="payOnDelivery-checkbox">
+            <div class="payOnDelivery-content">
+              <p class="payOnDelivery-text">Pay On Delivery</p>
+            </div>
+            <input type="checkbox" class="add-cod" name="payOnDelivery">
+            <span class="checkmark"></span>
+          </label>
+        </div>
+
+      </div>
+      <div class="margin-mobile-none" style="margin-bottom:80px;"></div>
+      <div class="cart-section-contentFlex2">
+        <!--  GST details   -->
+        <div class="gstWrapper">
+
+        </div>
+		
+        <!--  SEs Name      -->
+        <div class="sesWrapper">
+
+        </div>
+        <!--  Addresses     -->
+        <div class="addressWrapper">
+
+        </div>
+        <!--  whatsapp optin -->
+        <div class="whatsapp__optin-tag">
+          <label class="whatsapp__optin-checkbox">
+            <div class="whatsapp__optin-content">
+              <p class="whatsapp-text">Enable order updates and important information on Whatsapp from Aqualensb2b</p>
+              <img src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/whatsapp-icon.png?v=1643045733">
+            </div>
+            <input type="checkbox" class="add-attr">
+            <span class="checkmark"></span>
+          </label>
+        </div>
+      </div>    
+      <div style="margin-bottom:80px;"></div>
+
+    </div>
+        
+     <div class="cart_footer-buttton">
+        <div class="cart__buttons-container">
+          {% if customer %} 
+            {% assign documentUpload = false %}
+              {% for tag in customer.tags %}
+                {% if tag contains 'gstNumber' or tag contains 'panNumber' or tag contains 'aadharNumber' or tag contains 'companyRegistrationNumbe' or tag contains 'fssaiLicenseNumber' %}
+                  {% assign documentUpload = true %}
+                {% elsif tag contains 'gstSkip_true' %}
+                	{% assign skipGst = true %}
+                {% endif %}
+              {% endfor %}
+
+		 
+              <div class="cart__submit-controls skipGst hide">
+                {%- unless section.settings.cart_ajax_enable -%}
+                <input type="submit" name="update"
+                       class="cart__submit btn btn--secondary"
+                       value="{{ 'cart.general.update' | t }}">
+                {%- endunless -%}
+                <input type="submit" name="checkout"
+                       class="cart__submit btn btn--small-wide"
+                       value="Proceed To Pay">
+              </div>
+          
+
+              {% if documentUpload %}
+                <div class="cart__submit-controls">
+                  {%- unless section.settings.cart_ajax_enable -%}
+                  <input type="submit" name="update"
+                         class="cart__submit btn btn--secondary"
+                         value="{{ 'cart.general.update' | t }}">
+                  {%- endunless -%}
+                  <input type="submit" name="checkout"
+                         class="cart__submit btn btn--small-wide"
+                         value="Proceed To Pay">
+                </div>
+              {% else %}
+                {% if skipGst %} 
+                  <div class="cart__submit-controls skipGst">
+                    {%- unless section.settings.cart_ajax_enable -%}
+                    <input type="submit" name="update"
+                           class="cart__submit btn btn--secondary"
+                           value="{{ 'cart.general.update' | t }}">
+                    {%- endunless -%}
+                    <input type="submit" name="checkout"
+                           class="cart__submit btn btn--small-wide"
+                           value="Proceed To Pay">
+                  </div>
+                 
+                {% else %}
+                  <div class="documentSection">
+<!--                     <p>Please upload your document</p> -->
+                    <a href="/pages/select-document?update=true" class="btn">Please Upload Documents</a>
+                  </div>
+                 
+                {% endif %}
+              {% endif %}
+
+          {% else %}
+            <div class="cart__submit-controls" id="login_button_content">
+              <p>You must be logged in to place an order</p>
+              <div class="rnote-div">
+                <!--                    <div class="r-note">All prices are consumer prices.</div> -->
+                <input type="submit" name="" id="login_checkout"
+                       class="cart__submit btn btn--small-wide"
+                       value="Login">
+              </div>
+            </div>
+          {% endif %}
+       
+          <div class="cart__error-message-wrapper hide" role="alert" data-cart-error-message-wrapper>
+            <span class="visually-hidden">{{ 'general.accessibility.error' | t }} </span>
+           	 {% include 'icon-error' %}
+            <span class="cart__error-message" data-cart-error-message></span>
+          </div>
+
+          {%- if additional_checkout_buttons -%}
+         	 <div class="additional-checkout-buttons">{{ content_for_additional_checkout_buttons }}</div>
+          {%- endif -%}
+          
+       </div>
+      </div>
+    
+    {% comment %}
+      <div class="pay__btn">
+        <div class="pay__btn-text">Proceed To Pay</div>
+      </div>
+    {% endcomment %}
+    
+    <p class="visually-hidden" data-cart-status
+       aria-live="polite"
+       role="status"
+       ></p>
+  </div>
+
+
+  <div class="empty-page-content{% if cart.item_count > 0 %} hide{% endif %} text-center" data-empty-page-content>
+    <h1>{{ 'cart.general.title' | t }}</h1>
+    <p class="cart--empty-message">{{ 'cart.general.empty' | t }}</p>
+    <div class="cookie-message">
+      <p>{{ 'cart.general.cookies_required' | t }}</p>
+    </div>
+    <a href="{{ routes.root_url }}" class="btn btn--has-icon-after cart__continue-btn">{{ 'general.404.link' | t }}{% include 'icon-arrow-right' %}</a>
+  </div>
+</div>
+
+
+<div id="test-popup" class="white-popup mfp-hide">
+  <div class="popup__content">
+    <h2 class="popup__heading">Got questions?</h2>
+    <p class="popup__text">Connect with our customer care expert for any query.  </p>
+    <h2 class="popup__contact">+91 99998 99998</h2>
+  </div>
+</div>
+
+<div id="product__delivery--info" class="white-popup mfp-hide">
+  <div class="delivery--info-content">
+    <h2 class="delivery--info-heading">Free Products</h2>
+    <p class="delivery--info-para">This is a FREE Product basis your scheme lifting. The FREE products will be dispatched to you within the next 15 working days.<br><br>
+      Any purchases made between from 1st to 15th of every month, we will dispatch the Free products by 20th of the same month & similarly any purchases made between from 15th to 30th/31st of the month, we will dispatch the Free products by 5th of the next month.<br><br>
+      This means if you have multiple orders in a month which are eligible for FREE Products, we will send the FREE Products together..</p>
+  </div>
+</div>
+
+
+<!-- pop up for address -->
+<div class="address__container">
+  <div class="customer__details-container new-address" style="display: none;">
+
+    <div class="customer__details-content">
+      <div class="address__header">
+        <div class="address__header--title">Add Address</div>
+        <div class="address__header--close">
+          <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.99007 0.000434763C1.79114 0.000487008 1.59674 0.0598657 1.43173 0.170979C1.26672 0.282093 1.1386 0.439893 1.06374 0.624205C0.988886 0.808517 0.970697 1.01097 1.0115 1.20567C1.05231 1.40037 1.15025 1.57848 1.29281 1.71723L6.58578 7.0102L1.29281 12.3032C1.19684 12.3953 1.12021 12.5057 1.06743 12.6278C1.01464 12.7499 0.986757 12.8814 0.985403 13.0144C0.98405 13.1475 1.00926 13.2794 1.05954 13.4026C1.10983 13.5258 1.1842 13.6377 1.27827 13.7318C1.37235 13.8258 1.48426 13.9002 1.60743 13.9505C1.73061 14.0008 1.86259 14.026 1.99563 14.0246C2.12867 14.0233 2.2601 13.9954 2.38223 13.9426C2.50436 13.8898 2.61473 13.8132 2.70687 13.7172L7.99984 8.42426L13.2928 13.7172C13.385 13.8132 13.4953 13.8898 13.6175 13.9426C13.7396 13.9954 13.871 14.0233 14.0041 14.0246C14.1371 14.026 14.2691 14.0008 14.3922 13.9505C14.5154 13.9002 14.6273 13.8259 14.7214 13.7318C14.8155 13.6377 14.8899 13.5258 14.9401 13.4026C14.9904 13.2794 15.0156 13.1475 15.0143 13.0144C15.0129 12.8814 14.985 12.7499 14.9323 12.6278C14.8795 12.5057 14.8028 12.3953 14.7069 12.3032L9.4139 7.0102L14.7069 1.71723C14.8514 1.57677 14.9501 1.39593 14.99 1.19841C15.03 1.00089 15.0093 0.795905 14.9308 0.610319C14.8523 0.424733 14.7195 0.267204 14.5499 0.158375C14.3803 0.0495457 14.1817 -0.0055056 13.9803 0.000434763C13.7205 0.0081759 13.4739 0.116755 13.2928 0.303169L7.99984 5.59614L2.70687 0.303169C2.61368 0.207375 2.50224 0.13123 2.37912 0.0792331C2.25601 0.0272363 2.12372 0.000442554 1.99007 0.000434763Z" fill="#333333"/>
+          </svg>                    
+        </div>
+      </div>
+      <div class="addressFormWrapper">
+        <div class="address__type-wrapper">
+          <div class="input-field">
+            <input type="radio" class="type__input address__type" name="type-input" value="Home" id="addressHome" checked="checked">
+            <label for="addressHome" class="type-label">
+              <span></span>
+              Home
+            </label>
+          </div>
+          <div class="input-field">
+            <input type="radio" class="type__input address__type" name="type-input" value="Office" id="addressOffice">
+            <label for="addressOffice" class="type-label">
+              <span></span>
+              Office
+            </label>
+          </div>
+        </div>
+        <div class="input-field-FNLN">
+          <div class="input-field input-field-firstName">
+            <label for="AddressFirstNameNew">First Name</label>
+            <input type="text" id="AddressFirstNameNew" name="address[first_name]" value="" required="required">
+            <p class="addError"></p>
+          </div>
+          <div class="input-field input-field-lastName">
+            <label for="AddressLastNameNew">Last Name</label>
+            <input type="text" id="AddressLastNameNew" name="address[last_name]" value="" required="required">
+            <p class="addError"></p>
+          </div>
+
+        </div>
+        <div class="input-field">
+          <label for="AddressPhoneNew">Phone Number</label>
+          <input type="text" id="AddressPhoneNew" name="address[phone]" value="" maxlength="10" oninput="this.value=this.value.replace(/[^0-9]/g,'');" required="required">
+          <p class="addError"></p>
+        </div>
+        <div class="input-field">
+          <label for="AddressEmailNew">Email Address</label>
+          <input type="text" id="AddressEmailNew" name="address[email]" value="">
+        </div>
+        <div class="input-field">
+          <label for="AddressAddress1New">Address</label>
+          <textarea id="AddressAddress1New" name="address[address1]" value="" required="required"></textarea>
+          <p class="addError"></p>
+        </div>
+        <div class="input-field">
+          <label for="AddressZipNew">Pin Code</label>
+          <input type="text" id="AddressZipNew" name="address[zip]" value="" maxlength="6" oninput="this.value=this.value.replace(/[^0-9]/g,'');" required="required">
+          <p class="addError"></p>
+        </div>
+        <div class="input-field">
+          <label for="AddressCityNew">City</label>
+          <input type="text" id="AddressCityNew" name="address[city]" value="" disabled >
+        </div>
+
+        <div class="input-field" style="display: none;">
+          <label for="AddressCompanyNew">Company</label>
+          <input type="text" id="AddressCompanyNew" name="address[company]" value="">
+        </div>
+
+        <div class="hide" style="display: none;">
+          <select id="AddressCountryNew" name="address[country]" data-default=""></select>
+        </div>
+
+        <div class="input-field" id="AddressProvinceContainerNew">
+          <label for="AddressProvinceNew">State</label>
+          <input type="text" id="AddressProvinceNew" name="address[province]" data-default="" disabled >
+        </div>
+      </div>
+      <div class="hide" style="display: none;">
+
+      </div>
+    </div>
+    <div class="customer__details-btn-wrapper">
+      <button type="submit" class="customer__details-btn">Submit</button>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- popup for change address -->
+<div class="address__container">
+  <div class="customer__details-container new-addressList" style="display: none;">
+
+    <div class="customer__details-content">
+      <div class="address__header">
+        <div class="address__header--title">Change Address</div>
+        <div class="address__header--close">
+          <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.99007 0.000434763C1.79114 0.000487008 1.59674 0.0598657 1.43173 0.170979C1.26672 0.282093 1.1386 0.439893 1.06374 0.624205C0.988886 0.808517 0.970697 1.01097 1.0115 1.20567C1.05231 1.40037 1.15025 1.57848 1.29281 1.71723L6.58578 7.0102L1.29281 12.3032C1.19684 12.3953 1.12021 12.5057 1.06743 12.6278C1.01464 12.7499 0.986757 12.8814 0.985403 13.0144C0.98405 13.1475 1.00926 13.2794 1.05954 13.4026C1.10983 13.5258 1.1842 13.6377 1.27827 13.7318C1.37235 13.8258 1.48426 13.9002 1.60743 13.9505C1.73061 14.0008 1.86259 14.026 1.99563 14.0246C2.12867 14.0233 2.2601 13.9954 2.38223 13.9426C2.50436 13.8898 2.61473 13.8132 2.70687 13.7172L7.99984 8.42426L13.2928 13.7172C13.385 13.8132 13.4953 13.8898 13.6175 13.9426C13.7396 13.9954 13.871 14.0233 14.0041 14.0246C14.1371 14.026 14.2691 14.0008 14.3922 13.9505C14.5154 13.9002 14.6273 13.8259 14.7214 13.7318C14.8155 13.6377 14.8899 13.5258 14.9401 13.4026C14.9904 13.2794 15.0156 13.1475 15.0143 13.0144C15.0129 12.8814 14.985 12.7499 14.9323 12.6278C14.8795 12.5057 14.8028 12.3953 14.7069 12.3032L9.4139 7.0102L14.7069 1.71723C14.8514 1.57677 14.9501 1.39593 14.99 1.19841C15.03 1.00089 15.0093 0.795905 14.9308 0.610319C14.8523 0.424733 14.7195 0.267204 14.5499 0.158375C14.3803 0.0495457 14.1817 -0.0055056 13.9803 0.000434763C13.7205 0.0081759 13.4739 0.116755 13.2928 0.303169L7.99984 5.59614L2.70687 0.303169C2.61368 0.207375 2.50224 0.13123 2.37912 0.0792331C2.25601 0.0272363 2.12372 0.000442554 1.99007 0.000434763Z" fill="#333333"/>
+          </svg>                    
+        </div>
+      </div>
+    </div>
+    <div class="addressListWrapper">
+      
+    </div>
+    <div class="addBtnWrapper">
+      <div class="addNewAddress address__container-new-add">Add</div>
+      <div class="submitAddress">Submit</div>
+    </div>
+  </div>
+</div>
+
+{% comment %}  {% render  'cart-recommendation' %} {% endcomment %}
+
+
+
+
+<script>
+  
+  $(function(){
+    $('#login_checkout').click(function(e){
+      e.preventDefault();
+      window.location = "account/login";
+    })
+
+//     $('.btn-click').on('click',function(){
+//       $('.details-none').slideToggle(500,"linear");
+//       if(window.screen.width <= 749){
+//         $('.cart__footer-header').hide();
+//       }
+//     })
+
+    $('.help-popup-link').magnificPopup({
+      type:'inline',
+      midClick: true // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
+    });
+
+    $('.free__info--popup').magnificPopup({
+      type:'inline',
+      midClick: true // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
+    });
+  })
+
+  function AjaxcartChangeHandler(data){  
+    $.ajax({
+      url: '/cart/update.js',
+      dataType: 'json',
+      cache: false,
+      type: 'post',
+      data: data,
+      success: function (cart) {
+        console.log("success");
+      }
+    });
+  }
+  
+  
+   $(document).on('change','.qty-input', function(){     
+    var UpdatedQuantity = parseInt($(this).val()),
+        QuantityLine = parseInt($(this).attr('data-line')),
+        params = { quantity: UpdatedQuantity, line: QuantityLine };
+//     AjaxcartChangeHandler(params);
+
+  });
+  
+  //Implemented edit option on cart page 
+  
+  
+  // for edit button
+  $(document).on('click','.edit-qty', function(){    
+    $(this).parents('.cart_row_details').find('.product-details').each(function(i,e){
+      let sph = $(e).attr("power");
+      let cyl = $(e).attr("cyl");
+      let axis = $(e).attr("axis");
+      let sku =  $(e).attr("data-line-sku");      
+      nonjitCall(sku,sph,cyl,axis,$(e));
+    })
+    $(this).parents('.cart_row_details').find('.qty-para').hide();
+    $(this).parents('.cart_row_details').find('.qty-input').show();
+    $(this).hide();
+    $(this).parents('.cart_row_details').find('.save-card').show();
+  });  
+  //for save button
+  $(document).on('click','.save-card', function(){ 
+    $(this).parents('.cart_row_details').find('.qty-para').show();
+    $(this).parents('.cart_row_details').find('.qty-input').hide();
+    $(this).hide();
+    $(this).parents('.cart_row_details').find('.edit-qty').show();  
+  });
+  
+  
+  //for input box on input event
+  $('.qty-input').on('input', function () {
+    var value = $(this).val();
+    let data_qty = $(this).attr('data-line-qty');  
+    $(this).parent().find('.max-qty-msg').hide();
+    if ((value !== '') && (value.indexOf('.') === -1)) {
+      if(data_qty){        
+        $(this).val(Math.max(Math.min(value, data_qty-1), 0));              
+//         if(value > data_qty){
+//           $(this).parent().find('.max-qty-msg').html("Max quantity up to "+(data_qty-1)).show();
+//           setTimeout(function() { 
+//             $('.max-qty-msg').fadeOut(); 
+//           }, 2000);
+//         }
+      }
+//       else{
+//         $(this).val(Math.max(Math.min(value, data_qty-1), 1));
+        if(value >= data_qty-1){
+          $(this).parent().find('.max-qty-msg').html("Max quantity up to "+(data_qty-1)).show();
+          setTimeout(function() { 
+            $('.max-qty-msg').fadeOut(); 
+          }, 2000);
+        }
+//       }           
+    }
+  });
+  
+  //  for nonjit Api implementation  
+  function nonjitCall(sku,sph,cyl,axis,self){
+    let quantity_validate ={
+      "powers":[ 
+        {
+          "classification": "contact_lens",
+          "index": 0,
+          "left": {
+            "ap": null,
+            "axis": axis,
+            "cyl": cyl,
+            "pd": null,
+            "sph": sph
+          },
+          "right": {
+            "ap": null,
+            "axis": axis,
+            "cyl": cyl,
+            "pd": null,
+            "sph": sph
+          },
+          "shell_id": sku
+        }
+      ]
+    }
+     var nonjit_settings = {
+       "url": baseURL+"/api/juno/non-git",
+       "method": "POST",
+       "headers": {
+         "X-Api-Client" : "aqualens",
+         "Content-Type": "application/json",
+         "X-Session-Token": "12345679"
+       },
+       "data": JSON.stringify(quantity_validate),
+     };
+    $.ajax(nonjit_settings).done(function (response) {
+      let left_qty = response.result.result[0].left.qty;
+      let right_qty = response.result.result[0].right.qty;
+      self.parents('.product-power-qty').find('.qty-input').attr("data-line-qty",left_qty);
+      let data_qty = self.parents('.product-power-qty').find('.qty-input').val();
+      if(left_qty < data_qty){        
+        self.parents('.product-power-qty').find('.qty-input').val(left_qty);
+      }
+    })
+  }  
+  // end of edit button option 
+  
+  $(document).ready(function(){
+    var tagSkipGst = '{{skipGst}}'
+    var skipT = sessionStorage.getItem("skipB");
+    if((skipT ===  'true' || skipT ===  true ) && (tagSkipGst === false || tagSkipGst === 'false') ){
+      $(".cart__submit-controls.skipGst").removeClass('hide');
+      $(".documentSection").addClass('hide');
+    }
+  })
+ 
+// new script for cart page  
+  if(window.screen.width >= 749){
+    $('.cart-flex').hide();
+     $('.orderSummary__heading--icon').on('click',function(){
+      $('.cart-flex').slideToggle(500,"linear");
+      $('.orderSummary__icon').toggleClass("summaryIcon--rotate");
+    })
+  }
+  if(window.screen.width <= 749){
+    $('.cart-flex').show();
+    $('.orderSummary__heading--icon').on('click',function(){
+      $('.cart-flex').slideToggle(500,"linear");
+      $('.orderSummary__icon').toggleClass("summaryIcon--rotate");
+    })
+  }
+
+
+  
+  
+ 
+  let amount_To_Pay = '{{ amount_to_pay }}';
+  let final_amount_to_pay ='{{ final_amount_to_pay }}';
+  let amount_to_pay = parseInt(amount_To_Pay)/100;
+  let usedWlletAmount = 0;
+  let usedWalletType ='';
+  
+  $(document).ready(function(){   
+    //    $('.hr-wallet-toggle').hide();    
+    $("body").on('click',".wallet-container",function(){ 
+      if($('[name="payOnDelivery"]').prop("checked") == true){
+        $('.add-cod').trigger('click');
+      }
+      
+      var chk = $(this).find("input[type='checkbox']");
+      if(chk.prop("checked") == false){
+        
+        chk.prop("checked", true);
+        $('.wallet__icon').addClass("icon--rotate");       
+        $('.hr-wallet-toggle').removeClass("closed");
+        $('.hr-wallet-toggle').addClass("open");  
+        $('[name="payOnDelivery"]').prop("checked", false);
+//         $('.cart__submit').val("Place Order");
+//         usedWlletAmount = 0;
+      }     
+      else{       
+        chk.prop("checked", false);
+        $('[name="aquawallet"]').prop("checked",false);
+        $('[name="aquawallet"]').parents('.cart-section-contentFlex1').find('#final_price_amount').html(final_amount_to_pay);
+        $('.wallet__icon').removeClass("icon--rotate");
+        $('.hr-wallet-toggle').addClass("closed");
+        $('.hr-wallet-toggle').removeClass("open");
+        $('.wallet_info').hide();
+        $('.cart__submit').val("Proceed To Pay");
+        usedWlletAmount = 0;
+
+      }
+
+    });
+  });
+
+  // new cart implementation
+  
+  // wallet functions
+
+    function useWalletBalance(ds,condition,amount){ 
+     usedWalletType = condition;
+      if($(ds).is(":checked")){
+        if(condition == 'aquacash'){          
+          if(amount <= 0){
+            window.alert('Aqua cash is not sufficient. Add money to wallet to use!');
+            $(ds).prop("checked", false);
+            return;
+          }else{
+            
+            /*
+             * Changed by shakir
+             * added <= for check 
+             * reverted
+             */
+            if(amount_to_pay <= amount ){
+            
+//             if(amount_to_pay <= amount ){
+              $(ds).parents('.cart-section-contentFlex1').find('#final_price_amount').html(0);
+              usedWlletAmount = amount_to_pay;
+              $('.cart__submit').val("Place Order");
+            }else if(amount < amount_to_pay){
+              let amountToShow  =  amount_to_pay - amount;
+              $(ds).parents('.cart-section-contentFlex1').find('#final_price_amount').html('₹'+amountToShow);
+              usedWlletAmount = amount;
+              
+            }
+          }
+        } else if(condition == 'promocash'){
+                   
+          if(amount <= 0){            
+            window.alert('Promo cash is not sufficient. Add money to wallet to use!');
+            $(ds).prop("checked", false);
+            return;
+          }else{
+            let referralAmount = amount_to_pay*20/100;
+            
+            /*
+             * Changed by shakir
+             * added => for check 
+             * reverted
+             */
+            if(referralAmount > amount){
+            
+//             if(referralAmount => amount){
+              referralAmount = amount;
+            }
+            let amountToShow = amount_to_pay - referralAmount;            
+            $(ds).parents('.cart-section-contentFlex1').find('#final_price_amount').html('₹'+Math.round(amountToShow));
+            usedWlletAmount = Math.round(referralAmount);
+            $('.cart__submit').val("Proceed To Pay");
+          }
+        }
+        
+        $('.wallet-price').html('₹'+usedWlletAmount);
+        $('.wallet_info').show();
+        
+      } else {
+        console.log("usewalletbalance method");
+      }
+    }
+    
+  
+  $(document).ready(function(){
+    var gstUploaded = false;
+    var addrCustomerToken ='';
+    var customer_Phone = '';
+    var customer_first_name ='';
+    var customer_mail = '';
+    
+    // default address for customer on page load
+    function initialAddress(token,address){
+      let initialAddrSettings = {            
+        "url": baseURL+"/api/v1/carts/set-address",
+        "method":"POST",
+        "data":address,
+        "headers": {
+          "Authorization": "Bearer"+" "+token,
+        },         
+      };
+      $.ajax(initialAddrSettings).done(function (response) {
+        sessionStorage.setItem("cartID", response.data.cart_id);
+        customer_first_name =  response.data.shipping_address.first_name;
+        customer_Phone = response.data.shipping_address.phone;
+        
+      }).fail(function(response){
+      	let apiError = response.responseJSON.message;
+        errorPopup(apiError);
+      
+      })
+    }
+    // change address function
+    function changeAddr(token,address){
+      let initialAddrSettings = {            
+        "url": baseURL+"/api/v1/carts/set-address",
+        "method":"POST",
+        "data":address,
+        "headers": {
+          "Authorization": "Bearer"+" "+token,
+        },         
+      };
+      $.ajax(initialAddrSettings).done(function (response) {   
+        let newAddAddressContainer = "";
+        let newAddHtmlData = "";
+        if(response.status == true ){          
+          newAddHtmlData =`<div class="addressWrapper-content">
+                                <h2>Delivery to</h2>
+                                <div class="deliveryAddress__text">
+                                      ${response.data.shipping_address.first_name}&nbsp;${response.data.shipping_address.last_name}&nbsp<br>
+                                      ${response.data.shipping_address.address1}&nbsp;<br>
+                                      ${response.data.shipping_address.city},&nbsp;${response.data.shipping_address.province},&nbsp;${response.data.shipping_address.country}-${response.data.shipping_address.zip}<br>
+									  <span class="deliveryAddress__number">+91-${response.data.shipping_address.phone}</span>
+                                </div>
+								<div class="changeAddress__btnNew changeAddress__btn">Change Address</div>								
+                              </div>`;
+           newAddAddressContainer = newAddAddressContainer + newAddHtmlData;   
+           sessionStorage.setItem("cartID", response.data.cart_id);
+        }
+        $('.addressWrapper').html(newAddAddressContainer);
+        $.magnificPopup.close();        
+        sessionStorage.setItem("no-address",false);
+        
+      }).fail(function(error){
+        let apiError = error.responseJSON.data;
+        errorPopup(apiError);
+
+      })     
+    }
+    
+    //use wallet 
+    $(document).on('change','input[name="aquawallet"]',function(){
+      let dataValue  =  $(this).val();
+      let dataType   =  $(this).attr("data-type");
+      useWalletBalance($(this),dataType,dataValue);
+     })
+
+    
+    
+    
+    //customer data on cart page load
+    function customerToken(token,customerId){
+       var dataSettings = {            
+        "url": baseURL+"/api/v1/carts/customer-data",
+        "method":"GET",
+        "headers": {
+          "Authorization": "Bearer"+" "+token,
+        }
+      };
+      $.ajax(dataSettings).done(function (response) {
+        if(response.status == true){
+          $('.loader-main').hide();
+          $('.cart__submit').removeClass("disabledbutton")
+//           $('.wallet__reedem').show();
+          var customerAddresses = response.data.addresses;
+          var customerEmail = response.data.email; 
+          customer_mail = customerEmail; 
+          var salesmen = response.data.salesmen;
+          var customerGSTDetails = response.data.gst_detail;  
+          var customerWallet = response.data.wallet;
+          var customerStore = response.data.store;
+          
+          console.log(typeof(customerStore));
+          
+          // store information 
+//           if(customerStore == 0 ){
+//             $('.inActiveCustomer').show();
+//             $('.cart__submit').attr('disabled',true);
+//           }
+          
+      
+                    
+          // wallet section
+          
+          let walletHTML ='';
+          if(customerWallet != null){
+              if(customerWallet.aquacash > 0 ||  customerWallet.promocash > 0){
+               walletHTML = ` <div>
+                                <label class="wallet-container">
+                                  <div class="wallet__content">
+                                    <input type="checkbox" class="add-attr choose_wallet">
+                                    <span class="checkmark"></span>
+                                    <div class="wallet__reedem-text">Choose to redeem your Aqualens Balance</div> 
+                                  </div>
+                                  <div class="wallet__icon">
+                                    <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                      <path d="M5.07101 5.99997L1.25001 9.82097C0.836014 10.235 0.836014 10.907 1.25001 11.321C1.66401 11.735 2.33601 11.735 2.75001 11.321L7.36401 6.70697C7.75501 6.31597 7.75501 5.68297 7.36401 5.29297L2.75001 0.67897C2.33601 0.264971 1.66401 0.264971 1.25001 0.67897C0.836014 1.09297 0.836014 1.76497 1.25001 2.17897L5.07101 5.99997Z" fill="#4F4F4F"/>
+                                    </svg>
+                                  </div>
+                                </label>
+                                <div class="hr-wallet-toggle closed">
+                                  <hr style="margin:0px 15px;height:2px;">
+                                  <div class="wallet__amount">
+                                    <label class="wallet__amount-container">Aqua Cash&nbsp;&nbsp;₹&nbsp;<span class="getWallet normalViewBalance">${customerWallet.aquacash}</span>
+                                        <input type="radio" value='${customerWallet.aquacash}' data-type = "aquacash" name="aquawallet">
+                                      <span class="radioCheckmark"></span>
+                                    </label>
+                                    <label class="wallet__amount-container">Promo Cash (20% of Cart)&nbsp;&nbsp;₹&nbsp;<span class="getWallet promoViewBalance">${customerWallet.promocash}</span>
+                                        <input type="radio" value='${customerWallet.promocash}' data-type = "promocash" name="aquawallet">
+                                      <span class="radioCheckmark"></span>
+                                    </label>
+                                  </div>
+                                </div>
+                                </div>` 
+              }else{
+                $('wallet__reedem').hide();
+              }
+          	$('.wallet__reedem').html(walletHTML);
+          
+          } 
+          
+                   
+          // gst details
+          var gstConatiner = '';
+          let gstHtmlData = '';
+          let order_count = '{{ customer.orders_count }}';         
+
+          if((customerGSTDetails != null) && (customerGSTDetails.gst_number != null) && (customerGSTDetails.legal_name != null)){
+            if(customerGSTDetails.navison_code == null){              
+              $('.gstIncomplete').show();
+              $('.cart__submit').attr('disabled',true);
+            }        
+            gstHtmlData =  `<div class="gstWrapper__content">
+								<h2>GST Details</h2>
+								<div class="gstDetailsContent">								
+                                  <div class="gstDetails">
+                                    <div class="gstDetails-heading">GST Number:</div>
+                                    <div class="gstDetails-value">${customerGSTDetails.gst_number}</div>
+                                  </div>
+                                  <div class="gstDetails">
+                                    <div class="gstDetails-heading">Legal Name:</div>
+                                    <div class="gstDetails-value">${customerGSTDetails.legal_name}</div>
+                                  </div>
+							    </div>
+								</div>
+								<div class="gstConfirmation">
+									<h2>Note:</h2>
+									<p class="gstConfirmation__text">Please ensure that you enter the correct details to avail the GST credit. Tax Invoice will be revised.</p>
+  								</div>`;    
+            gstUploaded = true;
+            $('.cart__submit').attr('disabled',false)
+            }
+                    
+          else if(order_count != 0){
+            
+             $(".documentSection").addClass('hide');        
+            if($(".cart__submit-controls").length == 1)
+              $(".cart__submit-controls").removeClass('hide');
+//             skipGst = true; 
+//             console.log(skipGst);
+            sessionStorage.setItem("skipB",true);
+            
+            
+          }
+          
+          else{
+
+//             let gstComfirm = confirm(`You don't have entered gst.if you want please click ok`);
+//             if(gstComfirm == true){
+//               window.location.href = 'https://aqualensb2b.com/pages/select-document?updateprofile=true';
+//             }else{
+
+//             }
+
+            let infoText = `<div class="gst_confirm">
+								<p>Would you like to continue with GST Number?</p>
+								<div class="gest_yes_no">
+                                  <input id="gst-no" type="radio" name="gstRadio" value="No">
+									<div data-value="No" class="gst__option gst-no">
+										<label for="gst-no">No</label>
+  									</div>
+								  <input id="gst-yes" type="radio" name="gstRadio" value="Yes">
+									<div data-value="Yes" class="gst__option gst-yes">
+										<label for="gst-yes">Yes</label>
+  									</div>
+                                </div>								
+						    </div>`;
+            	infoContentPopup(infoText);
+            
+
+          }
+          
+          
+          
+//           	else {
+//                gstHtmlData = `<div class="__gst-box">
+//                                   <div class="__gst-box-head">
+//                                       <h2>GST details: <small>Is your organisation registered under GST ACT in India?</small></h2>
+//                                   </div>
+//                                   <div class="__gst-box-body">
+//                                       <div class="">
+//                                           <div class="" style="display: flex;">
+//                                             <label class="gst__Container">
+//                                                 <div>Yes, registered under GST ACT</div>
+//                                                 <input type="radio" name="gst-registered" value="yes" checked class="gst-has-yes">
+//                                                 <span class="gstRadioCheckmark"><span>
+//                                             </label>
+//                                           </div>
+//                                           <div class="" style="display: flex;">
+//                                               <label class="gst__Container">
+//                                                   <div>No, not registered under GST ACT. Will not be able to claim GST Credit</div>
+//                                                   <input type="radio" name="gst-registered" value="no" class="gst-has-name">
+//                                                   <span class="gstRadioCheckmark"><span>
+//                                               </label>
+//                                           </div>
+
+//                                       </div>
+//                                       <div class="__gst-box-field">
+//                                           <div class="__gst-input-detail">
+//                                               <input type="text" class="form-control-gst gst-number" name="gst_number" placeholder="GSTIN Number">
+//                                               <button type="button" class="verify-gst">VERIFY
+//                                                   GST</button>
+//                                           </div>
+//                                       </div>
+//                                       <div class="__gst-box-result">
+//                                       </div>
+
+//                                   </div>
+//                                   <div class="__gst-box-footer">
+//                                       <h4>Note: Please ensure that you enter the correct details to avail the GST credit.
+//                                           Tax Invoice will be revised. for e.g. Incorrect GSTIN, Incorrect Address etc.
+//                                       </h4>
+//                                   </div>
+//                               </div>`;  
+//               $('.cart__submit').attr('disabled',false)
+//             } 
+  
+          gstConatiner = gstConatiner + gstHtmlData;
+          $('.gstWrapper').html(gstConatiner);
+          
+			//           SES Name
+          if(salesmen.length > 0){            
+            var salesmenListContainer='';
+            var salesmenList ='';
+            var salesmensName ='';
+            salesmen.forEach(function(i){
+              salesmensName +=`<option class="sesName" value="${i.id}">${i.full_name}</option>`;              
+            })
+            salesmenList = `<h4 class="sesWrapper__name">SE Name</h4>
+							<select name="" id="sesName__sel" class="sesName__sel">
+                              <option  class="sesName" value="self">SELF</option>
+                              ${salesmensName}
+  							</select>`;
+            salesmenListContainer = salesmenListContainer + salesmenList;
+            $('.sesWrapper').html(salesmenListContainer);
+          }
+          
+          //           Addresses  
+          
+          var addAddressContainer ='';
+          var addHtmlData='';
+          var addrListcontainer = '';
+          var addrList='';
+          if(customerAddresses && customerAddresses.length > 0){
+            customerAddresses.forEach(function(i){
+              let cust_last_name = '';
+              if(i.last_name != null){
+                cust_last_name = i.last_name;
+              }
+              let addresList = i;
+              if(i.default == true ){
+                
+                addHtmlData =`<div class="addressWrapper-content">
+                                <h2>Delivery to</h2>
+                                <div class="deliveryAddress__text">
+                                      ${i.first_name}&nbsp;${cust_last_name}<br>
+                                      ${i.address1}&nbsp;<br>
+                                      ${i.city},&nbsp;${i.province},&nbsp;${i.country}-${i.zip}<br>
+									  <span class="deliveryAddress__number">+91-${i.phone}</span>
+                                </div>
+								<div class="changeAddress__btn">Change Address</div>
+                              </div>`;
+                addAddressContainer = addAddressContainer + addHtmlData;                
+                  let defaultAddress = {
+                    "first_name" : i.first_name,       
+                    "last_name" : i.last_name,
+                    "email" : customerEmail,       
+                    "address1" : i.address1,
+                    "zip" : i.zip,
+                    "city" : i.city ? i.city:i.province,        
+                    "phone" : i.phone,
+                    "province" : i.province,        
+                    "new_address" : false, 
+                    "cart_id" : null,
+                    "country" : "India",
+                  }
+                  initialAddress(token,defaultAddress);
+                 
+                }
+                addrList = `<div class="deliveryAddress__text">
+								<label class="addressListcontainer">
+									<div class="send_addr_html">
+                                      ${i.first_name}&nbsp;${cust_last_name}<br>
+                                      ${i.address1}<br>
+                                      ${i.city},&nbsp;${i.province},&nbsp;${i.country}-${i.zip}<br>
+									  <h4 class="deliveryAddress__number">+91-${i.phone}</h4>
+									</div>`
+                          if(i.default == true ){
+                            addrList += `<input type="radio" name="address" checked value='${JSON.stringify(i)}'>`
+                          }else{
+                            addrList += `<input type="radio" name="address" value='${JSON.stringify(i)}'>`
+                          }
+             						addrList +=  `<span class="radioAddressCheckmark"></span>
+
+								</label>
+								<div class="addressRemoveEdit" style="display:none;">
+									<div class="AddressEdit">Edit</div>
+									<div class="AddressRemove">Remove</div>
+  								</div>
+                            </div>`;            
+                addrListcontainer = addrListcontainer + addrList;
+            })
+          }else{
+                addHtmlData = `<div class="addAddress">
+									<h2 class="addAddress__heading">Add Shipping Address</h2>
+									<p class="addAddress__text">Please add your shipping address to proceed</p>
+									<div class="addAddress__btn address__container-new-add">Add Address</div>
+  							   </div>`;
+                addAddressContainer = addAddressContainer + addHtmlData;
+            
+            sessionStorage.setItem("no-address",true);
+            
+          }
+          $('.addressWrapper').html(addAddressContainer);
+          $('.addressListWrapper').html(addrListcontainer);
+          
+        }else{
+          $('.loader-main').hide();  
+          $('.cart-section-contentFlex2').html('<div style="background:white;color:red;text-align:center;padding:10px;">Something went wrong</div>');
+          $('.cart__submit').addClass("disabledbutton");
+          $('.wallet__reedem').hide();
+        }
+ 
+      //       if gst yes  
+        
+        let gstYES = `<input type="text" class="form-control-gst gst-number" name="gst_number" placeholder="GSTIN Number">
+                      <button type="button" class="verify-gst">VERIFY GST</button>`;
+        $("input[name='gst-registered']").on('click', function () {
+          if ($("input[name='gst-registered']:checked").val() == 'no') {
+            $('.__gst-input-detail').html('<p>No GST detail provided</p>');
+            $('.__gst-box-result').html('');
+             gstUploaded = true;
+          } else if ($("input[name='gst-registered']:checked").val() == 'yes') {
+            $('.__gst-input-detail').html(gstYES);
+            $('.__gst-box-footer').show();
+             gstUploaded = false;
+          }
+        });
+        
+        $(document).on("click",".verify-gst",function(){
+          fetchGstDdetail();
+        })
+        
+       // verify gst function 
+     var gstDetail = {};
+      function fetchGstDdetail(){
+          var gstNumber = $('.gst-number').val();
+          $('.__gst-box-result').html('<div style="text-align:center;"><span class="loadingDetails">Loading details....</span></div>');
+          $.ajax({
+              url: baseURL+'/api/gst/detail/'+ gstNumber,
+              method: 'GET',
+              success: function (response) {
+                // Added by shakir for api message 
+                if("status" in response && response.status === false){
+                  $('.__gst-box-result').html(`<div style="text-align:center;"><h4 class="error">${response.message}</h4></div>`);
+                  return;
+                }
+                      // if(response.status  && response.status == 'Active'){
+                      // gstDetail.legal_name = response.legal_name,
+                      // gstDetail.address = response.address,
+                      // gstDetail.name = response.name,
+                      // gstDetail.business_constitution = response.business_constitution,
+                  if(response.sts  && response.sts == 'Active'){
+                      gstDetail.legal_name = response.lgnm;
+                      if(response.pradr.addr){
+                          var address = "";
+                          $.each(response.pradr.addr,function(i,item){
+                              address += item + " ";
+                          })
+                          gstDetail.address = address;
+                      } else if(response.adadr[0].addr) {
+                          var address = "";
+                          $.each(response.adadr[0].addr,function(i,item){
+                              address += item + " ";
+                          })
+                          gstDetail.address = address;
+                      } else{
+                          gstDetail.address = "";
+                      }
+                      gstDetail.name = response.tradeNam;
+                      gstDetail.gst_number = gstNumber;                                             
+                      let html =`<div class="">
+                                      <p class="__legal-name">
+                                       <span class="gstDetails-heading"> GST Number :</span><span class="gstDetails-value"> ${gstNumber}</span>
+                                      </p>
+                                      <p class="__legal-name ">
+                                        <span class="gstDetails-heading">Legal Name : </span><span class="gstDetails-value">${response.lgnm}</span>
+                                      </p>
+                                     </div>
+                                    <div class="__gst-box-confirm">
+                                    <label class="__get-box-confirm-inner">
+                                      <input type="checkbox" name="uploadGst" class="uploadGST">
+                                      <span class="get-box-checkmark"></span>
+                                      <div class="confirm__check">I confirm that the GST details displayed above are correct.</div>
+                                    </label>
+                              </div>`;
+                          
+                      $('.__gst-box-result').html(html);
+                      $('.__gst-box-footer').hide();
+                  } else if(response.status  && response.status != 'Active'){
+                      $('.__gst-box-result').html('<div style="text-align:center;"><h4 class="error">GST not Active</h4></div>');
+                  } else {
+                    $('.__gst-box-result').html('<div style="text-align:center;"><h4 class="error">GST number is not valid</h4></div>');
+                  }
+                $('.uploadGST').click(function(){
+                  uploadGstDetail();
+                })
+              }
+            
+          });
+      }
+
+       //         function for upload gst details 
+        function uploadGstDetail(){
+          var formData = new FormData();
+          formData.append("customer_id",customerId);
+          formData.append("gst_number", gstDetail.gst_number);
+          formData.append("legal_name",gstDetail.legal_name);
+          formData.append("address", gstDetail.address);
+          // formData.append("business_constitution",gstDetail.business_constitution);
+          formData.append("name", gstDetail.name);
+          $.ajax({
+            method: "POST",
+            dataType: "json",
+            processData: false,
+            contentType: false,
+            url: baseURL+'/api/add/gst/detail',
+            data: formData,
+            success: function (response) {
+              console.log(response);
+              gstUploaded = true;
+              $('.gstIncomplete').show();
+              $('.cart__submit').attr('disabled',true);
+            },
+//             error: function(XMLHttpRequest, textStatus, errorThrown) { 
+//               alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+//             }   
+          });
+        }
+    
+      }).fail(function(error){
+        let apiError = error.responseJSON.message;
+//         errorPopup(apiError);
+        if(apiError === 'Unauthorized request'){
+          setNewToken();
+          location.reload();
+        }else{
+          errorPopup(apiError);
+        }
+
+      })
+ 
+    }
+ 
+    // calling cutomer data api by this function [customerToken]
+    let custNewToken =  sessionStorage.getItem("custNewToken");    
+    let customer_id  = '{{ customer.id }}'; 
+    addrCustomerToken = custNewToken;
+    customerToken(custNewToken,customer_id);
+ 
+    // Add new address
+    $(document).on("click",".customer__details-btn",function(){
+      let ele = $(this).parents(".customer__details-container");
+      let addr_first_name =  ele.find("[name='address[first_name]']").val();
+      let addr_last_name =  ele.find("[name='address[last_name]']").val();
+      let addr_phone_number = ele.find("[name='address[phone]']").val();
+      let addr_email =  ele.find("[name='address[email]']").val();
+      let addr_address1 =  ele.find("[name='address[address1]']").val();
+      let addr_zip =  ele.find("[name='address[zip]']").val();
+      let addr_city =  ele.find("[name='address[city]']").val();
+      let addr_state = ele.find("[name='address[province]']").val(); 
+      let addr_ph = "";
+      if(addr_phone_number.length == 10){
+        addr_ph = addr_phone_number;
+      }
+      var dataAddrSettings = {            
+        "url": baseURL+"/api/v1/carts/set-address",
+        "method":"POST",
+        "data":{
+          "first_name" : addr_first_name,       
+          "last_name" : addr_last_name,
+          "email" : addr_email,       
+          "address1" : addr_address1,
+          "zip" : addr_zip,
+          "city" : addr_city,        
+          "phone" : addr_ph,
+          "province" : addr_state,        
+          "new_address" : true, 
+          "cart_id" : null,
+          "country" : "India",
+        },
+        "headers": {
+          "Authorization": "Bearer"+" "+addrCustomerToken,
+        },         
+
+      };
+      $.ajax(dataAddrSettings).done(function (response) {
+        let newAddAddressContainer = "";
+        let newAddHtmlData = "";
+        let addrList="";
+        
+        if(response.status == true ){          
+          newAddHtmlData =`<div class="addressWrapper-content">
+                                <h2>Delivery to</h2>
+                                <div class="deliveryAddress__text">
+                                      ${response.data.shipping_address.first_name}&nbsp;${response.data.shipping_address.last_name}<br>
+                                      ${response.data.shipping_address.address1}<br>
+                                      ${response.data.shipping_address.city},&nbsp;${response.data.shipping_address.province},&nbsp;${response.data.shipping_address.country}-${response.data.shipping_address.zip}<br>
+									  <span class="deliveryAddress__number">+91-${response.data.shipping_address.phone}</span>
+                                </div>
+								<div class="changeAddress__btnNew changeAddress__btn">Change Address</div>								
+                              </div>`;
+                newAddAddressContainer = newAddAddressContainer + newAddHtmlData;   
+               sessionStorage.setItem("cartID", response.data.cart_id);
+          
+          
+          addrList = `<div class="deliveryAddress__text">
+								<label class="addressListcontainer">
+									<div class="send_addr_html">
+                                      ${response.data.shipping_address.first_name}&nbsp;${response.data.shipping_address.last_name}<br>
+                                      ${response.data.shipping_address.address1}<br>
+                                      ${response.data.shipping_address.city},&nbsp;${response.data.shipping_address.province},&nbsp;${response.data.shipping_address.country}-${response.data.shipping_address.zip}<br>
+									  <h4 class="deliveryAddress__number">+91-${response.data.shipping_address.phone}</h4>
+									</div>
+									 <input type="radio" name="address" checked value='${JSON.stringify(response.data.shipping_address)}'>
+             						  <span class="radioAddressCheckmark"></span>
+								</label>
+								<div class="addressRemoveEdit" style="display:none;">
+									<div class="AddressEdit">Edit</div>
+									<div class="AddressRemove">Remove</div>
+  								</div>
+                            </div>`; 
+        }
+        $('.addressWrapper').html(newAddAddressContainer);
+        $('.addressListWrapper').append(addrList);
+        
+        $.magnificPopup.close();    
+        
+        sessionStorage.setItem("no-address",false);
+      }).fail(function(error){
+      	let apiError = error.responseJSON.message;
+        errorPopup(apiError);
+      })
+ 
+    })
+    
+    // submit address from change address
+    $(document).on("click",".submitAddress",function(){ 
+      let cart_id = sessionStorage.getItem("cartID");
+      let listAddress="";
+      $('input[name="address"]').each(function(i,e){
+        if($(e).prop("checked") == true ){
+          listAddress = JSON.parse($(e).val());          
+          let changeAddress = {
+            "first_name" : listAddress.first_name,       
+            "last_name" : listAddress.last_name,
+            "email" : customer_mail,       
+            "address1" : listAddress.address1,
+            "zip" : listAddress.zip,
+            "city" : listAddress.city,        
+            "phone" : listAddress.phone,
+            "province" : listAddress.province,        
+            "new_address" : false, 
+            "cart_id" : cart_id,
+            "country" : "India",
+          }
+          changeAddr(addrCustomerToken,changeAddress)
+          return false;
+        }
+      })
+    })
+
+    //     whatsapp optin    
+    var phone_no = '{{ customer.phone }}';
+    var sub_phone_no = phone_no.slice(3);
+    $(document).on("click",".add-attr",function(){ 
+      if($(".whatsapp__optin-checkbox input[type=checkbox]").prop("checked") == true ){
+        $.ajax({
+          url: baseURL+"/api/v1/carts/whatsapp-opt-in/"+sub_phone_no,
+          "headers": {
+            "Authorization": "Bearer"+" "+addrCustomerToken,
+          },  
+        })
+        .done(function(response){
+          console.log(response);
+        })
+        .fail(function(error){
+          let apiError = error.responseJSON.message;
+          errorPopup(apiError);
+        })
+      }
+    })
+    
+    
+    
+    // new addresss
+    
+    $(document).ready(function() {
+      function initialValidation(){
+        $(".customer__details-container").each(function(itr,ele){
+          let zipVal1 = $(ele).find("[name='address[zip]']").val();
+          let nameVal1 = $(ele).find("[name='address[first_name]']").val();
+          let lnameVal1 = $(ele).find("[name='address[last_name]']").val();
+          let addVal1 = $(ele).find("[name='address[address1]']").val();
+          let phoneVal = $(ele).find("[name='address[phone]']").val();
+          $(ele).find(".addError").each(function(i,e){
+            if($(e).html() != "" || zipVal1 == "" || nameVal1 == "" || addVal1 == "" || lnameVal1 == "" || phoneVal == ""){
+              $(e).parents(".customer__details-container").find(".customer__details-btn").prop("disabled",true).removeClass("details-btn-active");
+            }else{
+              $(e).parents(".customer__details-container").find(".customer__details-btn").prop("disabled",false).addClass("details-btn-active");
+            }
+          })
+        })
+      }
+      initialValidation();
+    })
+    
+    
+    
+    // popup for address
+
+    function addressPopUp(popup,modal = false){
+      $.magnificPopup.open({
+        items: {
+          src: popup
+        },
+        type : 'inline',
+        closeBtnInside: true,
+        fixedContentPos:true,
+        overflowY: 'auto',
+        closeOnBgClick : true,
+        modal : modal,
+        fixedBgPos: true
+      });  
+
+    }
+
+    function addressChangePopUp(popup,modal = false){
+      $.magnificPopup.open({
+        items: {
+          src: popup
+        },
+        type : 'inline',
+        closeBtnInside: true,
+        fixedContentPos:true,
+        overflowY: 'auto',
+        closeOnBgClick : true,
+        modal : modal,
+        fixedBgPos: true
+      });
+    }
+    $(document).on('click',".address__container-new-add",function(event) {
+      $(".new-address").show();
+      let popupContent = $(".new-address")
+      addressPopUp(popupContent);
+      $('.new-address').parent().css('height','100%');
+    });
+    $(document).on('click',".changeAddress__btn",function(event) {
+      $(".new-addressList").show();
+      let popupContent = $(".new-addressList")
+      addressChangePopUp(popupContent);
+      $('.new-addressList').parent().css('height','100%');
+    });
+    $(document).on('click',".address__header--close",function(){
+      $.magnificPopup.close();
+    })
+    
+    // Address Form Validation & Submission
+ 
+    let zipVal = "";
+    let nameVal = "";
+    let lnameVal = "";
+    let addVal = "";
+    let cityVal = "";
+    let stateVal = "";
+    let phoneVal = "";
+
+    function validData(){
+      $(".customer__details-container").each(function(itr,ele){
+        zipVal = $(ele).find("[name='address[zip]']").val();
+        nameVal = $(ele).find("[name='address[first_name]']").val();
+        lnameVal = $(ele).find("[name='address[last_name]']").val();
+        phoneVal = $(ele).find("[name='address[phone]']").val();
+        addVal = $(ele).find("[name='address[address1]']").val();
+        
+        $(ele).find(".addError").each(function(i,e){
+          if($(e).html() != "" || zipVal == "" || nameVal == "" || addVal == "" || lnameVal == "" || phoneVal == ""){
+            $(e).parents(".customer__details-container").find(".customer__details-btn").prop("disabled",true).removeClass("details-btn-active");
+          }else{
+            $(e).parents(".customer__details-container").find(".customer__details-btn").prop("disabled",false).addClass("details-btn-active");
+          }
+        })
+      })
+    }
+    validData();
+
+
+    $(document).on("input","[name='address[zip]']",function(){
+      let $self = $(this);
+
+      cityVal = "";
+      stateVal = "";
+      let $referParent = $(this).parents(".customer__details-content");
+      $(this).parents(".customer__details-content").find("[name='address[city]']").val("");
+      $(this).parents(".customer__details-content").find("[name='address[province]']").val("");
+
+
+      if($(this).val().length == 6){
+        zipVal = $(this).val();
+        $(this).parent().find(".addError").html("");
+
+        $.ajax({
+          url: "https://subscriber.aqualens.in/lenskart/check-pincode/"+$(this).val(),
+        })
+        .done(function(response) {
+          if(response != "ERROR" && response.result.canDeliver == "Yes"){
+            cityVal = response.result.city;
+            stateVal = response.result.state;
+            $referParent.find("[name='address[city]']").val(response.result.city);
+            $referParent.find("[name='address[province]']").val(response.result.state);
+
+          }
+          else{
+            $self.parent().find(".addError").html("Delivery not available at this pin code");
+          }
+          validData();
+        })
+        .fail(function(addError){
+          $self.parent().find(".addError").html("Something went wrong");
+          validData();
+          console.log("Error",addError);
+        })
+      }
+      else{
+        zipVal = "";
+        if($(this).val().length > 0){
+          $(this).parent().find(".addError").html("Pin code must be 6 digits");
+        }else{
+          $(this).parent().find(".addError").html("Please enter pin code");
+        }
+      }
+      validData();
+    })
+
+    $(document).on("input","[ name='address[first_name]']",function(){
+      if($(this).val().length > 0){
+        nameVal = $(this).val()
+        $(this).parent().find(".addError").html("");
+      }else{
+        nameVal = "";
+        $(this).parent().find(".addError").html("Please enter first name");
+      }
+      validData();
+    })
+     $(document).on("input","[ name='address[last_name]']",function(){
+      if($(this).val().length > 0){
+        nameVal = $(this).val()
+        $(this).parent().find(".addError").html("");
+      }else{
+        nameVal = "";
+        $(this).parent().find(".addError").html("Please enter last name");
+      }
+      validData();
+    })
+
+    $(document).on("input","[ name='address[address1]']",function(){
+      if($(this).val().length > 0){
+        addVal = $(this).val();
+        $(this).parent().find(".addError").html("");
+      }else{
+        addVal = "";
+        $(this).parent().find(".addError").html("Please enter address");
+      }
+      validData();
+    })
+    
+    $(document).on("input","[name='address[phone]']",function(){
+      let phoneVal="";
+      let $self = $(this);
+      if($(this).val().length == 10){
+        phoneVal = $(this).val();
+        $(this).parent().find(".addError").html("");
+      }
+      else{
+        phoneVal = "";
+        if($(this).val().length > 0){
+          $(this).parent().find(".addError").html("Phone number must be 10 digits");
+        }else{
+          $(this).parent().find(".addError").html("");
+        }
+      }
+      validData();
+    })
+    
+    $("#AddressCompanyNew").val($("#addressHome").val());
+    $(".address__type").on("change",function(){
+      let value = $(this).val();
+      $("#AddressCompanyNew").val(value);
+    })
+    // end
+    
+//     line items     
+//     razor popup    
+//     order confirmation
+    let orderTotalAmount ='';
+    var referencePaymentId ="";
+    let orderTotal= "";
+    var cartId = sessionStorage.getItem("cartID");
+    var razorCustomerId="";
+    let cartItemData = "";
+    let shipping_charge_data = '{{ shipping_charge }}';
+       shipping_charge_data = shipping_charge_data / 100;
+    
+    // order confimation and redirect to thank you page   
+    function orderConfirmation(data){     
+      const {cart_id,order_id,order_status,payment_id,payment_mode} = data.data;           
+      const thankYouVariable = {       
+        cart_id: cart_id,
+        order_id: order_id,
+        order_status: order_status,
+        payment_id: payment_id,
+        payment_mode: payment_mode,
+        cartItemData: cartItemData,
+        orderTotal:orderTotalAmount,
+        shipping_charge_data:shipping_charge_data
+      }
+
+      //sending data to thank you page
+      sessionStorage.setItem('thankyouVariable', JSON.stringify(thankYouVariable));
+      window.location.href = "https://aqualensb2b.com/pages/thank-you";
+
+    }
+    
+    
+//     payment varification in both razor and cod
+    function paymentVerify(url,data){  
+       $('.loader-div').show();
+      let settings = {
+        url: url,
+        type: "POST",
+        headers: {
+          Authorization: "Bearer"+" "+addrCustomerToken,
+        },
+        data: data,
+      };
+      $.ajax(settings)
+      .done(function (e) {   
+        orderConfirmation(e);
+//         const { status } = e;
+//         if (status == true) {
+//           console.log(e);
+//           orderConfirmation(e);
+//         } else {
+//           console.log(e);
+//            alert(e.data.message);
+//         }
+     
+        
+      })
+      .fail(function (e) {
+        $('.loader-div').hide();
+        alert(e.data.message);
+        
+      });
+    }
+  
+//    razor popup open 
+   
+    function razorPopup(razorData,razorOrderData){  
+      const { key, customer,customerId } = razorData;
+      const {id,amount} = razorOrderData;   
+      orderTotal = parseFloat(amount)/100;     
+      var razorOptions = {
+        key: `${key}`,
+        amount: parseFloat(amount),
+        name: "Aqualens",
+        currency: "INR",
+        order_id: id,
+        customer_id: customer,
+        prefill: {
+          method: '',
+          name : customer_first_name,
+          email : customer_mail,
+          contact : customer_Phone,
+        },
+        notes: {
+          /* "address": "note value"   */
+        },
+        theme: {
+
+          //change color
+          "color": "#00BAC6" ,
+          hide_topbar: "true",
+        },
+        image : `https://cdn.shopify.com/s/files/1/0084/6957/7794/files/logo_7ae23fb0-c20d-454b-ac7a-666fd6bb7d82_200x.png?v=1563190882`,
+      };
+
+      razorOptions.handler = function (response) {  
+        var cartIdPrepaid = sessionStorage.getItem("cartID");
+        referencePaymentId =   response.razorpay_payment_id
+        if (response.hasOwnProperty("razorpay_payment_id")) {
+          const paymentVerifyUrl = baseURL+"/api/v1/carts/verify-payment";
+          const paymentVerifyData = {
+            'payment_mode' : 'N/A',
+            'total' : parseFloat(amount)/100,
+            'razorpay_payment_id' : response.razorpay_payment_id,
+            'razorpay_order_id':response.razorpay_order_id,
+            'razorpay_signature' : response.razorpay_signature,
+            'razorpay_customer_id': razorCustomerId,
+            'cart_id' : cartIdPrepaid
+          }
+          paymentVerify(paymentVerifyUrl,paymentVerifyData);
+        }else{
+//           $('.loader-div').hide();
+          console.log(response)
+        }
+      };
+
+      var rzp = new Razorpay(razorOptions);
+      rzp.open();
+      $('.loader-div').hide();
+    }
+    
+    
+    // on click cod
+    $(document).on('click',".add-cod",function(event) {
+      if($(".payOnDelivery-checkbox input[type=checkbox]").prop("checked") == true ){
+        if($('body').find('.wallet-container .choose_wallet').prop("checked") == true){
+    		$('body').find('.wallet-container').trigger('click');
+             $('body').find('.wallet-container .choose_wallet').prop("checked", false)
+
+        }
+//         console.log($('.wallet-container').find('.choose_wallet').prop("checked"));
+        $('.cart__submit').val("Place Order");
+        $('.wallet_info').hide();
+      }else{
+        $('.cart__submit').val("Proceed To Pay");
+      }
+    })  
+
+    // salesman must be selected
+    $(document).on('change','.sesName__sel',function (e) {
+      var valueSelected = $(this).find("option:selected").text();;
+
+      if(valueSelected == 'Select Salesman'){
+        $('.cart__submit').addClass("disabledbutton")
+      }else{
+        $('.cart__submit').removeClass("disabledbutton")
+      }
+    });
+    
+    
+    //for new gst flow
+    var skipGst;
+    $(document).on("change","[name='gstRadio']",function(){
+      let flagVal = $(this).val();
+      if(flagVal === "Yes"){
+        window.location.href = 'https://aqualensb2b.com/pages/select-document?update=true';     
+      }else{
+        $(".documentSection").addClass('hide');        
+//         let skipGstFlag = false;
+//         $(".cart__submit-controls").each(function(e){
+//           if(!$(".cart__submit-controls").hasClass('hide')){
+            
+//           }
+//         })
+        if($(".cart__submit-controls").length == 1)
+          $(".cart__submit-controls").removeClass('hide');
+        skipGst = true; 
+        console.log(skipGst);
+        sessionStorage.setItem("skipB",true);
+//         location.reload();
+        $.magnificPopup.close();
+      }
+    })
+
+    
+    
+    
+    
+    // proceedung payments    
+    $(document).on('click',".cart__submit",function(event) {
+
+      let utm_source = sessionStorage.getItem("utm_source");	
+      console.log(utm_source);	
+      if(utm_source === 'saathi_app' ){	
+        utm_source = utm_source;	
+      }else{	
+        utm_source = 'aqualensb2b_web';	
+      }
+
+       let shipping_charge = '{{ shipping_charge }}';
+       shipping_charge = shipping_charge / 100;
+      // check if no address available
+      
+      let noAddressAvailable = sessionStorage.getItem("no-address");      
+      if(noAddressAvailable === true || noAddressAvailable ==='true'){
+        alert("Please Add New Address");
+        $('body').find('.address__container-new-add').css('border', '1px solid red');
+        return false;        
+      }
+      
+      //check gst 
+//       let gstField = $('.form-control-gst').val();
+//       if($('[name="gst-registered"]').prop("checked") == true && gstField == ''){
+//         alert("Please Enter Gst And verify");  
+//         $('[name="gst_number"]').css('border','1px solid red');
+//         return false;        
+//       }
+//       if(gstUploaded != true){
+//         alert("Please Confirm GST");  
+//         return false;   
+//       }
+      
+      
+      let cart_id = sessionStorage.getItem("cartID");  
+      $('.loader-div').show();
+       event.preventDefault();
+      var thisE = $(this);
+      var seName = thisE.parents('.dataCartWrapper').find('.sesName__sel option:selected').val();
+      $('input[name="aquawallet"]').each(function(i,e){
+        if($(e).prop("checked") == true ){
+          let wallet_balance = $(e).parents(".wallet__amount-container").find('.getWallet').text();
+          
+        }
+      })     
+     
+      if(seName == "Select Salesman"){
+        window.alert("Please select salesman")
+         $('.loader-div').hide();
+        event.preventDefault();  
+        return false;
+             
+      }
+      
+      var finalPriceAmount = thisE.parents('.dataCartWrapper').find('.final-price-amount').text();
+      finalPriceAmount = finalPriceAmount.replace('₹','');
+      
+     
+      if(thisE.parents(".cart__buttons-container").find('.cart__submit-controls').hasClass('skipGst')){
+        skipGst = true;
+      }
+      else{
+        skipGst = false;
+
+      }
+       
+      var lockO = $("#lockdownOffer").val();
+      var lockOstatus = false;
+      var lockO2 = $("#lockdownOffer2").val();
+      var lockOstatus2 = false;
+      if(lockO == 'true'){
+        lockOstatus = false
+      }
+      if(lockO2 == 'true'){
+        lockOstatus2 = true
+      }
+      var solutionFlat360ML = $('#solutionFlat360ML').val();
+      var solutionFlat500ML = $('#solutionFlat500ML').val();
+      var solutionComboFlat120ML = $('#solutionComboFlat120ML').val();
+      var solutionFlat60ML = $('#solutionFlat60ML').val(); 
+      var solutionFlat100ML = $('#solutionFlat100ML').val(); 
+      var febDiscount120 = $('#offerFlat120MLfeb').val();     
+	  var super_offer_10LP = $('#super_offer_10LP').val();
+    var offer_10H2LP = $('#offer_10H2LP').val();
+      var offer_7_1 = $('#offer_7_1').val();
+      var offer_7_2 = $('#offer_7_2').val();      
+      var offer_candy_pack = $('#offer_candy_pack').val();
+      var offer_8_1 = $('#offer_8_1').val();
+      var offer_8_2 = $('#offer_8_2').val();
+      var offer_9_1 = $('#offer_9_1').val();
+      var offer_9_2 = $('#offer_9_2').val();
+      var offer_10_1 = $('#offer_10_1').val();
+      var offer_10_2 = $('#offer_10_2').val(); 
+      var offer_toric_3LP =  $('#offer_toric_3LP').val();
+      var offer_plano_1LP =  $('#offer_plano_1LP').val();
+
+      var final_data = [];
+      $.ajax({
+        url : '/cart.json',
+        type: 'GET',
+        dataType: 'JSON',
+        success:function(data){
+          let vendor='';
+          let product_vendor='';
+          var var_qty ='';
+          let jj_qty = 0;
+          var dataItem = data.items;
+          cartItemData = dataItem;
+          for(var i=0;i<dataItem.length;i++){
+            var var_id = dataItem[i].id;
+            var_qty = dataItem[i].quantity;
+            jj_qty = jj_qty + dataItem[i].quantity;
+            var var_prop = dataItem[i].properties;
+            product_vendor = dataItem[0].vendor;
+            
+             var combinedData = {             
+              variant_id:var_id,
+              quantity:var_qty,
+              properties:var_prop
+            }
+            if(dataItem[i].variant_id == 32022497165372){
+              combinedData.offer_discount = solutionFlat360ML;
+            }  
+            if(dataItem[i].variant_id == 32022498771004){
+			        combinedData.offer_discount = solutionFlat60ML;
+            }
+            if(dataItem[i].variant_id == 32665504612412){
+			        combinedData.offer_discount = solutionFlat100ML;
+            }
+            if(dataItem[i].variant_id == 32022499033148){
+              combinedData.offer_discount = febDiscount120;
+            } 
+            if(dataItem[i].variant_id == 32022504964156){
+              combinedData.offer_discount = solutionFlat500ML;
+            } 
+
+            if(dataItem[i].variant_id == 40378203242556){
+              combinedData.offer_discount = solutionComboFlat120ML;
+            } 
+            final_data.push(combinedData);
+          }
+          if(product_vendor.includes("Johnson")){
+            vendor = "jj";
+            if(jj_qty < 5){
+              $('.loader-div').hide();
+//               alert("Minimum Quantity should be 5");
+              
+              
+              let inforText = `<div style="padding:20px;">You need to add minimum 5 quantity in the cart.<br> Please add ${5 - jj_qty} more quantity to proceed.</div>`;
+              notifContentPopup(inforText)
+              
+              return false;
+              
+            }
+
+          }else{
+            vendor = "aqualens";
+          }
+//           console.log(vendor);
+          let wallet = null;
+          if(usedWlletAmount > 0){
+             wallet ={
+              type:usedWalletType,
+  			  amount:usedWlletAmount
+            }
+          }
+          orderTotalAmount = finalPriceAmount;
+//           console.log(orderTotalAmount);
+          //set-cart api
+          
+          var setCartSettings = {            
+            "url": baseURL+"/api/v1/carts/set-cart",
+            "method":"POST",
+            "data":{
+              'email':customer_mail,
+              'line_items':final_data,
+              'total' : finalPriceAmount,
+              'lockOstatus': lockOstatus,
+              'lockOstatus2': lockOstatus2,
+              'skipGst': skipGst,
+              'super_offer_10LP':super_offer_10LP,
+              'offer_10H2LP':offer_10H2LP,
+              'offer_7_1': offer_7_1,
+              'offer_7_2': offer_7_2,
+              'offer_8_1': offer_8_1,
+              'offer_candy_pack': offer_candy_pack,
+              'offer_8_2': offer_8_2,
+              'offer_9_1': offer_9_1,
+              'offer_9_2': offer_9_2,
+              'offer_10_1': offer_10_1,
+              'offer_10_2': offer_10_2,
+              'offer_toric_3LP':offer_toric_3LP,
+              'offer_plano_1LP':offer_plano_1LP,
+              'salesman' : seName,
+              'wallet': wallet,
+              'cart_id' : cart_id,
+              'shipping_charges':shipping_charge,
+              'vendor':vendor,
+              'utm_source':utm_source
+            },
+            "headers": {
+              "Authorization": "Bearer"+" "+addrCustomerToken,
+            },         
+          };
+          
+          $.ajax(setCartSettings).done(function (response) {           
+            let id_cart = response.data.cart_id;
+            razorCustomerId  = response.data.razor_customer_id; 
+            let razorKey  = response.data.razor_key; 
+            let razorTotal  = response.data.total; 
+            let finalTotal  = response.data.total; 
+//             console.log(razorTotal,finalTotal);
+            let razorData = {
+              key: razorKey,
+              customer: razorCustomerId,
+              customerId : customer_id,
+            };
+            let razorJson = {
+              "cart_id": id_cart,
+              "order_type": "",
+              "total":razorTotal
+            }
+            
+            
+            // for wallet
+            if($(".wallet-container input[type=checkbox]").prop("checked") == true ){
+              console.log(finalTotal)
+              if(finalTotal == 0 && usedWlletAmount > 0){
+                var cartIdWallet = sessionStorage.getItem("cartID");
+                $('.loader-div').show();
+                referencePaymentId = `aqwlt_${(new Date().getTime())}`;
+                $('cart__submit').val("Place Order");  
+                const paymentVerifyUrl = baseURL+"/api/v1/carts/verify-payment";
+                const paymentVerifyData = {
+                  'payment_mode' : 'aquawallet',
+                  'total' : 0,
+                  'razorpay_payment_id' : referencePaymentId,
+                  'razorpay_order_id':response.razorpay_order_id,
+                  'razorpay_signature' : response.razorpay_signature,
+                  'razorpay_customer_id': razorCustomerId,
+                  'cart_id' : cartIdWallet
+                }
+                paymentVerify(paymentVerifyUrl,paymentVerifyData);    
+              }else{                             
+                  $.ajax({
+                    url: baseURL+"/api/v1/carts/create-razor-order",
+                    method: "POST",
+                    headers: {
+                      "Authorization": "Bearer"+" "+addrCustomerToken,
+                      "Content-Type": "application/json",
+                    },
+                    data: JSON.stringify(razorJson),
+                  })
+                  .done(function(response) {
+
+                    let razorOrderData = {
+                      id: response.data.id,
+                      amount: response.data.amount
+                    }
+                    razorPopup(razorData,razorOrderData);
+                  })
+                   
+              }
+            }
+            else{            
+            // for cod order
+            if($(".payOnDelivery-checkbox input[type=checkbox]").prop("checked") == true ){
+              var cartIdCod = sessionStorage.getItem("cartID");
+              $('.loader-div').show();
+              referencePaymentId = `cod_${(new Date().getTime())}`;
+              $('cart__submit').val("Place Order");  
+              const paymentVerifyUrl = baseURL+"/api/v1/carts/verify-payment";
+              const paymentVerifyData = {
+                'payment_mode' : 'cod',
+                'total' : razorTotal,
+                'razorpay_payment_id' : referencePaymentId,
+                'razorpay_order_id':response.razorpay_order_id,
+                'razorpay_signature' : response.razorpay_signature,
+                'razorpay_customer_id': razorCustomerId,
+                'cart_id' : cartIdCod
+              }
+              paymentVerify(paymentVerifyUrl,paymentVerifyData);              
+            }
+            // for razor(prepaid) order
+            else
+            {
+              $.ajax({
+                url: baseURL+"/api/v1/carts/create-razor-order",
+                method: "POST",
+                headers: {
+                  "Authorization": "Bearer"+" "+addrCustomerToken,
+                  "Content-Type": "application/json",
+                },
+                data: JSON.stringify(razorJson),
+              })
+              .done(function(response) {
+
+                let razorOrderData = {
+                  id: response.data.id,
+                  amount: response.data.amount
+                }
+                razorPopup(razorData,razorOrderData);
+              })
+            }
+            
+          }
+            
+          }).fail(function(error){
+            $('.loader-div').hide();
+            let apiError = error.responseJSON.message;
+            errorPopup(apiError);
+          }) 
+        }
+      })    
+      //       clevertap events
+      clevertap.event.push("PaymentStarted", {
+        "OrderValue":finalPriceAmount
+      });
+      //           GA events
+      let displayMode = 'browser';
+      const mqStandAlone = '(display-mode: standalone)';
+      if (navigator.standalone || window.matchMedia(mqStandAlone).matches || navigator.userAgent.toLowerCase().includes('wv')) {
+        displayMode = 'standalone';
+        dataLayer.push({
+          'event': 'PaymentStarted_pwa',
+          'OrderValue':finalPriceAmount,
+          'Date':  "{{ "now" | date: "%Y-%m-%d" }}"
+        })
+      }else{
+        dataLayer.push({
+          'event': 'PaymentStarted',
+          'OrderValue':finalPriceAmount,
+          'Date':  "{{ "now" | date: "%Y-%m-%d" }}"
+        })
+      } 
+      //          events end
+
+      
+    })
+
+  })
+  
+  
+  // validate quantity onLoad of cart page
+  $(document).ready(function(){
+  let itemsUpdates = {};  
+  async function inventoryOnload(){     
+    let selectedItems = $('.product_lineItem').map(async function(i,e) {
+      let sph = $(e).attr("power");
+      let cyl = $(e).attr("cyl");
+      let axis = $(e).attr("axis");
+      let sku =  $(e).attr("data-line-sku");
+      return await nonjitCall(sku,sph,cyl,axis,$(e))
+    }).get();
+
+    Promise.all(selectedItems).then(function(ele){
+      let sumFlag = 0
+      ele.forEach(function(itr){
+        sumFlag = sumFlag + itr;
+      })      
+      if(sumFlag > 0){
+        let itemsArr = { updates: itemsUpdates };
+        var params = {
+          url: '/cart/update.js',
+          data: itemsArr,
+          dataType: 'json'
+        };
+
+        $.post(params)
+        .done(function(){
+          location.reload();
+        })     
+      }
+    })
+  }
+
+  //  for nonjit Api implementation  
+  async function nonjitCall(sku,sph,cyl,axis,self){
+    let nwFlag = 0;
+    let quantity_validate ={ 
+      "powers":[ 
+        {
+          "classification": "contact_lens",
+          "index": 0,
+          "left": {
+            "ap": null,
+            "axis": axis,
+            "cyl": cyl,
+            "pd": null,
+            "sph": sph
+          },
+          "right": {
+            "ap": null,
+            "axis": axis,
+            "cyl": cyl,
+            "pd": null,
+            "sph": sph
+          },
+          "shell_id": sku
+        }
+      ] 
+    }
+    var nonjit_settings = {
+      "url": baseURL+"/api/juno/non-git",
+      "method": "POST",
+      "headers": {
+        "X-Api-Client" : "aqualens",
+        "Content-Type": "application/json",
+        "X-Session-Token": "12345679"
+      },
+      "data": JSON.stringify(quantity_validate),
+    };
+    await $.ajax(nonjit_settings).done(function (response) {
+      let left_qty = response.result.result[0].left.qty;
+      let right_qty = response.result.result[0].right.qty;
+      self.parents('.product-power-qty').find('.qty-input').attr("data-line-qty",left_qty);
+      let data_qty = self.parents('.product-power-qty').find('.qty-input').val();    
+      if(left_qty < data_qty){ 
+        self.parents('.product-power-qty').find('.qty-para').html(left_qty-1);
+        self.parents('.product-power-qty').find('.qty-input').val(parseInt(left_qty-1));        
+        let itemKey = self.parents('[data-cart-item-key]').attr("data-cart-item-key");
+        let itemIndex = self.parents('[data-cart-item-key]').attr("data-cart-item-index");
+        let itemQty = parseInt(left_qty-1);
+        if(parseInt(left_qty-1)<= 0){
+          itemQty = 0;
+        }
+        itemsUpdates[itemKey] = itemQty;
+        nwFlag = nwFlag+1;        
+      }
+    }).fail(function(error){
+      $('.loader-div').hide();
+      let apiError = error.responseJSON.data;
+      errorPopup(apiError);
+    }) 
+    return nwFlag;  
+  }   
+  inventoryOnload()  
+  })
+</script>
+
+
+{% schema %}
+{
+  "name": "Cart page",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "cart_ajax_enable",
+      "label": "Enable automatic cart updates",
+      "info": "Updates the cart as soon as customer changes are made",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "cart_notes_enable",
+      "label": "Enable cart notes",
+      "default": false
+    }
+  ]
+}
+{% endschema %}
+

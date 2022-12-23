@@ -1,0 +1,548 @@
+<!-- video gallery -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.0.0/magnific-popup.min.css" integrity="sha512-nIm/JGUwrzblLex/meoxJSPdAKQOe2bLhnrZ81g5Jbh519z8GFJIWu87WAhBH+RAyGbM4+U3S2h+kL5JoV6/wA==" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.0.0/jquery.magnific-popup.min.js" integrity="sha512-+m6t3R87+6LdtYiCzRhC5+E0l4VQ9qIT1H9+t1wmHkMJvvUQNI5MKKb7b08WL4Kgp9K0IBgHDSLCRJk05cFUYg==" crossorigin="anonymous"></script>
+
+<style>
+  .hp__video-section{
+    margin: 30px 20px;
+    border-radius: 4px;
+    {% if section.settings.section-bg-img != blank %}
+    background-image:url({{ section.settings.section-bg-img | img_url: 'master' }});
+    {% endif %}
+    background-color: {{ section.settings.section-bg }};
+    background-size: cover;
+  }
+  .hp__video-section .section-container {
+    text-align: center;
+    padding: 30px 18px;
+    max-width: 1308px;
+    margin: 0 auto;
+  }
+  .hp__video-section .section-heading h2 {
+    font-family: Quattrocento !important;
+    font-style: normal;
+    font-weight: bold;
+    font-size: calc(24px + (45 - 24) * ((100vw - 375px) / (1440 - 375)));
+    line-height: calc(27px + (50 - 27) * ((100vw - 375px) / (1440 - 375)));
+    padding-bottom: calc(10px + (30 - 10) * ((100vw - 375px) / (1440 - 375)));
+    color: #474747;
+  }
+  .hp__video-section .video__gallery-mobile-container{
+    display: none;
+  }
+  .hp__video-section .video__gallery-desktop-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .hp__video-section .video__gallery-wrapper {
+    width: 49%;
+  }
+  .hp__video-section .video-embed {
+    width: 100%;
+    height: 100%;
+  }
+  .hp__video-section .video-embed iframe {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 4px;
+  }
+  .hp__video-section .sidebar-wrapper {
+    width: 49%;
+    text-align: left;
+    background: #FFFFFF;
+    border-radius: 4px;
+    padding: 8px 5px 8px 10px;   
+  }
+  .hp__video-section .sidebar-height{
+    height: 350px;
+    overflow-x: auto;
+    padding-right: 5px;
+  }
+  .video-content {
+    background: #F9F9F9;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    cursor: pointer;
+  }
+  .video-content:last-child {
+    margin-bottom: 0px;
+  }
+  .video-thumbnail {
+    width: 95px;
+    height: 60px;
+    flex-shrink: 0;
+  }
+  .video-thumbnail img {
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+  }
+  .video-desc {
+    padding-left: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1 1 100%;
+  }
+  .video-title {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: calc(12px + (14 - 12) * ((100vw - 768px) / (1440 - 768)));
+    line-height: calc(18px + (21 - 18) * ((100vw - 768px) / (1440 - 768)));
+    color: #333333;
+  }
+  .video-timer {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+    color: #FFFFFF;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+    padding: calc(2px + (4 - 2) * ((100vw - 768px) / (1440 - 768)));
+    width: fit-content;
+  }
+  
+  /*************/
+  
+ 
+  .video__gallery-slider-container{
+    background: #FFFFFF;
+    display:none;
+    height: 100vh;
+    overflow: auto;
+    z-index: 100002;
+/*     top: 0;
+    right: -100%;
+    position: fixed;
+    width: 100%;
+    z-index: 100002;
+    height: 100vh;
+    overflow: auto; */
+  }
+  iframe#video-player-mob {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+  }
+  
+  .header-container-sticky{
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
+  
+  .video__gallery-header-wrapper{
+    display: flex;
+    align-items: baseline;
+    padding: 13px 20px;
+    width: 100%;
+    background: white;
+    border: 1px solid #D8D8D8;
+  }
+  .video__gallery-header-title{
+    width: 100%;
+    text-align: center;
+  }
+  .video__gallery-header-title h2{
+    font-family: Quattrocento !important;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 21px;
+    color: #474747;
+    width: 100%;
+    text-align: center;
+  }
+  .gallery-padding{
+    padding: 15px;
+  }
+  .video__gallery-wrapper-mob{
+    width: 100%;
+    height: 200px;
+  }  
+  .video-embed-mob {
+    position: relative;
+    width: 100%;
+    background: #f8f8f8;
+    padding-top: 56.25%;
+  }
+/*   .hp__video-section .video-embed-mob {
+    width: 100%;
+    height: 100%;
+  } */
+  .hp__video-section .video-embed-mob iframe {
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    
+    
+  }
+  .video__content-wrapper{
+    width: 100%;
+    text-align: left;
+    background: #FFFFFF;
+    padding: 0px 15px;
+    height: calc(100vh - 279px);
+    overflow: auto;
+  }
+  
+  .video-content-mob {
+    background: #F9F9F9;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    cursor: pointer;
+  }
+
+  
+  
+  /*************/
+  
+  @media(max-width:749px) { 
+    @media (max-width: 900px){
+      .mfp-container {
+        padding:0 0px !important;
+      }
+    }
+    .hp__video-section{
+      margin: 0px;
+      border-radius: 4px;
+    }
+    .hp__video-section .section-container {
+      margin: 0px;
+      padding: 20px 0px 15px;
+    }
+    .hp__video-section .video__gallery-desktop-container{
+      display: none;
+    }
+    .hp__video-section .video__gallery-mobile-container{
+      display: block;
+    }
+    
+    .hp__video-section .video-wrapper-mob{
+      margin: 0;
+      padding-left: 15px;
+    }
+    
+    /***********/
+    
+    
+    
+    /*************/
+    .video-slide-mob{
+      margin-left: 10px;
+      min-width: 270px;
+      min-height: 165px;
+    }
+    .video-thumbnail-mob img {
+      width: 100%;
+      height: 100%;
+      border-radius: 4px;
+    }
+    .video-title {
+      font-size: 12px;
+      line-height: 18px;
+    }
+    .video-timer {
+      padding: 2px;
+    }
+  }
+</style>
+
+{% assign video_blocks = section.blocks | where: 'type', 'video-block' %}
+
+<div data-section-id="{{ section.id }}" data-section-type="video-section" class="hp__video-section">
+  <div class="section-container">
+    {% comment %}
+    <div class="section-heading"><h2>{{ section.settings.section-heading }}</h2></div>
+    {% endcomment %}
+    <div class="video__gallery-desktop-container">
+      <div class="video__gallery-wrapper">
+
+      </div>
+      
+      <div class="sidebar-wrapper">
+        <div class="sidebar-height">
+          {% for block in video_blocks %}
+          <div class="video-content" data-video="https://www.youtube.com/embed/{{ block.settings.video-id }}?rel=0&modestbranding=0&autoplay=1&loop=0">
+            <div class="video-thumbnail"><img src="{{block.settings.video-icon | img_url: 'small'}}" data-src="{{block.settings.video-icon | img_url: 'master'}}" class="lazyload"></div>
+            <div class="video-desc">
+              <p class="video-title">{{block.settings.video-title }}</p>
+              <p class="video-timer">{{block.settings.video-timer }}</p>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    
+    <div class="video__gallery-mobile-container">
+      <div class="video-wrapper-mob video__js--slider">
+        {% for block in video_blocks %}
+
+        <!--           <div class="video-embed-mob">
+<iframe id="video-player-mob" class="embed-item-mob" src="https://www.youtube.com/embed/{{ block.settings.video-id }}?rel=0&modestbranding=0&autoplay=0&loop=0" frameborder="0" allowfullscreen></iframe>
+</div> -->
+
+        <div class="video-slide-mob" data-video="https://www.youtube.com/embed/{{ block.settings.video-id }}?rel=0&modestbranding=0&autoplay=1&loop=0">
+          <div class="video-thumbnail-mob"><img src="{{block.settings.video-icon | img_url: 'small'}}" data-src="{{block.settings.video-icon | img_url: 'master'}}" class="lazyload"></div>
+        </div>
+
+        {% endfor %}
+      </div>
+    </div>
+    
+    <div id="videoPopup" class="video__gallery-slider-container">
+      <div class="video__gallery-header-container" id="galleryHeader">
+        <div class="video__gallery-header-wrapper">
+          <div class="video__gallery-header-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="14" viewBox="0 0 18 14" fill="none">
+              <path d="M7.00004 0.341797C6.74416 0.341797 6.48801 0.441219 6.29301 0.636719L0.636756 6.29297C0.245756 6.68397 0.245756 7.31703 0.636756 7.70703L6.29301 13.3633C6.68401 13.7543 7.31707 13.7543 7.70707 13.3633L7.79301 13.2773C8.18401 12.8863 8.18401 12.2533 7.79301 11.8633L3.92972 8H17C17.552 8 18 7.552 18 7C18 6.448 17.552 6 17 6H3.92972L7.79301 2.13672C8.18401 1.74572 8.18401 1.11266 7.79301 0.722656L7.70707 0.636719C7.51157 0.441219 7.25591 0.341797 7.00004 0.341797Z" fill="#474747"/>
+            </svg>
+          </div>
+          <div class="video__gallery-header-title">
+            <h2>Video Gallery</h2>
+          </div>
+        </div>
+        <div class="gallery-padding">
+          <div class="video__gallery-wrapper-mob">
+            
+          </div>
+        </div>
+      </div>
+
+      <div class="video__content-wrapper">
+        {% for block in video_blocks %}
+        <div class="video-content-mob" data-video="https://www.youtube.com/embed/{{ block.settings.video-id | strip}}?rel=0&modestbranding=0&autoplay=1&loop=0">
+          <div class="video-thumbnail"><img src="{{block.settings.video-icon | img_url: 'small'}}" data-src="{{block.settings.video-icon | img_url: 'master'}}" class="lazyload"></div>
+          <div class="video-desc">
+            <p class="video-title">{{block.settings.video-title }}</p>
+            <p class="video-timer">{{block.settings.video-timer }}</p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<script>
+  let videoPopUp = (popup,modal = false) =>{
+    $.magnificPopup.open({
+      items: {
+        src: popup
+      },
+      type : 'inline',
+      closeBtnInside: true,
+      fixedContentPos:true,
+      overflowY: 'auto',
+      closeOnBgClick : true,
+      modal : modal,
+      fixedBgPos: true,
+      showCloseBtn: false,
+    });
+  }
+  
+  
+  $(document).ready(function(){
+   
+    $( document ).on( "click", ".video-content", function(e) {
+      $("#video-player")[0].src = $(this).data("video");
+      e.preventDefault();
+    });
+    
+//     $( document ).on( "click", ".slick-current", function(e) {
+//       $(".embed-item-mob").css({"pointer-events": "none"})
+//       $(this).find("iframe").css({"pointer-events": "all"})
+//       e.preventDefault();
+//     });
+    
+    $( document ).on( "click", ".video-content-mob", function(e) {
+      $("#video-player-mob")[0].src = $(this).data("video");
+      console.log($(this).data("video"));
+      e.preventDefault();
+    });
+    
+    let $sliderContent = $(".video__gallery-slider-container");
+    
+    $(document).on("click",".video-slide-mob",function(e){
+      if(!$sliderContent.hasClass("has--opened")){
+        $sliderContent.addClass("has--opened");
+        $sliderContent.show();
+//         $sliderContent.animate({right:"0"},500);
+        $("body").css({"overflow":"hidden"});
+        let popup = $('#videoPopup');
+        videoPopUp(popup);
+
+      }
+
+      console.log($(this).data("video"));
+      $("#video-player-mob")[0].src = $(this).data("video");
+      e.preventDefault();
+    })
+    
+    $(document).on("click",".video__gallery-header-icon",function(e){
+      if($sliderContent.hasClass("has--opened")){
+        $sliderContent.removeClass("has--opened");
+//         $sliderContent.animate({right:"-100%"},500);
+        $("body").css({"overflow":"auto"});
+        $.magnificPopup.close();
+      }
+    })
+
+    
+
+//     function headerSticky() {
+//       var galleryHeader = document.getElementById("galleryHeader");
+//       var sticky = galleryHeader.offsetTop;
+//       if (window.pageYOffset > sticky) {
+//         galleryHeader.classList.add("header-container-sticky")
+//       } else {
+//         galleryHeader.classList.remove("header-container-sticky");
+//       }
+//     }
+
+//     window.onscroll = function() {
+//       headerSticky()
+//     };
+    
+    function vSlider(){
+      $('.video__js--slider').slick({
+        responsive: [
+          {
+            breakpoint: 749,
+            settings: {
+              infinite: true,
+              slidesToShow: 2,
+              slidesToScroll: 1,
+              arrows:false,
+              dots:false,
+              autoplay: false,
+              lazyLoad:"progressive",
+              autoplaySpeed: 2000,
+              variableWidth: true,
+            }
+          }
+        ]
+      });
+    }
+
+    let initFlag = true;
+
+    function init() {
+
+      initFlag = false;
+
+      var vData = "";
+
+      {% for block in video_blocks %}
+      {% if forloop.first %}
+      var vSrc = '{{ block.settings.video-id }}'
+      vData +=  `<div class="video-embed-mob">
+        			<iframe id="video-player-mob" class="embed-item-mob" src="https://www.youtube.com/embed/${vSrc}?rel=0&modestbranding=0&autoplay=0&loop=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  				</div>`
+        {% endif %}
+        {% endfor %}
+
+      $('.video__gallery-wrapper-mob').html(vData);
+
+      var vDeskData = "";
+
+      {% for block in video_blocks %}
+      {% if forloop.first %}
+
+      var vDeskSrc = '{{ block.settings.video-id }}'
+      vDeskData += `<div class="video-embed">
+						<iframe id="video-player" class="embed-item" src="https://www.youtube.com/embed/${vDeskSrc}?rel=0&modestbranding=0&autoplay=0&loop=0" frameborder="0" allowfullscreen></iframe>
+				    </div>`
+      {% endif %}
+      {% endfor %}
+
+      $('.video__gallery-wrapper').html(vDeskData);
+    }
+
+    window.onscroll = function() {
+      if(initFlag){
+        init()
+        vSlider()
+      }
+    }; 
+    
+    
+  }); 
+  
+</script>
+
+
+
+{% schema %}
+  {
+    "name":"Video Gallery Section",
+    "class":"hp-video-section",
+	"settings":[
+		{
+			"type":"text",
+            "id":"section-heading",
+            "label":"Section Heading",
+			"default":"Video Gallery"
+        },
+		{
+         	"type":"color",
+         	"id":"section-bg",
+         	"label":"Section bg color",
+			"default":"#F8FAFF"
+      	},
+		{
+			"type":"image_picker",
+			"id":"section-bg-img",
+			"label":"Section bg image"
+		}
+	],
+    "blocks":[ 
+		{ 
+			"name":"Video Block",
+         	"type":"video-block",
+         	"settings":[ 
+				{ 
+               		"id":"video-id",
+               		"type":"text",
+               		"label":"Video ID",
+					"info" : "Provide only video id"
+            	},
+            	{ 
+               		"type":"image_picker",
+               		"id":"video-icon",
+               		"label":"Video Icon"
+            	},
+            	{ 
+               		"id":"video-title",
+               		"type":"text",
+               		"label":"Video Title"
+            	},
+				{ 
+               		"id":"video-timer",
+               		"type":"text",
+               		"label":"Video Duration"
+            	}
+         	]
+      	}
+    ],
+    "presets":[ 
+      	{ 
+         	"name":"Video Gallery Section",
+         	"category":"Homepage"
+      	}
+    ]
+  }
+{% endschema %}

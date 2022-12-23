@@ -1,0 +1,311 @@
+
+
+<div id="form--section">
+<div class="form_wrapper" id="landing_form">
+  <div id="header">
+    <div class="img_wrapper">
+      <img src="logo.png" alt=""/>
+    </div>
+  </div> 
+<div class="content_Wrapper upload_section" id="gst">
+  <div class="loader"></div>
+    <div class="form_content" id="signup_form_content">
+      <div class="heading_content">
+        <h3>Enter Udyog Aadhaar  Details</h3>
+      </div>
+      <form class="signup_form" id="update_details" data-id="{{customer.id}}" existing_tags="{% for tag in customer.tags %} {{tag}}, {% endfor %}">
+<!--         <div class="input_Wrapper">
+          <input type="text" id="enter_gst" class="input_field" name= "gstin" placeholder="-Please enter GST no (eg : GST123456789)">
+          <button id="submit_gst" class="input_button">verify</button>
+        </div> -->
+      <div id="detail_form" class="signup_form"  >
+        <div class="error-space"></div>
+         <div class="input_Wrapper">
+           <label for="name">Enter Udyog Aadhaar Number</label>
+          <input type="text" id="enter_gst" class="" name= "gstin" placeholder="">
+        </div>
+        <div class="input_Wrapper">
+            <label for="name">Name of Enterprise</label>
+            <input type="text" placeholder="" id="legal-name" name="gst[legal-name]">
+         </div>
+         <div class="input_Wrapper">
+          <label for="name">Address</label>
+          <input type="text" placeholder="" id="address" name="gst[address]">
+        </div>
+        <div class="flex">
+          <div class="input_Wrapper half_width">
+            <label for="name">City</label>
+            <input type="text" placeholder="" id="city" name="gst[city]">
+          </div>
+        <div class="input_Wrapper half_width">
+            <label for="name">State</label>
+            <input type="text" placeholder="" id="state" name="gst[state]">
+          </div>
+        </div>
+        <div class="flex">
+         
+             <div class="input_Wrapper half_width">
+            <label for="name">Pincode</label>
+            <input type="text" placeholder="" id="pincode" name="gst[pincode]">
+          </div>
+        </div>
+       
+
+         <div class="input_Wrapper" style="display:none;">
+          <label for="fileToUpload">Upload Aadhar card</label>
+          <input type="file" name="fileToUpload" id="fileToUpload" accept="image/png, image/jpeg,.pdf" placeholder="Drag and dropfile here">
+        </div>
+           <div class="input_Wrapper upload-file-sec">
+             <div class="file_holder">
+               <div class="image_holder">
+               <svg xmlns="http://www.w3.org/2000/svg" width="51.147" height="46.399" viewBox="0 0 51.147 46.399"><defs>
+               <style>.a{fill:rgba(219,219,219,0.12);}.b{fill:#c0c0c2;}</style></defs>
+              <path class="a" d="M54.512,29.65h-.094a14.4,14.4,0,0,0-28.615,0h-.094a9.6,9.6,0,1,0,0,19.2h28.8a9.6,9.6,0,1,0,0-19.2Zm0,0"
+               transform="translate(-14.497 -15.255)"/>
+              <path class="b" d="M41.3,13.378a16,16,0,0,0-31.386-.01,11.2,11.2,0,0,0,1.29,22.33h8a1.6,1.6,0,0,0,0-3.2h-8a8,8,0,0,1,.094-16,1.6,1.6,0,0,0,1.591-1.424,12.8,12.8,0,0,1,25.434,0,1.7,1.7,0,0,0,1.685,1.424,8,8,0,1,1,0,16h-8a1.6,1.6,0,1,0,0,3.2h8A11.2,11.2,0,0,0,41.3,13.378Zm0,0" transform="translate(0.001 -0.5)"/><path class="b" d="M186.288,202.177a1.6,1.6,0,1,0,2.3-2.223l-.039-.039-6.787-6.788a1.6,1.6,0,0,0-2.263,0l0,0-6.787,6.788a1.6,1.6,0,1,0,2.223,2.3l.039-.039,4.057-4.058v20.141a1.6,1.6,0,1,0,3.2,0V198.119Zm0,0"
+                transform="translate(-155.019 -173.46)"/></svg>
+               </div>
+               <p>  <a href="" id="upload">Click here </a> to upload your file</p>
+             </div>
+             <div class="imguploaded" >
+                <img src="" id="blah">
+               <div class="close-file">X</div>
+             </div>
+            
+        </div>
+        
+        <a id="signup_submit" href="#">Save & continue</a>
+   
+    </div>
+   </form>
+   </div>
+  </div>
+</div>
+ <div class="sucess-popup">
+    <div class="success--popup">
+      <div class="s-pop">
+        <img src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/1-10476_transparent-background-green-check-icon-hd-png-download-removebg-preview_1.png?v=1588938575">    
+        <h1>Saved</h1>
+        <h2>Your data is succesfully saved with us</h2>
+        <a href="/" class="ok-btn">Ok</a>
+      </div>
+  </div>
+</div>
+<script>
+   $(document).ready(function () {
+   if($('#update_details').attr('data-id') ==''){
+         document.location.href = '/account';
+     }
+   })
+  $(function(){
+    $('#upload').on('click',function(e){
+      e.preventDefault();
+     $('input[name="fileToUpload"]').trigger('click');
+    })
+
+    $('.close-file').on('click',function(e){ 
+      $('#blah').attr('src', '');
+       $('.upload-file-sec').removeClass('imgactive');
+    } )
+     function validateFile(file) {
+      var fileExtension = ['png','jpg','pdf','jpeg'];
+      if ($.inArray($(file).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+        $( ".error-space" ).html("Only '.png,.jpg,jpeg,.pdf' format is allowed.");
+//         alert("Only '.png,.jpg,jpeg,.pdf' format is allowed.");
+        this.value = ''; // Clean field
+        return false;
+        $('.upload-file-sec').removeClass('imgactive');
+      }
+      return true;
+    }
+    function readURL(input) {
+//       console.log(input);
+      if (input.files && input.files[0]) {
+
+        var reader = new FileReader();
+        // https://cdn.shopify.com/s/files/1/0291/0417/7212/files/adobe-acrobat-pdf-computer-icons-document-file-format-others-png-clip-art-thumbnail.png?v=1588853569
+        if(input.files[0].type == "application/pdf"){
+          
+          reader.onload = function(e) {
+
+            $('#blah').attr('src', 'https://cdn.shopify.com/s/files/1/0291/0417/7212/files/pdf_logo_jpg_thumbnail.png?v=1588854853');
+          }
+          reader.readAsDataURL(input.files[0]); // convert to base64 string
+        $('.upload-file-sec').addClass('imgactive');
+        }
+
+        else if(input.files[0].type == "image/jpeg"){
+          var reader = new FileReader();
+          reader.onload = function(e) {
+
+            $('#blah').attr('src', e.target.result);
+          }
+          reader.readAsDataURL(input.files[0]); // convert to base64 string
+        $('.upload-file-sec').addClass('imgactive');
+        }
+        else{
+         validateFile(input);
+        }
+
+        
+      }
+    }
+
+    $("#fileToUpload").change(function() {
+//       readURL($(this));
+//       console.log(this);
+      console.log($(this));
+      var localImageUrl = URL.createObjectURL(this.files[0]);
+      console.log(localImageUrl);
+      if(this.files[0].type == "application/pdf"){ 
+         $('#blah').attr('src', 'https://cdn.shopify.com/s/files/1/0291/0417/7212/files/pdf_logo_jpg_thumbnail.png?v=1588854853');
+         $('.upload-file-sec').addClass('imgactive');
+      }
+
+     else if(this.files[0].type == "image/jpeg" || this.files[0].type == "image/jpg" || this.files[0].type == "image/png"){
+       $('#blah').attr('src', localImageUrl);
+        $('.upload-file-sec').addClass('imgactive');
+     }
+      else{
+      validateFile(this);
+      }
+      
+    });
+    
+   
+    function ValidateSize(file) {
+        var FileSize = file.files[0].size / 1024 / 1024; // in MB
+        if (FileSize > 2) {
+          $( ".error-space" ).html("File size exceeds 2 MB");
+//             alert('File size exceeds 5 MB');
+           $(file).val(''); //for clearing with Jquery
+          return false;
+          $('.upload-file-sec').removeClass('imgactive');
+        }
+      return true;
+    }
+      
+    function notNullValidation (){
+      var gstNo = $('#enter_gst').val();
+      var pincode=  $('#pincode').val();      
+      var legalname =$('#legal-name').val();
+      var fileD = document.getElementById('fileToUpload')
+      if(gstNo==""){
+         $( ".error-space" ).html("Enter Aadhar Number ");
+        return false;
+      }
+      else if(pincode==""){
+         $( ".error-space" ).html("Enter pincode");
+         return false;
+      }
+       else if(legalname==""){
+         $( ".error-space" ).html("Enter Name of Enterprise");
+          return false;
+      }
+      else if(fileD.value ==""){
+         $( ".error-space" ).html("Upload Document");
+         return false;
+      }
+      return true;
+    }
+    function documentUploadApi(image){
+      var customerId = $('#update_details').attr('data-id');
+      var formdata = new FormData();
+      var gstNo = $('#enter_gst').val();
+      var pincode=  $('#pincode').val();
+      var state = $('#state').val();
+      var address = $('#address').val();
+      var legalname =$('#legal-name').val();
+       var city =$('#city').val();
+       var  existing_tags = $('#update_details').attr('existing_tags');
+
+      console.log(formdata);
+      formdata.append("customer_id", customerId);
+      formdata.append("aadhar_number", gstNo);
+      formdata.append("aadhar_doc", image);
+      formdata.append("pincode", pincode);
+      formdata.append("name", legalname);
+      formdata.append("state", state);
+      formdata.append("address", address);
+       formdata.append("city", city);
+       formdata.append("existing_tags", existing_tags);
+      
+        var settingsdata = {
+//           https://checkout.aqualensb2b.com
+            "url": baseURL+"/api/add/aadhar/detail",
+            "method": "POST",
+            "processData": false,
+            "contentType": false,
+            "data": formdata
+          };
+          $.ajax(settingsdata).done(function (response) {
+            console.log(response);
+            if(response.status){
+             
+              document.location.href = "/cart";
+            }
+            else{
+             (".upload_section").removeClass("verifying");
+            }
+          })
+          
+    }
+   
+    $('#signup_submit').on('click',function(e){
+      e.preventDefault();
+       $( ".error-space" ).html('');
+      var fileD = document.getElementById('fileToUpload'); 
+      var imageUrl = fileD.files[0]; 
+      console.log(fileD);
+      if(notNullValidation()){
+        if(validateFile(fileD)){
+          if(ValidateSize(fileD)){
+             $(".upload_section").addClass("verifying");
+            documentUploadApi(imageUrl);
+ 
+          }
+        }
+      }
+    })
+    $('.input_button').on('click',function(e){
+      e.preventDefault();
+      $(".upload_section").addClass("verifying");
+      var gstIn = $("input[name=gstin]").val();
+      
+      $.ajax({
+//        https://checkout.aqualensb2b.com
+        url: baseURL+"/api/gst/detail/"+gstIn+"",
+        success: function(res){
+          console.log(res);
+          $(".upload_section").removeClass("verifying");
+          if(res.flag){
+            var gstDetail = res.data.pradr.addr;
+            var state = gstDetail.stcd;
+            var city = gstDetail.city;
+            var addr  = gstDetail.bno+ ""+gstDetail.flno + ","+ gstDetail.st + ","+ gstDetail.loc  ;
+            var pincode = gstDetail.pncd;
+            var legalName = res.data.lgnm;
+            $('#city').val(city);
+            $('#pincode').val(pincode);
+            $('#state').val(state);
+            $('#address').val(addr);
+            $('#legal-name').val(legalName);
+            $( ".error-space" ).html('');
+          }
+          else{
+            $('#city').val('');
+            $('#pincode').val('');
+            $('#state').val('');
+            $('#address').val('');
+            $('#legal-name').val('');
+          }
+        },
+        error: function (error) {
+          (".upload_section").removeClass("verifying");
+        }
+      })
+    })
+    
+  });
+
+</script>

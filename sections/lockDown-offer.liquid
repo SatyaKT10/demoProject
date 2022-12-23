@@ -1,0 +1,289 @@
+{% assign alreadyTaken = false %}
+{% assign alreadyTaken2 = false %}
+{% if customer %}
+{% for tag in customer.tags %}
+{% if tag contains 'combo_true' %}
+{% assign alreadyTaken = false %}
+{% endif %}
+{% if tag contains 'combo2_true' %}
+{% assign alreadyTaken2 = false %}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+{% if alreadyTaken == true %}
+<div class="solution-offer-home">
+  <div class="solution-offer-con">
+    <div class="header">
+      <h3 class="main-heading">{{section.settings.scetion-title}}</h3>
+      <p class="sub-heading">{{section.settings.sub-title}}</p>
+    </div>
+    <div class="lockdown-offer-slider">
+      <div>
+    <div class="mainContent">
+      <div class="leftC">
+        <div class="table">
+          <table>
+            <tr>
+              <th class="b-t-l-5 font-14">Product</th>
+              <th class="font-14">No. of Bottles</th>
+              <th class="font-14">MRP</th>
+              <th class="font-14">Total Consumer<br /> Value</th>
+              <th class="font-14">Aqualens Landing <br />with 50% Margin</th>
+              <th class="b-b-l-5 font-14">Leading Brand<br /> Landing</th>
+            </tr>
+            <tr>
+              <td class="font-bold font-14">Aqualens<br /> Solution 120ml</td>
+              <td>15</td>
+              <td>240</td>
+              <td>3600</td>
+              <td>1800<br /><span class="small">(Rs. 120/bottle)</span></td>
+              <td>2700<br /><span class="small">(Rs. 180/bottle)</span></td>
+            </tr>
+            <tr>
+              <td class="font-bold font-14">Aqualens<br /> Solution 360ml</td>
+              <td>15</td>
+              <td>440</td>
+              <td>6600</td>
+              <td>3300<br /><span class="small">(Rs. 220/bottle)</span></td>
+              <td>4875 <br /><span class="small">(Rs. 325/bottle)</span></td>
+            </tr>
+            <tr>
+              <td class="b-t-r-5 font-bold">Total</td>
+              <td></td>
+              <td class="font-bold"></td>
+              <td class="font-bold">10200</td>
+              <td class="font-bold">5100</td>
+              <td class="b-b-r-5 font-bold">7575</td>
+            </tr>
+
+          </table>
+        </div>
+        <div class="offer-data-wrap">
+          <div class="left-E">
+            <div class="left-EC">
+              <p class="textC">Aqualens Lockdown Promotion</p>
+              <p class="mainPC"><s>Rs. 5100</s></p>
+              <p class="totalPC">Rs. 4000</p>
+            </div>
+          </div>
+          <div class="right-E mobile_none">
+            <div class="right-EC">
+              <p class="mainH">invest <span>Rs. 3,575</span> Less<br /> Earn <span>Rs. 6,200</span></p>
+              <p class="subH">Limited Period Offer</p>
+              <p class="small">Applicable only once per user</p>
+            </div>
+          </div>
+        </div>
+        <div class="footer-c mobile_none">
+          <button>Buy Now</button>
+        </div>
+      </div>
+      <div class="rightC">
+        <div class="image">
+          <img src="{{section.settings.bannerImage |img_url:'master'}}" />
+        </div>
+        <div class="content desktop_none">
+          <div class="right-EC">
+            <p class="mainH">invest <span>Rs. 3,575 Less</span> Earn <span>Rs. 6,200</span></p>
+            <p class="subH">Limited Period Offer</p>
+            <p class="small">Applicable  only once per user</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-c desktop_none">
+        <button>Buy Now</button>
+      </div>
+    </div>
+        </div>
+      {% if template == "index" %}
+      <div>
+    <div class="mainContent">
+      <a href="https://aqualensb2b.com/collections/lenses">
+    <img src="{{section.settings.bannerImageSol |img_url:'master'}}" class="mobile_none" />
+        <img src="{{section.settings.bannerImageSolM |img_url:'master'}}" class="desktop_none"  />
+      </a>
+    </div>
+        </div>
+      {% endif %}
+      </div>
+
+  </div>
+</div>
+{% else %}
+
+{% comment %}
+<div class="solution-offer-home">
+  <div class="solution-offer-con">
+    <div class="header">
+      <h3 class="main-heading">{{section.settings.scetion-title}}</h3>
+      <p class="sub-heading">{{section.settings.sub-title}}</p>
+    </div>
+    <div class="lockdown-offer-slider">
+      <div>
+       <div class="mainContent padd-d0">
+        <div class="leftC">
+          <div class="table">
+            <table>
+              <tr>
+                <th class="b-t-l-5 font-14">Product</th>
+                <th class="font-14">No. of Bottles</th>
+                <th class="font-14">MRP</th>
+                <th class="font-14">Total Consumer<br /> Value</th>
+                <th class="font-14">Aqualens Landing <br />with 50% Margin</th>
+                <th class="b-b-l-5 font-14">Leading Brand<br /> Landing</th>
+              </tr>
+              <tr>
+                <td class="font-bold font-14">Aqualens<br /> Solution 120ml</td>
+                <td>15</td>
+                <td>240</td>
+                <td>3600</td>
+                <td>1800<br /><span class="small">(Rs. 120/bottle)</span></td>
+                <td>2700<br /><span class="small">(Rs. 180/bottle)</span></td>
+              </tr>
+              <tr>
+                <td class="font-bold font-14">Aqualens<br /> Solution 360ml</td>
+                <td>15</td>
+                <td>440</td>
+                <td>6600</td>
+                <td>3300<br /><span class="small">(Rs. 220/bottle)</span></td>
+                <td>4875 <br /><span class="small">(Rs. 325/bottle)</span></td>
+              </tr>
+              <tr>
+                <td class="b-t-r-5 font-bold">Total</td>
+                <td></td>
+                <td class="font-bold"></td>
+                <td class="font-bold">10200</td>
+                <td class="font-bold">5100</td>
+                <td class="b-b-r-5 font-bold">7575</td>
+              </tr>
+
+            </table>
+          </div>
+          <div class="offer-data-wrap">
+            <div class="left-E">
+              <div class="left-EC">
+                <p class="textC">Aqualens Lockdown Promotion</p>
+                <p class="mainPC"><s>Rs. 5100</s></p>
+                <p class="totalPC">Rs. 3000</p>
+              </div>
+            </div>
+            <div class="right-E mobile_none">
+              <div class="right-EC">
+                <p class="mainH">invest <span>Rs. 3,575</span> Less<br /> Earn <span>Rs. 6,200</span></p>
+                <p class="subH">Limited Period Offer</p>
+                <p class="small">Applicable only once per user</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="rightC">
+          <div class="image">
+            <img src="{{section.settings.bannerImage |img_url:'master'}}" />
+          </div>
+          <div class="content desktop_none">
+            <div class="right-EC">
+              <p class="mainH">invest <span>Rs. 3,575 Less</span> Earn <span>Rs. 6,200</span></p>
+              <p class="subH">Limited Period Offer</p>
+              <p class="small">Applicable  only once per user</p>
+            </div>
+          </div>
+        </div>
+      </div>
+        <p class="alradyAvild">you have already availed this offer</p>
+      </div>
+       {% if template == "index" %}
+      <div>
+      <div class="mainContent padd-d0">
+        <a href="https://aqualensb2b.com/collections/lenses">
+        <img src="{{section.settings.bannerImageSol |img_url:'master'}}" class="mobile_none" />
+        <img src="{{section.settings.bannerImageSolM |img_url:'master'}}" class="desktop_none"  />
+        </a>
+      </div>
+      </div>
+     {% endif %}
+    </div>
+
+  </div>
+</div>
+{% endcomment %}
+{% endif %}
+
+
+<!-- <style>
+    
+  {% if alreadyTaken == true %}
+  .solution-offer-home{
+    display:none;
+  }
+  {% endif %}
+
+</style> -->
+
+{% schema %}
+{
+   "name":"Solution offer home",
+   "settings":[
+      {
+         "type":"text",
+         "id":"scetion-title",
+         "label":"Section Title",
+         "default":"Hey There! Help Us Help You Look Your Best"
+      },
+      {
+         "type":"text",
+         "id":"sub-title",
+         "label":"sub Title",
+         "default":"Tell us a bit about yourself and we'll recommend you the best lense."
+      },
+      {
+        "type":"image_picker",
+        "id":"bannerImage",
+        "label":"image"
+      },
+      {
+        "type":"image_picker",
+        "id":"bannerImageSol",
+        "label":"Desktop Image"
+      },
+     {
+        "type":"image_picker",
+        "id":"bannerImageSolM",
+        "label":"Mobile Image"
+      }
+   ],
+   "presets":[
+      {
+         "name":"Solution offer home",
+         "category":"collection"
+      }
+   ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
+<script>
+//   document.addEventListener("DOMContentLoaded", function() {
+
+//     $('.lockdown-offer-slider').slick({
+//       autoplay: true,
+//       dots: true,
+//       infinite: false,
+//       speed: 300,
+//       arrows: true,
+//       slidesToShow: 1,
+//       adaptiveHeight: true,
+//       autoplaySpeed: 3000,
+//     });
+//   });
+
+
+
+
+
+</script>

@@ -1,0 +1,1058 @@
+<style>
+  .side__menu-wrapper {
+    display: none;
+  }
+  .header__mobile{
+    display:none;
+  }
+  .login-wrapper-margin .nav__header--wrapper{
+    padding:8px 0px;
+  }
+  .site-nav__item-hover{
+    position:relative;
+  }
+  .account-menu{
+    display:none;
+    width: 272px;
+    height: auto;
+    position: absolute;
+    right: 0%;
+    top: 100%;
+    z-index: 999;
+    box-shadow: 0px 5px 10px 3px rgb(0 0 0 / 1%);
+  }
+  .header__new--section{
+    width: 100%;
+    background: #fff;
+    z-index: 999;
+    box-shadow: 0px 2px 10px -6px rgb(0 0 0 / 25%);
+    position: relative;
+  }
+  .header__new--flex {
+/*     display: flex; */
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0px;
+  }
+  .header__logo-nav--wrapper {
+    display: flex;
+/*     gap: 50px; */
+    align-items: center;
+    justify-content: space-between;
+/*     padding: 0 20px; */
+    flex-shrink: 1;
+    width:90%;
+    max-width:90%;
+    margin:auto;
+  }
+  .header_other--nav-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    gap:1rem;    
+    flex-wrap: wrap;
+    gap: 1rem;
+   
+  }
+  .header__virtual-try--on {
+    background: #26467D;
+    border-radius: 5px;
+    font-family: 'Sen';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 173%;
+    color: white !important;
+    padding: 7px 0px;
+  }
+  .header__virtual-try--on a{
+    color: white !important;
+    padding: 7px 10px;
+
+  }
+
+  .header__logo  {
+    flex-shrink: 0;
+    margin: -20px 0;
+    margin-right: 50px;
+  }
+  .header__nav--wrapper {
+    display: flex;
+/*     gap: 30px; */
+    flex-wrap: wrap;
+    height: 20px;
+    overflow: hidden;
+  }
+  .header__nav--menu {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #474747;
+        margin-right: 30px;
+  }
+  .header-other__nav--menu {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 21px;
+    color: #474747;
+/*         margin-right: 30px; */
+  }
+  .account__text--style{
+    font-family: Poppins !important;
+    font-style: normal !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    line-height: 21px !important;
+    color: #474747 !important;
+    text-transform: capitalize !important;
+  }
+  .header__login--wrapper {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    min-width: 302px;
+    justify-content: end;
+  }
+  .account__link--padding{
+    padding:1px 0px !important;
+  }
+  .nav-cart-flex{
+    display: flex;
+    gap: 15px;
+  }
+  .site__nav--flex{
+    display: flex;
+    gap: 10px;
+  }
+  .hearCartWrapper .cartCount {
+    position: absolute;
+    background: #00b9c5;
+    color: #fff;
+    width: 20px;
+    height: 20px;
+    border-radius: 1000px;
+    line-height: 20px;
+    text-align: center;
+    font-size: 11px;
+    top: -10px;
+    right: 50px;
+  }
+  .login-wrapper-margin {
+    padding: 0px 20px;
+    border-left: 1px solid #E0E0E0;
+    flex-shrink: 0;
+  }
+  .sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index:999;
+    box-shadow: 0px 2px 10px -6px rgb(0 0 0 / 25%);
+  }
+  .header__logo--icon img{
+    height: 56px;
+  }
+/*   override nav  */
+   .header__logo-nav--wrapper  .site-nav__label{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 21px;
+    color: #474747 !important;
+  }
+  .header__logo-nav--wrapper .site-nav a{
+    padding: 0px 10px !important;
+
+  }
+  .header__logo-nav--wrapper #customSiteNav ul{
+    margin:0 0 !important;
+  }
+  .header__logo-nav--wrapper .site-nav__dropdown{
+    border: none !important;
+    border-radius:8px !important;
+    box-shadow: 0px 5px 10px 3px rgb(0 0 0 / 1%) !important;
+  }
+  
+  
+  @media(max-width:768px){
+    .header__new--section,
+    .temp-div{
+      display:none;
+    }
+    .header__mobile{
+      display:block;
+    }
+    .header__mobile {
+      display: flex;
+      align-items: unset;
+      justify-content: space-between;
+      padding: 15px 20px;
+      background: white;
+      width: 100%;
+      box-shadow: 0 1px 6px 0 rgb(32 33 36 / 28%);
+      box-shadow: 0px 2px 10px -6px rgba(0, 0, 0, 0.25);
+      z-index: 999;
+    }
+
+    .header__logo  {
+      margin: 0px;
+      margin: -7px 0;
+    }
+    
+    .cart-div-mobile .cartCount {
+      position: absolute;
+      background: #F3716D;
+      color: #fff;
+      width: 20px;
+      height: 20px;
+      border-radius: 1000px;
+      line-height: 20px;
+      text-align: center;
+      font-size: 11px;
+      top: -10px;
+      right: -10px;
+    }
+    .side__menu-wrapper{
+      display: block;
+    }
+    .side__menu {
+      display: block;
+      position: fixed;
+      top: 0;
+      left: -500px;
+      background: #ffffff;
+      width: 80%;
+      max-width: 500px;
+      height: 100%;
+      border-right: #ccc 1px solid;
+      /*       padding: 30px; */
+      transform: translateX(-500px);
+      transition: all 0.5s ease;
+      z-index:100002;
+      overflow:scroll;
+      scrollbar-width: none;
+    }
+    .side__menu:-webkit-scrollbar{
+      display:none;
+    }
+    .menu-show {
+      transform: translateX(0px);
+      left: 0px;
+    }
+    .side__menu--logo {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 15px;
+      background: #F3F2EF;
+      border-bottom:1px solid #E0E0E0;
+    }
+    .myAccount--true {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #F3F2EF;
+      padding: 10px 15px;
+    }
+    .myAccount--icon-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+    .myAccount--icon{
+      flex-shrink: 0;
+    }
+    .myAccount--icon img{
+      width: 47px;
+      height: 47px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .myAccount--info .myAccount__name{
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 21px;
+      color: #333333;
+    }
+    .myAccount--info .myAccount__number{
+      font-family: Poppins;
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 12px;
+      line-height: 18px;
+      color: #666666;
+    }
+    .mobile__main--menu-padding {
+      border-bottom: 1px solid #E0E0E0;
+    }
+    .mobile__menu--wrapper {
+      padding: 15px 15px 0px 15px;
+    }
+    .other_mobile__side--menu{
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 22px;
+      color: #333333;
+      padding-bottom: 20px;
+    }
+    .jj_products_wrapper{
+      padding-left: 20px;
+      margin-top:10px;
+    }
+    .jj_clear_lens_mobile,
+    .jj_color_lens_mobile{
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 22px;
+      color: #666666;
+      margin-bottom: 10px;
+    }
+    
+    .mobile__side--menu {
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 22px;
+      color: #333333;
+      padding-bottom: 20px;
+    }
+    .mobile__side--menu:last-child{
+      padding-bottom: 15px;
+    }
+    .myAccount--options {
+      border-bottom: 1px solid #E6E6E6;
+    }
+    .other_brands_menu{
+      display: flex;
+      justify-content: space-between;
+      padding: 0px 0px 0px 0;
+/*       padding: 20px 15px;
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 22px;
+      color: #333333; */
+    }
+    
+    .myAccount__heading--icon {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 15px;
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 22px;
+      color: #333333;
+    }
+    .MyAccount__menu--wrapper {
+      padding-left: 37px;
+    }
+    .myAccount--menu {
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 22px;
+      color: #666666;
+      margin-bottom: 20px;
+    }
+    .sidebar__footer {
+      padding: 20px 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 22px;
+      color: #666666;
+    }
+    .sidebar__footer a {
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 22px;
+      color: #666666;
+    }
+
+    .myAccount--false {
+      padding: 20px 15px;
+      background: #F3F2EF;
+    }
+    .myAccount--false .myAccount--heading {
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      color: #000000;
+      margin-bottom: 3px;
+    }
+    .myAccount--false .myAccount--subHeading {
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 12px;
+      line-height: 18px;
+      color: #333333;
+    }
+    .myAccount--false .myAccount--login {
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 21px;
+      color: #FFFFFF;
+      text-align: center;
+      width: 78px;
+      border-radius: 4px;
+      background: #00BAC6;
+      border-radius: 4px;
+      padding: 5px;
+      margin-top: 11px;
+    }
+    .icon--rotate{
+      transform: rotate(86deg) translate(50%);
+      transition: all 0.5s ease-in-out;
+    }
+    .other_brands__icon{
+      transition: all 0.5s ease-in-out;
+    }
+    .myAccount__icon{
+      transition: all 0.5s ease-in-out;
+    }
+    .no-scroll{
+      overflow:hidden;
+    }
+    .header-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 999999;
+      max-width: 100%;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(51, 51, 51, 0.8);
+      opacity: 1;
+      visibility: visible;
+    }
+    .login-wrapper-margin {
+      padding: unset;
+      border-left: unset;
+    }
+    .hearCartWrapper {
+      position: unset;
+      right: unset;
+      bottom: unset;
+    }
+    .sticky {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index:999;
+      box-shadow: 0px 2px 10px -6px rgb(0 0 0 / 25%);
+    }
+    .header__logo--icon img{
+    height: 35px;
+  }
+  }
+  
+ 
+  
+</style>
+
+  {% if section.settings.message %}
+    {% if section.settings.home_page_only == false or request.page_type == 'index' %}
+      <style>
+        .announcement-bar {
+          background-color: {{ section.settings.color_bg }};
+        }
+        .announcement-bar__message {
+          color: {{ section.settings.color_text }};
+          text-transform: inherit;
+        }
+      </style>  
+
+        <div class="announcement-bar">
+          <div class="page-width page-announcement-bar">
+            <div class="announcement-bar--left">
+                <div class="announcement-bar__message">{{ section.settings.message_text }}</div>
+            </div>
+            <div class="announcement-bar--right">
+              {% assign message = section.settings.message_texts %}
+              {% if message != blank %}
+              <div class="announcement-bar--right--link mmlink1"><a href="{{ section.settings.message_link }}" class="announcement-bar--link">{{ message }}</a></div>
+              {% endif %}
+              {% if customer %}
+              {% for tag in customer.tags %}
+              {% if tag contains 'shopName' %}
+              {% assign shopName = tag | split: "_" |last %}
+              {% endif %}
+              {% endfor %}
+              <div class="site-nav__item-hover">
+                <div class="announcement-bar--right--link mmlink2"><a href="/account"><span><img src="{{ 'user.png' | asset_img_url }}" /></span>Hi, <span class="customer-name"> {% if shopName %}{{shopName}}{% else %} &nbsp;Aqua partner{% endif %}</span></a></div>
+                <div class="account-menu">
+                  {% render 'account-navigation' %}
+                </div>
+              </div>
+              {% else %}
+              <div class="announcement-bar--right--link mmlink2"><a href="/account/login"><span><img src="{{ 'user.png' | asset_img_url }}" /></span>SIGN IN</a></div>
+              {% endif %}
+              <div class="announcement-bar--right--link mmlink3"><a href="/cart"><span><img src="{{ 'cart-icon.png' | asset_img_url }}" /></span>CART<span class="cart-count">({{ cart.item_count }})</span></a></div>
+            </div>
+          </div>
+        </div>       
+      
+
+    {% endif %}
+  {% endif %}
+
+<section class="header__new--section" data-section-id="{{ section.id }}" data-section-type="header-new-section">  
+  <div class="header__new--flex">
+    <div class="header__logo-nav--wrapper">
+  
+      <div class="header__logo">
+        {% if section.settings.logo != nil %}
+        <a class="header__logo--icon store__logo" href="{{ section.settings.logo_url }}">
+          <img src="{{ section.settings.logo | img_url:'master' }}" alt="{{ section.settings.logo.alt | default:'logo' }}">
+        </a>
+        {% endif %}
+      </div>
+      
+      {% assign menu = section.settings.main_menu %}
+      {% comment %}
+      <div class="header__nav--wrapper">
+        {% for link in linklists[menu].links %}
+        <ul class="header__nav--menu ">
+          <li href="{{ link.url }}">
+            {{ link.title | escape }}
+          </li>
+        </ul> 
+        {% for child_link in link.links %}
+        <div class="header-child__nav--menu ">
+          <a href="{{ child_link.url }}">
+            {{ child_link.title | escape }}
+          </a>
+        </div>
+        {% endfor %}
+        {% endfor %}
+      </div>
+      {% endcomment %}
+      
+      <nav class="" id="customSiteNav" role="navigation">
+        {% include 'site-nav-new', linklist: section.settings.main_menu %}
+      </nav>
+
+      
+     
+      <div class="header_other--nav-wrapper">
+        <div class="header-other__nav--menu">
+          <a href="https://aqualensb2b.com/pages/customer-orders"><svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9.5 7H2.5C2.36739 7 2.24021 6.94732 2.14645 6.85355C2.05268 6.75979 2 6.63261 2 6.5C2 6.36739 2.05268 6.24021 2.14645 6.14645C2.24021 6.05268 2.36739 6 2.5 6H7.72C8.05433 6.00002 8.37908 5.88835 8.64268 5.68271C8.90629 5.47708 9.09365 5.18928 9.175 4.865L10 1.62C10.0187 1.5462 10.0204 1.46911 10.0048 1.39459C9.98916 1.32007 9.95675 1.25009 9.91 1.19C9.86137 1.12837 9.79892 1.07905 9.72769 1.04604C9.65646 1.01303 9.57846 0.997259 9.5 1H2.38C2.27684 0.708225 2.08596 0.455499 1.83353 0.276469C1.5811 0.0974393 1.27947 0.000869756 0.97 0H0.5C0.367392 0 0.240215 0.0526784 0.146447 0.146447C0.0526784 0.240215 0 0.367392 0 0.5C0 0.632608 0.0526784 0.759785 0.146447 0.853553C0.240215 0.947322 0.367392 1 0.5 1H0.97C1.08422 0.996672 1.19613 1.03257 1.2871 1.10171C1.37808 1.17085 1.44262 1.26906 1.47 1.38L1.5 1.62L2.365 5C1.96718 5.0179 1.59276 5.19311 1.32411 5.48707C1.05546 5.78103 0.914598 6.16968 0.9325 6.5675C0.950402 6.96532 1.12561 7.33974 1.41957 7.60839C1.71353 7.87704 2.10218 8.0179 2.5 8H2.59C2.50777 8.22657 2.48134 8.46961 2.51297 8.70855C2.54459 8.9475 2.63332 9.1753 2.77166 9.37268C2.91 9.57005 3.09386 9.73119 3.30768 9.84243C3.52149 9.95368 3.75897 10.0118 4 10.0118C4.24103 10.0118 4.47851 9.95368 4.69232 9.84243C4.90614 9.73119 5.09 9.57005 5.22834 9.37268C5.36668 9.1753 5.45541 8.9475 5.48703 8.70855C5.51866 8.46961 5.49223 8.22657 5.41 8H6.59C6.50777 8.22657 6.48134 8.46961 6.51297 8.70855C6.54459 8.9475 6.63332 9.1753 6.77166 9.37268C6.91 9.57005 7.09386 9.73119 7.30768 9.84243C7.52149 9.95368 7.75897 10.0118 8 10.0118C8.24103 10.0118 8.47851 9.95368 8.69232 9.84243C8.90614 9.73119 9.09 9.57005 9.22834 9.37268C9.36668 9.1753 9.45541 8.9475 9.48703 8.70855C9.51866 8.46961 9.49223 8.22657 9.41 8H9.5C9.63261 8 9.75979 7.94732 9.85355 7.85355C9.94732 7.75979 10 7.63261 10 7.5C10 7.36739 9.94732 7.24021 9.85355 7.14645C9.75979 7.05268 9.63261 7 9.5 7ZM8.86 2L8.205 4.62C8.17762 4.73094 8.11308 4.82915 8.0221 4.89829C7.93113 4.96743 7.81922 5.00333 7.705 5H3.39L2.64 2H8.86ZM4 9C3.90111 9 3.80444 8.97068 3.72221 8.91574C3.63999 8.86079 3.5759 8.7827 3.53806 8.69134C3.50022 8.59998 3.49031 8.49944 3.50961 8.40245C3.5289 8.30546 3.57652 8.21637 3.64645 8.14645C3.71637 8.07652 3.80546 8.0289 3.90245 8.00961C3.99945 7.99031 4.09998 8.00022 4.19134 8.03806C4.2827 8.0759 4.36079 8.13999 4.41573 8.22221C4.47068 8.30444 4.5 8.40111 4.5 8.5C4.5 8.63261 4.44732 8.75979 4.35355 8.85355C4.25979 8.94732 4.13261 9 4 9ZM8 9C7.90111 9 7.80444 8.97068 7.72221 8.91574C7.63999 8.86079 7.5759 8.7827 7.53806 8.69134C7.50022 8.59998 7.49031 8.49944 7.50961 8.40245C7.5289 8.30546 7.57652 8.21637 7.64645 8.14645C7.71637 8.07652 7.80546 8.0289 7.90245 8.00961C7.99944 7.99031 8.09998 8.00022 8.19134 8.03806C8.2827 8.0759 8.36079 8.13999 8.41574 8.22221C8.47068 8.30444 8.5 8.40111 8.5 8.5C8.5 8.63261 8.44732 8.75979 8.35355 8.85355C8.25979 8.94732 8.13261 9 8 9Z" fill="black"/>
+            </svg>
+            Customer Order</a>
+        </div> 
+        <div class="header-other__nav--menu">
+          <a href="https://aqualensb2b.com/pages/power-converter"><svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11.7866 4.76634C10.6083 2.03051 8.39158 0.333008 5.99992 0.333008C3.60825 0.333008 1.39158 2.03051 0.21325 4.76634C0.18113 4.83994 0.164551 4.91937 0.164551 4.99967C0.164551 5.07998 0.18113 5.15941 0.21325 5.23301C1.39158 7.96884 3.60825 9.66634 5.99992 9.66634C8.39158 9.66634 10.6083 7.96884 11.7866 5.23301C11.8187 5.15941 11.8353 5.07998 11.8353 4.99967C11.8353 4.91937 11.8187 4.83994 11.7866 4.76634ZM5.99992 8.49967C4.15075 8.49967 2.40075 7.16384 1.39158 4.99967C2.40075 2.83551 4.15075 1.49967 5.99992 1.49967C7.84908 1.49967 9.59908 2.83551 10.6083 4.99967C9.59908 7.16384 7.84908 8.49967 5.99992 8.49967ZM5.99992 2.66634C5.53843 2.66634 5.0873 2.80319 4.70359 3.05958C4.31987 3.31597 4.0208 3.68039 3.8442 4.10675C3.66759 4.53311 3.62139 5.00226 3.71142 5.45489C3.80145 5.90751 4.02368 6.32327 4.35 6.64959C4.67632 6.97591 5.09208 7.19814 5.54471 7.28817C5.99733 7.37821 6.46648 7.332 6.89285 7.15539C7.31921 6.97879 7.68362 6.67972 7.94001 6.29601C8.1964 5.91229 8.33325 5.46116 8.33325 4.99967C8.33325 4.38084 8.08742 3.78734 7.64983 3.34976C7.21225 2.91217 6.61876 2.66634 5.99992 2.66634ZM5.99992 6.16634C5.76917 6.16634 5.54361 6.09792 5.35175 5.96972C5.15989 5.84153 5.01036 5.65932 4.92206 5.44614C4.83376 5.23296 4.81065 4.99838 4.85567 4.77207C4.90068 4.54576 5.0118 4.33788 5.17496 4.17472C5.33812 4.01156 5.546 3.90044 5.77231 3.85543C5.99862 3.81041 6.2332 3.83351 6.44638 3.92182C6.65956 4.01012 6.84177 4.15965 6.96996 4.35151C7.09816 4.54337 7.16658 4.76893 7.16658 4.99967C7.16658 5.30909 7.04367 5.60584 6.82487 5.82463C6.60608 6.04343 6.30934 6.16634 5.99992 6.16634Z" fill="black"/>
+            </svg>
+            Power Converter</a>
+        </div> 
+        <div class="header-other__nav--menu header__virtual-try--on">
+          <a href="https://aqualensb2b.com/pages/ar-filter">Virtual Try on</a>
+        </div> 
+      </div>
+    </div>
+
+    {% comment %} we are moving this section in announcement bar {% endcomment %}
+    {% comment %}
+    <div class="header__login--wrapper">
+      {% if customer %}
+      <div id="" class="site-nav__item site-nav__item-hover login-wrapper-margin">
+        <a href="/account/" class="site-nav__link account site__nav--flex account__link--padding">           
+          <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8.97837 0.208975C8.86661 0.215662 8.75325 0.243209 8.64606 0.292959C7.66801 0.745959 6.05644 1.79515 5.63255 3.91015C5.15908 6.27415 6.66022 8.72255 8.99356 8.97655C11.3318 9.23055 13.3059 7.35299 13.3059 4.99999C13.3059 2.35699 11.1835 1.50194 10.3892 1.50194L9.84236 0.65624C9.64694 0.35399 9.31365 0.188912 8.97837 0.208975ZM9.41701 12C6.49645 12 0.666992 13.508 0.666992 16.5V18C0.666992 18.552 1.10255 19 1.63922 19H17.1948C17.7315 19 18.167 18.552 18.167 18V16.5C18.167 13.508 12.3376 12 9.41701 12Z" fill="#4F4F4F"/>
+          </svg>
+          <span class="account__text--style account__my--name">
+            {% assign customer_address =  customer.addresses | first %}
+            {% if customer.first_name != blank %}
+            {{ customer.first_name }}
+            {% elsif customer_address.first_name != blank %}
+            {{ customer_address.first_name }}
+            {% else %}
+            HI, AQUA
+            {% endif %}
+          </span>
+        </a>
+        <div class="account-menu">
+          {% render 'account-navigation' %}
+        </div>
+      </div>
+      {% else %}
+      <div id="opensigninpop" class="site-nav__item login-wrapper-margin">
+        <a href="javascript:void(0)" class="site-nav__link site__nav--flex account__link--padding">
+          <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8.97837 0.208975C8.86661 0.215662 8.75325 0.243209 8.64606 0.292959C7.66801 0.745959 6.05644 1.79515 5.63255 3.91015C5.15908 6.27415 6.66022 8.72255 8.99356 8.97655C11.3318 9.23055 13.3059 7.35299 13.3059 4.99999C13.3059 2.35699 11.1835 1.50194 10.3892 1.50194L9.84236 0.65624C9.64694 0.35399 9.31365 0.188912 8.97837 0.208975ZM9.41701 12C6.49645 12 0.666992 13.508 0.666992 16.5V18C0.666992 18.552 1.10255 19 1.63922 19H17.1948C17.7315 19 18.167 18.552 18.167 18V16.5C18.167 13.508 12.3376 12 9.41701 12Z" fill="#4F4F4F"/>
+          </svg>
+          <span class="account__text--style"> Login </span>  
+        </a>
+      </div>
+      {% endif %}
+      <div class="site-nav__item hearCartWrapper login-wrapper-margin">
+        <div class="cart-div">
+          <div class="nav-cart-flex">
+            <svg width="21" height="22" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9.42068 0C9.06143 0 8.7025 0.138109 8.4285 0.412109L7.42068 1.41992H11.4207L10.4129 0.412109C10.1389 0.138109 9.77993 0 9.42068 0ZM14.4207 0C14.0614 0 13.7025 0.138109 13.4285 0.412109L12.4207 1.41992H16.4207L15.4129 0.412109C15.1389 0.138109 14.7799 0 14.4207 0ZM3.16287 1.41992L1.42264 1.43359C1.29026 1.43286 1.15906 1.45841 1.03663 1.50877C0.91421 1.55913 0.803002 1.63329 0.709458 1.72696C0.615914 1.82062 0.541896 1.93193 0.491695 2.05442C0.441494 2.1769 0.416111 2.30814 0.417016 2.44051C0.41792 2.57289 0.445096 2.70377 0.496966 2.82556C0.548837 2.94735 0.62437 3.05763 0.719186 3.15001C0.814002 3.24238 0.926214 3.31502 1.04931 3.3637C1.17242 3.41238 1.30396 3.43614 1.43631 3.43359L2.50662 3.42578L5.79959 11.3281L4.60232 13.2422C3.76397 14.5809 4.78336 16.4199 6.36209 16.4199H17.4207C17.5532 16.4218 17.6848 16.3973 17.8077 16.3479C17.9307 16.2985 18.0426 16.2251 18.137 16.1321C18.2314 16.039 18.3063 15.9282 18.3574 15.8059C18.4086 15.6837 18.4349 15.5524 18.4349 15.4199C18.4349 15.2874 18.4086 15.1562 18.3574 15.0339C18.3063 14.9117 18.2314 14.8008 18.137 14.7078C18.0426 14.6147 17.9307 14.5414 17.8077 14.4919C17.6848 14.4425 17.5532 14.418 17.4207 14.4199H6.36209C6.25082 14.4199 6.23799 14.398 6.29764 14.3027C6.29829 14.3027 6.29894 14.3027 6.29959 14.3027L7.47537 12.4199H14.9422C15.6682 12.4199 16.3382 12.0256 16.6902 11.3906L20.2918 4.9043C20.6628 4.2383 20.1807 3.41992 19.4187 3.41992H4.67068L4.09451 2.03516C4.01799 1.8516 3.88848 1.69503 3.72253 1.58544C3.55658 1.47585 3.36173 1.41822 3.16287 1.41992ZM6.42068 17.4199C5.89025 17.4199 5.38154 17.6306 5.00647 18.0057C4.6314 18.3808 4.42068 18.8895 4.42068 19.4199C4.42068 19.9504 4.6314 20.4591 5.00647 20.8341C5.38154 21.2092 5.89025 21.4199 6.42068 21.4199C6.95112 21.4199 7.45982 21.2092 7.8349 20.8341C8.20997 20.4591 8.42068 19.9504 8.42068 19.4199C8.42068 18.8895 8.20997 18.3808 7.8349 18.0057C7.45982 17.6306 6.95112 17.4199 6.42068 17.4199ZM16.4207 17.4199C15.8903 17.4199 15.3815 17.6306 15.0065 18.0057C14.6314 18.3808 14.4207 18.8895 14.4207 19.4199C14.4207 19.9504 14.6314 20.4591 15.0065 20.8341C15.3815 21.2092 15.8903 21.4199 16.4207 21.4199C16.9511 21.4199 17.4598 21.2092 17.8349 20.8341C18.21 20.4591 18.4207 19.9504 18.4207 19.4199C18.4207 18.8895 18.21 18.3808 17.8349 18.0057C17.4598 17.6306 16.9511 17.4199 16.4207 17.4199Z" fill="#4F4F4F"/>
+            </svg>
+            <span class="account__text--style">Cart</span>
+          </div>
+          <span class="cartCount">            
+            {{cart.item_count}}
+          </span>
+        </div>
+      </div>
+    </div>
+    {% endcomment %}
+  </div>
+</section>
+
+<div class="header__mobile" id="mobile-header-fixed">
+  <div class="header__menu">
+    <svg fill="#000000" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="24px" height="24px"><path d="M 2 5 L 2 7 L 22 7 L 22 5 L 2 5 z M 2 11 L 2 13 L 22 13 L 22 11 L 2 11 z M 2 17 L 2 19 L 22 19 L 22 17 L 2 17 z"/></svg>
+  </div>
+  <div class="header__logo">
+    {% if section.settings.logo != nil %}
+    <a class="header__logo--icon store__logo" href="{{ section.settings.logo_url }}">
+      <img src="{{ section.settings.logo | img_url:'master' }}" alt="{{ section.settings.logo.alt | default:'logo' }}">
+    </a>
+    {% endif %}
+  </div>
+  <div class="site-nav__item hearCartWrapper login-wrapper-margin">
+    <div class="cart-div cart-div-mobile" style="position:relative;">
+      <a href="/cart">
+      <div class="nav-cart-flex" style="position:relative;">
+        <svg width="21" height="22" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9.42068 0C9.06143 0 8.7025 0.138109 8.4285 0.412109L7.42068 1.41992H11.4207L10.4129 0.412109C10.1389 0.138109 9.77993 0 9.42068 0ZM14.4207 0C14.0614 0 13.7025 0.138109 13.4285 0.412109L12.4207 1.41992H16.4207L15.4129 0.412109C15.1389 0.138109 14.7799 0 14.4207 0ZM3.16287 1.41992L1.42264 1.43359C1.29026 1.43286 1.15906 1.45841 1.03663 1.50877C0.91421 1.55913 0.803002 1.63329 0.709458 1.72696C0.615914 1.82062 0.541896 1.93193 0.491695 2.05442C0.441494 2.1769 0.416111 2.30814 0.417016 2.44051C0.41792 2.57289 0.445096 2.70377 0.496966 2.82556C0.548837 2.94735 0.62437 3.05763 0.719186 3.15001C0.814002 3.24238 0.926214 3.31502 1.04931 3.3637C1.17242 3.41238 1.30396 3.43614 1.43631 3.43359L2.50662 3.42578L5.79959 11.3281L4.60232 13.2422C3.76397 14.5809 4.78336 16.4199 6.36209 16.4199H17.4207C17.5532 16.4218 17.6848 16.3973 17.8077 16.3479C17.9307 16.2985 18.0426 16.2251 18.137 16.1321C18.2314 16.039 18.3063 15.9282 18.3574 15.8059C18.4086 15.6837 18.4349 15.5524 18.4349 15.4199C18.4349 15.2874 18.4086 15.1562 18.3574 15.0339C18.3063 14.9117 18.2314 14.8008 18.137 14.7078C18.0426 14.6147 17.9307 14.5414 17.8077 14.4919C17.6848 14.4425 17.5532 14.418 17.4207 14.4199H6.36209C6.25082 14.4199 6.23799 14.398 6.29764 14.3027C6.29829 14.3027 6.29894 14.3027 6.29959 14.3027L7.47537 12.4199H14.9422C15.6682 12.4199 16.3382 12.0256 16.6902 11.3906L20.2918 4.9043C20.6628 4.2383 20.1807 3.41992 19.4187 3.41992H4.67068L4.09451 2.03516C4.01799 1.8516 3.88848 1.69503 3.72253 1.58544C3.55658 1.47585 3.36173 1.41822 3.16287 1.41992ZM6.42068 17.4199C5.89025 17.4199 5.38154 17.6306 5.00647 18.0057C4.6314 18.3808 4.42068 18.8895 4.42068 19.4199C4.42068 19.9504 4.6314 20.4591 5.00647 20.8341C5.38154 21.2092 5.89025 21.4199 6.42068 21.4199C6.95112 21.4199 7.45982 21.2092 7.8349 20.8341C8.20997 20.4591 8.42068 19.9504 8.42068 19.4199C8.42068 18.8895 8.20997 18.3808 7.8349 18.0057C7.45982 17.6306 6.95112 17.4199 6.42068 17.4199ZM16.4207 17.4199C15.8903 17.4199 15.3815 17.6306 15.0065 18.0057C14.6314 18.3808 14.4207 18.8895 14.4207 19.4199C14.4207 19.9504 14.6314 20.4591 15.0065 20.8341C15.3815 21.2092 15.8903 21.4199 16.4207 21.4199C16.9511 21.4199 17.4598 21.2092 17.8349 20.8341C18.21 20.4591 18.4207 19.9504 18.4207 19.4199C18.4207 18.8895 18.21 18.3808 17.8349 18.0057C17.4598 17.6306 16.9511 17.4199 16.4207 17.4199Z" fill="#4F4F4F"/>
+        </svg>
+      </div>
+      <span class="cartCount">            
+        {{cart.item_count}}
+      </span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="side__menu-wrapper">
+  <div class="side__menu">
+    <div class="side__menu--logo">
+<!--       <svg width="99" height="28" viewBox="0 0 99 28" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <rect width="99" height="28" fill="url(#pattern0)"/>
+        <defs>
+          <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+            <use xlink:href="#image0_210_763" transform="translate(-0.278351 -0.424242) scale(0.00864649 0.030303)"/>
+          </pattern>
+          <image id="image0_210_763" width="186" height="57" xlink:href="data:image/png;base64,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"/>
+        </defs>
+      </svg> -->
+
+      <img style="width: 150px;" src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/Aqualens-retailer_App-01.png?v=1656499056">
+      <svg class="menu__close" width="15" height="15" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0.743873 0.118909C0.61954 0.118941 0.498041 0.156053 0.39491 0.225499C0.291779 0.294945 0.211702 0.39357 0.164916 0.508765C0.11813 0.62396 0.106762 0.750491 0.132264 0.87218C0.157767 0.99387 0.218981 1.10519 0.308082 1.19191L3.61619 4.50001L0.308082 7.80812C0.248098 7.86571 0.200209 7.93469 0.167218 8.01102C0.134228 8.08735 0.116799 8.1695 0.115953 8.25265C0.115107 8.3358 0.130861 8.41828 0.162292 8.49527C0.193723 8.57225 0.240199 8.64219 0.298998 8.70099C0.357797 8.75979 0.427737 8.80627 0.504723 8.8377C0.581709 8.86913 0.664192 8.88488 0.747343 8.88404C0.830493 8.88319 0.912639 8.86576 0.988969 8.83277C1.0653 8.79978 1.13428 8.75189 1.19187 8.69191L4.49998 5.3838L7.80808 8.69191C7.86567 8.75189 7.93465 8.79978 8.01098 8.83277C8.08731 8.86576 8.16946 8.88319 8.25261 8.88404C8.33576 8.88488 8.41825 8.86913 8.49523 8.8377C8.57222 8.80627 8.64216 8.75979 8.70096 8.70099C8.75976 8.64219 8.80623 8.57225 8.83766 8.49527C8.86909 8.41828 8.88485 8.3358 8.884 8.25265C8.88316 8.1695 8.86573 8.08735 8.83274 8.01102C8.79975 7.93469 8.75186 7.86571 8.69187 7.80812L5.38377 4.50001L8.69187 1.19191C8.78219 1.10412 8.84387 0.991092 8.86885 0.867642C8.89382 0.744193 8.88092 0.616078 8.83183 0.500086C8.78274 0.384095 8.69976 0.285639 8.59375 0.217621C8.48775 0.149603 8.36367 0.115196 8.23777 0.118909C8.0754 0.123747 7.92128 0.191609 7.80808 0.308118L4.49998 3.61622L1.19187 0.308118C1.13363 0.248246 1.06397 0.200656 0.987028 0.168158C0.910081 0.13566 0.827401 0.118914 0.743873 0.118909Z" fill="#4F4F4F"/>
+      </svg>
+    </div>
+    <div class="side__menu--myAccount">
+      {% if customer %}
+      <a href="/account">
+        <div class="myAccount--true">
+          <div class="myAccount--icon-info">
+            {% comment %} customer pic is not needed {% endcomment %}
+            {% comment %}
+            <div class="myAccount--icon">
+              {% if  customer.metafields.global.avatar != blank %}
+              <img src="{{ customer.metafields.global.avatar }}" alt="">
+              {% else %}
+              <svg width="47" height="47" viewBox="0 0 47 47" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="23.5" cy="23.5" r="23.5" fill="white"/>
+                <g clip-path="url(#clip10)">
+                  <circle cx="23.5" cy="23.5" r="23.0566" fill="#6ED9DF"/>
+                  <mask id="mask10" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="47" height="47">
+                    <circle cx="23.5" cy="23.5" r="23.0566" fill="#F3F2EF"/>
+                  </mask>
+                  <g mask="url(#mask10)">
+                    <g clip-path="url(#clip11)">
+                      <path d="M30.0048 20.9858C29.8736 20.5266 29.4964 20.1691 28.9585 20.0937C29.0339 19.1196 29.0405 18.0372 28.9322 16.8237C28.8666 16.089 28.6928 15.3641 28.3845 14.6951C27.4465 12.6681 25.3539 11.3201 23.0285 11.3201C20.0504 11.3201 18.0103 13.0846 16.9739 16.5285C16.6918 17.4633 16.5737 18.5128 16.5869 19.5755C16.5901 19.8477 16.4163 20.0806 16.1638 20.1888C15.9407 20.2872 15.7603 20.4446 15.6324 20.6349C15.1142 21.4122 15.7275 22.4618 16.6623 22.5306C16.7509 22.5372 16.8492 22.5437 16.9476 22.5503C17.3248 24.1837 17.9644 25.6235 18.7352 26.4599L18.5253 36.6176C20.8769 39.2973 24.8587 39.4809 27.1808 36.7062L26.8659 26.4599C26.8725 26.4468 28.027 24.8134 28.5747 22.5503L28.8666 22.5273C29.6768 22.4716 30.2311 21.7631 30.0048 20.9858Z" fill="white" stroke="#211915" stroke-width="0.106314" stroke-miterlimit="10" stroke-linecap="round"/>
+                      <path d="M26.7774 26.4435C24.5208 28.618 22.12 28.0178 20.8802 27.6439C19.5354 27.2372 18.663 26.2598 18.663 26.2598V28.664L18.7188 28.6771C19.5486 28.8936 20.3226 28.9887 21.0409 28.9887C24.2092 28.9887 26.2034 27.1946 26.843 26.5386L27.0988 26.1713C27.0988 26.1713 27.0758 26.0106 27.007 26.1122C26.8462 26.3418 26.8036 26.4173 26.7774 26.4435Z" fill="#211915"/>
+                      <path d="M16.7869 21.8091C16.7246 21.6647 16.6656 21.5172 16.5868 21.3925C16.5114 21.2679 16.4163 21.1662 16.3081 21.1433C16.2064 21.1203 16.0326 21.1597 15.9998 21.2318C15.9571 21.3204 16.026 21.4909 16.1014 21.6221C16.1113 21.6352 16.108 21.6549 16.0916 21.6615C16.0817 21.668 16.0653 21.668 16.0588 21.6582C15.9932 21.6024 15.9374 21.5401 15.8915 21.4647C15.8456 21.3892 15.8095 21.2908 15.8358 21.1761C15.8686 21.058 15.9735 20.9858 16.0621 20.953C16.1473 20.9169 16.2523 20.8973 16.3573 20.9169C16.5737 20.9596 16.7049 21.14 16.7738 21.2941C16.8427 21.4581 16.8755 21.6221 16.8689 21.7959C16.8689 21.8189 16.8492 21.8353 16.8263 21.8353C16.8066 21.8386 16.7935 21.8255 16.7869 21.8091Z" fill="#1D1D1B"/>
+                      <path d="M28.6174 21.7992C28.6108 21.6287 28.6469 21.4614 28.7125 21.2974C28.7814 21.1433 28.9093 20.9629 29.129 20.9202C29.234 20.9006 29.3389 20.917 29.4242 20.9563C29.5128 20.9891 29.6144 21.0613 29.6505 21.1793C29.6768 21.2941 29.6407 21.3925 29.5948 21.468C29.5488 21.5434 29.4931 21.609 29.4275 21.6615C29.4144 21.6713 29.398 21.6713 29.3849 21.6582C29.3783 21.6484 29.3783 21.6352 29.3816 21.6254C29.457 21.4942 29.5259 21.3237 29.4833 21.2351C29.4505 21.1629 29.2766 21.1203 29.1749 21.1465C29.0667 21.1728 28.9716 21.2712 28.8962 21.3958C28.8174 21.5204 28.7584 21.668 28.6961 21.8124V21.8156C28.6862 21.8353 28.6633 21.8484 28.6403 21.8386C28.6272 21.8288 28.6174 21.8124 28.6174 21.7992Z" fill="#1D1D1B"/>
+                      <path d="M26.3772 26.801C26.3772 26.801 26.7806 26.5058 27.043 26.0466L26.8397 26.5419L26.3772 26.801Z" fill="#211915"/>
+                      <path d="M20.4112 19.2016C20.4112 19.4705 20.2505 19.6903 20.0504 19.6903C19.8503 19.6903 19.6896 19.4705 19.6896 19.2016C19.6896 18.9326 19.8503 18.7129 20.0504 18.7129C20.2505 18.7129 20.4112 18.9326 20.4112 19.2016Z" fill="#211915"/>
+                      <path d="M25.6261 19.2016C25.6261 19.4705 25.4654 19.6903 25.2654 19.6903C25.0653 19.6903 24.9046 19.4705 24.9046 19.2016C24.9046 18.9326 25.0653 18.7129 25.2654 18.7129C25.4654 18.7129 25.6261 18.9326 25.6261 19.2016Z" fill="#211915"/>
+                      <path d="M18.358 16.9418C18.8434 16.4137 19.5945 16.1546 20.3226 16.1874C20.6867 16.2005 21.054 16.276 21.3886 16.4399C21.7198 16.6007 22.0281 16.8565 22.1954 17.2042C22.2872 17.3714 22.32 17.5748 22.3397 17.7552C22.3561 17.9356 22.3594 18.116 22.366 18.2931C22.3758 18.6506 22.3758 19.0081 22.3758 19.3623C22.3758 20.074 22.3364 20.7858 22.3004 21.4975L22.2512 21.445C22.6119 21.4614 22.9727 21.4712 23.3335 21.4942C22.9727 21.5172 22.6119 21.527 22.2512 21.5434L22.202 21.5467V21.4909L22.179 19.359C22.1757 19.0048 22.1692 18.6506 22.1528 18.2963C22.1298 17.9421 22.1396 17.5813 22.0019 17.2927C21.8641 16.9975 21.6017 16.7647 21.3 16.6138C20.9983 16.4629 20.6604 16.3744 20.316 16.3416C19.624 16.2891 18.8991 16.476 18.358 16.9418Z" fill="#211915"/>
+                      <path d="M27.699 16.9418C27.4235 16.7319 27.1119 16.5974 26.7938 16.5023C26.4723 16.4137 26.1411 16.3645 25.8098 16.3678C25.1473 16.3645 24.4782 16.5252 23.9206 16.9418C24.1338 16.6663 24.4355 16.4564 24.7668 16.3285C25.0981 16.1973 25.4556 16.1382 25.8098 16.1382C26.164 16.1415 26.5215 16.2038 26.8495 16.335C27.1808 16.4629 27.4858 16.6663 27.699 16.9418Z" fill="#211915"/>
+                      <path d="M21.0212 23.2227C21.277 23.4392 21.5591 23.6163 21.8477 23.7606C22.1396 23.9016 22.4479 23.9968 22.7595 24.0066C23.0711 24.0197 23.386 23.9508 23.6648 23.7967C23.8156 23.7376 23.937 23.6261 24.078 23.5409C24.2092 23.4425 24.3273 23.3244 24.4618 23.2227C24.3667 23.3572 24.265 23.4949 24.1502 23.6229C24.0223 23.7311 23.9075 23.8688 23.7533 23.9508C23.468 24.1509 23.1039 24.246 22.753 24.2329C22.3987 24.2198 22.0576 24.0984 21.7657 23.9148C21.4673 23.7344 21.2147 23.5015 21.0212 23.2227Z" fill="#211915"/>
+                      <path d="M20.0504 21.6385C20.0504 22.137 19.5125 22.5437 18.85 22.5437C18.1874 22.5437 17.6495 22.137 17.6495 21.6385C17.6495 21.1367 18.1874 20.7333 18.85 20.7333C19.5125 20.7333 20.0504 21.14 20.0504 21.6385Z" fill="#F9CED9"/>
+                      <path d="M27.6662 21.6385C27.6662 22.137 27.1283 22.5437 26.4658 22.5437C25.8033 22.5437 25.2654 22.137 25.2654 21.6385C25.2654 21.1367 25.8033 20.7333 26.4658 20.7333C27.1283 20.7333 27.6662 21.14 27.6662 21.6385Z" fill="#F9CED9"/>
+                      <path d="M16.0752 16.1218C15.9637 17.378 15.9702 18.6112 16.5639 19.7493C16.5639 19.7493 16.6426 19.2508 16.9968 17.2205C17.3839 15.0001 17.9742 14.2392 19.8995 14.5934C21.8248 14.9476 24.0748 14.2687 25.8131 13.3897C28.824 11.8678 28.3615 18.3816 28.9618 20.0937C28.9618 20.0937 30.8182 14.3769 27.9089 11.6054C26.515 10.2771 24.0715 9.74904 22.1856 9.93271C18.5285 10.2869 16.3868 12.6189 16.0752 16.1218Z" fill="#211915"/>
+                      <path d="M26.9709 32.8622C23.1695 34.6071 18.5909 32.8819 18.5417 32.8622C13.7727 33.8625 9.4663 36.5947 8.9776 41.3242L8.97432 48.5399H36.4234L36.5907 41.5669C36.1906 36.7291 31.8251 33.8888 26.9709 32.8622Z" fill="#211915"/>
+                      <path d="M15.4225 42.7903V48.5399" stroke="white" stroke-width="0.130985" stroke-miterlimit="10" stroke-linecap="round"/>
+                      <path d="M29.9982 42.7903V48.5399" stroke="white" stroke-width="0.130985" stroke-miterlimit="10" stroke-linecap="round"/>
+                    </g>
+                  </g>
+                </g>
+                <defs>
+                  <clipPath id="clip10">
+                    <rect width="46.1132" height="46.1132" fill="white" transform="translate(0.44339 0.44339)"/>
+                  </clipPath>
+                  <clipPath id="clip11">
+                    <rect width="27.6164" height="38.7351" fill="white" transform="translate(8.97433 9.8966)"/>
+                  </clipPath>
+                </defs>
+              </svg>
+              {% endif %} 
+            </div>
+            {% endcomment %}
+            
+            <div class="myAccount--info">
+              {% assign customer_address =  customer.addresses | first %}
+              <div class="myAccount__name">
+                {% if customer.first_name != blank %}
+                {{ customer.first_name }}
+                {% elsif customer_address.first_name != blank %}
+                {{ customer_address.first_name }}
+                {% else %}
+                HI, AQUA
+                {% endif %}
+              </div>
+              {% if customer.phone != blank  %}
+              <div class="myAccount__number">
+                <span>
+                  {{ customer.phone }}
+                </span>
+                <span class="check-tick">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14.7807 7.52076L14.1914 6.91143C13.7627 6.4681 13.5621 5.85143 13.6487 5.24077L13.7674 4.40143C13.8194 4.03343 13.5701 3.69077 13.2041 3.6261L12.3694 3.47943C11.7621 3.37277 11.2374 2.9921 10.9481 2.44677L10.5507 1.6981C10.3767 1.37143 9.97339 1.2401 9.64006 1.40343L8.87872 1.77543C8.32472 2.0461 7.67606 2.0461 7.12206 1.77543L6.36006 1.40343C6.02672 1.2401 5.62339 1.37143 5.44939 1.69943L5.05206 2.4481C4.76272 2.99343 4.23872 3.3741 3.63072 3.48077L2.79606 3.62743C2.43006 3.69143 2.18072 4.0341 2.23272 4.4021L2.35139 5.24143C2.43806 5.8521 2.23739 6.46876 1.80872 6.9121L1.21939 7.52143C0.960724 7.78876 0.960724 8.2121 1.21939 8.47943L1.80872 9.08877C2.23739 9.5321 2.43806 10.1488 2.35139 10.7594L2.23272 11.5988C2.18072 11.9668 2.43006 12.3094 2.79606 12.3741L3.63072 12.5208C4.23806 12.6274 4.76272 13.0081 5.05206 13.5534L5.44939 14.3021C5.62339 14.6301 6.02672 14.7614 6.36072 14.5981L7.12206 14.2261C7.67606 13.9554 8.32472 13.9554 8.87872 14.2261L9.64006 14.5981C9.97406 14.7614 10.3767 14.6301 10.5514 14.3021L10.9487 13.5534C11.2381 13.0088 11.7621 12.6274 12.3701 12.5208L13.2047 12.3741C13.5707 12.3101 13.8201 11.9668 13.7681 11.5988L13.6494 10.7594C13.5627 10.1488 13.7634 9.5321 14.1921 9.08877L14.7814 8.47943C15.0387 8.2121 15.0387 7.7881 14.7807 7.52076ZM6.86206 10.4714L5.33339 8.94276C5.07339 8.68276 5.07339 8.2601 5.33339 8.0001C5.59339 7.7401 6.01606 7.7401 6.27606 8.0001L7.33339 9.05743L10.3907 6.0001C10.6507 5.7401 11.0734 5.7401 11.3334 6.0001C11.5934 6.2601 11.5934 6.68276 11.3334 6.94276L7.80472 10.4714C7.54472 10.7314 7.12206 10.7314 6.86206 10.4714Z" fill="#00BAC6"/>
+                  </svg>                        
+                </span>
+              </div>
+              {% elsif customer.email %}
+              <div class="my__number">
+                <span>
+                  {{ customer.email | split: '@' | first }}
+                </span>
+                <span class="check-tick">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14.7807 7.52076L14.1914 6.91143C13.7627 6.4681 13.5621 5.85143 13.6487 5.24077L13.7674 4.40143C13.8194 4.03343 13.5701 3.69077 13.2041 3.6261L12.3694 3.47943C11.7621 3.37277 11.2374 2.9921 10.9481 2.44677L10.5507 1.6981C10.3767 1.37143 9.97339 1.2401 9.64006 1.40343L8.87872 1.77543C8.32472 2.0461 7.67606 2.0461 7.12206 1.77543L6.36006 1.40343C6.02672 1.2401 5.62339 1.37143 5.44939 1.69943L5.05206 2.4481C4.76272 2.99343 4.23872 3.3741 3.63072 3.48077L2.79606 3.62743C2.43006 3.69143 2.18072 4.0341 2.23272 4.4021L2.35139 5.24143C2.43806 5.8521 2.23739 6.46876 1.80872 6.9121L1.21939 7.52143C0.960724 7.78876 0.960724 8.2121 1.21939 8.47943L1.80872 9.08877C2.23739 9.5321 2.43806 10.1488 2.35139 10.7594L2.23272 11.5988C2.18072 11.9668 2.43006 12.3094 2.79606 12.3741L3.63072 12.5208C4.23806 12.6274 4.76272 13.0081 5.05206 13.5534L5.44939 14.3021C5.62339 14.6301 6.02672 14.7614 6.36072 14.5981L7.12206 14.2261C7.67606 13.9554 8.32472 13.9554 8.87872 14.2261L9.64006 14.5981C9.97406 14.7614 10.3767 14.6301 10.5514 14.3021L10.9487 13.5534C11.2381 13.0088 11.7621 12.6274 12.3701 12.5208L13.2047 12.3741C13.5707 12.3101 13.8201 11.9668 13.7681 11.5988L13.6494 10.7594C13.5627 10.1488 13.7634 9.5321 14.1921 9.08877L14.7814 8.47943C15.0387 8.2121 15.0387 7.7881 14.7807 7.52076ZM6.86206 10.4714L5.33339 8.94276C5.07339 8.68276 5.07339 8.2601 5.33339 8.0001C5.59339 7.7401 6.01606 7.7401 6.27606 8.0001L7.33339 9.05743L10.3907 6.0001C10.6507 5.7401 11.0734 5.7401 11.3334 6.0001C11.5934 6.2601 11.5934 6.68276 11.3334 6.94276L7.80472 10.4714C7.54472 10.7314 7.12206 10.7314 6.86206 10.4714Z" fill="#00BAC6"/>
+                  </svg>                        
+                </span>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="myAccount--open">
+            <svg width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="14.5" cy="14.5" r="14.5" fill="white"/>
+              <path d="M15.5532 14L12.6875 16.8658C12.377 17.1763 12.377 17.6803 12.6875 17.9908C12.998 18.3013 13.502 18.3013 13.8125 17.9908L17.273 14.5303C17.5662 14.237 17.5662 13.7623 17.273 13.4698L13.8125 10.0093C13.502 9.69877 12.998 9.69877 12.6875 10.0093C12.377 10.3198 12.377 10.8238 12.6875 11.1343L15.5532 14Z" fill="#4F4F4F"/>
+            </svg>
+          </div>
+        </div>
+      </a>
+      {% else %}
+      <a  id="opensigninpopmobile">
+        <div class="myAccount--false">
+          <div class="myAccount--heading">
+            Hi, Retailer
+          </div>
+          <div class="myAccount--subHeading">
+            Login for Better Experience
+          </div>
+          <a href="https://aqualensb2b.com/account/login">
+            <div class="myAccount--login">
+              Login
+            </div>
+          </a>
+        </div> 
+      </a>
+      {% endif %}
+    </div>
+    <div class="mobile__main--menu">
+      {% assign menu_mobile = section.settings.mobile_main_menu %}
+      <div class="mobile__main--menu-padding">
+        <div class="mobile__menu--wrapper">
+          {% for link in linklists[menu_mobile].links %}
+          
+          <div class="mobile__side--menu ">
+            <a href="{{ link.url }}">
+              {{ link.title | escape }}
+            </a>
+          </div> 
+          
+          {% endfor %}
+<!--        comment  -->
+          <div class="other_mobile__side--menu">
+            <div class="other_brands_menu">
+              <div>Other Brands</div>
+              <div class="other_brands__icon">
+                <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5.07101 5.99997L1.25001 9.82097C0.836014 10.235 0.836014 10.907 1.25001 11.321C1.66401 11.735 2.33601 11.735 2.75001 11.321L7.36401 6.70697C7.75501 6.31597 7.75501 5.68297 7.36401 5.29297L2.75001 0.67897C2.33601 0.264971 1.66401 0.264971 1.25001 0.67897C0.836014 1.09297 0.836014 1.76497 1.25001 2.17897L5.07101 5.99997Z" fill="#4F4F4F"/>
+                </svg>
+              </div>
+            </div>
+            <div class="jj_products_wrapper">
+              <div class="jj_clear_lens_mobile">
+                <a href="https://aqualensb2b.com/collections/jj-clear-lens">
+                  J&J Clear Lens
+                </a>
+              </div> 
+              <div class="jj_color_lens_mobile">
+                <a href="https://aqualensb2b.com/collections/jj-color-lens">
+                  J&J Color Lens
+                </a>
+              </div> 
+            </div>            
+          </div>
+<!--     endcomment  -->
+          
+        </div>
+      </div>
+
+      {% if customer %}
+      <div class="myAccount--options">
+        <div class="myAccount__heading--icon">
+          <div>My Account</div>
+          <div class="myAccount__icon">
+            <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5.07101 5.99997L1.25001 9.82097C0.836014 10.235 0.836014 10.907 1.25001 11.321C1.66401 11.735 2.33601 11.735 2.75001 11.321L7.36401 6.70697C7.75501 6.31597 7.75501 5.68297 7.36401 5.29297L2.75001 0.67897C2.33601 0.264971 1.66401 0.264971 1.25001 0.67897C0.836014 1.09297 0.836014 1.76497 1.25001 2.17897L5.07101 5.99997Z" fill="#4F4F4F"/>
+            </svg>
+          </div>
+        </div>
+        {% assign myAccount_menu = section.settings.myaccount_menu %}
+        <div class="MyAccount__menu--wrapper">
+          {% for link in linklists[myAccount_menu].links %}
+          <div class="myAccount--menu">
+            <a href="{{ link.url }}">
+              {{ link.title | escape }}
+            </a>
+          </div> 
+          {% endfor %}
+        </div>      
+      </div>
+      {% endif %}
+    </div>  
+
+    <div class="sidebar__footer">
+      {% for link in linklists[section.settings.sidebar_footer].links %}      
+        <a href="{{ link.url }}">
+          {{ link.title | escape }}
+        </a>
+      {% endfor %}
+      {% if customer %}
+      <div class="logOutButton log__out">
+        <a href="/account/logout" style="
+                                         font-family: 'Poppins';
+                                         font-style: normal;
+                                         font-weight: 500;
+                                         font-size: 14px;
+                                         line-height: 21px;
+                                         text-transform: capitalize;
+                                         color: #F3716D;
+                                         "><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 0.5C3.85775 0.5 0.5 3.85775 0.5 8C0.5 12.1423 3.85775 15.5 8 15.5C12.1423 15.5 15.5 12.1423 15.5 8C15.5 3.85775 12.1423 0.5 8 0.5ZM9.5 8.75H4.25V9.8C4.25 10.0422 4.10375 10.2612 3.8795 10.3542C3.6545 10.4465 3.39725 10.3955 3.2255 10.2245L1.4255 8.4245C1.19075 8.18975 1.19075 7.81025 1.4255 7.57625L3.2255 5.77625C3.341 5.66075 3.494 5.6 3.65 5.6C3.72725 5.6 3.80525 5.615 3.8795 5.64575C4.10375 5.73875 4.25 5.95775 4.25 6.2V7.25H9.5V8.75Z" fill="#F3716D"></path>
+          </svg>&nbsp; Log out</a>
+      </div>
+      {% endif %}
+    </div>
+    
+  </div>
+</div>
+
+
+<script>
+  $("#opensigninpopmobile").click(function(){
+    document.querySelector('.side__menu').classList.remove('menu-show');
+    document.querySelector('body').classList.remove('no-scroll'); 
+    document.querySelector('.side__menu-wrapper').classList.remove('header-overlay');
+    
+    let popup =  $('#popup--main__login').html();
+    customPopUp(popup);
+  });
+
+  $(window).scroll(function(){
+    var header = $('#shopify-section-hp-header-new');
+    var headerH = header.height();
+//     var appH = 0;
+//     if($('.smartbar-bar').length > 0){
+//       appH = $('.smartbar-bar').height();
+//     }
+    let newHeight = (headerH);
+    if ($(window).scrollTop() > headerH) {
+      header.addClass('sticky');
+      $('body').css("padding-top",newHeight);
+    }
+    else {
+      header.removeClass('sticky');
+      $('body').css("padding-top",0);
+    }
+  });
+
+  $(function () {
+    $(".site-nav__item-hover").hover(function () {
+      $('.account-menu').slideToggle("100");
+    }, function () {
+      $(".account-menu").hide();
+    });
+  }); 
+
+  document.querySelector('.header__menu svg').addEventListener('click', () => {
+                                                               document.querySelector('.side__menu').classList.toggle('menu-show');  
+  document.querySelector('body').classList.add('no-scroll'); 
+  document.querySelector('.side__menu-wrapper').classList.add('header-overlay'); 
+  })
+  document.querySelector('.side__menu--logo .menu__close').addEventListener('click', () =>{
+                                                                            document.querySelector('.side__menu').classList.remove('menu-show');
+  document.querySelector('body').classList.remove('no-scroll'); 
+  document.querySelector('.side__menu-wrapper').classList.remove('header-overlay'); 
+  })
+
+  $('.MyAccount__menu--wrapper').hide();
+  $('.myAccount__heading--icon').on('click',function(){
+    $('.MyAccount__menu--wrapper').slideToggle(500,"linear");
+    $('.myAccount__icon').toggleClass("icon--rotate");
+  })
+  
+  $('.jj_products_wrapper').hide();
+  $('.other_brands_menu').on('click',function(){
+    $('.jj_products_wrapper').slideToggle(500,"linear");
+    $('.other_brands__icon').toggleClass("icon--rotate");
+  })
+  
+ 
+//   $(document).on('click','.site-nav__link--button',function(){
+//     $(this).parent().find('.site-nav__dropdown').slideToggle(500,"linear");
+//   })
+  
+  $(function () {	
+    $(".site-nav--has-dropdown").hover(function () {	
+      $(this).closest('.site-nav--has-dropdown').find(".site-nav__dropdown").slideToggle("500");	
+    }, function () {	
+      $(".site-nav__dropdown").hide();	
+    });	
+  });
+  
+</script>
+
+
+
+{% schema %}
+ {
+  "name": "Header New",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo" 
+    },
+    {
+      "type": "url",
+      "id": "logo_url",
+      "label": "Homepage Link"
+    },    
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "link_list",
+      "id": "main_menu",
+      "label":"Menu", 
+      "default": "main-menu"     
+    },
+    {
+      "type": "link_list",
+      "id": "mobile_main_menu",
+      "label": "Mobile Menu",
+      "default": "footer"
+    },
+    {
+      "type": "link_list",
+      "id": "myaccount_menu",
+      "label": "My Account",
+      "default": "footer"
+    },
+	{
+      "type": "link_list",
+      "id": "sidebar_footer",
+      "label": "Sidebar Footer",
+      "default": "footer"
+    },
+    {
+      "type": "checkbox",
+      "id": "drawer_search_enable",
+      "label": "Enable search"
+    },
+    {
+      "type": "header",
+      "content": "Announcement bar"
+    },
+    {
+      "type": "checkbox",
+      "id": "message",
+      "label": "Show announcement",
+      "default": false
+    },
+	{
+      "type": "checkbox",
+      "id": "home_page_only",
+      "label": "Home page only",
+      "default": true
+    },
+    {
+      "type": "html",
+      "id": "message_text",
+      "label": "Custom HTML",
+      "default": "Announce something here"
+    },
+	{
+      "type": "text",
+      "id": "message_texts",
+      "label": "Message Text"
+    },
+    {
+      "type": "url",
+      "id": "message_link",
+      "label": "Link",
+      "info": "Optional"
+    },
+    {
+      "type": "color",
+      "id": "color_bg",
+      "label": "Bar", 
+      "default": "#7796a8"
+    },
+    {
+      "type": "color",
+      "id": "color_text",
+      "label": "Text",
+      "default": "#fff"
+    }
+  ]
+}
+{% endschema %}

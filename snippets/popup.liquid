@@ -1,0 +1,262 @@
+<style>
+  input[type=number]::-webkit-inner-spin-button, 
+  input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+  }
+</style>
+
+<div id="ac-wrapper" style='display:none' onClick="hideNow(event)">
+  <div id="popup">
+
+    <div class="text-container form-container">
+
+<!--       <h1 class="signuppopuplogo">
+        <a href="/">
+          <img src="//cdn.shopify.com/s/files/1/0084/6957/7794/files/logo_7ae23fb0-c20d-454b-ac7a-666fd6bb7d82_200x.png?v=1563190882" srcset="//cdn.shopify.com/s/files/1/0084/6957/7794/files/logo_7ae23fb0-c20d-454b-ac7a-666fd6bb7d82_200x.png?v=1563190882 1x, //cdn.shopify.com/s/files/1/0084/6957/7794/files/logo_7ae23fb0-c20d-454b-ac7a-666fd6bb7d82_200x@2x.png?v=1563190882 2x" alt="Aqualens Contact lenses" itemprop="logo">
+        </a>
+      </h1> -->
+      <div class="sendotp-section">
+<!--          <img src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/download_11.png?v=1588702448" srcset="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/download_11.png?v=1588702448" alt="Aqualens Contact lenses" itemprop="logo"> -->
+       
+        
+        <p class="bogo-text-whole sign-head">
+         Enter Your Mobile Number
+        </p> 
+        <p class="sign-subhead">Enter your 10-digit mobile number to receive the verification code.</p>
+
+        <div class="inputbox">
+          <div class="p-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="25.375" viewBox="0 0 14 25.375"><defs><style>.a{fill:#2c353f;}.b{fill:#659ed8;}.c{fill:#c4ced3;}</style></defs><g transform="translate(-114.759)"><path class="a" d="M127.615,0H115.9a1.144,1.144,0,0,0-1.144,1.144V24.231a1.144,1.144,0,0,0,1.144,1.144h11.712a1.144,1.144,0,0,0,1.144-1.144V1.144A1.144,1.144,0,0,0,127.615,0Z"/><rect class="b" width="14" height="18.375" transform="translate(114.759 2.625)"/><g transform="translate(119.134 0.875)"><path class="c" d="M207.847,18.529h-4.375a.438.438,0,1,1,0-.875h4.375a.438.438,0,0,1,0,.875Z" transform="translate(-203.034 -17.654)"/><path class="c" d="M345.15,18.529h-.438a.438.438,0,1,1,0-.875h.438a.438.438,0,0,1,0,.875Z" transform="translate(-337.275 -17.654)"/><path class="c" d="M231.372,451.956h-1.086a.769.769,0,0,1-.769-.77v-.211a.769.769,0,0,1,.77-.769h1.086a.769.769,0,0,1,.769.77v.211A.769.769,0,0,1,231.372,451.956Z" transform="translate(-228.204 -428.768)"/></g></g></svg>
+          </div>
+            <input class="stdcode" type="text" value="+91" disabled />
+           <input class="otpsms-text" type='number' placeholder="Your Mobile Number" pattern="[0-9\-]*" maxlength="10" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"  name="contact">
+        </div>
+        <button class="otpsms button-style" type="submit">
+          <span id="button_text">GET VERIFICATION CODE</span>
+          <span class="loadingicon1"></span>
+        </button>
+
+        <div class="error-notification"></div>
+      </div>
+
+      <div class="verifyotp-section hide">
+<!--          <img src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/download_12.png?v=1588702460" srcset="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/download_12.png?v=1588702460" alt="Aqualens Contact lenses" itemprop="logo"> -->
+       
+        <p class="header sign-head">Verify Mobile Number</p>
+        <p class="sign-subhead">Enter 4 digit verification code sent to <span class="mm-number"></span></p>
+        <div class="otpsms-very-container">
+          <input class="otpsms-very smsdigit1" type='tel' value='' maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');" >
+          <input class="otpsms-very smsdigit2" type='tel' value='' maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');" >
+          <input class="otpsms-very smsdigit3" type='tel' value='' maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');" >
+          <input class="otpsms-very smsdigit4" type='tel' value='' maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');" >          
+        </div>
+        
+     
+       
+      
+<!--           <div class="whatsapp-notify">
+            <input class="whatsapp-notify-check" type='checkbox'>
+            <p class="whatsapp-notify-text">By Clicking on verify OTP you agree to receive notifications and updates on <img class="whatsapp-notify-logo" src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/WhatsApp_Logo_5.png?v=1615273911"> from AqualensB2B.com</p>
+          </div>  -->
+        
+        
+        <img class="absolute-image1 desktop-none" src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/Ellipse_2_1.png?v=1615265823">
+        <img class="absolute-image2 desktop-none" src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/Ellipse_3.png?v=1615265833">
+        <img class="absolute-image3 desktop-none" src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/Ellipse_2.png?v=1615265813">
+        
+        <div class="resendotp"><span class="not-active-link" >Resend OTP</span> <span id="countdown"></span></div>
+
+       
+
+        <button class="otpsmsvery button-style" type='submit'>
+          <span id="button_text">VERIFY OTP</span>
+          <span class="loadingicon"></span>
+        </button>
+          <div class="error-notification2"></div>
+
+      </div>    
+
+      <div class="popup-elements hide">
+        <input type="tel" id="ContactFormPhonee" name="contact" pattern="[0-9\-]*" value="{% if form[phone] %}{{ form[phone] }}{% elsif customer %}{{ customer.phone }}{% endif %}" placeholder="Contact number"> 
+        <div class="submit-btn btn">Submit</div>
+      </div>
+<!--  
+      <div class="hide"> 
+        <form method="post" action="/account" id="create_customer" accept-charset="UTF-8">         
+
+          <input type="hidden" name="form_type" value="create_customer">
+          <input type="hidden" name="utf8" value="✓">
+
+          {{ form.errors | default_errors }}
+
+          <label for="Email" class="hidden-label">{{ 'customer.register.email' | t }}</label>
+          <input type="email" name="customer[email]" id="Email" class="input-full{% if form.errors contains 'email' %} error{% endif %}" placeholder="{{ 'customer.register.email' | t }}" {% if form.email %} value="{{ form.email }}"{% endif %} autocorrect="off" autocapitalize="off">
+
+          <label for="CreatePassword" class="hidden-label">{{ 'customer.register.password' | t }}</label>
+          <input type="text" name="customer[password]" id="CreatePassword" class="input-full{% if form.errors contains 'password' %} error{% endif %}" placeholder="{{ 'customer.register.password' | t }}" autocomplete="off">
+
+          <p>
+            <input id="creatacc" type="submit" value="{{ 'customer.register.submit' | t }}" class="btn btn--full">
+          </p>
+        </form>
+      </div> -->
+
+<!--       <div class="login-hide hide">
+        {% form 'customer_login' %}
+        {{ form.errors | default_errors }}
+        <input type="hidden" name="return_to" value="back" />
+        <label for="CustomerEmail" class="hidden-label">{{ 'customer.login.email' | t }}</label>
+        <input type="email" name="customer[email]" id="CustomerEmail" class="input-full{% if form.errors contains 'email' %} error{% endif %}" placeholder="{{ 'customer.login.email' | t }}" autocorrect="off" autocapitalize="off" autofocus>
+
+        {% if form.password_needed %}
+        <label for="CustomerPassword" class="hidden-label">{{ 'customer.login.password' | t }}</label>
+        <input type="text" value="" name="customer[password]" id="CustomerPassword" class="input-full{% if form.errors contains 'password' %} error{% endif %}" placeholder="{{ 'customer.login.password' | t }}">
+        {% endif %}
+
+        <p>
+          <input id="loginacc" type="submit" class="btn btn--full" value="{{ 'customer.login.sign_in' | t }}">
+        </p>
+        <p>{{ 'layout.customer.create_account' | t | customer_register_link }}</p>
+        <p><a href="{{ shop.url }}">{{ 'customer.login.cancel' | t }}</a></p>
+        {% if form.password_needed %}
+        <p><a href="#recover" id="RecoverPassword">{{ 'customer.login.forgot_password' | t }}</a></p>
+        {% endif %}
+        {% endform %}
+      </div>           -->
+
+    </div>
+    <span class="closemeak" onClick="PopUp('hide')"><span>&times;</span></span>
+  </div>
+</div>
+
+<!-- <script>
+  jQuery(function() {
+    jQuery('#create_customer').submit(function(event) {  
+      event.preventDefault();
+      var data = jQuery(this).serialize();
+
+      //create new account
+      jQuery.post('/account', data)
+      .done(function(data){
+        var logErrors = jQuery(data).find('.errors').text();
+debugger;
+        //if there are errors show them in the html form
+        if(logErrors =='This email address is already associated with an account. If this account is yours, you can reset your passwordThis email address is already associated with an account. If this account is yours, you can reset your password') {
+          var valueid = $("#Email").val();
+          var valuepw = $("#CreatePassword").val();          
+          $('#CustomerEmail').val(valueid);
+          $('#CustomerPassword').val('123456');
+          $('#loginacc').click();
+        }            
+        else if (logErrors != "" && logErrors != 'undefined') {
+          jQuery('#create_customer .errors').html(logErrors);
+          jQuery('#create_customer .errors').show();
+        }
+        else {
+          //$(".power-modal").fadeIn(500);
+          $("#ac-wrapper").fadeOut(500);
+
+          {% if template contains 'product' %}
+          let planId = '',
+              customerId = '';          
+          planId = $('.js-openOtpModal.active').attr('data-plan-id');
+
+          $.getJSON('https://aqualens.in/account?view=json', function(response){
+            customerId = response.customer[0].id; 
+            if(planId != '' && customerId) {
+               document.location.href = '/pages/select-document';
+//               location.reload();
+//               $('body').hide();
+//               document.location.href = 'https://subscriber.aqualens.in/subscribe/shipping/' + customerId + '/' + planId;
+            } else {
+               document.location.href = '/pages/select-document';
+//               location.reload();
+            }
+          });
+          {% else %}
+           document.location.href = '/pages/select-document';
+//           location.reload();
+          {% endif %}
+        }
+      }).fail(function(){console.log('error');});
+      return false;
+    }); 
+  });
+</script>
+
+<script>
+  jQuery(function() {
+    jQuery('#customer_login').submit(function(event) {  
+      event.preventDefault();
+      var data = jQuery(this).serialize();
+
+      //login to account
+      jQuery.post('/account/login', data)
+      .done(function(data){
+        var logErrors = jQuery(data).find('.errors').text();
+debugger;
+        if (logErrors != "" && logErrors != 'undefined') {}
+        else {
+          //console.log('success');          
+          //$(".power-modal").fadeIn(500);
+          $("#ac-wrapper").fadeOut(500);
+
+          {% if template == 'customers/login' or template == 'customers/register' %}
+          document.location.href = '/pages/select-document';
+          {% endif %}
+
+          {% if template contains 'product' %}
+          let planId = '',
+              customerId = '';          
+          planId = $('.js-openOtpModal.active').attr('data-plan-id');
+
+          $.getJSON('https://aqualens.in/account?view=json', function(response){
+            customerId = response.customer[0].id; 
+            if(planId != '' && customerId) {
+              $('body').hide();
+              console.log(planId + ' ' + customerId);
+//               location.reload();
+               document.location.href = '/pages/select-document';
+//               document.location.href = 'https://subscriber.aqualens.in/subscribe/shipping/' + customerId + '/' + planId;
+            } else {
+               document.location.href = '/pages/select-document';
+//               location.reload();
+            }
+          });                     
+          {% else %}
+           document.location.href = '/pages/select-document';
+          {% endif %}
+        }
+      }).fail(function(){console.log('error');});
+      return false;
+    }); 
+  });
+</script> -->
+
+<script>
+  function PopUp(hideOrshow) {
+    if (hideOrshow == 'hide') {
+      document.getElementById('ac-wrapper').style.display = "none";
+      window.location.href='https://aqualensb2b.com/';
+    }
+    else  if(localStorage.getItem("popupWasShown") == null) {
+      localStorage.setItem("popupWasShown",1);
+      document.getElementById('ac-wrapper').removeAttribute('style');
+    }
+  }
+
+  {% if template == 'customers/login' or template == 'customers/register' %}
+  window.onload = function () {
+    setTimeout(function () {
+      PopUp('show');
+    }, 0);
+  }
+  {% endif %}
+
+  function hideNow(e) {
+    if (e.target.id == 'ac-wrapper') document.getElementById('ac-wrapper').style.display = 'none';
+  }
+</script>

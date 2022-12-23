@@ -1,0 +1,297 @@
+<style>
+    .pdp-recommendations__section {
+      max-width: 1256px;
+      margin: 0 auto;
+    }
+    .pdp-recommendations__container{
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .pdp-recommendations__wrapper {
+      background: #FFFFFF;
+      z-index: 2;
+      overflow-x: scroll;
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+    }
+    .pdp-recommendations__wrapper::-webkit-scrollbar {
+      display: none;
+    }
+    .pdp-recommendations__cards {
+      display: flex;
+      flex-wrap: nowrap;
+      padding: 0 15px;
+      overflow: hidden;
+      overflow-x: scroll;
+      white-space: nowrap;
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+    }
+    .pdp-recommendations__cards::-webkit-scrollbar {
+      display: none;
+    }
+    .pdp-card__wrapper {
+      margin-right: 10px;
+    }
+  
+    .pdp-recommendations__header h4 {
+      font-family: Quattrocento !important;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 20px;
+      line-height: 29px;
+      color: #5965AB !important;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      padding: 0 15px;
+    }
+    .pdp-card__content {
+      width: 294px;
+      height: auto;
+    }
+    .pdp-card__image {
+      width: 294px;
+      height: 192px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid #EEEEEE;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+    .pdp-card__image img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: cover;
+    }
+    .pdp-card__rating {
+      background: #4F4F4F;
+      border-radius: 2px;
+      width: 40px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+    }
+    .pdp-card__rating .pdp-card__rating-text  {
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 11px;
+      line-height: 20px;
+      color: #FFFFFF;
+    }
+    .pdp-card__title {
+      margin: 5px 0px 7px 0px;
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      color: #333333;
+      white-space: normal;
+    }
+    .pdp-card__price-selling {
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 21px;
+      color: #474747;
+    }
+    .pdp-card__price-original {
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 10px;
+      line-height: 15px;
+      text-decoration-line: line-through;
+      color: #999999;
+    }
+  
+    .pdp-recommendations__cards .slick-next:before,
+    .pdp-recommendations__cards .slick-prev:before{
+      content:"";
+    }
+    .pdp-recommendations__cards .slick-next:focus{
+      display:none;
+    }
+    .pdp-recommendations__cards .slick-prev:focus{
+      display:none;
+    }
+    .pdp-recommendations__cards .arrow {
+      border: solid #3069B3;
+      border-width: 0 2px 2px 0;
+      display: inline-block;
+      padding: 3px;
+    }
+    .pdp-recommendations__cards .right {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate( -45deg );
+    }
+    .pdp-recommendations__cards .left {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate( 135deg );
+    }
+  
+    .pdp-recommendations__cards .slick-prev {
+      position: absolute;
+      display: block;   
+      width:40px;
+      height:40px;
+      background:white;
+      border:1px solid #3069B3;
+      border-radius:50%;
+      line-height: 0px;
+      font-size: 0px;
+      cursor: pointer;
+      top: 30%;
+      left:0px;
+      margin-left: 0px;
+      -webkit-transform: translate(0, -30%);
+      -ms-transform: translate(0, -30%);
+      transform: translate(0, -30%);
+      padding: 0;
+      z-index: 99;
+    }
+    .pdp-recommendations__cards .slick-next {
+      position: absolute;
+      display: block;   
+      width:40px;
+      height:40px;
+      background:white;
+      border:1px solid #3069B3;
+      border-radius:50%;
+      line-height: 0px;
+      font-size: 0px;
+      cursor: pointer;
+      top: 30%;
+      margin-right: 10px;
+      -webkit-transform: translate(0, -30%);
+      -ms-transform: translate(0, -30%);
+      transform: translate(0, -30%);
+      padding: 0;
+      z-index: 99;
+    }
+    .pdp-recommendations__cards .slick-slider {
+      margin-bottom: 0;
+    }
+    @media(max-width:1024px){
+      .pdp-recommendations__container{
+        margin-bottom: 30px;
+      }
+      .pdp-card__wrapper:last-child {
+        margin-right: 0px;
+      }
+    }
+    @media (max-width: 749px){
+      .pdp-recommendations__container {
+        margin-bottom: 81px;
+      }
+    }
+  </style>
+  
+  {% assign pdpRecommendations = product.metafields.global.pdp_recommendations %}
+  
+  <div class="pdp-recommendations__section">
+    <div class="pdp-recommendations__container">
+      {% for items in pdpRecommendations %}
+      <div class="pdp-recommendations__wrapper">
+        {% if pdpRecommendations %}
+            <div class="pdp-recommendations__header">
+            <h4>{{ items.heading }}</h4>
+            </div>
+        {% endif %}
+        <div class="pdp-recommendations__cards pdp-recommendations__cards--{{forloop.index}}">
+          {% for item in items.data %}
+          {% assign recommendedHandle = item.product_url | split: "https://aqualensb2b.com/products/" | last %}
+          {% assign recommendedProduct =  all_products[recommendedHandle] %}
+{% comment %}
+          {% assign productMeta =  recommendedProduct.metafields.global.product_reviews %}
+          {% assign productRating =  productMeta.ratings.product_rating %}
+{% endcomment %}
+          {% if recommendedProduct != empty %}
+          <div class="pdp-card__wrapper">
+            <a href='{{ recommendedProduct.url }}'>
+              <div class="pdp-card__content">
+                <div class="pdp-card__image">
+                  <img data-src='{{ recommendedProduct.featured_image | img_url: '300x' }}' alt="Product Image" class="lazyload">
+                </div>
+                <!-- {% if productMeta %}
+                <div class="pdp-card__rating">
+                  <svg width="12" height="11" viewBox="0 0 12 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 0L7.97496 3.2817L11.7063 4.1459L9.19555 7.0383L9.52671 10.8541L6 9.36L2.47329 10.8541L2.80445 7.0383L0.293661 4.1459L4.02504 3.2817L6 0Z" fill="#FFD400" />
+                  </svg>
+                  <span class="pdp-card__rating-text">{{ productRating }}</span>
+                </div>
+                {% else %}
+                <div class="pdp-card__rating">
+                  <svg width="12" height="11" viewBox="0 0 12 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 0L7.97496 3.2817L11.7063 4.1459L9.19555 7.0383L9.52671 10.8541L6 9.36L2.47329 10.8541L2.80445 7.0383L0.293661 4.1459L4.02504 3.2817L6 0Z" fill="#FFD400" />
+                  </svg>
+                  <span class="pdp-card__rating-text">4.5</span>
+                </div>
+                {% endif %} -->
+                <div class="pdp-card__title">
+                  {{ recommendedProduct.title}}
+                </div>
+                <div class="pdp-card__price">
+                  <span class="pdp-card__price-selling">{{ recommendedProduct.price_max | money_without_trailing_zeros }}</span>
+                  {% if recommendedProduct.compare_at_price_min > recommendedProduct.price_max %} 
+                  <span class="pdp-card__price-original">{{ recommendedProduct.compare_at_price_min | money_without_trailing_zeros }}</span>
+                  {% endif %}
+                </div>
+              </div>
+            </a>
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  
+  
+  <script>
+    function slickForRecommendation(){
+      $('.pdp-recommendations__cards').each(function(){
+        if($(this).find(".pdp-card__wrapper").length > 4){
+          $(this).slick({
+            dots:false,
+            infinite: true,
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            arrows:true,
+            autoplay: false,
+            autoplaySpeed: 2000,
+            prevArrow:'<div class="slick-prev"><i class="arrow left"></i></div>',
+            nextArrow:'<div class="slick-next"><i class="arrow right"></i></div>',
+          });
+        }
+      })
+    }
+    $(document).ready(function(){
+      let slickFlag = false;
+      if ($(window).width() > 1260) {
+        slickForRecommendation();
+        slickFlag = true;
+      }
+      $( window ).resize(function() {
+        if ($(window).width() > 1260) {
+          slickForRecommendation();
+          slickFlag = true;
+        }else{
+          if(slickFlag){
+            $('.pdp-recommendations__cards').slick('unslick');
+            slickFlag = false;
+          }
+        }
+      });
+    })
+  </script>
+  

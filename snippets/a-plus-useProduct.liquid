@@ -1,0 +1,98 @@
+<style>
+    .a_plus_useProduct {
+        max-width: 1240px;
+        margin: auto;
+        margin-top: 40px;
+        background: #00B9C5;
+    }
+
+    .a_plus_useProduct h2 {
+        padding: 21px;
+        text-align: center;
+        font-family: 'Poppins' !important;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 32px;
+        text-align: center;
+        color: white;
+        text-transform: capitalize;
+        letter-spacing: 0;
+    }
+
+    .a_plus_useProduct_wrapper {
+        display: flex;
+        /* align-items: center; */
+        justify-content: space-between;
+        padding: 0 18px;
+        padding-bottom: 40px;
+    }
+
+    .a_plus_useProduct_info {
+        flex: 0 0 23%;
+        background: #FFFFFF;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 5px;
+    }
+
+    .a_plus_info_img {
+        /* padding: 12px; */
+        position: relative;
+        padding-bottom: 84%;
+        width: 100%;
+        background: #FFFFFF;
+        border-radius: 4px;
+    }
+
+    .a_plus_info_img img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        padding: 8px;
+    }
+
+    .a_plus_infp_text {
+        /* height: 45px; */
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 18px;
+        text-align: center;
+        color: #333333;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 12px;
+        padding: 8px 8px;
+    }
+
+    @media(max-width:749px) {
+        .a_plus_useProduct h2 {
+            font-size: 14px;
+        }
+
+        .a_plus_useProduct_wrapper {
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .a_plus_useProduct_info {
+            flex: 0 0 47%;
+        }
+
+    }
+</style>
+
+{% if product.description contains '<!--aPlusUse-->' %}
+    {% assign aPlusUse = product.description | split: '<!--aPlusUse-->'| last %}
+    {% assign aUse = aPlusUse | split: '<!--aPlusUseEnd-->' | first %}
+{% endif %}
+<!-- A+ use product -->
+<div class="a_plus_useProduct">
+    {{ aUse }}
+</div>

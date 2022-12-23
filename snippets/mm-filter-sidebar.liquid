@@ -1,0 +1,468 @@
+{% comment %}
+===================================
+ #MARMETO: Vertical Filter Sidebar
+===================================
+{% endcomment %}
+
+{% assign brand_filter = section.settings.enable_brand_filter %}
+{% assign brand_filter_search = section.settings.enable_brand_filter_search %}
+{% if section.settings.brand_filter_heading != blank %}
+  {% assign brand_heading = section.settings.brand_filter_heading %}
+{% else %}
+  {% assign brand_heading = 'Brand' %}
+{% endif %}
+{% if brand_filter %}
+  {% assign brands = '' %}
+  {% for product in collection.products %}
+	{% if product.vendor != blank %}
+	  {% assign brands = brands | append: product.vendor | append: ',' %}
+	{% endif %}
+  {% endfor %}
+  {% assign brands = brands | split: ',' | uniq %}
+{% endif %}
+
+{% assign pt_filter = section.settings.enable_pt_filter %}
+{% assign pt_filter_search = section.settings.enable_pt_filter_search %}
+{% if section.settings.pt_filter_heading != blank %}
+  {% assign pt_heading = section.settings.pt_filter_heading %}
+{% else %}
+  {% assign pt_heading = 'Product Type' %}
+{% endif %}
+{% if pt_filter %}
+  {% assign pts = '' %}
+  {% for product in collection.products %}
+	{% if product.type != blank %}
+	  {% assign pts = pts | append: product.type | append: ',' %}
+	{% endif %}
+  {% endfor %}
+  {% assign pts = pts | split: ',' | uniq %}
+{% endif %}
+
+{% assign price_slider = section.settings.price_range_slider %}
+{% assign price_filter = section.settings.enable_price_filter %}
+{% assign price_ranges = section.settings.price_ranges %}
+{% if section.settings.price_filter_heading != blank %}
+  {% assign price_heading = section.settings.price_filter_heading %}
+{% else %}
+  {% assign price_heading = 'Price' %}
+{% endif %}
+{% if price_filter %}
+  {% assign prs = '' %}
+  {% if price_ranges != blank %}
+	{% assign prs = price_ranges | split: ',' | uniq %}
+  {% endif %}
+{% endif %}
+
+{% assign enable_size_filter = section.settings.enable_size_filter %}
+{% assign size_swatch = section.settings.enable_size_filter_swatch %}
+{% if section.settings.size_filter_heading != blank %}
+  {% assign size_heading = section.settings.size_filter_heading %}
+{% else %}
+  {% assign size_heading = 'Size' %}
+{% endif %}
+{% assign sizes = '' %}
+{% assign size_filter = false %}
+{% for product in collection.products %}
+  {% for option in product.options_with_values %}
+    {% if option.name == 'Size' %}
+      {% assign size_filter = true %}
+      {% for value in option.values %}
+        {% assign sizes = sizes | append: value | append: ',' %}
+      {% endfor -%}
+    {% endif -%}  
+  {% endfor -%}
+{% endfor -%}
+{% assign sizes = sizes | split: ',' | uniq %}
+
+{% assign enable_discount_filter = section.settings.enable_discount_filter %}
+{% if section.settings.discount_filter_heading != blank %}
+  {% assign discount_heading = section.settings.discount_filter_heading %}
+{% else %}
+  {% assign discount_heading = 'Discount' %}
+{% endif %}
+{% assign discount_filter_options = section.settings.discount_filter_options %}
+
+{% assign enable_availability_filter = section.settings.enable_availability_filter %}
+
+{% assign enable_color_filter = section.settings.enable_color_filter %}
+{% assign color_swatch = section.settings.enable_color_filter_swatch %}
+{% if section.settings.color_filter_heading != blank %}
+  {% assign color_heading = section.settings.color_filter_heading %}
+{% else %}
+  {% assign color_heading = 'Color' %}
+{% endif %}
+{% assign colors = '' %}
+{% assign color_filter = false %}
+{% for product in collection.products limit: 1000 %}
+  {% for option in product.options_with_values %}
+    {% if option.name == 'Color' or option.name == 'Colour' %}
+      {% assign color_filter = true %}
+      {% for value in option.values %}
+        {% assign colors = colors | append: value | append: ',' %}
+      {% endfor -%}
+    {% endif -%}  
+  {% endfor -%}
+{% endfor -%}
+{% assign colors = colors | split: ',' | uniq %}
+
+{% assign enable_tag_filter = section.settings.enable_tag_filter %}
+{% assign enable_multilevel_filter = section.settings.enable_multilevel_filter %}
+
+{% comment %} Filter Heading {% endcomment %}
+{% assign show_filter_heading = section.settings.show_filter_heading %}
+{% if section.settings.sidebar_filter_heading %}
+  {% assign sidebar_filter_heading = section.settings.sidebar_filter_heading %}
+{% else %}
+  {% assign sidebar_filter_heading = 'Filter By' %}
+{% endif %}
+
+{% if show_filter_heading %}
+<div class="mm-filter-heading">
+  <h4>
+    <span class="heading-name">{{ sidebar_filter_heading }}</span>
+   {% comment %} <span class="clear-all">Clear all</span>{% endcomment %}
+  </h4>
+</div>
+{% endif %}
+
+<div class="mm-apply-filter">
+  <button class="mm-close">Close</button>
+  <button class="mm-close">Apply</button>
+</div>
+
+<div class="sidebar-filter-headings">
+  <ul class="heading-list">
+    {% if brand_filter %}
+    <li class="heading-list-item" data-filter-heading="{{ brand_heading | handleize }}">{{ brand_heading }}</li>
+    {% endif %}
+    
+    {% if pt_filter %}
+    <li class="heading-list-item" data-filter-heading="{{ pt_heading | handleize }}">{{ pt_heading }}</li>
+    {% endif %}
+    
+    {% if price_filter %}
+    <li class="heading-list-item" data-filter-heading="{{ price_heading | handleize }}">{{ price_heading }}</li>
+    {% endif %}
+    
+    {% if enable_size_filter and size_filter %}
+    <li class="heading-list-item" data-filter-heading="{{ size_heading | handleize }}">{{ size_heading }}</li>
+    {% endif %}
+    
+    {% if enable_color_filter and color_filter %}
+    <li class="heading-list-item has--active" data-filter-heading="{{ color_heading | handleize }}">{{ color_heading }}</li>
+    {% endif %}
+    
+    {% if enable_tag_filter %}
+      {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+          {% if block.type == 'tag_filters' %}
+          	{% assign filter_name = block.settings.filter_name %}
+    		<li class="heading-list-item has--active" data-filter-heading="{{ filter_name | handleize }}">{{ filter_name }}</li>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    {% endif %}
+    
+    {% if enable_discount_filter and discount_filter_options != blank %}
+    <li class="heading-list-item has--active" data-filter-heading="{{ discount_heading | handleize }}">{{ discount_heading }}</li>
+    {% endif %}
+    
+    {% if enable_availability_filter %}
+    <li class="heading-list-item has--active" data-filter-heading="availability">Availability</li>
+    {% endif %}
+  </ul>
+</div>
+
+
+{% comment %} Filter Sidebar {% endcomment %}
+<div class="sidebar-filter-contents">
+<ul id="sidebar-filter" class="mm-filter">  
+  {% if brand_filter %}
+  <div class="filter-option filter-option-brand" data-filter-name="{{ brand_heading | handleize }}">          
+    <li class="and filter-list" data-tag="Brand">
+      <div class="filter-option-heading">
+        <h4>
+          <span class="heading-text">{{ brand_heading }}</span>
+          <i class="fa fa-caret-down"></i> 
+		  <i class="fa fa-caret-up"></i>
+        </h4>
+      </div>
+      {% if brand_filter_search %}
+      <div class="search-box brand-search-box">
+        <input type="text" class="filter-search-box" placeholder="Search {{ brand_heading }}">
+        {% include 'mm-search-icon' %}
+      </div>
+      {% endif %} 
+      <ul class="filter-content">
+        {% for brand in brands %}
+          <li class="or filter-item" data-tag="{{ brand }}">
+            <span class="filter-item-checkbox"></span>
+            <span class="filter-item-name">{{ brand | capitalize }}</span>
+          </li>
+        {% endfor %}               
+      </ul>
+    </li>
+  </div>
+  {% endif %}
+  
+  
+  {% if price_filter %}
+  <div class="filter-option filter-option-price" data-filter-name="{{ price_heading | handleize }}">          
+    <li class="and filter-list" data-tag="Price">
+      <div class="filter-option-heading">
+        <h4>
+          <span class="heading-text">{{ price_heading }}</span>
+          {% comment %}<i class="fa fa-caret-down"></i> 
+		  <i class="fa fa-caret-up"></i>{% endcomment %}
+        </h4>
+      </div>
+      {% if price_slider %}
+        {% assign chandle = collection.handle %}
+        {% assign sortPrice = collections[chandle].products | sort: 'price' %}
+        {% assign minPrice = sortPrice[0].price_min | plus: 0 %}
+        {% assign maxPrice = sortPrice[-1].price_max | plus: 0 %}
+        <div class="filter-content">
+          <div class="price-inputs">
+            <input type="text" id="minPriceInput" value="{{ minPrice | append: '00' | money }}" />
+            <span>-</span>
+            <input type="text" id="maxPriceInput" value="{{ maxPrice | append: '00' | money }}" />
+          </div>
+          <div class="or filter-item price-values" data-tag="{{ minPrice }}-{{ maxPrice }}"></div>
+
+          <div class="price-slider"></div>
+        </div>
+      {% else %}
+        <ul class="filter-content">
+          {% for pr in prs %}
+            {% assign lpr = pr | split: '-' | first | append: '00' %}
+            {% assign hpr = pr | split: '-' | last | append: '00' %}
+            {% assign lpr = lpr | money_without_trailing_zeros %}
+            {% assign hpr = hpr | money_without_trailing_zeros %}
+            <li class="or filter-item" data-tag="{{ pr }}">
+              <span class="filter-item-checkbox"></span>
+              <span class="filter-item-name">{{ lpr }} - {{ hpr }}</span>            
+            </li>
+          {% endfor %}               
+        </ul>
+      {% endif %}      
+    </li>
+  </div>
+  {% endif %}
+  
+  {% if pt_filter %}
+  <div class="filter-option filter-option-pt" data-filter-name="{{ pt_heading | handleize }}">          
+    <li class="and filter-list" data-tag="ProductType">
+      <div class="filter-option-heading">
+        <h4>
+          <span class="heading-text">{{ pt_heading }}</span>
+          <i class="fa fa-caret-down"></i> 
+		  <i class="fa fa-caret-up"></i>
+        </h4>       
+      </div>
+      {% if pt_filter_search %}
+      <div class="search-box pt-search-box">
+        <input type="text" class="filter-search-box" placeholder="Search {{ pt_heading }}">
+        {% include 'mm-search-icon' %}
+      </div>
+      {% endif %} 
+      <ul class="filter-content">
+        {% for pt in pts %}
+          <li class="or filter-item" data-tag="{{ pt }}">
+            <span class="filter-item-checkbox"></span>
+            <span class="filter-item-name">{{ pt | capitalize }}</span>
+          </li>
+        {% endfor %}               
+      </ul>
+    </li>
+  </div>
+  {% endif %}
+  
+  {% if enable_size_filter and size_filter %}
+  <div class="filter-option filter-option-size" data-filter-name="{{ size_heading | handleize }}">          
+    <li class="and filter-list" data-tag="Size">
+      <div class="filter-option-heading">
+        <h4>
+          <span class="heading-text">{{ size_heading }}</span>
+          <i class="fa fa-caret-down"></i> 
+		  <i class="fa fa-caret-up"></i>
+        </h4>
+      </div>
+      <ul class="filter-content">
+        {% for size in sizes %}
+        <li class="or filter-item {% if size_swatch %}size-swatch-enabled{% endif %}" data-tag="{{ size | replace: ' ','' }}">          
+          {% unless size_swatch %}
+          <span class="filter-item-checkbox"></span>
+          {% endunless %}
+          <span class="filter-item-name">{{ size }}</span>    
+        </li>
+        {% endfor %}        
+      </ul>
+    </li>
+  </div>
+  {% endif %}
+  
+  {% if enable_color_filter and color_filter %}
+  <div class="filter-option filter-option-color" data-filter-name="{{ color_heading | handleize }}">          
+    <li class="and filter-list" data-tag="Color">
+      <div class="filter-option-heading">
+        <h4>
+          <span class="heading-text">{{ color_heading }}</span>
+          <i class="fa fa-caret-down"></i> 
+		  <i class="fa fa-caret-up"></i>
+        </h4>
+      </div>
+      <ul class="filter-content">
+        {% for color in colors %}
+        <li class="or filter-item {% if color_swatch %}color-swatch-enabled{% endif %}" data-tag="{{ color }}" title="{{ color }}">          
+          {% if color_swatch %}
+            <span class="filter-item-swatch color"
+                  style="background: {{ color | replace: ' ','' | downcase }}"
+                  title="{{ color }}">
+            </span>
+          {% else %}
+            <span class="filter-item-checkbox color">
+              <span style="background: {{ color | replace: ' ','' | downcase }}"></span>
+            </span>
+            <span class="filter-item-name">{{ color }}</span> 
+          {% endif %}
+        </li>
+        {% endfor %}        
+      </ul>
+    </li>
+  </div>
+  {% endif %}
+  
+  {% assign filters = '' %}
+  {% for collection_tag in collection.all_tags limit: 1000 %}
+  	{% assign filter = collection_tag %}
+  	{% if filter contains 'filter-' %}
+  		{% assign filters = filters | append: filter | append: ',' %}
+  	{% endif %}
+  {% endfor %}
+  {% assign filters = filters | split: ',' | uniq %}
+
+  {% assign headings = '' %}
+  {% for heading in filters %}
+  	{% assign h = heading | split: 'filter-' | last | split: '--' | first %}
+  	{% assign headings = headings | append: h | append: ',' %}
+  {% endfor %}
+  {% assign headings = headings | split: ',' | uniq %}
+
+  {% if collection.handle == 'all' %}
+  {% else %}
+  {% for heading in headings %}
+  	<div class="filter-option filter-option-tag">
+      <li class="and filter-list" data-tag="Tag">
+        <div class="filter-option-heading">
+          <h4>
+            <span class="heading-text">{{ heading }}</span>
+            <span class="arrow-icon"></span>
+          </h4>
+        </div>
+        <ul class="filter-content">
+          {% for filter in filters %}
+            {% assign h = filter | split: 'filter-' | last | split: '--' | first %}
+            {% if heading == h %}
+              <li class="or filter-item" data-tag="{{ filter }}">  
+                <span class="filter-item-checkbox"></span>
+          		<span class="filter-item-name">{{ filter | split: '--' | last | capitalize }}</span> 
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </li>
+  	</div>
+  {% endfor %}
+  {% endif %}
+  
+  
+  {% if enable_tag_filter %}
+    {% if section.blocks.size > 0 %}
+      {% for block in section.blocks %}
+        {% if block.type == 'tag_filters' %}
+          {% assign filter_name = block.settings.filter_name %}
+  		  {% assign filter_tags = block.settings.filter_tags | split: ',' | uniq %} 
+          <div class="filter-option filter-option-tag" data-filter-name="{{ filter_name | handleize }}">          
+            <li class="and filter-list" data-tag="Tag-{{ forloop.index }}">
+              <div class="filter-option-heading">
+                <h4>
+                  <span class="heading-text">{{ filter_name }}</span>
+                  <i class="fa fa-caret-down"></i> 
+                  <i class="fa fa-caret-up"></i>
+                </h4>
+              </div>
+              <ul class="filter-content">
+                {% for tag in filter_tags %}
+                  {% for collection_tags in collection.all_tags %}                 
+                    {% assign collection_formatted_tags = collection_tags | strip %}
+                    {% assign filter_formatted_tags = tag | strip %}
+                    {% if filter_formatted_tags == collection_formatted_tags %}
+                    <li class="or filter-item" data-tag="{{ filter_formatted_tags }}">                     
+                      <span class="filter-item-checkbox"></span>
+                      <span class="filter-item-name">{{ filter_formatted_tags }}</span>
+                	</li>
+                    {% endif %}
+                  {% endfor %}
+                {% endfor %}
+              </ul>
+            </li>
+          </div>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% endif %}
+  
+  {% if enable_discount_filter and discount_filter_options != blank %}
+  {% assign discount_options_array = discount_filter_options | split: ',' | uniq %}
+  <div class="filter-option filter-option-discount" data-filter-name="{{ discount_heading | handleize }}">          
+    <li class="and filter-list" data-tag="Discount">
+      <div class="filter-option-heading">
+        <h4>
+          <span class="heading-text">{{ discount_heading }}</span>
+          <i class="fa fa-caret-down"></i> 
+		  <i class="fa fa-caret-up"></i>
+        </h4>       
+      </div>      
+      <ul class="filter-content">       
+        {% for discount_options in discount_options_array %}
+          <li class="or filter-item" data-tag="{{ discount_options }}">
+            <span class="filter-item-checkbox"></span>
+            <span class="filter-item-name">{{ discount_options }}% And Above</span>
+          </li>
+        {% endfor %}
+      </ul>
+    </li>
+  </div>
+  {% endif %}
+  
+  {% if enable_availability_filter %}
+  <div class="filter-option filter-option-availability" data-filter-name="availability">          
+    <li class="and filter-list" data-tag="Availability">
+      <div class="filter-option-heading">
+        <h4>
+          <span class="heading-text">Availability</span>
+          <i class="fa fa-caret-down"></i> 
+		  <i class="fa fa-caret-up"></i>
+        </h4>       
+      </div>
+      <ul class="filter-content">       
+        <li class="or filter-item" data-tag="true">
+          <span class="filter-item-checkbox"></span>
+          <span class="filter-item-name">Exclude Out Of Stock</span>
+        </li>
+      </ul>
+    </li>
+  </div> 
+  {% endif %}
+</ul>
+</div>
+
+{% comment %} Mobile Filter Sidebar {% endcomment %}
+{% assign mobile_sidebar_style = section.settings.mobile_sidebar_style %}
+<style>
+  {% if mobile_sidebar_style == 'from_down' %}
+  	@media(max-width: 767px) {.mm-filter-sidebar {left: 0;bottom: -100%;max-height: 450px;box-shadow: 0px 0 8px 3px rgba(0, 0, 0, 0.2);}}
+  {% else %}
+  	@media(max-width: 767px) {.mm-filter-sidebar {top: 0;left: -100%;}}
+  {% endif %}
+</style>

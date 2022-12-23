@@ -1,0 +1,592 @@
+<style>
+  
+    .pdp_wishlisted svg{
+      fill: #00BAC6;
+    } 
+  
+    .share-popup__container{
+      display: none;
+      width: 95%;
+      max-width: 500px;
+      box-shadow: 0 8px 16px rgb(0 0 0 / 15%);
+      z-index: 999;
+      border: 1px solid #ddd;
+      padding: 20px;
+      border-radius: 4px;
+      background-color: #fff;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .share-popup__header{
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #ddd;
+    }
+    .share__header-title{
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 21px;
+      color: #333333;
+    }
+    .share__popup-content{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 20px;
+      margin-bottom: 20px;
+    }
+    .share__button{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: auto;
+      padding: 5px;
+      color: #666666;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.1;
+      letter-spacing: 2px;
+      text-transform: capitalize;
+      text-decoration: none;
+      white-space: nowrap;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+      cursor: pointer;
+    }
+    .share__button span{
+      margin-left: 7px;
+    }
+    .share-popup__close{
+      cursor: pointer;
+    }
+  
+    .pdp-single__vendor{
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 18px;
+      color: #333333 !important;
+    }
+    .pdp-single__title{
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 26px;
+      line-height: 39px;
+      color: #333333 !important;
+      margin-bottom: 12px;
+    }
+    .pdp-rating{
+      display: flex;
+    }
+    .pdp-rating__stars {
+      display: inline-block;
+      font-size: 18px;
+      line-height: 1;
+      border-right: 1px solid #D8D8D8;
+    }
+    .pdp-rating__stars::before {
+      content: '★★★★★';
+      letter-spacing: 2.4px;
+      background: linear-gradient(90deg, #FFD400 calc(var(--rating) / 5 * 100%), #C4C4C4 calc(var(--rating) / 5 * 100%));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        }
+    .pdp-rating__text{
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 21px;
+      color: #666666;
+      padding-left: 6px;
+      padding-right: 10.4px;
+    }
+    .pdp-rating__link{
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 21px;
+      color: #009CE0;
+      margin-left: 10px;
+    }
+    .pdp-price__container {
+      display: flex;
+      flex-wrap: wrap;
+      row-gap: 10px;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0px;
+      border-bottom: 1px solid #D8D8D8;
+      margin-bottom: 20px;
+    }
+    .pdp-price__wrapper {
+      display: flex;
+      align-items: center;
+    }
+    .pdp-price__sell {
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 27px;
+      color: #333333;
+    }
+    .pdp-price__org {
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 21px;
+      text-decoration-line: line-through;
+      color: #999999;
+      margin-left: 8px;
+    }
+    .pdp-price__off {
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 21px;
+      color: #43A047;
+      margin-left: 10px;
+    }
+    .pdp-price__tax {
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 10px;
+      line-height: 15px;
+      color: #999999;
+    }
+    .pdp-share__wrapper {
+      display: flex;
+      margin-left: auto;
+      padding-left: 20px;
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 18px;
+      text-decoration-line: underline;
+      color: #666666;
+    }
+    .pdp-share {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+    .pdp-share__text {
+      padding-left: 8px;
+    }
+    .pdp-save {
+      display: flex;
+  /*     display: none; */
+      align-items: center;
+      padding-left: 15px;
+      margin-left: 15px;
+      border-left: 1px solid #D8D8D8;
+      cursor: pointer;
+    }
+    .pdp-save__text {
+      padding-left: 5px;
+    }
+    .pdp-rating__wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #D8D8D8;
+    }
+    .pdp-rating__wrapper .review-cta{
+      display: flex;
+      justify-content: space-between;
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 500;
+      font-size: calc(12px + (14 - 12) * ((100vw - 375px) / (1440 - 375)));
+      line-height: calc(18px + (21 - 18) * ((100vw - 375px) / (1440 - 375)));
+      color: #00BAC6;
+      cursor: pointer;
+    }
+  
+    @media(max-width:749px){
+      .pdp-single__title{
+        font-size: 20px;
+        line-height: 30px;
+        margin-bottom: 10px;
+      }
+      .pdp-rating__wrapper{
+        padding-bottom: 10px;
+      }
+      .pdp-price__container{
+        padding: 10px 0;
+        margin: 0;
+        border-bottom: none;
+      }
+    }
+  </style>
+  
+  <h2 class="pdp-single__vendor" itemprop="brand">{{ product.vendor }}</h2>
+  
+  <h1 class="pdp-single__title" itemprop="name">{{ product.title }}</h1>
+  
+  {% comment %}
+  {% assign pdpReviewsContent = product.metafields.global.product_reviews %}
+  
+  {% assign ratingNo = pdpReviewsContent.ratings.product_rating %}
+  {% assign ratingText = pdpReviewsContent.reviews_count %}
+  {% endcomment %}
+  <!-- <div class="pdp-rating__wrapper">
+    <div class="pdp-rating">
+      {% if product.metafields.global.product_reviews %}
+      <div class="pdp-rating__stars" style="--rating: {{ ratingNo }};"><span class="pdp-rating__text">{{ ratingNo }}</span></div>
+      <a href="#pdpReviewsSection" class="pdp-rating__link">{{ ratingText }} Ratings</a>
+      {% endif %}
+    </div>
+    <div class="pdp-review__write review-cta">Write a Review</div>
+  </div> -->
+  
+  <div class=pdp-price__container>
+    <div class="pdp-price">
+      <div class="pdp-price__wrapper">
+           <span class="pdp-price__sell" prod-price="{{ product.price_max | divided_by: 100}}">{{ product.price_max | money_without_trailing_zeros }}</span>
+        {% if product.compare_at_price_min > product.price_max %}  
+            {%- assign priceOrg = product.compare_at_price_min -%}
+            {%- assign priceSell = priceOrg | minus: product.price_max -%}
+            {% assign priceOff = priceSell | times: 100 | divided_by: priceOrg  %}
+            <span class="pdp-price__org">{{ product.compare_at_price_min | money_without_trailing_zeros }}</span>
+            {% if priceOff > 0 %}  
+              <span class="pdp-price__off">{{ priceOff }}% off</span>
+            {% endif %}  
+        {% endif %}
+      </div>
+      <p class="pdp-price__tax">Inclusive of all taxes</p>
+    </div>
+    <!-- <div class="pdp-share__wrapper">
+      <div class="pdp-share">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="14" viewBox="0 0 12 14" fill="none">
+          <path d="M10 0.333374C8.90333 0.333374 8 1.2367 8 2.33337C8 2.46068 8.01453 2.58479 8.03776 2.70577L3.28125 5.48051C2.93236 5.18528 2.48805 5.00004 2 5.00004C0.903327 5.00004 0 5.90337 0 7.00004C0 8.09672 0.903327 9.00004 2 9.00004C2.48805 9.00004 2.93236 8.81481 3.28125 8.51957L8.03776 11.293C8.01437 11.4144 8 11.539 8 11.6667C8 12.7634 8.90333 13.6667 10 13.6667C11.0967 13.6667 12 12.7634 12 11.6667C12 10.57 11.0967 9.66671 10 9.66671C9.51165 9.66671 9.06773 9.85293 8.71875 10.1485L3.96224 7.37244C3.98547 7.25146 4 7.12734 4 7.00004C4 6.87274 3.98547 6.74863 3.96224 6.62765L8.71875 3.85291C9.06764 4.14814 9.51195 4.33337 10 4.33337C11.0967 4.33337 12 3.43005 12 2.33337C12 1.2367 11.0967 0.333374 10 0.333374ZM10 1.66671C10.3761 1.66671 10.6667 1.95729 10.6667 2.33337C10.6667 2.70946 10.3761 3.00004 10 3.00004C9.62391 3.00004 9.33333 2.70946 9.33333 2.33337C9.33333 1.95729 9.62391 1.66671 10 1.66671ZM2 6.33338C2.37609 6.33338 2.66667 6.62396 2.66667 7.00004C2.66667 7.37613 2.37609 7.66671 2 7.66671C1.62391 7.66671 1.33333 7.37613 1.33333 7.00004C1.33333 6.62396 1.62391 6.33338 2 6.33338ZM10 11C10.3761 11 10.6667 11.2906 10.6667 11.6667C10.6667 12.0428 10.3761 12.3334 10 12.3334C9.62391 12.3334 9.33333 12.0428 9.33333 11.6667C9.33333 11.2906 9.62391 11 10 11Z" fill="#828282"/>
+        </svg>
+        <span class="pdp-share__text">Share</span>
+      </div>
+      {% if product.type != 'colorLens' %}
+      <div class="pdp-save pdp_notWishlisted"> -->
+        <!--       <svg xmlns="http://www.w3.org/2000/svg" width="12" height="14" viewBox="0 0 12 14" fill="none">
+  <path d="M2.00002 0.333374C1.90794 0.333374 1.81861 0.342964 1.73179 0.360718C1.12408 0.484995 0.666687 1.02212 0.666687 1.66671V13.6667L6.00002 11.6667L11.3334 13.6667V1.66671C11.3334 1.57504 11.3238 1.48507 11.306 1.39848C11.1995 0.87758 10.7891 0.467241 10.2682 0.360718C10.1814 0.342964 10.0921 0.333374 10 0.333374H2.00002Z" fill="#828282"/>
+  </svg> -->
+  
+        <!-- <svg width="20" height="20" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1.68641 6.02665L6 10.5L10.3136 6.02665C10.7931 5.52937 11.0625 4.85491 11.0625 4.15165C11.0625 2.68718 9.91771 1.5 8.50555 1.5C7.82741 1.5 7.17704 1.77937 6.69752 2.27665L6 3L5.30248 2.27665C4.82296 1.77937 4.17259 1.5 3.49445 1.5C2.08228 1.5 0.9375 2.68718 0.9375 4.15165C0.9375 4.85491 1.20689 5.52937 1.68641 6.02665Z" stroke="#00BAC6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg> -->
+  
+        <!--       <span class="pdp-save__text">Save For Later</span> -->
+      <!-- </div>
+      {% endif %}
+    </div> -->
+  </div>
+  
+  <!-- <div class="share-popup__container">
+    <div class="share-popup__wrapper">
+      <div class="share-popup__header">
+        <div class="share__header-title">Share This Product</div>
+        <div class="share-popup__close">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.99032 0.990242C1.79139 0.990294 1.59699 1.04967 1.43198 1.16079C1.26697 1.2719 1.13884 1.4297 1.06399 1.61401C0.98913 1.79832 0.970941 2.00077 1.01175 2.19548C1.05255 2.39018 1.15049 2.56829 1.29305 2.70704L6.58602 8.00001L1.29305 13.293C1.19708 13.3851 1.12046 13.4955 1.06767 13.6176C1.01489 13.7397 0.987001 13.8712 0.985647 14.0042C0.984294 14.1373 1.0095 14.2692 1.05979 14.3924C1.11008 14.5156 1.18444 14.6275 1.27852 14.7216C1.3726 14.8157 1.4845 14.89 1.60768 14.9403C1.73086 14.9906 1.86283 15.0158 1.99587 15.0144C2.12891 15.0131 2.26034 14.9852 2.38247 14.9324C2.5046 14.8796 2.61497 14.803 2.70712 14.707L8.00008 9.41407L13.2931 14.707C13.3852 14.803 13.4956 14.8796 13.6177 14.9324C13.7398 14.9852 13.8713 15.0131 14.0043 15.0145C14.1373 15.0158 14.2693 14.9906 14.3925 14.9403C14.5157 14.89 14.6276 14.8157 14.7217 14.7216C14.8157 14.6275 14.8901 14.5156 14.9404 14.3924C14.9907 14.2692 15.0159 14.1373 15.0145 14.0042C15.0132 13.8712 14.9853 13.7397 14.9325 13.6176C14.8797 13.4955 14.8031 13.3851 14.7071 13.293L9.41415 8.00001L14.7071 2.70704C14.8516 2.56658 14.9503 2.38574 14.9903 2.18822C15.0302 1.9907 15.0096 1.78571 14.931 1.60013C14.8525 1.41454 14.7197 1.25701 14.5501 1.14818C14.3805 1.03935 14.182 0.984302 13.9806 0.990242C13.7208 0.997983 13.4742 1.10656 13.2931 1.29298L8.00008 6.58595L2.70712 1.29298C2.61393 1.19718 2.50248 1.12104 2.37937 1.06904C2.25625 1.01704 2.12396 0.99025 1.99032 0.990242Z" fill="#4F4F4F"/>
+          </svg>
+        </div>
+      </div>
+      <div class="share__popup-content">
+        <a class="share__button" href="http://www.facebook.com/share.php?u=https://aqualens.in{{ product.url }}" target="_blank">
+          <i class="fab fa fa-facebook-square" style="color: #4c6ef5; font-size: 24px;"></i>
+          <span>Facebook</span>
+        </a>
+        <a class="share__button" href="https://twitter.com/share?url=https://aqualens.in{{ product.url }}&amp;text={{ product.title }}&amp;hashtags=Aqualens" target="_blank">
+          <i class="fab fa fa-twitter-square" style="color: rgb(29, 161, 242); font-size: 24px;"></i>
+          <span>Twitter</span>
+        </a>
+      </div>
+    </div>
+  </div> -->
+  
+  <script>
+    
+    function wishlistVariant(){
+       $('.wishlistCount').hide();
+        let bearerToken = sessionStorage.getItem("token");
+        var settings = {
+          "url": `${baseURL}api/v1/wishlist/products`,
+          "method": "GET",
+          "timeout": 0,
+          "headers": {
+            "Authorization": "Bearer "+bearerToken
+          },
+        };
+  
+        $.ajax(settings).done(function (response) { 
+          console.log(response);
+          if(response.data){
+              $('.wishlistCount').show();
+          $('.wishlistCount').html(response.data.length);
+            }
+          for(let i=0; i<response.data.length; i++){
+            if(response.data[i].variant_id == '{{product.selected_or_first_available_variant.id }}'){
+                 $('.pdp-save').addClass("pdp_wishlisted");
+          $('.pdp-save').removeClass("pdp_notWishlisted");
+            $('.pdp-save').attr("wishlist_id",response.data[i].id);
+               }
+          
+          $(".color__variant-label").each(function(){
+            let varaintWishlisted = $(this).attr("data-id");
+            if(varaintWishlisted == response.data[i].variant_id){
+              $(this).find('.wishlist_icon').removeClass('notWishlisted');
+              $(this).find('.wishlist_icon').addClass('wishlisted');
+               $(this).find('.wishlist_icon').attr("wishlist_id",response.data[i].id);
+            }
+            
+           })
+          }
+         
+          
+        })
+      }
+
+    $(function () {
+            
+      $(".pdp-rating__link").on('click', function (el) {
+          el.preventDefault();
+          $('html, body').animate({
+              scrollTop: $($(this).attr('href')).offset().top - 70
+          }, 500, 'linear');
+      });
+  
+      $(".pdp-share").on('click', function () {
+        if (navigator.share) { 
+        navigator.share({
+          title: '{{ product.title }}',
+          url: 'https://aqualens.in'+'{{ product.url }}'
+        }).then(() => {
+          console.log('Thanks for sharing!');
+        })
+        .catch(console.error);
+        }else {
+          $(".share-popup__container").show();
+          $("body").css({"overflow":"hidden"}); 
+          $(document).mouseup(function (e) {
+              if ($(e.target).closest(".share-popup__container").length === 0) {
+                  $(".share-popup__container").hide();
+                  $("body").css({"overflow":"auto"}); 
+              }
+          });
+        }
+      })
+  
+      $(document).on("click",".share-popup__close, .share__button",function(){
+        $(".share-popup__container").hide();
+        $("body").css({"overflow":"auto"}); 
+      })
+      
+       function wishlistPdp(wishlisData){
+         let bearerToken = sessionStorage.getItem("token");
+        $.ajax({
+          method: "POST",
+          url: `${baseUrl}api/v1/wishlist/add`,
+          headers: {
+            "Authorization": "Bearer "+bearerToken,
+            "Content-Type": "application/json",
+          },
+          dataType: "json",
+          data: JSON.stringify(wishlisData)
+        })
+        .done(function(response) {
+          console.log("Success");
+          console.log(response);
+          let wishlistCount = 0;
+          if($('.wishlistCount').html() > 0){
+            wishlistCount = parseInt($('.wishlistCount').html()) +1 ;
+            
+          }
+          $('.wishlistCount').html(wishlistCount);
+          $('.pdp-save').addClass("pdp_wishlisted");
+          $('.pdp-save').removeClass("pdp_notWishlisted");
+          $('.pdp-save').attr("wishlist_id",response.data);
+        })
+        .fail(function(error){
+          console.log("Error",error);
+        })
+      }
+    
+      $(document).on('click','.pdp_notWishlisted',function(e){
+        console.log("wishlist icon clicked");
+        {% unless customer %}
+      let popup = $('#popup--main__login').html();
+      let locationCurrent = window.location.href ;
+      $('.url_redirect').val(locationCurrent);
+      customPopUp(popup,true);
+      {% endunless %}
+      
+        //       let variantId = $(this).parents(".color__variant-label").attr('data-id'); 
+        let wishlisData = {
+          "product_id": '{{ product.id }}',
+          "variant_id": '{{product.selected_or_first_available_variant.id }}'
+        }
+        
+        {% if product.type == "Medical" %}
+          let leftSPH = $(".power__left-sph").val();
+          let rightSPH = $(".power__right-sph").val();
+          let prescriptionObj = {};
+           wishlisData.prescription = {};
+          //       let bothEye = $(".both-eye").prop('checked')
+          if(leftSPH != null || rightSPH != null){
+  
+  
+            if(leftSPH != null){
+  
+  
+              let leftPrescription =  {
+                "left" : {
+                  "sph" : leftSPH
+                }
+  
+              }
+  
+              prescriptionObj = {...prescriptionObj,...leftPrescription}
+  
+            }
+            if(rightSPH != null){
+              let rightPrescription = {
+                "right": {
+                  "sph" : rightSPH
+                }
+              }
+  
+              prescriptionObj = {...prescriptionObj,...rightPrescription}
+            }
+            //             wishlisData.prescription.right.sph = leftSPH;
+          }
+          else{
+            //           wishlisData['prescription']['left']['sph'] = "Call Me/Email Me for Power";
+            //           wishlisData.prescription.right.sph = "Call Me/Email Me for Power";
+            prescriptionObj = {
+              "left" : {
+                "sph" : "Call Me/Email Me for Power"
+              },
+              "right" : {
+                "sph" : "Call Me/Email Me for Power"
+              }
+            }
+          }
+         wishlisData.prescription = prescriptionObj ;
+        
+        {% elsif product.type == "toric"%}
+        
+         let leftSPH = $(".power__left-sph").val();
+          let rightSPH = $(".power__right-sph").val();
+        let leftCyl = $(".power__left-cyl").val();
+        let rightCyl = $(".power__right-cyl").val();
+        let leftAxis = $(".power__left-axis").val();
+        let rightAxis = $(".power__right-axis").val();
+          let prescriptionObj = {};
+           wishlisData.prescription = {};
+          //       let bothEye = $(".both-eye").prop('checked')
+          if(leftSPH != null || rightSPH != null){
+           
+  
+            if(leftSPH != null){
+  
+  
+              let leftPrescription =  {
+                "left" : {
+                  "sph" : leftSPH,
+                  "cyl": leftCyl,
+                 "axis":leftAxis
+                }
+  
+              }
+  
+              prescriptionObj = {...prescriptionObj,...leftPrescription}
+  
+            }
+            if(rightSPH != null){
+              let rightPrescription = {
+                "right": {
+                  "sph" :rightSPH,
+                  "cyl": rightCyl,
+                 "axis":rightAxis
+                }
+              }
+  
+              prescriptionObj = {...prescriptionObj,...rightPrescription}
+            }
+            //             wishlisData.prescription.right.sph = leftSPH;
+          }
+          else{
+            //           wishlisData['prescription']['left']['sph'] = "Call Me/Email Me for Power";
+            //           wishlisData.prescription.right.sph = "Call Me/Email Me for Power";
+            prescriptionObj = {
+              "left" : {
+                "sph" : "Call Me/Email Me for Power",
+                "cyl": "Call Me/Email Me for Power",
+                 "axis":"Call Me/Email Me for Power"
+              },
+              "right" : {
+                "sph" : "Call Me/Email Me for Power",
+                "cyl": "Call Me/Email Me for Power",
+                 "axis":"Call Me/Email Me for Power"
+              }
+            }
+          }
+         wishlisData.prescription = prescriptionObj ;
+        
+        {% endif %}
+  
+         
+        
+         wishlistPdp(wishlisData);
+      })
+  
+    
+      //  setTimeout(function() { wishlistVariant(); }, 1000);
+   
+    $(document).on('click','.pdp_wishlisted, .wishlisted',function(e){
+     
+        let bearerToken = sessionStorage.getItem("token");
+      let wishlistId = $(this).attr("wishlist_id");
+      let wishlistEle = $(this) ;
+        var settings = {
+          "url": `${baseUrl}api/v1/wishlist/remove/${wishlistId}`,
+          "method": "GET",
+          "timeout": 0,
+          "headers": {
+            "Authorization": "Bearer "+bearerToken
+          },
+        };
+  
+      $.ajax(settings).done(function (response) { 
+         console.log($(this).hasClass('wishlist_icon'));
+     let wishlistCount = 0;
+          if($('.wishlistCount').html() > 0){
+            wishlistCount = parseInt($('.wishlistCount').html()) - 1 ;
+            
+          }
+          $('.wishlistCount').html(wishlistCount);
+        
+        if(wishlistEle.hasClass('wishlist_icon')){
+          wishlistEle.addClass('notWishlisted');
+              wishlistEle.removeClass('wishlisted');
+        }else{ 
+          $('.pdp-save').removeClass("pdp_wishlisted");
+          $('.pdp-save').addClass("pdp_notWishlisted");
+        }
+      
+      })
+    })
+    });
+  </script>

@@ -1,0 +1,350 @@
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Quattrocento&display=swap');
+
+    .main-content{
+      padding: 0px;
+    }
+    .header-wrapper.hero__header{
+      box-shadow: 0px 2px 10px -6px rgb(0 0 0 / 25%);
+    }
+  
+    .prodcut__page-width {
+      max-width: 1270px;
+      margin: 0 auto;
+      padding-top: 20px;
+      padding-bottom: 10px;
+    }
+    .poduct__page-container {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 0 15px;
+    }
+    .product__page-left {
+      flex-basis: 50%;
+      width: 50%;
+      padding-right: 10px;
+    }
+    .product__page-right {
+      flex-basis: 50%;
+      width: 50%;
+      padding-left: 10px;
+    }
+    @media(max-width:749px){
+      .prodcut__page-width {
+        padding-top: 10px;
+        padding-bottom: 0px;
+      }
+      .poduct__page-container {
+        padding: 0;
+      }
+      .product__page-left {
+        flex-basis: 100%;
+        width: 100%;
+        padding: 0px 15px;
+      }
+      .product__page-right {
+        flex-basis: 100%;
+        width: 100%;
+        padding: 0px 15px 0px;
+      }
+      .footer__section{
+        display: none;
+      }
+    }
+  </style>
+<div class="prodcut__page-width">
+  <div class="poduct__page-container">
+    <div class="product__page-left">
+      {% render 'pdp-image-slider' %}
+    </div>
+    
+    <div class="product__page-right">
+
+      {% render 'pdp-content' %}
+      {% render 'pdp-offer-section' %}  
+      {% if product.type == 'Clear Lenses' %}
+        {% render 'pdp-clear-lens' %}
+      {% endif %}
+      {% if product.type == 'Color Lenses' %}
+        {% render 'pdp-color-lens' %}
+      {% endif %}
+      {% if product.type == 'Color Power Lenses' %}
+        {% render 'pdp-color-power-lens' %}
+      {% endif %}
+      {% if product.type == 'speciality lens' %}
+        {% render 'pdp-speciality-lens' %}
+      {% endif %}
+      {% if product.type == 'Solution' %}
+        {% render 'pdp-solution-case' %}
+      {% endif %}
+      {% if product.type == 'Accessories' %}
+        {% render 'pdp-solution-case' %}
+      {% endif %}
+      {% render 'pdp-description' %}   
+    </div>
+  </div>
+
+</div>
+ 
+
+{% render 'pdp-recommendations' %}
+{% render 'pdp-a-plus-content' %}
+
+{% unless product.empty == empty %}
+<script type="application/json" id="ProductJson-{{ section.id }}">
+    {{ product | json }}
+</script>
+{% endunless %}
+
+
+
+{% schema %}
+{
+  "name": {
+    "de": "Produktseiten",
+    "en": "Product pages",
+    "es": "Páginas de productos",
+    "fr": "Pages de produits",
+    "it": "Pagine di prodotto",
+    "ja": "商品ページ",
+    "pt-BR": "Páginas de produtos"
+  },
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "zoom_enable",
+      "label": {
+        "de": "Aktivieren des Bildzooms",
+        "en": "Enable image zoom",
+        "es": "Habilitar zoom de imagen",
+        "fr": "Activer le zoom sur image",
+        "it": "Abilita lo zoom dell'immagine",
+        "ja": "画像ズームを有効にする",
+        "pt-BR": "Ative o zoom da imagem"
+      }
+    },
+    {
+      "type": "checkbox",
+      "id": "social_sharing_products",
+      "label": {
+        "de": "Teilen von Produkten aktivieren",
+        "en": "Enable product sharing",
+        "es": "Habilitar compartir productos",
+        "fr": "Activer le partage de produits",
+        "it": "Permetti condivisione del prodotto",
+        "ja": "商品の共有を有効にする",
+        "pt-BR": "Habilite o compartilhamento de produtos"
+      },
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "product_vendor_enable",
+      "label": {
+        "de": "Produktverkäufer anzeigen",
+        "en": "Show product vendor",
+        "es": "Mostrar proveedor del producto",
+        "fr": "Afficher le distributeur du produit",
+        "it": "Indica fornitore prodotto",
+        "ja": "商品の販売元を表示する",
+        "pt-BR": "Exiba o fornecedor do produto"
+      }
+    },
+    {
+      "type": "select",
+      "id": "image_layout",
+      "label": {
+        "de": "Bildanzeige",
+        "en": "Image display",
+        "es": "Visualización de imagen",
+        "fr": "Affichage de l'image",
+        "it": "Visualizzazione immagine",
+        "ja": "画像表示",
+        "pt-BR": "Exibição de imagem"
+      },
+      "default": "stacked",
+      "options": [
+        {
+          "value": "stacked",
+          "label": {
+            "de": "Gestapelt",
+            "en": "Stacked",
+            "es": "Stacked",
+            "fr": "Empiler",
+            "it": "Elenco",
+            "ja": "スタックされました",
+            "pt-BR": "Empilhado"
+          }
+        },
+        {
+          "value": "thumbnails",
+          "label": {
+            "de": "Vorschaubilder",
+            "en": "Thumbnails",
+            "es": "Miniaturas",
+            "fr": "Vignettes",
+            "it": "Miniature",
+            "ja": "サムネイル",
+            "pt-BR": "Miniaturas"
+          }
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": {
+        "de": "Produktoptionsformular",
+        "en": "Product options form",
+        "es": "Formulario de opciones de producto",
+        "fr": "Formulaire d'options de produit",
+        "it": "Modulo delle opzioni di prodotto",
+        "ja": "商品オプションのフォーム",
+        "pt-BR": "Formulário de opções de produtos"
+      }
+    },
+    {
+      "type": "checkbox",
+      "id": "quantity_enabled",
+      "label": {
+        "de": "Mengenauswahl anzeigen",
+        "en": "Show quantity picker",
+        "es": "Mostrar selector de cantidad",
+        "fr": "Afficher le sélecteur de quantité",
+        "it": "Mostra selettore di quantità",
+        "ja": "数量ピッカーを表示する",
+        "pt-BR": "Exibir seletor de quantidade"
+      }
+    },
+    {
+      "type": "select",
+      "id": "product_selector",
+      "label": {
+        "de": "Auswahlart",
+        "en": "Picker type",
+        "es": "Tipo de selector",
+        "fr": "Type de sélecteur",
+        "it": "Tipo di selettore",
+        "ja": "ピッカーの種類",
+        "pt-BR": "Tipo de seletor"
+      },
+      "options": [
+        {
+          "value": "radio",
+          "label": {
+            "de": "Schaltfläche",
+            "en": "Button",
+            "es": "Botón",
+            "fr": "Bouton",
+            "it": "Pulsante",
+            "ja": "ボタン",
+            "pt-BR": "Botão"
+          }
+        },
+        {
+          "value": "select",
+          "label": {
+            "de": "Dropdown",
+            "en": "Dropdown",
+            "es": "Desplegable",
+            "fr": "Menu déroulant",
+            "it": "Menu a tendina",
+            "ja": "ドロップダウン",
+            "pt-BR": "Menu suspenso"
+          }
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": {
+        "de": "Schaltfläche In den Warenkorb",
+        "en": "Add to cart button",
+        "es": "Añadir al carrito",
+        "fr": "Bouton d'ajout au panier",
+        "it": "Pulsante \"Aggiungi al carrello\"",
+        "ja": "カートボタンに追加する",
+        "pt-BR": "Botão Adicionar ao carrinho"
+      }
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_payment_button",
+      "label": {
+        "de": "Dynamischen Checkout-Button anzeigen",
+        "en": "Show dynamic checkout button",
+        "es": "Mostrar botón de pago dinámico",
+        "fr": "Afficher le bouton de passage à la caisse dynamique",
+        "it": "Mostra pulsante di check-out dinamico",
+        "ja": "ダイナミックチェックアウトボタンを表示する",
+        "pt-BR": "Exibir botão dinâmico de finalização da compra"
+      },
+      "info": {
+        "de": "Jeder Kunde sieht seine bevorzugte Zahlungsmethode aus den in Ihrem Shop verfügbaren Zahlungsmethoden wie PayPal oder Apple Pay. [Mehr Infos](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+        "en": "Each customer will see their preferred payment method from those available on your store, such as PayPal or Apple Pay. [Learn more](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+        "es": "Cada cliente verá su forma de pago preferida entre las disponibles en tu tienda, como PayPal o Apple Pay. [Más información](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+        "fr": "Chaque client verra son moyen de paiement préféré parmi ceux qui sont proposés sur votre boutique, tels que PayPal ou Apple Pay. [En savoir plus](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+        "it": "Ogni cliente vedrà il suo metodo di pagamento preferito tra quelli disponibili nel tuo negozio, come PayPal o Apple Pay. [Maggiori informazioni](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+        "ja": "PayPalやApple Payなど、ストアで利用可能な希望の決済方法がお客様に表示されます。[もっと詳しく](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+        "pt-BR": "Cada cliente verá seu método de pagamento preferido dentre os disponíveis na loja, como PayPal ou Apple Pay. [Saiba mais](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)"
+      },
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "add_to_cart_button_size",
+      "label": {
+        "de": "Schaltflächengröße",
+        "en": "Button size",
+        "es": "Tamaño del botón",
+        "fr": "Taille du bouton",
+        "it": "Dimensione pulsante",
+        "ja": "ボタンのサイズ",
+        "pt-BR": "Tamanho do botão"
+      },
+      "default": "small",
+      "options": [
+        {
+          "value": "small",
+          "label": {
+            "de": "Klein",
+            "en": "Small",
+            "es": "Pequeña",
+            "fr": "Petit",
+            "it": "Piccolo",
+            "ja": "小",
+            "pt-BR": "Pequeno"
+          }
+        },
+        {
+          "value": "large",
+          "label": {
+            "de": "Groß",
+            "en": "Large",
+            "es": "grande",
+            "fr": "Grand",
+            "it": "Grande",
+            "ja": "大",
+            "pt-BR": "Grande"
+          }
+        }
+      ]
+    },{
+      "type": "text",
+      "id": "heading_text",
+      "label": "Heading"
+      },{
+      "type": "collection",
+      "id": "recommendation_collection",
+      "label": "Recommendation collection"
+      },{
+          "type":      "range",
+          "id":        "grid_size",
+          "min":       3,
+          "max":        5,
+          "step":       1,
+          "default":   5,
+          "label": "grid size"
+      }
+  ]
+}
+{% endschema %}

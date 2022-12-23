@@ -1,0 +1,272 @@
+<style>
+    /* .a_plus_reasons_background {
+        background: rgba(243, 113, 109, 0.15); 
+       
+    } */
+
+      .a_plus_reasons_background {
+        margin-top: 5px;
+    }
+    .a_plus_reasons {
+        max-width: 1240px;
+        margin: auto;
+        margin-top: 0px;
+        background-color: #00BAC6;
+    }
+
+    .a_plus_reasons h2 {
+        padding: 27px 0px;
+        font-family: 'Poppins' !important;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 32px;
+        line-height: 123%;
+        text-align: center;
+        color: white;
+        text-transform: capitalize;
+        letter-spacing: 0;
+    }
+
+    .a_plus_reasons_slider .custom-banner-wrap {
+        position: relative;
+        padding-bottom: 48%;
+        width: 100%;
+        background: #FFFFFF;
+        border-radius: 4px
+    }
+
+    .a_plus_reasons_slider .custom-banner-wrap img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .slick-slide {
+        height: auto;
+    }
+
+    .a_plus_reasons .slick-next:before,
+    .a_plus_reasons .slick-prev:before {
+        content: "";
+    }
+
+    .a_plus_reasons .slick-next:focus {
+        display: none;
+    }
+
+    .a_plus_reasons .slick-prev:focus {
+        display: none;
+    }
+
+    .a_plus_reasons .arrow {
+        border: solid #3069B3;
+     border-width: 0 2px 2px 0;
+     display: inline-block;
+     padding: 3px;
+    }
+
+    .a_plus_reasons .right {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-45deg);
+    }
+
+    .a_plus_reasons .left {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(135deg);
+    }
+
+    .a_plus_reasons .slick-prev {
+        left: 0px;
+        text-align: right;
+    }
+
+    .a_plus_reasons .slick-next {
+        right: 0px;
+        text-align: left;
+    }
+
+    .a_plus_reasons .slick-prev {
+        position: absolute;
+     display: block;
+     width: 40px;
+     height: 40px;
+     background: white;
+     border: 1px solid #3069B3;
+     border-radius: 50%;
+     line-height: 0px;
+     font-size: 0px;
+     cursor: pointer;
+     top: 50%;
+     left: 0px;
+     margin-left: 10px;
+     -webkit-transform: translate(0, -50%);
+     -ms-transform: translate(0, -50%);
+     transform: translate(0, -50%);
+     padding: 0;
+     z-index: 99;
+    }
+
+    .a_plus_reasons .slick-next {
+        position: absolute;
+     display: block;
+     width: 40px;
+     height: 40px;
+     background: white;
+     border: 1px solid #3069B3;
+     border-radius: 50%;
+     line-height: 0px;
+     font-size: 0px;
+     cursor: pointer;
+     top: 50%;
+     margin-right: 10px;
+     -webkit-transform: translate(0, -50%);
+     -ms-transform: translate(0, -50%);
+     transform: translate(0, -50%);
+     padding: 0;
+     z-index: 99;
+    }
+
+    .a_plus_reasons_btns {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1.25rem;
+        padding: 20px 0 30px 0px;
+    }
+
+    .a_plus_reasons_label {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 123%;
+        text-align: center;
+        color: #00B9C5;
+        background: white;
+        border-radius: 100px;
+        padding: 20px 12px;
+        cursor: pointer;
+    }
+
+    .reasonBtnActive {
+        background: #00B9C5;
+        border: 2px solid white;
+        color: white;
+        font-weight: 600;
+
+    }
+
+    .a_plus_reasons_label:hover {
+        background: #00B9C5;
+        color: white;
+        border: 2px solid white;
+        font-weight: 600;
+        transition: 0.5s;
+    }
+
+    @media(max-width:749px) {
+/*         .a_plus_reasons .slick-prev {
+            width: 30px
+        }
+
+        .a_plus_reasons .slick-next {
+            width: 30px
+        }
+
+        .a_plus_reasons .arrow {
+            border-width: 0 3px 3px 0;
+            padding: 5px;
+        }
+ */
+
+        .a_plus_reasons_btns {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.25rem;
+            padding: 6px 0 20px 0px;
+        }
+
+        .a_plus_reasons_label {
+            font-size: 12px;
+            padding: 8px 7px;
+        }
+
+        .a_plus_reasons h2 {
+            font-size: 14px;
+            padding: 17px 0px;
+            margin-bottom: 0;
+        }
+
+    }
+</style>
+
+{% if product.description contains '<!--aPlusReasons-->' %}
+    {% assign aPlusReasons = product.description | split: '<!--aPlusReasons-->'| last %}
+    {% assign aReasons = aPlusReasons | split: '<!--aPlusReasonsEnd-->' | first %}
+{% endif %}
+
+<div class="a_plus_reasons_background">
+    {{ aReasons }}
+</div>
+<script>
+    $('.a_plus_reasons_slider').slick({
+        dots: false,
+        infinite: true,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: true,
+        autoplay: false,
+        autoplaySpeed: 5000,
+        prevArrow: '<div class="slick-prev"><i class="arrow left"></i></div>',
+        nextArrow: '<div class="slick-next"><i class="arrow right"></i></div>',
+        responsive: [
+            {
+                breakpoint: 949,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    arrows: true,
+                    dots: false,
+                    autoplay: false,
+                    autoplaySpeed: 5000
+                }
+            },
+            {
+                breakpoint: 749,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    arrows: true,
+                    dots: false,
+                    autoplay: false,
+                    autoplaySpeed: 5000
+                }
+            }
+        ]
+    });
+
+    $(document).on("click", ".a_plus_reasons_label", function () {
+        $('.a_plus_reasons_label').removeClass('reasonBtnActive');
+        let btnText = $(this).text().toUpperCase().trim();
+        let $reasonBtnActive = $(this);
+        $('.a_plus_reasons_slider_wrapper').each(function () {
+            let $self = $(this);
+            let labelText = $(this).find('img').attr("data-text").toUpperCase().trim();
+            if (btnText == labelText) {
+                $reasonBtnActive.addClass('reasonBtnActive');
+                var selectedSlide = $self.attr('data-slick-index');
+                $('.a_plus_reasons_slider').slick('slickGoTo', selectedSlide);
+            }
+        })
+    })
+</script>

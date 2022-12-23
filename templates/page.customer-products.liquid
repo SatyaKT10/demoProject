@@ -1,0 +1,1869 @@
+{% include 'mobile-header' %}
+<div class="page-width customer-products" style="padding-top: 52px; margin-bottom: 15px;">
+  <div class="customer__products-page">
+    <div class="customer__products-header">
+      Select Product
+    </div>
+    <div class="customer__products-container">
+      <div class="select-field">
+        <label for="categoryB2C">Category</label>
+        <select id="categoryB2C" class="option-selector">
+          <option value="default-category" selected="selected" hidden disabled >Select Category</option>
+          <option value="159542083720">Clear Lens Daily</option>
+          <option value="159576490120">Clear Lens Monthly</option> 
+          <option value="176731095176">Color Lens Plano</option>          
+          <option value="189310337160">Color Lens Powered</option>
+          <option value="260544987272">Toric Lens</option>
+          <option value="156410937480">Lens Solution</option>
+        </select>
+      </div>
+      <div class="select-field">
+        <label for="productB2C">Product</label>
+        <select id="productB2C" class="option-selector" disabled>
+        </select>    
+      </div>
+      <div class="product-details-container">
+        <div class="customer__products-header product-details-header">
+          Product Details
+        </div>
+        <div class="product-details-wrapper">      
+        </div>
+      </div>
+    </div>
+    <div class="customer__products-btn-wrapper">
+      <button class="customer__products-btn" disabled>Next</button>
+    </div>
+  </div>
+  <div class="product_summary-page">
+    <div class="customer__products-header">
+      Order Details
+    </div>
+    <div class="product_summary-container">
+      <div class="product_summary-wrapper">
+        <div class="product_summary-header">
+          
+        </div>
+        
+        <div class="product_summary-title">
+          <p class="product_summary-title-text">Power</p>
+          <p class="product_summary-title-text">Qty.</p>
+        </div>
+        <div class="product_summary-content-wrapper">
+
+        </div>
+        <div class="product_summary-total">
+          <div class="product_summary-total-text">Total</div>
+          <div class="product_summary-total-price">Rs. <span class="total-summary-price"></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="product__summary-btn-wrapper">
+      <button class="product__summary-btn">Proceed to Pay</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+  let baseUrl = "https://subscriber.aqualens.in/";
+  let customerIdB2C = sessionStorage.getItem("customerIdB2C");
+  let cartId = sessionStorage.getItem("cartIdB2C");
+  let bearerTokenB2C = sessionStorage.getItem("bearerTokenB2C");
+  let customerDataB2C = JSON.parse(sessionStorage.getItem("customerDataB2C"));
+  let customerIdB2B = '{{ customer.id }}';
+  let orderTotal = "";
+  let categoryType = "";
+
+  
+  function productOption(optionData,categoryType){
+    let optionHtml = `<option value="default-product" selected="selected" hidden disabled >Select Product</option>`;
+    console.log(categoryType);
+    
+    $(".customer__products-btn").prop("disabled",true).removeClass("product-btn-active");
+    $(".product-details-wrapper").html("");
+    $(".product-details-container").hide();
+    
+    optionData.forEach(function(option){
+      let variants = JSON.stringify(option.variants);
+      //console.log(option);
+      optionHtml += `<option value="${option.id}" data-category-type="${categoryType}"  data-product-type="${option.product_type}" data-variant='${variants}'>${option.title}</option>`
+    })
+    $("#productB2C").html(optionHtml);
+    $("#productB2C").attr("disabled",false);
+    
+    let productDetails = "";
+    if(categoryType.includes("Plano")){
+      productDetails = "";
+      productDetails = `<div class="type-color">
+			<div class="product__deatils-wapper">
+				<div class="product__deatils-title"></div>
+				<div class="product__deatils-price product__deatils-flex">
+                  <div class="product__deatils-label">Customer Price (Per Box)</div>
+					<div class="product__deatils-text">Rs. <span class="product-price"></span></div>
+  				</div>
+				<div class="product__deatils-cashback product__deatils-flex">
+                  <div class="product__deatils-label">Cashback Amount (Per Box)</div>
+					<div class="product__deatils-text">Rs. <span class="product-cashback"></span></div>
+                </div>
+			</div>
+            <div class="details-header grid-gap-color">
+              <div>Color</div>
+              <div>Boxes</div>
+            </div>
+			<div class="details-wrapper">
+            <div class="details-content grid-gap-color">
+              <div class="color-details">
+                <select class="color-selection variant-selection">
+                  <option value="default">Select Color</option>
+                </select>
+              </div>
+              <div class="box-detail">
+                <input type="number" name="box" class="box-input" placeholder="Enter Qty.">
+              </div>
+            </div>
+            <div class="add-more-btn">
+              <span>Add More</span>
+            </div>
+			</div>
+          </div>`
+    }
+    
+    if(categoryType.includes("Powered")){
+      productDetails  = "";
+      productDetails = `<div class="type-color-power">
+			<div class="product__deatils-wapper">
+				<div class="product__deatils-title"></div>
+				<div class="product__deatils-price product__deatils-flex">
+                  <div class="product__deatils-label">Customer Price (Per Box)</div>
+					<div class="product__deatils-text">Rs. <span class="product-price"></span></div>
+  				</div>
+				<div class="product__deatils-cashback product__deatils-flex">
+                  <div class="product__deatils-label">Cashback Amount (Per Box)</div>
+					<div class="product__deatils-text">Rs. <span class="product-cashback"></span></div>
+                </div>
+			</div>
+            <div class="details-header grid-gap-power">
+              <div>Color</div>
+              <div>Power</div>
+              <div>Boxes</div>
+            </div>
+			<div class="details-wrapper">
+            <div class="details-content grid-gap-power">
+              <div class="color-detail">
+                <select class="color-selection-powered variant-selection">
+                  <option value="default">Select Color</option>
+                </select>
+              </div>
+              <div class="power-detail">
+                <select class="power-selection-powered variant-selection" disabled>
+                  <option value="default">Select Power</option>
+                </select>
+              </div>
+              <div class="box-detail">
+                <input type="number" name="box" class="box-input" placeholder="Enter Qty.">
+              </div>
+            </div>
+            <div class="add-more-btn">
+              <span>Add More</span>
+            </div>
+			</div>
+          </div>`
+      
+    }
+    
+    if(categoryType.includes("Clear")){      
+      productDetails  = "";
+      productDetails  = `<div class="type-clear">
+			<div class="product__deatils-wapper">
+				<div class="product__deatils-title"></div>
+				<div class="product__deatils-price product__deatils-flex">
+                  <div class="product__deatils-label">Customer Price (Per Box)</div>
+					<div class="product__deatils-text">Rs. <span class="product-price"></span></div>
+  				</div>
+				<div class="product__deatils-cashback product__deatils-flex">
+                  <div class="product__deatils-label">Cashback Amount (Per Box)</div>
+					<div class="product__deatils-text">Rs. <span class="product-cashback"></span></div>
+                </div>
+			</div>
+            <div class="details-header grid-gap-clear">
+              <div></div>
+              <div>Power</div>
+              <div>Boxes</div>
+            </div>
+            <div class="details-content grid-gap-clear">
+              <div class="power-eye">Left Eye</div>
+              <div class="power-detail">
+                <select class="power-selection left-eye-power variant-selection">
+                  <option value="default">Select Power</option>
+                </select>
+              </div>
+              <div class="box-detail">
+                <input type="number" name="box" class="box-input left-eye" placeholder="Enter Qty." disabled>
+              </div>
+            </div>
+            <div class="details-content grid-gap-clear">
+              <div class="power-eye">Right Eye</div>
+              <div class="power-detail">
+                <select class="power-selection right-eye-power variant-selection">
+                  <option value="default">Select Power</option>
+                </select>
+              </div>
+              <div class="box-detail">
+                <input type="number" name="box" class="box-input right-eye" placeholder="Enter Qty." disabled>
+              </div>
+            </div>
+          </div>`
+    }
+    
+    if(categoryType.includes("Toric")){
+      productDetails  = "";
+      productDetails = `<div class="type-toric">
+			<div class="product__deatils-wapper">
+				<div class="product__deatils-title"></div>
+				<div class="product__deatils-price product__deatils-flex">
+                  <div class="product__deatils-label">Customer Price (Per Box)</div>
+					<div class="product__deatils-text">Rs. <span class="product-price"></span></div>
+  				</div>
+				<div class="product__deatils-cashback product__deatils-flex">
+                  <div class="product__deatils-label">Cashback Amount (Per Box)</div>
+					<div class="product__deatils-text">Rs. <span class="product-cashback"></span></div>
+                </div>
+			</div>
+			<div class="details-wrapper">
+            <div class="details-content grid-gap-toric">
+              <div class="power-detail power-details-toric">
+                <label for="toricPower" class="label">Power</label> 
+                <select class="power-selection-toric variant-selection" id="toricPower">
+                  <option value="default">Select Power</option>
+                </select>
+              </div>
+              <div class="cyl-detail">
+                <label for="toricCYL" class="label">CYL</label> 
+                <select class="cyl-selection variant-selection" id="toricCYL" disabled>
+                  <option value="default">Select CYL</option>
+                </select>
+              </div>    
+              <div class="axis-detail">
+                <label for="toricAxis" class="label">Axis</label> 
+                <select class="axis-selection variant-selection" id="toricAxis" disabled>
+                  <option value="default">Select Axis</option>
+                </select>
+              </div>
+              
+              <div class="box-detail">
+                <label for="toricBox" class="label">Boxes</label> 
+                <input type="number" name="box" class="box-input" id="toricBox" placeholder="Enter Qty.">
+              </div>
+            </div>
+            <div class="add-more-btn">
+              <span>Add More</span>
+            </div>
+		  </div>
+          </div>`
+    }
+    
+    if(categoryType.includes("Solution")){
+      productDetails = "";
+      productDetails = `<div class="type-solution">
+			<div class="product__deatils-wapper">
+				<div class="product__deatils-title"></div>
+				<div class="product__deatils-price product__deatils-flex">
+                  <div class="product__deatils-label">Customer Price (Per Box)</div>
+					<div class="product__deatils-text">Rs. <span class="product-price"></span></div>
+  				</div>
+				<div class="product__deatils-cashback product__deatils-flex">
+                  <div class="product__deatils-label">Cashback Amount (Per Box)</div>
+					<div class="product__deatils-text">Rs. <span class="product-cashback"></span></div>
+                </div>
+			</div>
+            <div class="details-content grid-gap-solution">
+              <div class="box-detail">
+				<label for="solutionBox" class="label">Boxes</label> 
+                <input type="number" name="box" class="box-input" id="solutionBox" placeholder="Enter Qty.">
+              </div>
+            </div>
+          </div>`
+    }
+    
+    $(".product-details-wrapper").html(productDetails);
+    
+  }
+  
+  function orderAmount(cartId){
+    $.ajax({
+      url: baseUrl + "api/v1/razor/order/amount/" + cartId,
+    })
+    .done(function(response){
+      console.log(response);
+    })
+  }
+  
+  function orderConfirmation(data){
+    const {paymentID,followUp,endTransaction} = data.data;
+    const thankYouVariable = {
+      paymentId : paymentID,
+      cartId :  cartId,
+      followUp : followUp,
+      endTransaction : endTransaction,
+      orderTotal: orderTotal,
+      categoryType: categoryType,
+    }
+
+    //sending data to thank you page
+    sessionStorage.setItem('thankyouVariable', JSON.stringify(thankYouVariable));
+    window.location.href = "https://aqualensb2b.com/pages/order-summary";
+  }
+  
+  function paymentVerify(url,data){
+    let settings = {
+      url: url,
+      type: "POST",
+      headers: {
+        Authorization: "Bearer"+" "+bearerTokenB2C,
+        "Content-Type": "application/json",
+      },
+      data: JSON.stringify(data),
+    };
+    $.ajax(settings)
+    .done(function (e) {
+      const { status } = e;
+      if (status == true) {
+        orderConfirmation(e);
+      } else {
+        console.log(e);
+      }
+    })
+    .fail(function (e) {
+      console.log(e);
+    });
+  }
+  
+  function razorPopup(razorData,razorOrderData){
+    const { key, customer,customerId } = razorData;
+    const {id,amount} = razorOrderData;
+    const {fname,phone,email} = customerDataB2C;
+    
+    orderTotal = parseFloat(amount)/100;
+    console.log(orderTotal,categoryType);
+    
+    var razorOptions = {
+      key: `${key}`,
+      amount: parseFloat(amount),
+      name: "Aqualens",
+      currency: "INR",
+      order_id: id,
+      customer_id: customer,
+      prefill: {
+        method: '',
+        name : fname,
+        email : email,
+        contact : phone
+      },
+      notes: {
+        /* "address": "note value"   */
+      },
+      theme: {
+
+        //change color
+        "color": "#00BAC6" ,
+        hide_topbar: "true",
+      },
+      image : `https://cdn.shopify.com/s/files/1/0084/6957/7794/files/logo_7ae23fb0-c20d-454b-ac7a-666fd6bb7d82_200x.png?v=1563190882`,
+    };
+    
+    razorOptions.handler = function (response) {
+      if (response.hasOwnProperty("razorpay_payment_id")) {
+        const paymentVerifyUrl = baseUrl + "api/v1/verify-payment";
+        const paymentVerifyData = {
+          'payment_mode' : 'N/A',
+          'total' : parseFloat(amount)/100,
+          'razorpay_payment_id' : response.razorpay_payment_id,
+          'razorpay_order_id' : id,
+          'razorpay_signature' : response.razorpay_signature,
+          'customer_id' : customerId,
+          'cart_id' : cartId
+        }
+        paymentVerify(paymentVerifyUrl,paymentVerifyData);
+      } else {
+        console.log(response)
+      }
+    };
+    
+    var rzp = new Razorpay(razorOptions);
+    rzp.open();
+  }
+  
+  
+  // On DOM ready
+  
+  $(document).ready(function(){
+    
+    // Event for category selection
+    $("#categoryB2C").on("change",function(){
+      let $self = $(this);
+      let value = $(this).val();
+	  let type = $(this).find("option[value="+value+"]").text();
+      $.ajax({
+        url: baseUrl + "api/v1/collections/" + value + "/products",
+      })
+      .done(function(response) {
+        console.log(response);
+        productOption(response.data,type);
+      })
+      .fail(function(error){
+        console.log("Error",error);
+      })
+    })
+    
+    let sku = "";
+    let variantId = "";
+    let price = "";
+    let productTitle = "";
+    
+    // Event for Product change
+    $("#productB2C").on("change",function(){
+      let $self = $(this);
+      $(".product-details-container").show();
+
+      let variantOption  = JSON.parse($(this).find(':selected').attr("data-variant"));
+      categoryType  = $(this).find(':selected').attr("data-category-type");
+      let value = $(this).val();
+      productTitle  = $(this).find("option[value="+value+"]").text();
+      console.log(productTitle);
+      $(".product__deatils-title").html(productTitle);
+      
+      $(".box-input").attr("disabled", true)
+      				 .removeClass("check-btn")
+      				 .attr("data-quantity", "0")
+      				 .attr("placeholder", "Enter Qty.")
+      				 .val("");
+      
+      $(".customer__products-btn").prop("disabled",true).removeClass("product-btn-active");
+      				 
+      // Clear lense
+      if(categoryType.includes("Clear")){
+        sku = "";
+        variantId = "";
+        price = "";
+        variantOption.forEach(function(variant){
+          if(sku == "" && variant.sku != "" && variant.sku != null){
+            sku = variant.sku;
+            variantId = variant.id;
+            price = variant.price;
+          }
+        })
+        console.log(sku,variantId,price);
+        $(".product-price").html(price);
+        $(".product-cashback").html((price*30)/100);
+        
+        $.ajax({
+          type: 'GET',
+          url: 'https://api.lenskart.com/v2/products/product/'+sku+'/powers',
+          dataType: 'json'
+        })
+        .done(function(data){
+          let power_list =  data.result.powerTypeList[1].powerDataList[0].value; 
+          let power_value = `<option value="default" selected="selected" hidden disabled>Select Power</option>`;
+          
+          power_list.forEach(function(e,i){
+            power_value += `<option value='${e}' data-power='${e}'>${e}</option>`;
+          })
+          $(".power-selection").html(power_value);
+        })
+        .fail(function(error){
+          console.log(error);
+        })               
+      }
+      
+      // Color lense zero
+      if(categoryType.includes("Plano")){
+        sku = "";
+        variantId = "";
+        price = "";
+        let currentPrice = "";
+        let optionColor = `<option value="default" selected="selected" hidden disabled>Select Color</option>`;
+        variantOption.forEach(function(variant){
+          if(variant.sku != "" && variant.sku != null){           
+            optionColor += `<option value='${variant.id}' data-sku='${variant.sku}' data-price='${variant.price}' data-title='${variant.title}'>${variant.title}</option>`;
+            
+            if(currentPrice == ""){
+              currentPrice = variant.price
+            }
+          }
+        })
+        $(".color-selection").html(optionColor);
+        console.log(sku,variantId,price);
+        
+        $(".product-price").html(currentPrice);
+        $(".product-cashback").html((currentPrice*30)/100);
+      }
+      
+      // Powered
+      if(categoryType.includes("Powered")){
+        sku = "";
+        variantId = "";
+        price = "";
+        let currentPrice = "";
+        let optionColor = `<option value="default" selected="selected" hidden disabled>Select Color</option>`;
+        variantOption.forEach(function(variant){
+          if(variant.sku != "" && variant.sku != null){            
+            optionColor += `<option value='${variant.id}' data-sku='${variant.sku}' data-price='${variant.price}' data-title='${variant.title}'>${variant.title}</option>`;
+            
+            if(currentPrice == ""){
+              currentPrice = variant.price
+            }
+          }
+        })
+        $(".color-selection-powered").html(optionColor);
+        console.log(sku,variantId,price);
+        
+        $(".product-price").html(currentPrice);
+        $(".product-cashback").html((currentPrice*30)/100);
+      }
+      
+      // Toric
+      if(categoryType.includes("Toric")){
+        sku = "";
+        variantId = "";
+        price = "";
+        variantOption.forEach(function(variant){
+          if(sku == "" && variant.sku != "" && variant.sku != null){
+            sku = variant.sku;
+            variantId = variant.id;
+            price = variant.price;
+          }
+        })
+        console.log(sku,variantId,price);
+        $(".product-price").html(price);
+        $(".product-cashback").html((price*30)/100);
+        
+        $.ajax({
+          type: 'GET',
+          url: 'https://api.lenskart.com/v2/products/product/'+sku+'/powers',
+          dataType: 'json'
+        })
+        .done(function(data){
+          let power_list =  data.result.powerTypeList[1].powerDataList[0].value;
+          let cyl_list =  data.result.powerTypeList[2].powerDataList[0].value;
+          let axis_list =  data.result.powerTypeList[3].powerDataList[0].value;
+          let power_value = `<option value="default" selected="selected" hidden disabled>Select Power</option>`;
+          let cyl_value = "";
+          let axis_value = "";
+          
+          power_list.forEach(function(e,i){
+            power_value += `<option value='${e}' data-power='${e}'>${e}</option>`;
+          })
+          
+          cyl_list.forEach(function(e,i){
+            cyl_value += `<option value='${e}' data-cyl='${e}'>${e}</option>`;
+          })
+          
+          axis_list.forEach(function(e,i){
+            axis_value += `<option value='${e}' data-axis='${e}'>${e}</option>`;
+          })
+          $("#toricPower").html(power_value);
+          $("#toricCYL").html(cyl_value);
+          $("#toricAxis").html(axis_value);
+        })
+        .fail(function(error){
+          console.log(error);
+        })               
+      }
+      
+      // Solution
+      if(categoryType.includes("Solution")){
+        sku = "";
+        variantId = "";
+        price = "";
+        variantOption.forEach(function(variant){
+          if(sku == "" && variant.sku != "" && variant.sku != null){
+            sku = variant.sku;
+            variantId = variant.id;
+            price = variant.price;
+          }
+        })
+        
+        $(".product-price").html(price);
+        $(".product-cashback").html((price*50)/100);
+
+        let $currentSol =  $(".box-input");
+        $currentSol.attr("disabled", false);
+        $currentSol.attr("placeholder", "Enter Qty.");
+        $currentSol.removeClass("check-btn"); 
+        $currentSol.attr("data-quantity","999");
+        $currentSol.val("");
+      }
+    })
+    
+    // Event for Clear Power
+    $(document).on("change",".power-selection",function(){
+      $(".customer__products-btn").prop("disabled",true).removeClass("product-btn-active");
+      let sph = $(this).val();
+      let $self = $(this);
+      let power_validate = [ 
+        {
+          "classification": "contact_lens",
+          "index": 0,
+          "left": {
+            "ap": null,
+            "axis": null,
+            "cyl": null,
+            "pd": null,
+            "sph": sph
+          },
+          "right": {
+            "ap": null,
+            "axis": null,
+            "cyl": null,
+            "pd": null,
+            "sph": sph
+          },
+          "shell_id": sku
+        }
+      ]
+      
+      let powers_settings = {
+        "url": "https://api.lenskart.com/v2/inventory/nonjit",
+        "method": "POST",
+        "headers": {
+          "X-Api-Client" : "aqualens",
+          "Content-Type": "application/json",
+          "X-Session-Token": "12345679"
+        },
+
+        "data": JSON.stringify(power_validate),
+      };
+      
+      $.ajax(powers_settings).done(function (response) {
+
+        let left_qty = response.result.result[0].left.qty;
+        let right_qty = response.result.result[0].right.qty;
+        console.log(left_qty,right_qty,sph);
+        
+        let $currentPower =  $self.parents(".details-content").find(".box-input");
+        if(left_qty <= 0 || right_qty <= 0){
+          $currentPower.attr("disabled", true);
+          $currentPower.attr("placeholder", "Out Of Stock");
+          $currentPower.addClass("check-btn");
+          $currentPower.attr("data-quantity",left_qty);
+          $currentPower.val("");
+        }
+        else{
+          $currentPower.attr("disabled", false);
+          $currentPower.attr("placeholder", "Enter Qty.");
+          $currentPower.removeClass("check-btn"); 
+          $currentPower.attr("data-quantity",left_qty);
+          $currentPower.val("");
+        }
+      })
+
+    })
+    
+    // Event for Color Zero
+    $(document).on("change",".color-selection",function(){
+      $(".customer__products-btn").prop("disabled",true).removeClass("product-btn-active");
+      
+      let colorSku = $(this).find(":selected").attr("data-sku");
+      let $self = $(this);
+      
+      
+      let currentPrice = $(this).find(":selected").attr("data-price");
+      $(".product-price").html(currentPrice);
+      $(".product-cashback").html((currentPrice*30)/100); 
+      
+      
+      let color_validate = [ 
+        {
+          "classification": "contact_lens",
+          "index": 0,
+          "left": {
+            "ap": null,
+            "axis": null,
+            "cyl": null,
+            "pd": null,
+            "sph": "0.00"
+          },
+          "right": {
+            "ap": null,
+            "axis": null,
+            "cyl": null,
+            "pd": null,
+            "sph": "0.00"
+          },
+          "shell_id": colorSku
+        }
+      ]
+      
+      let color_settings = {
+        "url": "https://api.lenskart.com/v2/inventory/nonjit",
+        "method": "POST",
+        "headers": {
+          "X-Api-Client" : "aqualens",
+          "Content-Type": "application/json",
+          "X-Session-Token": "12345679"
+        },
+
+        "data": JSON.stringify(color_validate),
+      };
+      
+      $.ajax(color_settings).done(function (response) {
+
+        let left_qty = response.result.result[0].left.qty;
+        let right_qty = response.result.result[0].right.qty;
+        console.log(left_qty,right_qty);
+        
+        let $currentPower =  $self.parents(".details-content").find(".box-input");
+        if(left_qty <= 0 || right_qty <= 0){
+          $currentPower.attr("disabled", true);
+          $currentPower.attr("placeholder", "Out Of Stock");
+          $currentPower.addClass("check-btn");
+          $currentPower.attr("data-quantity",left_qty);
+          $currentPower.val("");
+        }
+        else{
+          $currentPower.attr("disabled", false);
+          $currentPower.attr("placeholder", "Enter Qty.");
+          $currentPower.removeClass("check-btn"); 
+          $currentPower.attr("data-quantity",left_qty);
+          $currentPower.val("");
+        }
+      })
+
+    })
+    
+    // Event for Color Powered
+    $(document).on("change",".color-selection-powered",function(){
+      $(".customer__products-btn").prop("disabled",true).removeClass("product-btn-active");
+		
+      let $self = $(this);
+      $self.parents(".details-content").find(".box-input").val("")
+      							  .attr("placeholder", "Enter Qty.")
+      							  .removeClass("check-btn")
+      							  .attr("disabled", true)
+      							  .attr("data-quantity", "0");
+      
+      let colorSku = $(this).find(":selected").attr("data-sku");
+      
+      
+      let currentPrice = $(this).find(":selected").attr("data-price");
+      $(".product-price").html(currentPrice);
+      $(".product-cashback").html((currentPrice*30)/100);
+      
+
+      $.ajax({
+        type: 'GET',
+        url: 'https://api.lenskart.com/v2/products/product/'+colorSku+'/powers',
+        dataType: 'json'
+      })
+      .done(function(data){
+        let power_list =  data.result.powerTypeList[1].powerDataList[0].value; 
+        let power_value = `<option value="default" selected="selected" hidden disabled>Select Power</option>`;
+
+        power_list.forEach(function(e,i){
+          power_value += `<option value='${e}' data-power='${e}'>${e}</option>`;
+        })
+        $self.parents(".details-content").find(".power-selection-powered").html(power_value);
+        $self.parents(".details-content").find(".power-selection-powered").attr("disabled",false);
+      })
+      .fail(function(error){
+        console.log(error);
+      }) 
+    })
+    
+    // Event for power Color-Powered
+    $(document).on("change",".power-selection-powered",function(){
+      $(".customer__products-btn").prop("disabled",true).removeClass("product-btn-active");
+      let $self = $(this);
+      
+
+      let colorSku = $(this).parents(".details-content").find(".color-selection-powered").find(":selected").attr("data-sku");
+      
+      let sph = $(this).val();
+      let color_validate = [ 
+        {
+          "classification": "contact_lens",
+          "index": 0,
+          "left": {
+            "ap": null,
+            "axis": null,
+            "cyl": null,
+            "pd": null,
+            "sph": sph
+          },
+          "right": {
+            "ap": null,
+            "axis": null,
+            "cyl": null,
+            "pd": null,
+            "sph": sph
+          },
+          "shell_id": colorSku
+        }
+      ]
+
+      let color_settings = {
+        "url": "https://api.lenskart.com/v2/inventory/nonjit",
+        "method": "POST",
+        "headers": {
+          "X-Api-Client" : "aqualens",
+          "Content-Type": "application/json",
+          "X-Session-Token": "12345679"
+        },
+
+        "data": JSON.stringify(color_validate),
+      };
+
+      $.ajax(color_settings).done(function (response) {
+
+        let left_qty = response.result.result[0].left.qty;
+        let right_qty = response.result.result[0].right.qty;
+        console.log(left_qty,right_qty);
+
+        let $currentPower =  $self.parents(".details-content").find(".box-input");
+        if(left_qty <= 0 || right_qty <= 0){
+          $currentPower.attr("disabled", true);
+          $currentPower.attr("placeholder", "Out Of Stock");
+          $currentPower.addClass("check-btn");
+          $currentPower.attr("data-quantity",left_qty);
+          $currentPower.val("");
+        }
+        else{
+          $currentPower.attr("disabled", false);
+          $currentPower.attr("placeholder", "Enter Qty.");
+          $currentPower.removeClass("check-btn"); 
+          $currentPower.attr("data-quantity",left_qty);
+          $currentPower.val("");
+        }
+      }) 
+    })
+    
+    // Event for Toric Power
+    $(document).on("change","#toricPower",function(){
+      $(".customer__products-btn").prop("disabled",true).removeClass("product-btn-active");
+      
+      let $self = $(this);
+      let sph = $(this).val();
+      let cyl = $self.parents(".details-content").find("#toricCYL").val();
+      let axis = $self.parents(".details-content").find("#toricAxis").val();
+      
+      let toric_validate = [ 
+        {
+          "classification": "contact_lens",
+          "index": 0,
+          "left": {
+            "ap": null,
+            "axis": axis,
+            "cyl": cyl,
+            "pd": null,
+            "sph": sph
+          },
+          "right": {
+            "ap": null,
+            "axis": axis,
+            "cyl": cyl,
+            "pd": null,
+            "sph": sph
+          },
+          "shell_id": sku
+        }
+      ]
+      
+      let toric_settings = {
+        "url": "https://api.lenskart.com/v2/inventory/nonjit",
+        "method": "POST",
+        "headers": {
+          "X-Api-Client" : "aqualens",
+          "Content-Type": "application/json",
+          "X-Session-Token": "12345679"
+        },
+
+        "data": JSON.stringify(toric_validate),
+      };
+      
+      $.ajax(toric_settings).done(function (response) {
+        $self.parents(".details-content").find("#toricCYL").attr("disabled",false);
+        $self.parents(".details-content").find("#toricAxis").attr("disabled",false);
+
+        let left_qty = response.result.result[0].left.qty;
+        let right_qty = response.result.result[0].right.qty;
+        console.log(left_qty,right_qty);
+        
+        let $currentPower =  $self.parents(".details-content").find(".box-input");
+        if(left_qty <= 0 || right_qty <= 0){
+          $currentPower.attr("disabled", true);
+          $currentPower.attr("placeholder", "Out Of Stock");
+          $currentPower.addClass("check-btn");
+          $currentPower.attr("data-quantity",left_qty);
+          $currentPower.val("");
+        }
+        else{
+          $currentPower.attr("disabled", false);
+          $currentPower.attr("placeholder", "Enter Qty.");
+          $currentPower.removeClass("check-btn"); 
+          $currentPower.attr("data-quantity",left_qty);
+          $currentPower.val("");
+        }
+      })
+    })
+    
+    // Event for Toric CYL
+    $(document).on("change","#toricCYL",function(){
+      $(".customer__products-btn").prop("disabled",true).removeClass("product-btn-active");
+      
+      let $self = $(this);
+      let cyl = $(this).val();
+      let sph = $self.parents(".details-content").find("#toricPower").val();
+      let axis = $self.parents(".details-content").find("#toricAxis").val();
+      
+      let toric_validate = [ 
+        {
+          "classification": "contact_lens",
+          "index": 0,
+          "left": {
+            "ap": null,
+            "axis": axis,
+            "cyl": cyl,
+            "pd": null,
+            "sph": sph
+          },
+          "right": {
+            "ap": null,
+            "axis": axis,
+            "cyl": cyl,
+            "pd": null,
+            "sph": sph
+          },
+          "shell_id": sku
+        }
+      ]
+      
+      let toric_settings = {
+        "url": "https://api.lenskart.com/v2/inventory/nonjit",
+        "method": "POST",
+        "headers": {
+          "X-Api-Client" : "aqualens",
+          "Content-Type": "application/json",
+          "X-Session-Token": "12345679"
+        },
+
+        "data": JSON.stringify(toric_validate),
+      };
+      
+      $.ajax(toric_settings).done(function (response) {
+        let left_qty = response.result.result[0].left.qty;
+        let right_qty = response.result.result[0].right.qty;
+        console.log(left_qty,right_qty);
+        
+        let $currentPower =  $self.parents(".details-content").find(".box-input");
+        if(left_qty <= 0 || right_qty <= 0){
+          $currentPower.attr("disabled", true);
+          $currentPower.attr("placeholder", "Out Of Stock");
+          $currentPower.addClass("check-btn");
+          $currentPower.attr("data-quantity",left_qty);
+          $currentPower.val("");
+        }
+        else{
+          $currentPower.attr("disabled", false);
+          $currentPower.attr("placeholder", "Enter Qty.");
+          $currentPower.removeClass("check-btn"); 
+          $currentPower.attr("data-quantity",left_qty);
+          $currentPower.val("");
+        }
+      })
+    })
+    
+   // Event for Toric Axis
+    $(document).on("change","#toricAxis",function(){
+      $(".customer__products-btn").prop("disabled",true).removeClass("product-btn-active");
+      
+      let $self = $(this);
+      let axis = $(this).val();
+      let sph = $self.parents(".details-content").find("#toricPower").val();
+      let cyl = $self.parents(".details-content").find("#toricCYL").val();
+      
+      let toric_validate = [ 
+        {
+          "classification": "contact_lens",
+          "index": 0,
+          "left": {
+            "ap": null,
+            "axis": axis,
+            "cyl": cyl,
+            "pd": null,
+            "sph": sph
+          },
+          "right": {
+            "ap": null,
+            "axis": axis,
+            "cyl": cyl,
+            "pd": null,
+            "sph": sph
+          },
+          "shell_id": sku
+        }
+      ]
+      
+      let toric_settings = {
+        "url": "https://api.lenskart.com/v2/inventory/nonjit",
+        "method": "POST",
+        "headers": {
+          "X-Api-Client" : "aqualens",
+          "Content-Type": "application/json",
+          "X-Session-Token": "12345679"
+        },
+
+        "data": JSON.stringify(toric_validate),
+      };
+      
+      $.ajax(toric_settings).done(function (response) {
+        let left_qty = response.result.result[0].left.qty;
+        let right_qty = response.result.result[0].right.qty;
+        console.log(left_qty,right_qty);
+        
+        let $currentPower =  $self.parents(".details-content").find(".box-input");
+        if(left_qty <= 0 || right_qty <= 0){
+          $currentPower.attr("disabled", true);
+          $currentPower.attr("placeholder", "Out Of Stock");
+          $currentPower.addClass("check-btn");
+          $currentPower.attr("data-quantity",left_qty);
+          $currentPower.val("");
+        }
+        else{
+          $currentPower.attr("disabled", false);
+          $currentPower.attr("placeholder", "Enter Qty.");
+          $currentPower.removeClass("check-btn"); 
+          $currentPower.attr("data-quantity",left_qty);
+          $currentPower.val("");
+        }
+      })
+    })
+    
+    // Input Box
+    $(document).on("input",".box-input", function () {
+      let value = $(this).val();
+      $(this).attr("disabled",false);
+      
+      if ((value !== '') && (value.indexOf('.') === -1)) {
+        let data_qty = $(this).attr('data-quantity');       
+        if(data_qty <= 9){
+          $(this).val(Math.max(Math.min(value, data_qty), 1));               
+        }
+        else{
+          $(this).val(Math.max(Math.min(value, 9), 1));
+        }         
+      }
+      
+      let flag = true; 
+      $('.box-input').each(function(){
+        if($(this).val()){
+          $(".customer__products-btn").prop("disabled",false).addClass("product-btn-active");
+          flag = false;
+        }
+      })
+      if(flag){
+        $(".customer__products-btn").prop("disabled",true).removeClass("product-btn-active");
+      }
+    });
+    
+    // Open Summary on click of next button
+    
+    let razorData = {};
+    let razorOrderData = {};
+    
+    let $summaryContent = $('.product_summary-page');
+    
+    // On click of next call '/cart' (lenskart)
+    $(document).on("click",".customer__products-btn",function(){
+
+      let lineItem = [];
+      if(categoryType.includes("Clear")){
+        if($(".left-eye").val()){
+          let itemDataLeft = {
+            "variant_id":variantId,
+            "left_boxes":$(".left-eye").val(),
+            "quantity":$(".left-eye").val(),
+            "lens_has_power":true,
+            "product_type":"lens",
+            "lens_type":"spherical",
+            "type":"ONETIME",
+            "prescription":{ 
+              "powerType":"CONTACT_LENS",
+              "left":{
+                "boxes":$(".left-eye").val(),
+                "sph":$(".left-eye-power").val()
+              }
+            }
+          }
+          lineItem.push(itemDataLeft);
+        }
+        if($(".right-eye").val()){
+          let itemDataRight = {
+            "variant_id":variantId,
+            "right_boxes":$(".right-eye").val(),
+            "quantity":$(".right-eye").val(),
+            "lens_has_power":true,
+            "product_type":"lens",
+            "lens_type":"spherical",
+            "type":"ONETIME",
+            "prescription":{ 
+              "powerType":"CONTACT_LENS",
+              "right":{
+                "boxes":$(".right-eye").val(),
+                "sph":$(".right-eye-power").val()
+              }
+            }
+          }
+          lineItem.push(itemDataRight);
+        }
+
+        let summaryHtml = "";
+        let totalPrice = 0;
+        lineItem.forEach(function(item){
+          let power = "";
+          if(item.prescription.left){        
+            power = item.prescription.left.sph
+          }else{
+            power= item.prescription.right.sph
+          }
+          let qty = item.quantity;
+
+          summaryHtml += `<div class="product_summary-content">
+							<div class="product_summary-power">${power}</div>
+							<div class="product_summary-qty">${qty}</div>
+						  </div>`;
+
+          totalPrice += price*qty;
+        })
+        $(".product_summary-header").text(productTitle);
+        $(".product_summary-content-wrapper").html(summaryHtml);
+        $(".total-summary-price").html(totalPrice);
+        
+      }
+      
+      if(categoryType.includes("Plano")){
+        let summaryData = [];
+        $(".box-input").each(function(i,e){
+          let $self = $(this);
+          if($self.val()){
+            let qty = $self.val();
+            let variantId = $self.parents(".details-content").find(".color-selection").val();
+            let title = $self.parents(".details-content").find(".color-selection").find(":selected").attr("data-title");
+            let price = $self.parents(".details-content").find(".color-selection").find(":selected").attr("data-price");
+
+            let itemData = {
+              "variant_id":variantId,
+              "left_boxes":qty,
+              "quantity":qty,
+              "lens_has_power":false,
+              "product_type":"lens",
+              "lens_type":"plano",
+              "type":"ONETIME",
+              "prescription":{ 
+                "powerType":"CONTACT_LENS",
+                "left":{
+                  "boxes":qty,
+                  "sph":"0.00"
+                },
+              }
+            }
+            lineItem.push(itemData);
+            
+            let summaryItem ={
+              "title": title,
+              "qty": qty,
+              "sph": "0.00",
+              "price": price
+            }
+            summaryData.push(summaryItem);
+          }
+        });
+        
+        let summaryHtml = "";
+        let totalPrice = 0;
+        summaryData.forEach(function(item){
+          let color = item.title;
+          let qty = item.qty;
+          let price = item.price;
+
+          summaryHtml += `<div class="product_summary-content">
+							<div class="product_summary-power">${color}</div>
+							<div class="product_summary-qty">${qty}</div>
+						  </div>`;
+
+          totalPrice += price*qty;
+        })
+        $(".product_summary-content-wrapper").html(summaryHtml);
+        $(".total-summary-price").html(totalPrice);
+        $($(".product_summary-title-text")[0]).text("Color");
+        $(".product_summary-header").text(productTitle);
+      }
+      
+      // Line Item for Color Powered
+      if(categoryType.includes("Powered")){
+        let summaryData = [];
+        $(".box-input").each(function(i,e){
+          let $self = $(this);
+          if($self.val()){
+            let qty = $self.val();
+            let sph = $self.parents(".details-content").find(".power-selection-powered").val();
+            let variantId = $self.parents(".details-content").find(".color-selection-powered").val();
+            let title = $self.parents(".details-content").find(".color-selection-powered").find(":selected").attr("data-title");
+            let price = $self.parents(".details-content").find(".color-selection-powered").find(":selected").attr("data-price");
+
+            let itemData = {
+              "variant_id":variantId,
+              "left_boxes":qty,
+              "quantity":qty,
+              "lens_has_power":true,
+              "product_type":"lens",
+              "lens_type":"spherical",
+              "type":"ONETIME",
+              "prescription":{ 
+                "powerType":"CONTACT_LENS",
+                "left":{
+                  "boxes":qty,
+                  "sph": sph
+                }
+              }
+            }
+            lineItem.push(itemData);
+            
+            let summaryItem ={
+              "title": title,
+              "qty": qty,
+              "sph": sph,
+              "price": price
+            }
+            summaryData.push(summaryItem);
+          }
+        });
+        
+        let summaryHtml = "";
+        let totalPrice = 0;
+        summaryData.forEach(function(item){
+          let color = item.title;
+          let qty = item.qty;
+          let price = item.price;
+          let power = item.sph;
+
+          summaryHtml += `<div class="product_summary-content">
+							<div class="product_summary-power">${color}(${power})</div>
+							<div class="product_summary-qty">${qty}</div>
+						  </div>`;
+
+          totalPrice += price*qty;
+        })
+        $(".product_summary-content-wrapper").html(summaryHtml);
+        $(".total-summary-price").html(totalPrice);
+        $(".product_summary-header").text(productTitle);
+      }
+      
+      // Line Item for Toric
+      if(categoryType.includes("Toric")){
+        let summaryData = [];
+        $(".box-input").each(function(i,e){
+          let $self = $(this);
+          if($self.val()){
+            let qty = $self.val();
+            let sph = $self.parents(".details-content").find("#toricPower").val();
+            let cyl = $self.parents(".details-content").find("#toricCYL").val();
+            let axis = $self.parents(".details-content").find("#toricAxis").val();
+
+            let itemData = {
+              "variant_id":variantId,
+              "left_boxes":qty,
+              "quantity":qty,
+              "lens_has_power":true,
+              "product_type":"lens",
+              "lens_type":"toric",
+              "type":"ONETIME",
+              "prescription":{ 
+                "powerType":"CONTACT_LENS",
+                "left":{
+                  "boxes":qty,
+                  "sph": sph,
+                  "cyl": cyl,
+                  "axis": axis
+                }
+              }
+            }
+            lineItem.push(itemData);
+            
+            let summaryItem ={
+              "qty": qty,
+              "sph": sph,
+              "cyl": cyl,
+              "axis": axis,
+              "price": price
+            }
+            summaryData.push(summaryItem);
+          }
+        });
+        
+        let summaryHtml = "";
+        let totalPrice = 0;
+        summaryData.forEach(function(item){
+          let qty = item.qty;
+          let price = item.price;
+          let power = item.sph;
+          let cyl = item.cyl;
+          let axis = item.axis;
+
+          summaryHtml += `<div class="product_summary-content">
+							<div class="product_summary-power">SPH: ${power}   |   CYL: ${cyl}   |   Axis: ${axis}</div>
+							<div class="product_summary-qty">${qty}</div>
+						  </div>`;
+
+          totalPrice += price*qty;
+        })
+        $(".product_summary-content-wrapper").html(summaryHtml);
+        $(".total-summary-price").html(totalPrice);
+        $(".product_summary-header").text(productTitle);
+      }
+
+      // For Solution
+      if(categoryType.includes("Solution")){
+        if($(".box-input").val()){
+          let itemData = {
+            "variant_id":variantId,
+            "left_boxes":$(".box-input").val(),
+            "quantity":$(".box-input").val(),
+            "lens_has_power":false,
+            "product_type":"other",
+            "lens_type":"spherical",
+            "type":"ONETIME",
+          }
+          lineItem.push(itemData);
+        }
+
+        let summaryHtml = "";
+        let totalPrice = 0;
+        lineItem.forEach(function(item){
+          
+          let qty = item.quantity;
+
+          summaryHtml += `<div class="product_summary-content">
+							<div class="product_summary-qty"> Qty: ${qty}</div>
+  						 </div>`;
+          
+          totalPrice += price*qty;
+        })
+        $(".product_summary-header").text(productTitle);
+        $(".product_summary-content-wrapper").html(summaryHtml);
+        $(".product_summary-title").html("");
+        $(".total-summary-price").html(totalPrice);
+      }
+      
+      console.log(lineItem);
+   
+      let cartJson = {
+        "line_items": lineItem,
+        "customer_id": customerIdB2C, // b2b
+        "s_id": 12345, // keep this same
+        "cart_id": cartId, // from address api
+        "utm_source": customerIdB2B,
+        "order_source": "b2b"
+      }
+      
+      
+      $.ajax({
+        url: baseUrl + "api/v1/cart",
+        method: "POST",
+        headers: {
+          "Authorization": "Bearer"+" "+bearerTokenB2C,
+          "Content-Type": "application/json",
+        },
+        data: JSON.stringify(cartJson),
+      })
+      .done(function(response) {
+        console.log(response);
+        if(!$summaryContent.hasClass("has--opened")){
+          $summaryContent.addClass("has--opened");
+          $summaryContent.animate({right:"0"},500);
+        }
+        orderAmount(response.data.cart_id);
+        razorData = {
+          key: response.data.rzp_key,
+          customer: response.data.razor_customer,
+          customerId : response.data.customer_id
+        };
+      })      
+    })
+    
+    
+    
+    $(document).on("click",".product__summary-btn",function(){
+      let razorJson = {
+        "cart_id": cartId,
+        "order_type": "",
+        "customer_id": customerIdB2C, // b2c
+      }
+      $.ajax({
+        url: baseUrl + "api/v1/razor/order",
+        method: "POST",
+        headers: {
+          "Authorization": "Bearer"+" "+bearerTokenB2C,
+          "Content-Type": "application/json",
+        },
+        data: JSON.stringify(razorJson),
+      })
+      .done(function(response) {
+        console.log(response);
+        console.log(customerDataB2C);
+        razorOrderData = {
+          id: response.data.id,
+          amount: response.data.amount
+        }
+        razorPopup(razorData,razorOrderData);
+      })
+    })
+    
+    // Add More
+    
+    $(document).on("click", ".add-more-btn span", function () {
+      var curr_obj = $(this);
+      var copy_html = $(curr_obj.parents(".details-wrapper").find(".details-content")[0]).clone();
+      var insert_target = curr_obj.parents(".details-wrapper").find(".details-content").last();
+      copy_html.find(".box-input").val("")
+      							  .attr("placeholder", "Enter Qty.")
+      							  .removeClass("check-btn")
+      							  .attr("disabled", true)
+      							  .attr("data-quantity", "0");
+      if(copy_html.find(".power-selection-powered")){
+        copy_html.find(".power-selection-powered").attr("disabled",true);
+      }
+      if(copy_html.find("#toricCYL")){
+        copy_html.find("#toricCYL").attr("disabled",true);
+      }
+      if(copy_html.find("#toricAxis")){
+        copy_html.find("#toricAxis").attr("disabled",true);
+      }
+      $(copy_html).insertAfter(insert_target);
+      $(copy_html).trigger("change");
+    });
+
+  })
+</script>
+
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Quattrocento&display=swap');
+  
+  .customer__products-page{
+    height: 100vh;
+    padding-top: 46px;
+    overflow: auto;
+  }
+  .customer__products-header{
+    font-family: 'Quattrocento', serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 27px;
+    color: #474747;
+    letter-spacing: 1px;
+    padding-bottom: 28px;
+  }
+  
+  .customer__products-btn-wrapper{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 990;
+  }
+  .customer__products-btn{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: center;
+    color: #FFFFFF;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    width: 100%;
+    background: #D8D8D8;
+    padding: 12px 0px;
+    outline: 0;
+  }
+  .product-btn-active {
+    background: #00BAC6;
+  }
+  .select-field{
+    padding-bottom: 33px;
+  }
+  .select-field label{
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 18px;
+    color: #4F4F4F;
+    margin: 0;
+    padding-bottom: 2px;
+  }
+  .select-field .option-selector{
+    background-color: #FFFFFF;
+    border: 1px solid #BDBDBD;
+    border-radius: 4px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #474747;
+    width: 100%;
+    height: 40px;
+    padding: 0px 35px 0px 14px;
+  }
+  .product-details-container{
+    display: none;
+  }
+  .product-details-header {
+    padding-top: 8px;
+    padding-bottom: 16px;
+  }
+  .type-clear{
+    padding: 0 0px 0px 13px;
+    font-family: Poppins;
+    font-style: normal;
+  }
+  .details-header {
+    display: grid;
+    grid-auto-flow: column;
+    text-align: center;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 15px;
+    letter-spacing: 0.04em;
+    color: #999999;
+    padding-bottom: 10px;
+  }
+  .details-content {
+    display: grid;
+    grid-auto-flow: column;
+    text-align: center;
+    font-size: 12px;
+    line-height: 18px;
+    color: #4F4F4F;
+    padding-bottom: 21px;
+    height: 60px;
+    align-items: center;
+  }
+  .variant-selection {
+    font-family: Poppins;
+    font-style: normal;
+    width: 100%;
+    font-weight: 600;
+    font-size: 14px;
+    color: #4F4F4F;
+    border: 1px solid #E0E0E0;
+    height: 40px;
+    padding-right: 28px;
+  }
+  .power-eye{
+    text-align: left;
+  }
+  .box-input {
+    font-family: Poppins;
+    font-style: normal;
+    background: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #4F4F4F;
+    height: 40px;
+    border-radius: 2px;
+    width: 100%;
+    padding-left: 8px;
+    padding-right: 8px;
+    text-align: center;
+  }
+  .type-color{
+    font-family: Poppins;
+    font-style: normal;
+  }
+  .add-more-btn {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    text-decoration-line: underline;
+    color: #00BAC6;
+    text-align: right;
+    padding-right: 8px;
+    padding-bottom: 21px;
+  }
+  .type-color-power{
+    font-family: Poppins;
+    font-style: normal;
+  }
+  .grid-gap-clear{
+    grid-template-columns: 0.5fr 1fr 0.7fr;
+    gap: 20px;
+  }
+  .grid-gap-color{
+    grid-template-columns: 1fr 0.6fr;
+    gap: 100px;
+  }
+  .grid-gap-power{
+    grid-template-columns: 1fr 1fr 0.8fr;
+    gap: 10px;
+  }
+  .grid-gap-toric{
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 10px 26px;
+    height: auto;
+    align-items: flex-end
+  }
+  .type-toric{
+    font-family: Poppins;
+    font-style: normal;
+  }
+  .power-details-toric{
+    grid-area: 1 / 1 / 2 / 4;
+    width: 38%;
+  }
+  .label{
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 15px;
+    letter-spacing: 0.04em;
+    color: #999999;
+    padding-bottom: 10px;
+    margin: 0;
+    font-family: Poppins;
+    font-style: normal;
+  }
+  .grid-gap-solution{
+    width: 30%;
+  }
+  .check-btn{
+    padding: 5px;
+    color: #F3716D;
+    font-size: 12px;
+    background-color: #FFFFFF !important;
+    border-color: #F3716D !important;
+  }
+  .check-btn::placeholder {
+    color: #F3716D;
+    opacity: 1;
+  }
+  .product-btn-active{
+    background: #00BAC6;
+  }
+  .product_summary-wrapper {
+    background: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 4px;
+  }
+  .product_summary-header {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    color: #333333;
+    padding: 11px 15px 28px 15px;
+  }
+  .product_summary-title {
+    display: flex;
+    justify-content: space-between;
+    background: #F8F8F8;
+    align-items: center;
+    padding: 0px 0px;
+  }
+  .product_summary-title-text {
+    margin: 0;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    color: #474747;
+    padding: 8px 15px;
+  }
+  .product_summary-content {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0px;
+    margin: 0px 15px;
+    border-bottom: 1px solid #F2F2F2;
+  }
+  .product_summary-power {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 18px;
+    color: #828282;
+    display: flex;
+  }
+  .product_summary-qty {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+    color: #4F4F4F;
+  }
+  .product_summary-total {
+    display: flex;
+    justify-content: space-between;
+    background: #F8F8F8;
+    align-items: center;
+    padding: 8px 15px;
+  }
+  .product_summary-total-text {
+    margin: 0;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    color: #474747;
+  }
+  .product_summary-total-price {
+    margin: 0;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #474747;
+  }
+  .product_summary-page {
+    background: #FFFFFF;
+    top: 0;
+    right: -100%;
+    position: fixed;
+    width: 100%;
+    z-index: 991;
+    padding: 0px 15px;
+    padding-top: 98px;
+  }
+  .product__summary-btn{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: center;
+    color: #FFFFFF;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    width: 100%;
+    background: #00BAC6;
+    height: 45px;
+    outline: 0;
+  }
+  .product__summary-btn-wrapper {
+    margin: 0 -15px;
+  }
+  .product_summary-container {
+    height: calc(100vh - 197px);
+  }
+  .product__deatils-wapper {
+    padding-bottom: 19px;
+  }
+  .product__deatils-title {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #474747;
+    padding-bottom: 22px;
+  }
+  .product__deatils-flex {
+    display: grid;
+    grid-template-columns: 1.5fr .5fr;
+    padding-bottom: 10px;
+  }
+  .product__deatils-label {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 21px;
+    color: #474747;
+  }
+  .product__deatils-text {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 21px;
+    color: #474747;
+  }
+  
+/*   for desktop */
+  
+  @media(min-width:749px){
+    .customer__products-btn-wrapper{
+      position: relative;
+      z-index:unset;
+          margin-top: 10px;
+    }
+    .customer__products-page {
+      height: auto;
+      padding-top: 44px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      width: 50%;
+      margin: auto;
+      padding: 20px 15px;
+      border-radius:4px;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      background:white;
+      box-shadow: 0 0 6px #00000029;
+      max-width:450px;
+    }
+    .input-field {
+      padding-bottom: 5px;
+    }
+    .customer-products{
+      background: #f8f8f8;
+    }
+    .page-width{
+      max-width:100% !important;
+    }
+    
+    .product_summary-page {
+      height: 100vh;
+      overflow-y: auto;
+      overflow-x: hidden;
+      margin: auto;
+      border-radius: 4px;
+      box-shadow: 0 0 6px #00000029;
+      max-width: 350px;
+      background: #FFFFFF;
+      top: 0;
+      right: -100%;
+      position: fixed;
+      width: 100%;
+      z-index: 9999;
+      padding: 0px 15px;
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+    .product__summary-btn-wrapper {
+      margin: 0 0px;
+      position: fixed;
+      z-index: unset;
+      border: 0;
+      bottom: 0px;
+      margin-bottom: 10px;
+      width: 320px !important;
+      max-width: 320px !important;
+    }
+    .product_summary-container {
+      height: calc(100vh - 161px);
+      overflow: auto;
+    }
+  }
+  
+</style>
+

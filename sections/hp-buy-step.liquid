@@ -1,0 +1,260 @@
+<style>
+  .step__section{
+    background: rgba(211, 250, 255, 0.2);
+    position: relative;
+  }
+  img.left_icon_svg {
+    position: absolute;
+    left: 16px;
+    top: 14px;
+  }
+  img.right_icon_svg {
+    position: absolute;
+    right: 43px;
+    top: 116px;
+  }
+  .step__section--header {
+    padding: 152px 0 54px 0;
+  }
+  .step__section .step__section--header h2{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 149.3%;
+    /* identical to box height, or 24px */
+    text-align: center;
+    color: rgba(102, 102, 102, 0.4);
+    letter-spacing:0;
+    text-transform: capitalize;
+  }
+  .step__section .step__section--subHeader h2{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 149.3%;
+    text-align: center;
+    color: #303030;
+    letter-spacing:0;
+    text-transform: capitalize;
+    margin-bottom: 50px;
+  }
+  .step__section .step_cards_wrapper {
+    display: flex;
+    max-width: 1341px;
+    margin: auto;
+    gap: 30px;
+    padding: 0 15px;
+  }
+  .step_cards {
+    flex: 0 0 calc(33.33% - 20px);
+    width: calc(33.33% - 20px);
+    position: relative;
+    padding-bottom: 85px;
+  }
+  .step_number {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: #4DB8C5;
+    padding: 11px 18px;
+    border-radius: 50%;
+    font-family: 'Quattrocento';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 149.3%;
+    text-align: center;
+    color: #FFFFFF;
+  }
+  .step_image {
+    position: relative;
+    padding-bottom: 90%;
+    width: 100%!important;
+    margin-bottom: 78px;
+  }
+  .step_image img{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    border-radius: 4px 4px 0px 0px;
+    object-fit:contain;
+  }
+  h2.steps_heading {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 149.3%;
+    text-align: center;
+    color: #303030;
+    letter-spacing: 0;
+    text-transform: capitalize;
+    margin-bottom: 24px;
+  }
+  p.steps_subheading {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 149.3%;
+    text-align: center;
+    color: rgba(102, 102, 102, 0.4);
+  }
+  @media (min-width: 749px) and (max-width: 949px){
+    .step__section .step_cards_wrapper {
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+    .step_cards {
+      flex: 0 0 calc(50% - 20px);
+      width: calc(50% - 20px);
+      position: relative;
+      padding-bottom: 85px;
+      padding:0 32px 30px 32px; 
+    }
+  }
+  @media(max-width:749px){
+    img.left_icon_svg {
+      position: absolute;
+      left: -10px;
+      top: 14px;
+      width:121px;
+      height:131px;
+    }
+    img.right_icon_svg {
+      position: absolute;
+      right: -10px;
+      top: 116px;
+      width:44;
+      height:42px;
+    }
+
+    .step__section--header {
+      padding: 72px 0 0px 0;
+    }
+    .step__section .step_cards_wrapper {
+      flex-direction: column;
+      flex-wrap:wrap;
+    }
+    .step_cards {
+      flex: 0 0 100%;
+      width: 100%;
+      position: relative;
+      padding-bottom: 85px;
+      padding:0 32px 30px 32px; 
+    }
+    .step_number{
+      left:32px;
+    }
+    .step__section .step__section--subHeader h2 {
+      padding: 0 48px;
+    }
+  }
+</style>
+
+{% assign step_slider = section.blocks | where: 'type', 'step_slider' %}
+<section data-section-id="{{ section.id }}" data-section-type="buy_step-section" class="step__section" id="stepSection">
+  
+  <img class="left_icon_svg" src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/image_7_e3d6ab36-bfa2-45f2-b0a2-1b566980f68c.png?v=1655788694">
+  <img  class="right_icon_svg" src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/image_8_7247b3e4-87ce-4d7a-b0b5-e781f5db2233.png?v=1655788708">
+  
+  
+  {% if section.settings.section-heading != blank %}
+  <div class="step__section--header">
+    <h2>{{ section.settings.section-heading }}</h2>
+  </div>
+  {% endif %}
+   {% if section.settings.section-sub-heading != blank %}
+  <div class="step__section--subHeader">
+    <h2>{{ section.settings.section-sub-heading }}</h2>
+  </div>
+  {% endif %}
+  
+   <div class="step_cards_wrapper">
+     {% for block in step_slider  %}
+     <div class="step_cards">
+       {% if block.settings.step_count != blank %}
+       <div class="step_number">{{ block.settings.step_count }}</div>
+       {% endif %}
+       {% if block.settings.step_image != ''%}
+       <div class="step_image">
+          <img class="lazyload" src="{{block.settings.step_image | img_url :'master'}}" data-src="{{block.settings.step_image | img_url :'master'}}" alt="Image"  />
+       </div>
+       {% endif %}
+        {% if block.settings.step_heading != '' %}
+       <h2 class="steps_heading">{{ block.settings.step_heading }}</h2>
+       {% endif %}
+        {% if block.settings.step_subheading != '' %}
+       <p class="steps_subheading">{{ block.settings.step_subheading }}</p>
+       {% endif %}
+     </div>
+     {% endfor %}
+   </div>
+  
+</section>
+{% schema %}
+  {
+    "name": "Steps to Buy",
+    "settings": [
+    	{
+          "type": "text",
+          "id": "section-heading",
+          "label": "Section Heading",
+          "default": "In 3 Steps"
+        },
+		{
+          "type": "text",
+          "id": "section-sub-heading",
+          "label": "Section Sub Heading",
+          "default": "Become an Aqualens Partner"
+        }
+	],
+    "blocks": [
+        {
+          "name": "Step Category",
+          "type": "step_slider",
+		  "limit":3,
+          "settings": [
+			{
+              "type": "image_picker",
+              "id": "step_image",
+              "label": "Image"
+            },
+            {
+              "type": "text",
+              "id": "step_count",
+              "label": "Step Number",
+              "default": "1"
+            },
+            {
+              "type": "text",
+              "id": "step_heading",
+              "label": "Text",
+              "default": "Login & Register"
+            },
+			{
+              "type": "textarea",
+              "id": "step_subheading",
+              "label": "Sub Text",
+              "default": "Login & Register"
+            }
+          ]
+        }
+      ], 
+    "presets":[ 
+            { 
+               "name":{ 
+                  "en":"Steps to Buy"
+               },
+               "category":{ 
+                  "en":"Homepage"
+               }
+            }
+       ]
+  }
+{% endschema %}

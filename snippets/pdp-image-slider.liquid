@@ -1,0 +1,398 @@
+<style>
+    .pdp-sticky__wrapper{
+      will-change: min-height;
+    }
+    .pdp-sticky__inner {
+      transform: translate(0,0);
+      transform: translate3d(0,0,0);
+      will-change: position,transform;
+    }
+    #product-img-slider1 {
+      border: 1px solid rgba(216, 216, 216, 0.25);
+      border-radius: 4px;
+      padding: 2px;
+      margin-bottom: 20px;
+    }
+  
+    #product-img-slider1 .slick-track .slick-slide {
+      background-color: #fff;
+    }
+    .pdp-big-slide {
+      position: relative;
+      padding-bottom: 75%;
+      width: 100%!important;
+      background: #FFFFFF;
+      border-radius: 4px;
+    }
+    .pdp-big-slide img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 2px;
+      border-radius: 4px;
+    }
+    .pdp-big-slide video{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 2px;
+      border-radius: 4px;
+      max-height: 460px;
+      cursor: pointer;
+    }
+    #product-img-slider2 .slick-track {
+      margin-left: -10px;
+      margin-right: -10px;
+    }
+    #product-img-slider2 .pdp-image-slide {
+      margin: 0 10px;
+      border: 1px solid rgba(216, 216, 216, 0.25);
+      border-radius: 4px;
+    }
+    .pdp-image {
+      position: relative;
+      padding-bottom: 100%;
+      width: 100%!important;
+      cursor: pointer;
+      background: #FFFFFF;
+      border-radius: 4px;
+    }
+    .pdp-image img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 2px;
+    }
+    #product-img-slider2 .slick-slide.slick-current {
+      border: 1px solid #3069B3;
+      filter: drop-shadow(0px 0px 4px rgba(48, 105, 179, 0.6));
+    }
+    .slick-prev,.slick-next{
+      top: 50%;
+      transform: translateY(-50%);
+      color: transparent;
+      width: 30px;
+      height: 30px;
+      background-size: contain;
+      z-index: 99;
+    }
+    .slick-arrow:focus{outline:0}
+    .slick-prev{
+      left: 0;
+      background-image: url('https://cdn.shopify.com/s/files/1/0084/6957/7794/files/back_d835f47a-3199-41db-a6da-a96527ad3421.png?v=1587708484');
+    }
+    .slick-next{
+      right: 0;
+      background-image: url('https://cdn.shopify.com/s/files/1/0084/6957/7794/files/right.png?v=1587708484');
+    }
+  
+    @media(min-width:749px){
+      #product-img-slider2.no-slider .slick-track {
+        transform: translate3d(0,0,0)!important;
+      }
+    }
+    #product-img-slider1 .slick-next:before,
+    #product-img-slider1 .slick-prev:before{
+      content:"";
+    }
+    #product-img-slider1 .slick-next:focus{
+      display:none;
+    }
+    #product-img-slider1 .slick-prev:focus{
+      display:none;
+    }
+  
+    #product-img-slider1 .arrow {
+      border: solid #3069B3;
+      border-width: 0 2px 2px 0;
+      display: inline-block;
+      padding: 3px;
+    }
+    #product-img-slider1 .right {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate( -45deg );
+    }
+  
+    #product-img-slider1 .left {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate( 135deg );
+    }
+    #product-img-slider1 .slick-prev {
+      position: absolute;
+      display: block;   
+      width:40px;
+      height:40px;
+      background:white;
+      border:1px solid #3069B3;
+      border-radius:50%;
+      line-height: 0px;
+      font-size: 0px;
+      cursor: pointer;
+      top: 50%;
+      left:0px;
+      margin-left: 10px;
+      -webkit-transform: translate(0, -50%);
+      -ms-transform: translate(0, -50%);
+      transform: translate(0, -50%);
+      padding: 0;
+      z-index: 99;
+    }
+    #product-img-slider1 .slick-next {
+      position: absolute;
+      display: block;   
+      width:40px;
+      height:40px;
+      background:white;
+      border:1px solid #3069B3;
+      border-radius:50%;
+      line-height: 0px;
+      font-size: 0px;
+      cursor: pointer;
+      top: 50%;
+      margin-right: 10px;
+      -webkit-transform: translate(0, -50%);
+      -ms-transform: translate(0, -50%);
+      transform: translate(0, -50%);
+      padding: 0;
+      z-index: 99;
+    }
+  
+    .pdp-video__popup-container{
+      display: none;
+      background: rgba(51, 51, 51);
+      height: 100vh;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 99999;
+    }
+    .video__popup-close{
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+    .video__popup-wrapper{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+    .video__popup-wrapper video{
+      width: 100%;
+      height: auto;
+      max-height: 400px;
+      max-width: 700px;
+      border-radius: 4px;
+    }
+    @media(max-width:749px){
+      #product-img-slider1 {
+        display: none;
+      }
+      #product-img-slider2 .slick-track {
+        margin-left: 0;
+        margin-right: 0;
+      }
+  
+      #product-img-slider2 .pdp-image-slide{
+        margin: 0;
+        border: none;
+        border-radius: 4px;
+      }
+      #product-img-slider2 .slick-slide.slick-current {
+        border: none;
+        filter: none;
+      }
+      #product-img-slider2.slick-slider .slick-dots{
+        position: relative;
+        bottom: 0;
+      }
+      #product-img-slider2.slick-slider .slick-dots li.slick-active button:before{
+        background-color: #00BAC6 !important;
+      }
+      #product-img-slider2.slick-slider .slick-dots li a:before, .slick-slider .slick-dots li button:before{
+        background-color: #C4C4C4;
+      }
+    }
+  </style>
+  
+  
+  <!-- {% assign videoPlaceHolder = product.metafields.global.product-video-placeholder %}
+  {% assign videoURL = product.metafields.global.product-video %} -->
+  {% assign colorImage = false %}
+  {% assign colorImg = false %}
+  {% assign colorImgSize = 0 %}
+  
+  <div class="pdp-sticky__wrapper">
+  <div class="pdp-sticky__inner">
+  <div id="product-img-slider1" class="pdp__slider1">
+    {% for image in product.images %}
+    {% if product.images.size > 1 %}
+    
+      {% assign colorImgSize = colorImgSize | plus: 1 %}
+      <div class="pdp-big-slider">
+        <div class="pdp-big-slide">
+          <img class="lazyload" src="{% if forloop.first == true %} {{image | img_url:'600x'}} {% else %} {{image | img_url:'40x'}} {% endif %}" data-src="{{ image | img_url: '600x' }}" alt="{{image.alt}}" />
+        </div>
+      </div>
+
+    {% else %}
+    <div class="pdp-big-slider">
+      <div class="pdp-big-slide">
+        <img class="lazyload" src="{{featured_image | img_url:'40x'}}" data-src="{{ featured_image | img_url: '600x' }}" alt="{{image.alt}}" />
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    <!-- {% if videoPlaceHolder and videoURL %}
+    <div class="pdp-big-slider">
+      <div class="pdp-big-slide">
+      <video controls id="videoPopup" poster="{{ videoPlaceHolder}}" controls>
+        <source src="{{videoURL}}" type="video/mp4">
+        <source src="{{videoURL}}" type="video/ogg">
+      </video>
+      </div>
+    </div>
+    {% endif %} -->
+  </div>
+  
+  <div id="product-img-slider2" class="pdp__slider2 {% if product.images.size < 7 or colorImgSize < 7 %} no-slider {% endif %}">
+    {% for image in product.images %}
+    {% if product.images.size > 1 %}
+    
+      <div class="pdp-image-slide">
+        <div class="pdp-image">
+          <img class="lazyload" src="{% if forloop.first == true %} {{image | img_url:'600x'}} {% else %} {{image | img_url:'40x'}} {% endif %}" data-src="{{ image | img_url: '600x' }}" alt="{{image.alt}}" />
+        </div>
+      </div>
+
+    {% else %}
+    
+    <div class="pdp-image-slide">
+      <div class="pdp-image">
+       <img class="lazyload pdp-slide" src="{{featured_image | img_url:'40x'}}" data-src="{{ featured_image | img_url: '600x' }}" alt="{{image.alt}}"/>
+      </div>
+    </div>
+    
+    {% endif %}
+    {% endfor %}
+    <!-- {% if videoPlaceHolder and videoURL %}
+    <div class="pdp-image-slide ">
+      <div class="pdp-image">
+      <img class="lazyload pdp-slide video-placeholder" data-src="{{ videoPlaceHolder }}" style="width: 600px" alt="learn to wear contact lenses" id="videoplaceholder" />
+      </div>
+    </div>
+    {% endif %} -->
+  
+  </div>
+  </div>
+  </div>
+  
+  <!-- {% if videoURL %}
+  <div class="pdp-video__popup-container">
+      <div class="video__popup-close">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1.99026 0.990242C1.79132 0.990294 1.59693 1.04967 1.43192 1.16079C1.26691 1.2719 1.13878 1.4297 1.06393 1.61401C0.989069 1.79832 0.97088 2.00077 1.01168 2.19548C1.05249 2.39018 1.15043 2.56829 1.29299 2.70704L6.58596 8.00001L1.29299 13.293C1.19702 13.3851 1.1204 13.4955 1.06761 13.6176C1.01483 13.7397 0.98694 13.8712 0.985586 14.0042C0.984233 14.1373 1.00944 14.2692 1.05973 14.3924C1.11002 14.5156 1.18438 14.6275 1.27846 14.7216C1.37254 14.8157 1.48444 14.89 1.60762 14.9403C1.7308 14.9906 1.86277 15.0158 1.99581 15.0144C2.12885 15.0131 2.26028 14.9852 2.38241 14.9324C2.50454 14.8796 2.61491 14.803 2.70705 14.707L8.00002 9.41407L13.293 14.707C13.3851 14.803 13.4955 14.8796 13.6176 14.9324C13.7398 14.9852 13.8712 15.0131 14.0042 15.0145C14.1373 15.0158 14.2693 14.9906 14.3924 14.9403C14.5156 14.89 14.6275 14.8157 14.7216 14.7216C14.8157 14.6275 14.89 14.5156 14.9403 14.3924C14.9906 14.2692 15.0158 14.1373 15.0145 14.0042C15.0131 13.8712 14.9852 13.7397 14.9324 13.6176C14.8797 13.4955 14.803 13.3851 14.7071 13.293L9.41408 8.00001L14.7071 2.70704C14.8516 2.56658 14.9503 2.38574 14.9902 2.18822C15.0302 1.9907 15.0095 1.78571 14.931 1.60013C14.8524 1.41454 14.7197 1.25701 14.5501 1.14818C14.3805 1.03935 14.1819 0.984302 13.9805 0.990242C13.7207 0.997983 13.4741 1.10656 13.293 1.29298L8.00002 6.58595L2.70705 1.29298C2.61386 1.19718 2.50242 1.12104 2.37931 1.06904C2.25619 1.01704 2.1239 0.99025 1.99026 0.990242Z" fill="white"/>
+          </svg>  
+      </div>
+      <div class="video__popup-wrapper">      
+        <video controls id="pdpVideo">
+          <source src="{{videoURL}}" type="video/mp4">
+          <source src="{{videoURL}}" type="video/ogg">
+        </video>
+      </div>
+  </div>
+  {% endif %} -->
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/css-element-queries/1.2.3/ResizeSensor.min.js" integrity="sha512-Li66vFTPdL3BpG7YUS8/TdT+mpL4QWYe9N3f39LLZzxnPJL/w1Ih3C/CgEJmsQjSEy8Xx8+vTFDAS3A2s5NBUg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-sidebar/3.3.1/jquery.sticky-sidebar.min.js" integrity="sha512-5JnN0KAeC4m2DFuyFM/NooqJs5ZAGV/RQ27bS1ItFhFU8tMPTtEhF5utip7GlNRsoGS0qAGUJvcRiMmL0PYWjA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
+  
+  <script type="text/javascript">
+      function stickySiderbar() {
+        setTimeout(function() {
+          $( window ).width() > 749 && $(".pdp-sticky__wrapper").stickySidebar({
+              topSpacing: 90,
+              bottomSpacing: 30,
+              minWidth: 749,
+              containerSelector: ".poduct__page-container",
+              innerWrapperSelector: ".pdp-sticky__inner",
+          })
+        }, 10);
+      }
+      $(document).ready(function(){
+        $("#product-img-slider1").on('afterChange', function(event, slick, currentSlide){
+          $("#videoPopup").trigger('pause');     
+        });
+        $('#product-img-slider1').slick({
+          dots: false,
+          infinite: true,
+          speed: 300,
+          arrows: true,
+          lazyLoad: 'ondemand',
+          slidesToShow: 1,
+          adaptiveHeight: true,
+          prevArrow:'<div class="slick-prev"><i class="arrow left"></i></div>',
+          nextArrow:'<div class="slick-next"><i class="arrow right"></i></div>',
+          asNavFor: '#product-img-slider2'
+        });
+    
+        $('#product-img-slider2').slick({
+          dots: false,
+          infinite: true,
+          speed: 300,
+          arrows: false,
+          slidesToShow: 6,
+          slidesToScroll: 1,
+          adaptiveHeight: false,
+          focusOnSelect: true,
+          asNavFor: '#product-img-slider1',
+          responsive: [
+            {
+              breakpoint: 749,
+              settings: {
+                arrows: false,
+                slidesToShow: 1,
+                dots: false,
+              }
+            }
+          ]
+        });
+  
+        $(document).on("click",".video-placeholder",function(){
+          if(window.innerWidth <750){
+            $(".pdp-video__popup-container").show();
+            $("body").css({"overflow":"hidden"}); 
+            $("#pdpVideo").trigger('play');
+          }
+        })
+        $(document).on("click",".video__popup-close",function(){
+          $(".pdp-video__popup-container").hide();
+          $("body").css({"overflow":"auto"}); 
+          $("#pdpVideo").trigger('pause');
+        });
+        stickySiderbar();
+      });
+  </script>  
+  
+    
+    
+    
+    
+    

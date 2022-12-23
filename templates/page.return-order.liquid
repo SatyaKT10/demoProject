@@ -1,0 +1,835 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.0.0/magnific-popup.min.css" integrity="sha512-nIm/JGUwrzblLex/meoxJSPdAKQOe2bLhnrZ81g5Jbh519z8GFJIWu87WAhBH+RAyGbM4+U3S2h+kL5JoV6/wA==" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.0.0/jquery.magnific-popup.min.js" integrity="sha512-+m6t3R87+6LdtYiCzRhC5+E0l4VQ9qIT1H9+t1wmHkMJvvUQNI5MKKb7b08WL4Kgp9K0IBgHDSLCRJk05cFUYg==" crossorigin="anonymous"></script>
+<script>
+  {% if customer %}  
+  {% else %}
+  window.location.href = "https://aqualensb2b.com/account/login";
+  {% endif %}
+</script>
+<style>
+/*   popup */
+  .return__reasons .mfp-close{
+    display:none;
+  }
+  .return-white-popup{
+    position: relative;
+    background: #FFF;
+    padding: 20px;
+    border-radius: 5px;
+    width: 94%;
+    max-width: 500px;
+    margin: 20px auto;
+  }
+  .return__header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom:10px;
+    border-bottom: 1px solid #F2F2F2;
+  }
+  .return__header--title{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 21px;
+    color: #333333;
+  }
+  .return__header--close{
+    cursor:pointer;
+  }
+  .reason_list{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 412.4%;
+    color: #474747;
+    margin-bottom:0px;
+  }
+  .reason_list_others{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 412.4%;
+    color: #474747;
+  }
+  .other_text{
+    padding: 8px 15px;
+    width: 100%;
+    max-height: 110px;
+  }
+/*  return products   */
+  .footer__section{
+    display:none;
+  }
+  .prd__order-return{
+    height: auto;
+    border-radius: 4px;
+    background: #F8F8F8;
+    box-shadow: 0 0 6px #00000029;
+    width:auto;
+    margin:auto;
+    max-width: 450px;
+    margin-top: 0px;
+    padding: 10px 0px;
+  }
+
+  .prdOrders__background{
+    background: #F8F8F8;
+    border-radius:10px;
+    height:100%;
+  }  
+  .return__btn {
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: white;
+    text-align:right;
+    text-align: -webkit-right;
+  }
+  .return__btn--text {
+    background: #E5E5E5;
+    border-radius: 4px;
+    width: auto;
+    font-size: 17px;
+    text-transform: capitalize;
+    color: white;
+    letter-spacing: 0;
+    padding: 10px;
+    text-align: center;
+    font-weight: 600;
+    width: 19%;
+    cursor:pointer;   
+    border: 0;
+  }
+  .btn__text_enabled{
+    background:#00BAC6 !important; 
+  }
+ 
+  @media(max-width:749px){
+    .prd__order-return{
+      height: auto;
+      border-radius: 4px;
+      background: #F8F8F8;
+      box-shadow: 0 0 6px #00000029;
+      width:auto;
+      margin:auto;
+      max-width: 450px;
+      margin-top: 54px;
+      padding: 10px 0px;
+    }
+    .prdOrders__background{
+      background: #F8F8F8;
+      border-radius:10px;
+      height:100%;
+    }  
+    .return__btn--text {
+      background: #E5E5E5;
+      border-radius: 4px;
+      width: auto;
+      font-size: 17px;
+      text-transform: capitalize;
+      color: white;
+      letter-spacing: 0;
+      padding: 10px;
+      text-align: center;
+      font-weight: 600;
+      cursor:pointer;
+      width: 100%;
+      border: 0;
+    }
+    .return__btn {
+      padding: 10px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: white;
+      
+    }
+  }
+  .order__container {
+    background: white;
+    margin: 10px 15px;
+    padding: 10px 8px;
+
+    border-radius: 4px;
+    border: 1px solid #dee2e6;
+  }
+  .order__content--wrapper {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  input[name="returnCheckbox"] {
+    width: 20px;
+    height: 20px;
+  }
+
+  .prd__img--title img.prd--img {
+    width: 100%;
+    height: 100%;
+  }
+
+  h4.prd--title {
+    font-family: Poppins;
+    font-style: normal;
+    text-transform: capitalize;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #4F4F4F;
+    margin-bottom: 0;
+  }
+  .prd__img--title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .varaint__name {
+    margin-bottom: 10px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 18px;
+    color: #828282;
+  }
+  .prd__quantity {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+  .prd__quantity h4{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+    color: #474747;
+    margin-bottom: 0;
+  }
+  .prd__quantity .choose__qty{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+    color: #474747;
+    margin-bottom: 0;
+  }
+  .prd__quantity input{
+    width:60px;
+    padding: 4px 10px;
+    text-align: center;
+  }
+  .return__product {
+    border-left: 1px solid #dee2e6;
+    padding-left: 20px;
+  }
+  .varaint__name{
+    text-transform:capitalize;
+  }
+  
+  
+  
+  
+  
+  .return-cancellation__container {
+    background-color: #FFFFFF;
+    border-radius: 4px;
+    margin: auto;
+  }
+  .subscription-cancellation__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid rgba(216, 216, 216, 0.2);
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 27px;
+    color: #4F4F4F;
+  }
+  .return-cancellation__description textarea {
+    width: 100%;
+    height: 90px;
+    min-height: 90px;
+    padding: 10px;
+    resize: none;
+    background: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 4px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 18px;
+    color: #474747;
+  }
+  .return-cancellation__btn {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: center;
+    color: #FFFFFF;
+    width: 100%;
+    padding: 9px 0px;
+    outline: 0;
+    background: #00BAC6;
+    border: 1px solid #00BAC6;
+    border-radius: 4px;
+    margin-top: 10px;
+  }
+  .return-cancellation__error{
+    display: none;
+    color: #f86464;
+    margin-top: 5px;
+    font-size: 12px;
+    line-height: 18px;
+    text-align: center;
+    font-weight:600;
+  }
+
+  label.issue__option {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 40px;
+    color: #474747;
+    width: 100%;
+  }
+
+  label.issue__option span{
+    display: none;
+  }
+
+  .return-cancellation__option-wrapper input {
+    display: none;
+  }
+  .return-cancellation__option-wrapper label.issue__option {
+    border-bottom: 1px solid #F2F2F2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }  
+  .return-cancellation__option-wrapper input:checked + label p{
+    color:#00BAC6;
+  }
+  .return-cancellation__option-wrapper input:checked + label{
+    color: #00BAC6;
+  }
+  .return-cancellation__option-wrapper input:checked + label > span{
+    display: block;
+  }
+
+  /*********Cancellation Submit Popup*********/
+
+  .cancellation__submit-popup{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 199999;
+    background: rgba(51, 51, 51, 0.8);
+  }
+  .cancellation__submit-popup-content{
+    width: 314px;
+    height: 344px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0 auto;
+    background: #FFFFFF;
+    box-shadow: 0px 24px 34px rgb(0 0 0 / 25%);
+    border-radius: 4px;
+  }
+  .cancellation__submit-popup-image{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top:40px;
+  }
+  .cancellation__submit-popup-image img{
+    width: 80px;
+    height: 80px;
+  }
+  .cancellation__submit-popup-close{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 2;
+    cursor: pointer;
+  }
+  .cancellation__submit-popup-title{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #333333;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  .cancellation__submit-popup-msg{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 18px;
+    color: #666666;
+    margin: 0 60px;
+    margin-bottom: 25px;
+    text-align: center;
+  }
+  .cancellation__submit-popup-btn{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: center;
+    color: #FFFFFF;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    width: 168px;
+    background: #00BAC6;
+    padding: 14px 0px;
+    outline: 0;
+    margin: 0 auto;
+    cursor: pointer;
+  }
+
+  .return-cancellation__btn[disabled]{
+    background: #E5E5E5;
+    border:1px solid #E5E5E5;
+  }
+  .variant_title {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 18px;
+    color: #828282;
+}
+  .error__text {
+    text-align: right;
+    color: red;
+    font-size: 12px;
+    font-weight: 500;
+    font-family: 'Open Sans';
+    font-family: Poppins;
+}
+  @media(min-width:750px){
+    .subscription__container-header {
+      position: absolute;
+      width: 52%;
+    }
+    .subscription__container-content {
+      margin: 23px;
+      margin-top: 87px;
+    }
+  }
+
+  @media(max-width:749px){
+    .side__account-menu{
+      display: none;
+    }
+    .subscription__container{
+      flex: 1 1 100%;
+      width: 100%;
+    }
+    .subscription__container-header{
+      padding: 15px;
+      border-bottom: 3px solid #E5E5E5;
+    }
+    .subscription__container-title {
+      cursor: pointer;
+    }
+    .subscription__container-title svg{
+      display: block;
+    }
+    .subscription__container-content {
+      background: #FFFFFF;
+    }
+    .subscription-cancellation__header {
+      padding: 15px;
+      font-size: 14px;
+      line-height: 21px;
+      color: #333333;
+    }
+  }
+</style>
+<div class="prdOrders__background">
+  {% render 'background-look' %}
+  <div class="prd__order-return"> 
+    
+  </div>
+  <div class="return__btn">
+    <button class="return__btn--text" disabled>Return</button>
+   </div>
+  <div style="margin-top:54px;"></div>
+</div>
+<div id="return__reasons" class="return__reasons return-white-popup mfp-hide">
+  <div class="return__header">
+    <div class="return__header--title">Please help with a reason to return</div>
+    <div class="return__header--close">
+      <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1.99007 0.000434763C1.79114 0.000487008 1.59674 0.0598657 1.43173 0.170979C1.26672 0.282093 1.1386 0.439893 1.06374 0.624205C0.988886 0.808517 0.970697 1.01097 1.0115 1.20567C1.05231 1.40037 1.15025 1.57848 1.29281 1.71723L6.58578 7.0102L1.29281 12.3032C1.19684 12.3953 1.12021 12.5057 1.06743 12.6278C1.01464 12.7499 0.986757 12.8814 0.985403 13.0144C0.98405 13.1475 1.00926 13.2794 1.05954 13.4026C1.10983 13.5258 1.1842 13.6377 1.27827 13.7318C1.37235 13.8258 1.48426 13.9002 1.60743 13.9505C1.73061 14.0008 1.86259 14.026 1.99563 14.0246C2.12867 14.0233 2.2601 13.9954 2.38223 13.9426C2.50436 13.8898 2.61473 13.8132 2.70687 13.7172L7.99984 8.42426L13.2928 13.7172C13.385 13.8132 13.4953 13.8898 13.6175 13.9426C13.7396 13.9954 13.871 14.0233 14.0041 14.0246C14.1371 14.026 14.2691 14.0008 14.3922 13.9505C14.5154 13.9002 14.6273 13.8259 14.7214 13.7318C14.8155 13.6377 14.8899 13.5258 14.9401 13.4026C14.9904 13.2794 15.0156 13.1475 15.0143 13.0144C15.0129 12.8814 14.985 12.7499 14.9323 12.6278C14.8795 12.5057 14.8028 12.3953 14.7069 12.3032L9.4139 7.0102L14.7069 1.71723C14.8514 1.57677 14.9501 1.39593 14.99 1.19841C15.03 1.00089 15.0093 0.795905 14.9308 0.610319C14.8523 0.424733 14.7195 0.267204 14.5499 0.158375C14.3803 0.0495457 14.1817 -0.0055056 13.9803 0.000434763C13.7205 0.0081759 13.4739 0.116755 13.2928 0.303169L7.99984 5.59614L2.70687 0.303169C2.61368 0.207375 2.50224 0.13123 2.37912 0.0792331C2.25601 0.0272363 2.12372 0.000442554 1.99007 0.000434763Z" fill="#333333"/>
+      </svg>                    
+    </div>
+  </div>
+  
+  
+  <div class="return-cancellation__container return-cancellation">
+    <div class="return-cancellation__option">
+      <div class="return-cancellation__option-wrapper">
+
+        <input value="Wrong Product Delivered" type="radio" name="issue" id="issue-5">
+        <label for="issue-5" class="issue__option">
+          <p class="reason_list">Wrong Product Delivered</p>
+          <span>
+            <svg width="20" height="16" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12.9855 0.492514C12.7906 0.498319 12.6057 0.579754 12.4699 0.719564L4.75012 8.43929L2.2804 5.96956C2.21129 5.89758 2.12851 5.84012 2.03692 5.80053C1.94532 5.76094 1.84674 5.74003 1.74696 5.73901C1.64718 5.73799 1.5482 5.7569 1.45582 5.79462C1.36344 5.83233 1.27951 5.8881 1.20895 5.95866C1.13839 6.02922 1.08262 6.11315 1.0449 6.20553C1.00719 6.29792 0.988281 6.3969 0.989297 6.49668C0.990312 6.59646 1.01123 6.69503 1.05081 6.78663C1.0904 6.87822 1.14787 6.961 1.21985 7.03011L4.21985 10.0301C4.36051 10.1707 4.55125 10.2497 4.75012 10.2497C4.949 10.2497 5.13974 10.1707 5.2804 10.0301L13.5304 1.78011C13.6388 1.67476 13.7128 1.53913 13.7428 1.39099C13.7727 1.24285 13.7573 1.08912 13.6983 0.949927C13.6394 0.810737 13.5399 0.69259 13.4127 0.610968C13.2854 0.529347 13.1366 0.488058 12.9855 0.492514Z" fill="#00BAC6"/>
+            </svg>
+          </span>
+        </label>
+        <input value="Damage Product" type="radio" name="issue" id="issue-4">
+        <label for="issue-4" class="issue__option">
+          <p class="reason_list">Damage Product</p>
+          <span>
+            <svg width="20" height="16" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12.9855 0.492514C12.7906 0.498319 12.6057 0.579754 12.4699 0.719564L4.75012 8.43929L2.2804 5.96956C2.21129 5.89758 2.12851 5.84012 2.03692 5.80053C1.94532 5.76094 1.84674 5.74003 1.74696 5.73901C1.64718 5.73799 1.5482 5.7569 1.45582 5.79462C1.36344 5.83233 1.27951 5.8881 1.20895 5.95866C1.13839 6.02922 1.08262 6.11315 1.0449 6.20553C1.00719 6.29792 0.988281 6.3969 0.989297 6.49668C0.990312 6.59646 1.01123 6.69503 1.05081 6.78663C1.0904 6.87822 1.14787 6.961 1.21985 7.03011L4.21985 10.0301C4.36051 10.1707 4.55125 10.2497 4.75012 10.2497C4.949 10.2497 5.13974 10.1707 5.2804 10.0301L13.5304 1.78011C13.6388 1.67476 13.7128 1.53913 13.7428 1.39099C13.7727 1.24285 13.7573 1.08912 13.6983 0.949927C13.6394 0.810737 13.5399 0.69259 13.4127 0.610968C13.2854 0.529347 13.1366 0.488058 12.9855 0.492514Z" fill="#00BAC6"/>
+            </svg>
+          </span>
+        </label>
+        <input value="Order Placed by mistake" type="radio" name="issue" id="issue-3">
+        <label for="issue-3" class="issue__option">
+          <p class="reason_list">Order Placed by mistake</p>
+          <span>
+            <svg width="20" height="16" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12.9855 0.492514C12.7906 0.498319 12.6057 0.579754 12.4699 0.719564L4.75012 8.43929L2.2804 5.96956C2.21129 5.89758 2.12851 5.84012 2.03692 5.80053C1.94532 5.76094 1.84674 5.74003 1.74696 5.73901C1.64718 5.73799 1.5482 5.7569 1.45582 5.79462C1.36344 5.83233 1.27951 5.8881 1.20895 5.95866C1.13839 6.02922 1.08262 6.11315 1.0449 6.20553C1.00719 6.29792 0.988281 6.3969 0.989297 6.49668C0.990312 6.59646 1.01123 6.69503 1.05081 6.78663C1.0904 6.87822 1.14787 6.961 1.21985 7.03011L4.21985 10.0301C4.36051 10.1707 4.55125 10.2497 4.75012 10.2497C4.949 10.2497 5.13974 10.1707 5.2804 10.0301L13.5304 1.78011C13.6388 1.67476 13.7128 1.53913 13.7428 1.39099C13.7727 1.24285 13.7573 1.08912 13.6983 0.949927C13.6394 0.810737 13.5399 0.69259 13.4127 0.610968C13.2854 0.529347 13.1366 0.488058 12.9855 0.492514Z" fill="#00BAC6"/>
+            </svg>
+          </span>
+        </label>
+        <input value="Consumer Complaint" type="radio" name="issue" id="issue-2">
+        <label for="issue-2" class="issue__option">
+          <p class="reason_list">Consumer Complaint</p>
+          <span>
+            <svg width="20" height="16" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12.9855 0.492514C12.7906 0.498319 12.6057 0.579754 12.4699 0.719564L4.75012 8.43929L2.2804 5.96956C2.21129 5.89758 2.12851 5.84012 2.03692 5.80053C1.94532 5.76094 1.84674 5.74003 1.74696 5.73901C1.64718 5.73799 1.5482 5.7569 1.45582 5.79462C1.36344 5.83233 1.27951 5.8881 1.20895 5.95866C1.13839 6.02922 1.08262 6.11315 1.0449 6.20553C1.00719 6.29792 0.988281 6.3969 0.989297 6.49668C0.990312 6.59646 1.01123 6.69503 1.05081 6.78663C1.0904 6.87822 1.14787 6.961 1.21985 7.03011L4.21985 10.0301C4.36051 10.1707 4.55125 10.2497 4.75012 10.2497C4.949 10.2497 5.13974 10.1707 5.2804 10.0301L13.5304 1.78011C13.6388 1.67476 13.7128 1.53913 13.7428 1.39099C13.7727 1.24285 13.7573 1.08912 13.6983 0.949927C13.6394 0.810737 13.5399 0.69259 13.4127 0.610968C13.2854 0.529347 13.1366 0.488058 12.9855 0.492514Z" fill="#00BAC6"/>
+            </svg>
+          </span>
+        </label>
+        
+        <input value="Others" type="radio" name="issue" id="issue-6" class="other_issue">
+        <label for="issue-6" class="issue__option">
+          <p class="reason_list">Others</p>
+          <span>
+            <svg width="20" height="16" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12.9855 0.492514C12.7906 0.498319 12.6057 0.579754 12.4699 0.719564L4.75012 8.43929L2.2804 5.96956C2.21129 5.89758 2.12851 5.84012 2.03692 5.80053C1.94532 5.76094 1.84674 5.74003 1.74696 5.73901C1.64718 5.73799 1.5482 5.7569 1.45582 5.79462C1.36344 5.83233 1.27951 5.8881 1.20895 5.95866C1.13839 6.02922 1.08262 6.11315 1.0449 6.20553C1.00719 6.29792 0.988281 6.3969 0.989297 6.49668C0.990312 6.59646 1.01123 6.69503 1.05081 6.78663C1.0904 6.87822 1.14787 6.961 1.21985 7.03011L4.21985 10.0301C4.36051 10.1707 4.55125 10.2497 4.75012 10.2497C4.949 10.2497 5.13974 10.1707 5.2804 10.0301L13.5304 1.78011C13.6388 1.67476 13.7128 1.53913 13.7428 1.39099C13.7727 1.24285 13.7573 1.08912 13.6983 0.949927C13.6394 0.810737 13.5399 0.69259 13.4127 0.610968C13.2854 0.529347 13.1366 0.488058 12.9855 0.492514Z" fill="#00BAC6"/>
+            </svg>
+          </span>
+        </label>
+        
+      </div>
+    </div>
+    
+    <div class="return-cancellation__description">       
+      <textarea id="orderCancellationContent" style="display:none;" name="orderCancellationContent" class="input-textarea" placeholder="Reason to return"></textarea>
+      <button class="return-cancellation__btn" type="button" disabled>Return Order</button>
+      <p class="return-cancellation__error"></p>
+    </div>
+    <div class="cancellation__submit-popup submit-success">
+      <div class="cancellation__submit-popup-content">
+        <div style="display:none;" class="cancellation__submit-popup-close">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.99032 0.990242C1.79139 0.990294 1.59699 1.04967 1.43198 1.16079C1.26697 1.2719 1.13884 1.4297 1.06399 1.61401C0.98913 1.79832 0.970941 2.00077 1.01175 2.19548C1.05255 2.39018 1.15049 2.56829 1.29305 2.70704L6.58602 8.00001L1.29305 13.293C1.19708 13.3851 1.12046 13.4955 1.06767 13.6176C1.01489 13.7397 0.987001 13.8712 0.985647 14.0042C0.984294 14.1373 1.0095 14.2692 1.05979 14.3924C1.11008 14.5156 1.18444 14.6275 1.27852 14.7216C1.3726 14.8157 1.4845 14.89 1.60768 14.9403C1.73086 14.9906 1.86283 15.0158 1.99587 15.0144C2.12891 15.0131 2.26034 14.9852 2.38247 14.9324C2.5046 14.8796 2.61497 14.803 2.70712 14.707L8.00008 9.41407L13.2931 14.707C13.3852 14.803 13.4956 14.8796 13.6177 14.9324C13.7398 14.9852 13.8713 15.0131 14.0043 15.0145C14.1373 15.0158 14.2693 14.9906 14.3925 14.9403C14.5157 14.89 14.6276 14.8157 14.7217 14.7216C14.8157 14.6275 14.8901 14.5156 14.9404 14.3924C14.9907 14.2692 15.0159 14.1373 15.0145 14.0042C15.0132 13.8712 14.9853 13.7397 14.9325 13.6176C14.8797 13.4955 14.8031 13.3851 14.7071 13.293L9.41415 8.00001L14.7071 2.70704C14.8516 2.56658 14.9503 2.38574 14.9903 2.18822C15.0302 1.9907 15.0096 1.78571 14.931 1.60013C14.8525 1.41454 14.7197 1.25701 14.5501 1.14818C14.3805 1.03935 14.182 0.984302 13.9806 0.990242C13.7208 0.997983 13.4742 1.10656 13.2931 1.29298L8.00008 6.58595L2.70712 1.29298C2.61393 1.19718 2.50248 1.12104 2.37937 1.06904C2.25625 1.01704 2.12396 0.99025 1.99032 0.990242Z" fill="#4F4F4F"/>
+          </svg>            
+        </div>
+        <div class="cancellation__submit-popup-image">
+          <img src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/icons8-return-box-64.png?v=1645029584" alt="">          
+        </div>
+        <div class="cancellation__submit-popup-title">Order Returned</div>
+        <div class="cancellation__submit-popup-msg">Your Request is successfully Processed.</div>
+        <div class="cancellation__submit-popup-btn">Continue</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  $(document).ready(function() { 
+    
+    // listing products according to lenskart order id
+//     let bearerTokenOrder = sessionStorage.getItem("bearerToken");
+    let custNewToken =  sessionStorage.getItem("custNewToken");
+    var lenskart_order_id = 0;
+    function orderDetailsReturn(orderId){
+      lenskart_order_id = orderId;
+      let settingsItem = {
+        "url": baseURL+'/api/v1/orders/get-line-items/'+orderId,
+        "headers": {
+          "Authorization": "Bearer"+" "+custNewToken
+        }
+      };
+      $.ajax(settingsItem).done(function (response) {
+        let returnProductHtml = '';
+        let variantTitleHtml = '';
+        if(response.status == true){
+            response.data.forEach(function(i){ 
+              if(i.variant_title == "Default Title"){
+				 variantTitleHtml = '';
+              }else{     
+                variantTitleHtml = `<div class="variant_title">Color:&nbsp;${i.variant_title}</div>`;
+              }
+
+              let htmlData = `<div class="order__container" data-variant-id="${i.variant_id}" data-product-qty="${i.quantity}">
+                                    <div class="order__content--wrapper">
+                                        <div class="return__checkbox">
+                                            <input type="checkbox" name="returnCheckbox" id="">
+                                        </div>
+										
+                                        <div class="return__product">
+                                            <div class="return__product-info">
+                                                <div class="prd__img--title">
+                                                    <div style="width:90px;height:90px;border: 1px solid #F8F8F8;">
+                                                        <img class="prd--img" src="${i.image}" alt="">
+                                                    </div>
+												<h4 class="prd--title">${i.product_title}</h4>
+                                                </div>
+												${variantTitleHtml}
+                                            </div>
+                                            <div class="prd__quantity">
+                                                <h4>Quantity: <span>${i.quantity}</span></h4>
+												<div class="choose__qty">Choose qty: <input class="input_return_qty" type="number" name="returnQty" min="1" value="${i.quantity}" data-input-qty="${i.quantity}"></div>
+                                            </div>
+											<div class="error__text"></div>
+                                        </div>
+                                    </div>
+                                </div>`
+          returnProductHtml = returnProductHtml + htmlData;
+          })
+           $('.prd__order-return').html(returnProductHtml);                      
+        }
+      })
+    }
+        
+    function orderDetailReturnFn(){
+      const urlParams = new URLSearchParams(location.search);
+      if(urlParams.has('orderID')){
+        let orderId = urlParams.get('orderID');
+        orderDetailsReturn(orderId);
+      }
+    }
+    $(window).on("load",function(){
+      orderDetailReturnFn();
+    })
+    
+    function validData(){
+      let validFlag = false;
+      $('.order__checked').each(function(){  
+        //let qtyVal = $(e).find('[name="returnQty"]').val();
+        validFlag = true;
+        $('.order__checked').each(function(i,e){  
+          let qtyVal = $(e).find('[name="returnQty"]').val();
+          if(qtyVal == ''){
+            validFlag = false;
+          }
+        })
+
+      })
+      return validFlag;
+    }
+    
+    
+
+    $(document).on('input','[name="returnQty"]', function () {
+      var value = $(this).val();
+      let data_qty = $(this).attr('data-input-qty');
+      $('.return__btn--text').attr('disabled',true);
+      $('.return__btn--text').removeClass("btn__text_enabled");
+      if(validData()){                                              
+        $('.return__btn--text').attr('disabled',false);
+        $('.return__btn--text').addClass("btn__text_enabled");
+      }
+      if ((value !== '') && (value.indexOf('.') === -1)) {
+        if(data_qty){        
+          $(this).val(Math.max(Math.min(value, data_qty), 1));              
+        }
+      }
+
+      if ((value == '') && $(this).parents('.order__container').find('input[name="returnCheckbox"]').prop("checked") == true ) {        
+        $(this).parents('.order__container').find('.error__text').html('Please enter quantity');        
+      }else{
+        $(this).parents('.order__container').find('.error__text').html('');
+        //console.log(data_qty)
+        //$(this).val(data_qty); 
+      }
+
+    });
+    
+    
+    // popup for return order
+    function ReturnPopUp(popup,modal = false){
+      $.magnificPopup.open({
+        items: {
+          src: popup
+        },
+        type : 'inline',
+        closeBtnInside: true,
+        fixedContentPos:true,
+        overflowY: 'auto',
+        closeOnBgClick : true,
+        modal : modal,
+        fixedBgPos: true
+      });  
+    }
+    // $(".return__reasons").hide();
+    $(document).on('click',".return__btn--text",function(event){            
+      $('.order__container').each(function(i,e){  
+        let qtyVal = $(e).find('[name="returnQty"]').val();
+        if($(e).find('input[name="returnCheckbox"]').prop("checked") == true && qtyVal !== ''){                       
+          if(qtyVal == ''){
+            $(e).find('.error__text').html('Please enter quantity');
+//             setTimeout(function() {
+//               $(".error__text").fadeOut();
+//             }, 3000);
+            return false;
+          } else {
+            $(".return__reasons").show();
+            let popupContent = $(".return__reasons")
+            ReturnPopUp(popupContent);
+//             return true; 
+          }
+        }
+      })
+    });
+    
+    $(document).on('click',".return__header--close",function(event){
+      $.magnificPopup.close();
+    });
+
+   // Sending variant id and message after click on return order button 
+   
+    $(document).on("change",'input[name="returnCheckbox"]',function(){
+      $('.return__btn--text').attr('disabled',true);
+      $('.return__btn--text').removeClass("btn__text_enabled");
+
+      if($(this).prop("checked")){
+        $(this).parents('.order__container').addClass("order__checked");
+      }else{
+        $(this).parents('.order__container').removeClass("order__checked");
+      }
+      //console.log(validData())
+      if(validData()){           
+        $('.return__btn--text').attr('disabled',false);
+        $('.return__btn--text').addClass("btn__text_enabled");
+      }
+      
+      if ($(this).prop("checked") && $(this).parents('.order__container').find('[name="returnQty"]').val() == '') {
+        $(this).parents('.order__container').find('.error__text').html('Please enter quantity');
+      }else{
+        $(this).parents('.order__container').find('.error__text').html('');
+      }
+
+    })
+    
+        
+    $(document).on("click",'.cancellation__submit-popup-btn',function(){
+      window.location.href = 'https://aqualensb2b.com/pages/my-orders';
+    })
+    
+    let issueOption = "";    
+    $(document).on("change","[name=issue]",function(){
+      $('#orderCancellationContent').hide();
+      $('.return-cancellation__btn').attr('disabled',false);
+      if($(this).hasClass('other_issue')){
+        $('#orderCancellationContent').show();        
+      }
+      issueOption = $(this).val();
+    })    
+    
+    let product_data = [];   
+    $(document).on("click",".return-cancellation__btn",function(rep){      
+      product_data = [];      
+      $('.order__container').each(function(i,e){  
+        if($(e).find('input[name="returnCheckbox"]').prop("checked") == true){             
+          let variant_id = $(e).attr("data-variant-id");
+          let qtyVal = $(e).find('[name="returnQty"]').val();
+          let data_obj = {
+            variant_id:variant_id,
+            quantity:qtyVal
+          }
+          if(qtyVal == ''){          
+         
+          } else {
+             product_data.push(data_obj);
+          }
+        }
+      })
+      
+      let discContent = $(this).parent().find("#orderCancellationContent").val();
+      let bearerTokenReturn = sessionStorage.getItem("bearerToken");
+      let $self = $(this);
+      let content = "";
+      
+      if(discContent == ""){
+        content = issueOption;
+      }
+      if(issueOption == ""){
+        content = discContent;
+      }
+      if((discContent != "") && (issueOption != "")){
+        content = `Issue - ${issueOption}, Discription - ${discContent}`;
+      }
+      
+      let returnSettings = {
+        "url": baseURL+"/api/v1/orders/create-return",
+        "method": "POST",
+        "data":{
+          "lenskart_order_id": lenskart_order_id,
+          "reason": content,
+          "return_type": "refund",
+          "items": product_data
+        },
+        "headers": {
+          "Authorization": "Bearer "+custNewToken
+        },
+      };      
+      $.ajax(returnSettings).done(function (response) {
+        if(response.status == true){
+          $(".submit-success").show();
+          $(".cancellation__submit-popup-msg").html(response.data);
+        } else { 
+          $self.parent().find(".return-cancellation__error").html(response.message).show();          
+          setTimeout(function() {
+            $(".return-cancellation__error").fadeOut();
+          }, 2000);
+        }
+        
+      }).fail(function(error){
+        console.log("error",error.responseJSON.message);
+        $self.parent().find(".return-cancellation__error").html(error.responseJSON.message).show();
+        setTimeout(function() {
+          $(".return-cancellation__error").fadeOut();
+        }, 2000);
+      })
+      
+    })
+  })
+  </script>

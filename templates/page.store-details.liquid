@@ -1,0 +1,205 @@
+<!-- <div class="page-width">
+  <div class="grid">
+    <div class="grid__item medium-up--five-sixths medium-up--push-one-twelfth">
+      <div class="section-header text-center">
+        <h1>{{ page.title }}</h1>
+      </div>
+
+      <div class="rte">
+        {{ page.content }}
+      </div>
+    </div>
+  </div>
+</div> -->
+<style>
+  .store-details .form_wrapper .content_Wrapper button.fetch-btn-sc {
+    background: #2CB3BE 0% 0% no-repeat padding-box;
+    border-radius: 4px;
+    border: none;
+    width: 100%;
+    height: 50px;
+    color: #fff;
+    text-transform: uppercase;
+    margin-top: 15px;
+    border-right: 1px solid white;
+    border-bottom: 1px solid white;
+  }
+  .store-details .form_wrapper .content_Wrapper input{
+    margin-bottom:10px !important;
+  }
+  .pin_error_text{
+    margin:0 !important;
+  }
+</style>
+
+{% for tag in customer.tags %}
+{% if tag contains 'shopName' %}
+{% assign shopName = tag %}
+{% elsif tag contains 'gstNumber' %}
+{% assign gstNumber = tag %}
+
+{% endif %}
+{% endfor %}
+<div class="store--detail verifying">
+   <div class="loader"></div>
+<div class="store-details " data-id="{{customer.id}}" existing_tags="{% for tag in customer.tags %} {{tag}}, {% endfor %}"  shopName="{{shopName}}" gstNumber="{{gstNumber}}" style="display:none" >
+  <div class="loader"></div>
+  <div class="form_wrapper" >
+    <div class="content_Wrapper" >      
+      <div class="head">We just need few information</div>
+      <div class="sub-head">Enter your Shop Name<span style="color:red;">*</span></div>
+      <input type="text" name="store-name" class="store-name">
+      <div class="sub-head">Enter Area Pincode<span style="color:red;">*</span></div>
+      <input type="number" name="pin-code"  class="pin-code" >
+      <p class="pin_error_text"></p>
+      <div class="sub-head">City<span style="color:red;">*</span></div>
+      <input type="text" name="city-code" value=""  class="city-code"  required>
+      <div class="sub-head">State<span style="color:red;">*</span></div>
+      <input type="text" name="state-code" value="" class="state-code" required>
+      <div class="sub-head">District Name<span style="color:red;">*</span></div>
+      <input type="text" name="district-code" value=""  class="district-code"  required>
+      <div class="sub-head">Region<span style="color:red;">*</span></div>
+      <input type="text" name="region-code" value="" class="region-code" required>
+      <input type="text" name="am-id-code" value="" class="am-id-code" hidden required>     
+      <button class="btn-sc" type="button">Continue</button>
+    </div>
+  </div>
+</div>
+</div>
+<!-- <div class="sucess-popup">
+    <div class="success--popup">
+      <div class="s-pop">
+        <img src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/1-10476_transparent-background-green-check-icon-hd-png-download-removebg-preview_1.png?v=1588938575">        <h1>Saved</h1>
+        <h2>Your data is succesfully saved with us</h2>
+        <a href="/" class="ok-btn">Ok</a>
+      </div>
+</div>
+</div> -->
+<script>
+  $(document).ready(function () {
+    
+    let pin_code='';
+   
+    $("input[name='pin-code']").on('input',function (event) {         
+      pin_code = $(this).val();     
+      if(pin_code.length == 6){
+       let settingsdata = {
+          "url": baseURL+`/api/b2b-store/pincode/${pin_code}`,
+          "method": "GET",
+        };
+        $.ajax(settingsdata).done(function (response) {           
+          if(response.data != null && response.status == true){            
+            $("input[name=city-code]").val(response.data.city);
+            $("input[name=state-code]").val(response.data.state);
+            $("input[name=district-code]").val(response.data.districtname);
+            $("input[name=region-code]").val(response.data.region);
+            $('input[name=am-id-code]').val(response.data.b2b_am_id);
+          }else{
+           
+//             $(".pin-code").addClass("error");
+            
+          }
+        })
+      }      
+    })
+    
+    if($('.store-details').attr('data-id') ==''){
+      document.location.href = '/account';
+    }
+    else if($('.store-details').attr('shopName') !="" &&  $('.store-details').attr('gstNumber') != ""){
+      document.location.href = '/';
+    }
+    else if($('.store-details').attr('shopName') !='' ){
+      document.location.href = '/';
+    }
+    else{
+      $(".store--detail").removeClass("verifying");
+      $(".store-details").show();
+    }
+    
+    $("input").keyup(function(){
+      $(this).removeClass("error");
+    });
+    
+    
+    $(document).on('click','.btn-sc',function (event) {
+      let cusPhone = '';
+      {% assign custPhone = ''  %}
+      {% if customer.phone != blank  %}
+      {% assign custPhone = customer.phone %}
+      {% elsif customer.email %}
+      {% assign custPhone =  customer.email | split: '@' | first %}
+      {% endif %}      
+      cusPhone = '{{ custPhone }}'
+ 	  cusPhone  =  cusPhone.slice(-10);
+      
+      var cityCode = $("input[name=city-code]").val();
+      var stateCode = $("input[name=state-code]").val();
+      var districtCode = $("input[name=district-code]").val();
+      var regionCode = $("input[name=region-code]").val();
+      var amIdCode = $('input[name=am-id-code]').val();
+      var customerId = $('.store-details').attr('data-id');
+      var storeName = $("input[name=store-name]").val();
+      var pincode = $("input[name=pin-code]").val();
+      var  existing_tags = $('.store-details').attr('existing_tags');
+      if(storeName && pincode.length == 6 && cityCode && stateCode && districtCode && regionCode ){
+        var formdata = new FormData();
+        $(".store-details").addClass("verifying");
+        formdata.append("customer_id", customerId);
+        formdata.append("pincode", pincode);
+        formdata.append("store_name", storeName);
+        formdata.append("existing_tags", existing_tags);        
+        formdata.append("city", cityCode);
+        formdata.append("state", stateCode);
+        formdata.append("districtname", districtCode);
+        formdata.append("region", regionCode);
+        formdata.append("b2b_am_id", amIdCode);
+        formdata.append("phone", cusPhone);
+        
+        if(pincode.length == 6){
+          var settingsdata = {
+            "url": baseURL+"/api/b2b-store/data",
+            "method": "POST",
+            "processData": false,
+            "contentType": false,
+            "data": formdata
+          };
+          $.ajax(settingsdata).done(function (response) {
+            console.log(response);
+            if(response.status){
+              document.location.href = "/";
+              $(".store-details").removeClass("verifying");
+              //                 $('.sucess-popup').show();
+            }
+          })
+        }else{          
+//           $(".pin-code").addClass("error");
+//           $('.pin_error_text').show();
+        }
+
+      }
+      else{
+        if(storeName==""){
+          $(".store-name").addClass("error");
+        }
+        if(pincode=="" && pincode.length != 6 ){
+          $(".pin-code").addClass("error");
+        }
+        if(cityCode==""){
+          $(".city-code").addClass("error");
+        }
+        if(stateCode==""){
+          $(".state-code").addClass("error");
+        }
+        if(districtCode==""){
+          $(".district-code").addClass("error");
+        }
+        if(regionCode==""){
+          $(".region-code").addClass("error");
+        }
+      }
+
+
+    })
+  })
+</script>

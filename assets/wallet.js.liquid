@@ -1,0 +1,232 @@
+$(document).on('click','.myWlt_content li .viewBalance',function(){
+  var thisE = $(this);
+  var text = thisE.text();
+  thisE.toggleClass('active');
+  thisE.parents('li').find('.amontH').toggleClass('hide');
+});
+$(document).on('click','.popup-wrap .haeding',function(){
+  var getLabel = $(this).attr("data-label");
+
+  if(!$(this).hasClass('active')){
+    $('.pop_content').find('.contentD').addClass("hide");
+    $('.popup-wrap .haeding').removeClass("active");
+    $('.pop_content').find('.contentD[data-label="'+getLabel+'"]').removeClass("hide");
+    $(this).addClass("active");
+  }
+  else{
+	$('.pop_content').find('.contentD').addClass("hide");
+    $('.popup-wrap .haeding').removeClass("active");
+    $('.pop_content').find('.contentD[data-label="'+getLabel+'"]').addClass("hide");
+    $(this).removeClass("active");
+  }
+  
+});
+
+$(document).on('click','.closePopWrap',function(){
+  var thisE = $(this);
+  thisE.parents('.popup-wrap').addClass('hide');
+});
+
+$(document).on('click','.showWltHistory',function(){
+  var thisE = $(this);
+  var parentsCls = thisE.parents('li').attr('class');
+  parentsCls = parentsCls.toLowerCase();
+  if(parentsCls == 'normal_balance'){
+    $("#normal_balance").removeClass('hide');
+  }
+});
+
+$(document).ready(function(){
+
+  var customerId = $('body').attr("data-customer");
+  
+  function timeConverter(t) {     
+    var a = new Date(t * 1000);
+    var today = new Date();
+    var yesterday = new Date(Date.now() - 86400000);
+    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var year = a.getFullYear();
+    var month = months[a.getMonth()];
+    var date = a.getDate();
+    var hour = a.getHours();
+    var min = a.getMinutes();
+
+    return date + ' ' + month + ' ' + year;
+  }
+
+  function razorPayapp(data){
+    var gstN = $('.myWallet_wrap').attr("gstNumber");
+
+    var rzpKey = '';
+    
+    if(gstN != ""  && typeof(gstN) != "undefined" ){
+      if(mode == 'live'){
+        rzpKey = 'rzp_live_Yycg5Le55gcpDK';
+      } else {
+        rzpKey = 'rzp_test_N9Yy714DYgtZQj';
+      }
+
+    }else{
+      if(mode == 'live'){
+        rzpKey = 'rzp_live_Srf3w6dnmr48xk';
+      } else {
+        rzpKey = 'rzp_test_pm8Xhi2C3LSi3X';
+      }
+
+    }
+    
+    var getToken =  sessionStorage.getItem("custNewToken");
+    var razorpay = {
+      "key": rzpKey,
+      "amount": data,
+      "currency": "INR",
+      "name": "Aqualens",
+      "image": "https://cdn.shopify.com/s/files/1/0084/6957/7794/files/logo_7ae23fb0-c20d-454b-ac7a-666fd6bb7d82_200x.png?v=1563190882",
+      "handler": function (response){
+        var settings = {
+          "url": baseURL+"/api/wallet/add/amount",
+          "method": "POST",
+          "headers": {
+            "Authorization": "Bearer "+getToken
+          },
+          "data": {customer_id:customerId,razorpay_payment_id:response.razorpay_payment_id }
+        };
+        $.ajax(settings).done(function (dataRes) {
+          
+          if(dataRes.status){
+            alert("Kindly note payment id for future reference :"+ response.razorpay_payment_id);
+            location.reload();
+          }
+        })
+
+      },
+      "theme": {
+        "color": "#00b9c5"
+      }
+    };
+    var rzp1 = new Razorpay(razorpay);
+    rzp1.open();
+  }
+
+
+  $(document).on('click','.rzorpayBtn',function(e){
+    e.preventDefault();
+    var amount = $('#recharge_amount').val();
+    amount = parseInt(amount);
+    amount = amount*100;
+    razorPayapp(amount);
+  });
+  
+
+  function walletDetails(){
+   
+    var getToken =  sessionStorage.getItem("custNewToken");
+    var settings = {
+      "url": baseURL+"/api/customer/wallet",
+      "method": "GET",
+      "timeout": 0,
+      "headers": {
+        "Authorization": "Bearer "+getToken
+      },
+    };
+    $.ajax(settings).done(function (response) {
+      var customer = response.customer;
+      var customerInfo = '';
+      if(customer){
+        customerInfo += '<div class="profile-img"> <img src="https://cdn.shopify.com/s/files/1/0084/6957/7794/files/final_profile.png?v=1586337956"> </div> <p class="customer-name"> <span>'+customer.name+'</span></p>';
+        customerInfo += '<div class="address-info"> <div class="content"> <p class="customer-number"> <span>'+fields[0] +'</span> </p> </div> </div>';
+
+        $(".customerInfo .content").html(customerInfo);
+      }
+      if(response.status == "SUCCESS"){       
+        var wallet_balance = response.data.aquacash;
+        let refer_balance = response.data.promocash;
+        if(wallet_balance != undefined){
+          $(".myWlt_content").find('.normal_balance .viewBalance').html('₹ '+wallet_balance);
+          $('.normalViewBalance').html(wallet_balance);
+          $("#normal_balance").find('.haedingBlnc .balance').html('₹ '+wallet_balance);
+        }
+        else{
+          $(".myWlt_content").find('.normal_balance .amontH').hide();
+        }
+        if(response.data.aquacash == 0){
+          $(".myWlt_content").find('.normal_balance .amontH').hide();
+        }
+        if(refer_balance != undefined){
+          $('.promo_balance .viewBalance').html('₹ '+refer_balance);
+          $('.promoViewBalance').html(refer_balance);
+        }
+        return;
+        // update-later
+        var addHistory = response.wallet.add_history;
+        var transHistory = response.wallet.used_history;
+        if(addHistory){
+          updateHtml(addHistory,'addHistory');
+        }
+        if(transHistory){
+          updateHtml(transHistory,'transactionHistory');
+        }
+      }
+    });
+    
+  }
+walletDetails();
+  function updateHtml(data,status){
+    var dataLength = data.length;
+    if(dataLength > 0){
+      if(status == 'addHistory'){
+        var addHistory = '';
+        addHistory += '<table>';
+        addHistory += '<tbody>';
+        addHistory += '<tr>';
+        addHistory += '<th>Sl. no</th>';
+        addHistory += '<th>Amount</th>';
+        addHistory += '<th>Cashback</th>';
+        addHistory += '<th>Date</th>';
+        addHistory += '</tr>';
+        for(var i=0;i<dataLength; i++){
+          var amount = data[i].amount;
+          var cashBack = data[i].cash_back_amount;
+          var paymentdate = data[i].payment_date;
+          paymentdate = timeConverter(paymentdate);
+          addHistory += '<tr>';
+          addHistory += '<td>'+(i+1)+'</td>';
+          addHistory += '<td>'+amount+'</td>';
+          addHistory += '<td>'+cashBack+'</td>';
+          addHistory += '<td>'+paymentdate+'</td>';
+          addHistory += '</tr>';
+        };
+        addHistory += '</table>';
+        addHistory += '</tbody>';
+        $("#normal_balance").find('.section_one .contentD').html(addHistory);
+      }
+      if(status == 'transactionHistory'){
+        var addTransHistory = '';
+        addTransHistory += '<table>';
+        addTransHistory += '<tbody>';
+        addTransHistory += '<tr>';
+        addTransHistory += '<th>Sl. no</th>';
+        addTransHistory += '<th>Amount Used</th>';
+        addTransHistory += '<th>Order Id</th>';
+        addTransHistory += '<th>Date</th>';
+        addTransHistory += '</tr>';
+        for(var j=0;j<dataLength; j++){
+          var amntUSed = data[j].amount_used;
+          var orderId = data[j].order_id;
+          var date = data[j]. created_at;
+          date = timeConverter(date);
+          addTransHistory += '<tr>';
+          addTransHistory += '<td>'+(j+1)+'</td>';
+          addTransHistory += '<td>'+amntUSed+'</td>';
+          addTransHistory += '<td>'+orderId+'</td>';
+          addTransHistory += '<td>'+date+'</td>';
+          addTransHistory += '</tr>';
+        }
+        addHistory += '</table>';
+        addHistory += '</tbody>';
+        $("#normal_balance").find('.section_two .contentD').html(addTransHistory);
+      }
+    }
+  }
+
+});

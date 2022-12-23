@@ -1,0 +1,400 @@
+<div class="page-width">
+<div data-section-id="{{ section.id }}" class="hero__slider" id="slick__slider_{{section.id}}">
+    {% for block in section.blocks %}
+      <div style="position: relative;" class="block__{{block.id}} slick__slider_item slider-section">
+        <a href="{% if block.settings.link != blank %}{{block.settings.link}}{% else %} # {% endif %}">
+              <img class="hiden-mobile" src="{{block.settings.slider__image | img_url: 'master'}}">
+              <img class="hiden-desktop" src="{{block.settings.slider__image_mobile | img_url: 'master'}}">
+        </a>
+        <div class="text_part"></div>
+        <div class="text__overlay captions {{ block.settings.text_position }}" style="padding: 2em;">
+          <p class="text_part_heading" > {{ block.settings.heading-text }}</p>
+          <div class="text_part_subheading" > {{ block.settings.subheading-text }} </div>
+          <p class="text_part_subheading1"> {{ block.settings.promocode }}</p>
+          <div class="slider_btn">
+            {% if block.settings.button1-text != blank %}
+            <a class="btn banner_button text_part_button btn_url1" href="{% if block.settings.button1-link != blank %}{{block.settings.button1-link}}{% else %} # {% endif %}" > {{ block.settings.button1-text}} </a>
+            
+            {% endif %}
+            
+            {% if block.settings.button2-text != blank %}
+            <a class="btn banner_button text_part_button btn_url2" href="{% if block.settings.button2-link != blank %}{{block.settings.button2-link}}{% else %} # {% endif %}" > {{ block.settings.button2-text}} </a>
+          	{% endif %}
+          </div>
+
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  {% if section.settings.retailer-note != blank %}
+  <div class="retail-price-note"> {{section.settings.retailer-note}}</div>
+  {% endif %}
+</div>
+
+<style>
+  .slick-initialized .slick-slide, .slideshow-wrapper {
+    height: unset !important;
+  }
+  
+  @media (max-width: 767px) {
+    .hiden-mobile {
+      display: none!important;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .hiden-desktop {
+      display: none!important;
+    }
+  }
+
+</style>
+
+<style>
+  {% for block in section.blocks %}
+ 
+  	{{ block.settings.heading-font | font_face }}
+  	{{ block.settings.subheading-font | font_face }}
+  
+    .block__{{block.id}} .text_part_heading {
+      color: 		   {{ block.settings.heading-color }};
+      text-align: 	   {{ block.settings.heading-text-align }};
+      text-decoration: {% if  block.settings.heading-text-decoration %} underline {% else %} initial {% endif %};
+      text-transform:  {{ block.settings.heading-text-transform }};
+      font-family: 	   {{ block.settings.heading-font.family  }};
+      font-weight:     {{ block.settings.heading-font.weight }};
+      font-size: calc( {{ block.settings.heading-fontSize-min}}px + ({{block.settings.heading-fontSize-max}} - {{block.settings.heading-fontSize-min}}) * ((100vw - 300px) / (1600 - 300))); 
+      line-height: 	   {{ block.settings.heading-line-height }};
+      letter-spacing:  {{ block.settings.heading-letter-spacing }}px;
+    }
+  
+   .block__{{block.id}} .text_part_subheading {
+      color: 		   {{ block.settings.subheading-color }};
+      text-align: 	   {{ block.settings.subheading-text-align }};
+      text-decoration: {% if  block.settings.subheading-text-decoration %} underline {% else %} initial {% endif %};
+      text-transform:  {{ block.settings.subheading-text-transform }};
+      font-family: 	   {{ block.settings.subheading-font.family  }};
+      font-weight:     {{ block.settings.subheading-font.weight }};
+      font-size: calc( {{ block.settings.subheading-fontSize-min}}px + ({{block.settings.subheading-fontSize-max}} - {{block.settings.subheading-fontSize-min}}) * ((100vw - 300px) / (1600 - 300))); 
+      line-height: 	   {{ block.settings.subheading-line-height }};
+      letter-spacing:  {{ block.settings.subheading-letter-spacing }}px;
+    }
+  
+  .block__{{block.id}} .text_part_button {
+      border: unset;
+      background-color:  	{{block.settings.button-background-color}};
+      color: 		   		{{ block.settings.button-color }};
+      text-transform:  		{{ block.settings.button-text-transform }};
+      font-family: 	   		{{ block.settings.button-font.family  }};
+      font-weight:     		{{ block.settings.button-font.weight }};
+      font-size: calc( 		{{ block.settings.button-fontSize-min}}px + ({{block.settings.button-fontSize-max}} - {{block.settings.button-fontSize-min}}) * ((100vw - 300px) / (1600 - 300))); 
+      line-height: 	   		{{ block.settings.button-line-height }};
+      letter-spacing:  		{{ block.settings.button-letter-spacing }}px;
+  }
+  .block__{{block.id}} .text_part_button:hover {
+      	background-color:  	{{block.settings.button-background-color-onhover}};
+    	color:  			{{block.settings.button-color-color-onhover}};
+  }
+  
+  {% endfor %}
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    $("#slick__slider_{{section.id}}").slick({
+      	dots: {{section.settings.show__dots}},
+        infinite: true,
+        autoplay: true,
+        autoplaySpeed: {{section.settings.slide__speed}},
+      	speed: 300,
+      	arrows: false,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        fade: true,
+        cssEase: 'linear'
+      });
+  });
+</script>
+{% schema %}
+  {
+    "name": "Hero Carousel",
+    "class": "carousel",
+    "settings": [
+      {
+		"type": "header",
+		"content": "Slider Configuration"
+      },
+      {
+         "type":      "checkbox",
+         "id":        "show__dots",
+         "label":     "Show Dots ",
+         "default":   false
+      },
+	  {
+        "type":      "range",
+        "id":        "slide__speed",
+        "min":        1000,
+        "max":        9000,
+        "step":       100,
+        "unit":       "ms",
+        "label":     "Slide Change Miliseconds",
+        "default":   2000
+      },
+      {
+       "type":"text",
+       "id":"retailer-note",
+       "label":"Retailer Note",
+       "default":"All Prices are Customers Prices. Retail margin will be visible on Check-out page"
+       }
+	],
+	"blocks": [
+      {
+        "type": "grid-image",
+        "name": "Image",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "slider__image",
+            "label": "Slider Image"
+          },
+          {
+            "type": "image_picker",
+            "id": "slider__image_mobile",
+            "label": "Slider Image Mobile"
+          },
+		  {
+            "type": "url",
+            "id": "link",
+            "label": "Link"
+          },
+		  {
+            "type": "select",
+            "id": "text_position",
+            "label": "Overlay Position",
+            "options": [
+              {"value": "v-top h-left", "label": "Top - Left"},
+			  {"value": "v-top h-center", "label": "Top - Center"},
+              {"value": "v-top h-right", "label": "Top - Right"},
+              {"value": "v-center h-left", "label": "Center - Left"},
+			  {"value": "v-center h-center", "label": "Center - Center"},
+              {"value": "v-center h-right", "label": "Center - Right"},
+              {"value": "v-bottom h-left", "label": "Bottom - Left"},
+			  {"value": "v-bottom h-center", "label": "Bottom - Center"},
+              {"value": "v-bottom h-right", "label": "Bottom - Right"}
+            ],
+            "default": "v-center h-center"
+          },
+          {
+            "type" :    "header",
+            "content" : "Font Customization Heading Text"
+          },
+          {
+            "type": "text",
+            "id": "heading-text",
+            "label": "Text"
+          },
+          {
+            "type": "color",
+            "id": "heading-color",
+            "label": "Text color",
+            "default": "#000000"
+          },
+          {
+            "type": "range",
+            "id": "heading-fontSize-min",
+            "min": 0,
+            "max": 75,
+            "step": 1,
+            "unit": "px",
+            "label": "Font Min Size",
+            "default": 30
+          },
+          {
+            "type": "range",
+            "id": "heading-fontSize-max",
+            "min": 0,
+            "max": 75,
+            "step": 1,
+            "unit": "px",
+            "label": "Font Max Size",
+            "default": 48
+          },
+           {
+             "type": "select",
+             "id": "heading-text-align",
+             "label": "Text Alignment",
+             "options": [
+               {"value": "left", "label": "Left"},
+               {"value": "center", "label": "Center"},
+               {"value": "right", "label": "Right"}
+             ],
+             "default": "left"
+           },
+           {
+             "type": "select",
+             "id": "heading-text-transform",
+             "label": "Text Transform",
+             "options": [
+               {"value": "capitalize", "label": "Camel Case"},
+               {"value": "lowercase",  "label": "Lower case"},
+               {"value": "uppercase",  "label": "Upper case"},
+               {"value": "none", 	  "label": "None"}
+             ],
+             "default": "uppercase"
+           },
+           {
+             "type": "range",
+             "id": "heading-line-height",
+             "min": 1,
+             "max": 10,
+             "step": 0.2,
+             "unit": "em",
+             "label": "Line Height",
+             "default": 1
+           },
+           {
+             "type": "range",
+             "id": "heading-letter-spacing",
+             "min": 0,
+             "max": 40,
+             "step": 1,
+             "unit": "px",
+             "label": "Letter Spacing",
+             "default": 0
+           },
+           {
+             "type": "checkbox",
+             "id": "heading-text-decoration",
+             "label": "Text underline ?",
+             "default": false
+           },
+            {
+              "type" :    "header",
+              "content" : "Font Customization subheading Text"
+            },
+			{
+              "type": "html",
+              "id": "subheading-text",
+              "label": "Text"
+            },
+            {
+              "type": "color",
+              "id": "subheading-color",
+              "label": "Text color",
+              "default": "#000000"
+            },
+            {
+              "type": "range",
+              "id": "subheading-fontSize-min",
+              "min": 0,
+              "max": 75,
+              "step": 1,
+              "unit": "px",
+              "label": "Font Min Size",
+              "default": 30
+            },
+            {
+              "type": "range",
+              "id": "subheading-fontSize-max",
+              "min": 0,
+              "max": 75,
+              "step": 1,
+              "unit": "px",
+              "label": "Font Max Size",
+              "default": 48
+            },
+             {
+               "type": "select",
+               "id": "subheading-text-align",
+               "label": "Text Alignment",
+               "options": [
+                 {"value": "left", "label": "Left"},
+                 {"value": "center", "label": "Center"},
+                 {"value": "right", "label": "Right"}
+               ],
+               "default": "left"
+             },
+			 {
+               "type": "select",
+               "id": "subheading-text-transform",
+               "label": "Text Transform",
+               "options": [
+                 {"value": "capitalize", "label": "Camel Case"},
+                 {"value": "lowercase",  "label": "Lower case"},
+                 {"value": "uppercase",  "label": "Upper case"},
+                 {"value": "none", 	  "label": "None"}
+               ],
+               "default": "uppercase"
+             },
+             {
+               "type": "range",
+               "id": "subheading-line-height",
+               "min": 1,
+               "max": 10,
+               "step": 0.2,
+               "unit": "em",
+               "label": "Line Height",
+               "default": 1
+             },
+			 {
+               "type": "range",
+               "id": "subheading-letter-spacing",
+               "min": 0,
+               "max": 40,
+               "step": 1,
+               "unit": "px",
+               "label": "Letter Spacing",
+               "default": 0
+             },
+			 {
+               "type": "checkbox",
+               "id": "subheading-text-decoration",
+               "label": "Text underline ?",
+               "default": false
+             },
+			{
+              "type" :    "header",
+              "content" : "Promo Code Text"
+            },
+            {
+              "type": "text",
+              "id": "promocode",
+              "label": "Promo Text"
+            },
+            {
+              "type" :    "header",
+              "content" : "Font Customization Button Text"
+            },
+            {
+              "type": "text",
+              "id": "button1-text",
+              "label": "Button One"
+            },
+			{
+              "type": "url",
+              "id": "button1-url",
+              "label": "Button One URL"
+            },
+			{
+              "type": "text",
+              "id": "button2-text",
+              "label": "Button Two"
+            },
+			{
+              "type": "url",
+              "id": "button2-url",
+              "label": "Button Two URL"
+            }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Hero Carousel",
+        "category": "Image"
+      }
+    ]
+  }
+{% endschema %}
+
+

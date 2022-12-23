@@ -1,0 +1,284 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.0.0/magnific-popup.min.css" integrity="sha512-nIm/JGUwrzblLex/meoxJSPdAKQOe2bLhnrZ81g5Jbh519z8GFJIWu87WAhBH+RAyGbM4+U3S2h+kL5JoV6/wA==" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.0.0/jquery.magnific-popup.min.js" integrity="sha512-+m6t3R87+6LdtYiCzRhC5+E0l4VQ9qIT1H9+t1wmHkMJvvUQNI5MKKb7b08WL4Kgp9K0IBgHDSLCRJk05cFUYg==" crossorigin="anonymous"></script>
+
+<div class="page-width" style="padding-top: 52px; margin-bottom: 15px;">
+  <div class="raise__request-container">
+    <div class="request__type-wrapper">
+      <label for="requestType" class="type-label">
+        Select Request Type
+      </label>
+      <select id="requestType" class="request-options">
+        <option value="refund">Refund/Return</option>
+        <option value="delivery">Delivery Issue</option>
+        <option value="product">Product Issue</option>
+        <option value="finance">Finance Issue</option>
+        <option value="profile">Profile Issue</option>
+        <option value="others">Other Issue</option>
+      </select>
+    </div>
+    <div class="request__input-wrapper">
+      <label for="requestInput" class="type-label">Request Details</label>
+      <textarea name="details" id="requestInput" class="request-details"></textarea>
+    </div>
+    <div class="raise__request-btn-wrapper">
+      <button class="raise__request-btn">Submit Request</button>
+    </div>
+  </div>
+  <div class="request__submit-container">
+    <div class="request__submit-wrapper">
+      <div class="request__submit-icon-wrapper">
+        <div class="request__submit-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60" fill="none">
+            <path d="M30 0L33.4353 1.7078L37.1795 0.871746L40.1062 3.35204L43.9417 3.43632L46.1898 6.54496L49.8937 7.54468L51.3326 11.101L54.6895 12.9581L55.2355 16.7554L58.0505 19.3619L57.6718 23.1795L59.7813 26.3839L58.5 30L59.7813 33.6161L57.6718 36.8205L58.0505 40.6381L55.2355 43.2446L54.6895 47.0419L51.3326 48.899L49.8937 52.4553L46.1898 53.455L43.9417 56.5637L40.1062 56.648L37.1795 59.1283L33.4353 58.2922L30 60L26.5647 58.2922L22.8205 59.1283L19.8938 56.648L16.0583 56.5637L13.8102 53.455L10.1063 52.4553L8.66744 48.899L5.31048 47.0419L4.7645 43.2446L1.94951 40.6381L2.32816 36.8205L0.218733 33.6161L1.5 30L0.218733 26.3839L2.32816 23.1795L1.94951 19.3619L4.7645 16.7554L5.31048 12.9581L8.66744 11.101L10.1063 7.54468L13.8102 6.54496L16.0583 3.43632L19.8938 3.35204L22.8205 0.871746L26.5647 1.7078L30 0Z" fill="#00BAC6"/>
+            <path d="M40.6697 21L26.2747 35.395L20.8025 29.9228L19 31.7253L26.2747 39L42.4722 22.8025L40.6697 21Z" fill="white"/>
+          </svg>
+        </div>
+        <div class="request__submit-icon-text">Request Submitted</div>
+      </div>
+      <div class="request__submit-content-wrapper">
+        <div class="submit-content">Request ID #<span class="submit-id">1</span></div>
+      </div>
+      <div class="request__submit-sms">
+        Your request has been submitted successfully. Our team will get in touch with you in the next 1-2 days.
+      </div>
+      <div class="back-to-home">
+        <a href="https://aqualensb2b.com/pages/my-requests">Back to Home</a>
+      </div>
+    </div>
+  </div>
+</div>
+<script> 
+  let submitPopUp = (popup,modal = false) =>{
+    $.magnificPopup.open({
+      items: {
+        src: popup
+      },
+      type : 'inline',
+      closeBtnInside: false,
+      fixedContentPos:true,
+      overflowY: 'hidden',
+      closeOnBgClick : true,
+      modal : modal,
+      fixedBgPos: true,
+    });
+  }
+  $(document).ready(function(){
+    let customerId = '{{ customer.id }}';
+    let requestType = $("#requestType").val();
+    let requestDetails = "";
+    
+    $("#requestInput").on("input",function(){
+      if($(this).val().length > 0){
+        requestDetails = $(this).val();
+        $(".raise__request-btn").prop("disabled",false).addClass("raise__request-btn-active");
+      }else{
+        requestDetails = "";
+        $(".raise__request-btn").prop("disabled",true).removeClass("raise__request-btn-active");
+      }
+    })
+    
+    $(document).on("click",".raise__request-btn-active",function(){
+      
+      requestType = $("#requestType").val();
+            
+      let popup = $(".request__submit-container");
+      popup.show();
+      submitPopUp(popup);
+      
+      $.ajax({
+        method: 'POST',
+        url: baseURL+'/api/issue',
+        data: {
+          "customer_id": customerId,
+          "subject": requestType,
+          "description": requestDetails
+        },
+        dataType: 'json',
+      })
+      .done(function(response) {
+        console.log(response);
+        if(response.status == true){
+          $('.submit-id').html(response.id);
+//           setTimeout(function () { 
+//             window.location.href = 'https://aqualensb2b.com/pages/my-request';
+//           }, 1000);
+        }
+        else{
+          $(".date-error div").text(response.data);
+          $(".date__error-wrapper").show();
+        }
+      })
+      .fail(function(error){
+        console.log("Error",error);
+        $(".date-error div").text("Something went wrong!");
+        $(".date__error-wrapper").show();
+      })
+
+    })   
+  }) 
+</script>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Quattrocento&display=swap');
+  
+  .raise__request-container{
+    height: 100vh;
+  }
+  .raise__request-btn-wrapper{
+    padding: 10px 15px;
+    background: #FFFFFF;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 999;
+    border-top: 1px solid #E0E0E0;
+  }
+  .raise__request-btn{
+    height: 45px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: center;
+    color: #FFFFFF;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    width: 100%;
+    background: #D8D8D8;
+    outline: 0;
+  }
+  .raise__request-btn-active{
+    background: #00BAC6;
+    cursor: pointer;
+  }
+  .type-label{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 21px;
+    color: #666666;
+    margin-bottom: 0px;
+  }
+  .request__type-wrapper {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 21px;
+    color: #666666;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 34px;
+    position: relative;
+    margin-top: 0px;
+  }
+  .request__type-wrapper .request-options{
+    flex: 1 1 53%;
+    max-width: 53%;
+    height: 39px;
+    padding: 0px 10px;
+    border: 1px solid #E0E0E0;
+    border-radius: 2px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #666666;
+    background-color: #FFFFFF;
+  }
+  .request-details{
+    background: #FFFFFF;
+    border: 1px solid #BDBDBD;
+    border-radius: 4px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #474747;
+    width: 100%;
+    height: 340px;
+    padding: 12px 13px;
+    resize: none;
+    margin-top: 15px;
+  }
+  
+  /* PopUp of Submit */
+  .request__submit-container{
+    height: calc(100vh - 52px);
+    padding-top: 61px;
+    text-align: center;
+    background: #FFFFFF;
+  }
+  .request__submit-icon-text {
+    font-family: Quattrocento;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 27px;
+    color: #474747;
+    margin-top: 42px;
+    margin-bottom: 12px;
+  }
+  .submit-content {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 27px;
+    color: #333333;
+    margin-bottom: 34px;
+  }
+  .request__submit-sms {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    color: #333333;
+    padding: 0 34px;
+    margin-bottom: 212px;
+  }
+  .back-to-home a{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    text-decoration: underline;
+    color: #00BAC6;
+  }
+  .no-scroll{
+    overflow: hidden;
+  }
+  
+  .request__submit-container{
+    display: none;
+  }
+  #raise-a-request .mfp-container{
+    height: calc(100% - 52px);
+    padding: 0px;
+  }
+  #raise-a-request .mfp-bg {
+    top: 52px;
+    height: calc(100% - 52px);
+  }
+  #raise-a-request .mfp-wrap{
+    top: 52px;
+  }
+  
+   @media(max-width:749px){
+     .footer_content,
+    .footer-bg-img{
+      display:none;
+    }
+     .raise__request-container {
+       height: unset;
+     }
+  }
+</style>

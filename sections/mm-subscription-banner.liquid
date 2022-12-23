@@ -1,0 +1,91 @@
+<section id="subscription-banner-section"
+  data-section-type="subsription-banner"
+  data-section-id="{{ section.id }}"
+  data-section-data>
+  
+    <div class="collection__banner">
+      <div class="collection__product__content hidden-mobile hidden-tablet">
+        <div class="collection__product__content--wrapper">
+          {% assign headertext = section.settings.headertext %}
+          {% assign text = section.settings.text %}
+          {% assign link = section.settings.link %}
+
+          {% if headertext != blank %}
+          <h2 class="image__with__text__content--headertext">{{ headertext }}</h2>
+          {% endif %}
+          {% if link != blank %}
+          <div class="banner-botton"><a href="{{ link }}" class="image__with__text__content--btn">{{section.settings.link-text}} </a></div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="collection__product__content--mobile hidden-desktop">
+        <div class="collection__product__content--wrapper">
+          {% assign headertext = section.settings.headertext %}
+          {% assign text = section.settings.text %}
+          {% assign link = section.settings.link %}
+
+          {% if headertext != blank %}
+          <h2 class="image__with__text__content--headertext">{{ headertext }}</h2>
+          {% endif %}
+          {% if link != blank %}
+          <div class="banner-botton"><a href="{{ link }}" class="image__with__text__content--btn">{{section.settings.link-text}} </a></div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  
+</section>
+
+<style>
+  .collection__product__content {
+    background: url({{ section.settings.bbannerimage | img_url: 'master' }});
+    background-size: 100%;
+    background-repeat: no-repeat;
+  }
+  .collection__product__content--mobile {
+    background: url({{ section.settings.bbannermobileimage | img_url: 'master' }});
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+  }
+  @media only screen and (max-width: 768px){
+    .image__with__text__content {
+      background-size: cover;
+      background-position: center;
+    }
+  } 
+</style>
+
+{% schema %}
+{
+  "name": "Collection Banner Section",
+  "settings": [
+	{
+      "type": "image_picker",
+      "id": "bbannerimage",
+      "label": "Banner Image (Desktop)"
+    },
+	{
+      "type": "image_picker",
+      "id": "bbannermobileimage",
+      "label": "Banner Image (Mobile)"
+    },
+    {
+      "type": "text",
+      "id": "headertext",
+      "label": "Header"
+    },
+	{
+      "type": "text",
+      "id": "link-text",
+      "label": "Button Text"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Button Link"
+    }
+  ]
+}
+
+{% endschema %}

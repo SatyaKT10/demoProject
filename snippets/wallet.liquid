@@ -1,0 +1,74 @@
+<script type="text/javascript" src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<link rel="stylesheet" href="{{'wallet.scss.css' | asset_url}}" />
+<script src="{{'wallet.js' | asset_url}}"></script>
+
+{% for tag in customer.tags %}
+    {% if tag contains 'gstNumber' %}
+      {% assign gstNumber = tag | split: "_" |last %}
+    {% endif %}
+  {% endfor %}
+<div class="myWallet_wrap" gstNumber="{{gstNumber}}">
+  <div class="myWallet_container">
+    <div class="myWallent_content">
+      <div class="myWlt_left">
+        <div class="heading">My Wallet</div>
+        <div class="myWlt_content">
+          <ul>
+            <li class="normal_balance">
+              <button class="viewBalance">₹ 0</button>
+              <p class="bText">Aqua Cash</p>
+              <div class="amontH" style="display:none;">
+                <button class="showWltHistory" style="pointer-events:none;">History</button>
+              </div>
+              
+            </li>
+            <li class="promo_balance">
+              <button class="viewBalance">₹ 0.00</button>
+              <p class="bText">Promo Cash</p>
+              <div class="amontH hide" style="display:none;">
+                <button class="showWltHistory" style="pointer-events:none;">History</button>
+              </div>                            
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="add_money_wrap">
+        <div class="heading">Add money into your Wallet</div>
+        <div class="add_money_content">
+          <div class="recharge_wrapper">
+			<input type="number" id="recharge_amount" name="recharge_amount" placeholder="Amount"/>
+            <button class="rzorpayBtn">Recharge Now</button>
+          <div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="normalWltHistry_pop popup-wrap hide" id="normal_balance">
+  <div class="pop_container">
+    <div class="pop_content">
+      <div class="haedingBlnc">
+        <span class="text">Your Core Balance:</span>
+        <span class="balance"></span>
+      </div>
+      <div class="closePopWrap">X</div>
+      <div class="section_one">
+        <div class="haeding active" data-label="wallet-history">
+          Wallet History
+        </div>
+        <div class="contentD" data-label="wallet-history">
+        </div>
+      </div>
+      <div class="section_two">
+        <div class="haeding" data-label="transaction-history">
+          Transaction History
+        </div>
+        <div class="contentD hide" data-label="transaction-history">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

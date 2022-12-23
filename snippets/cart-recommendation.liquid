@@ -1,0 +1,357 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+<style>
+  .slick-prev:before{
+    content:"";
+  }
+  .slick-next:before{
+    content:"";
+  }
+  .slick-next:focus{
+    display:none;
+  }
+  .slick-prev:focus{
+    display:none;
+  }
+  .arrow {
+    border: solid #3069B3;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 4px;
+  }
+  .right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    position: absolute;
+    top: 35%;
+    right: 42%;
+  }
+
+  .left {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+    position: absolute;
+    top: 35%;
+    left: 40%;
+  }
+  .slick-prev{
+    left:-25px;
+    text-align: right;
+    background:red;
+  }
+  .slick-next{
+    right:0px;
+    text-align: left;
+  }
+  .slick-prev {
+    position: absolute;
+    display: block;   
+    width:40px;
+    height:40px;
+    background:white;
+    border:1px solid #3069B3;
+    border-radius:20px;
+    line-height: 0px;
+    font-size: 0px;
+    cursor: pointer;
+    top: 55%;
+    left:10px;
+    -webkit-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    padding: 0;
+    z-index: 700;
+  }
+  .slick-next {
+    position: absolute;
+    display: block;   
+    width:40px;
+    height:40px;
+    background:white;
+    border:1px solid #3069B3;
+    border-radius:20px;
+    line-height: 0px;
+    font-size: 0px;
+    cursor: pointer;
+    top: 55%;
+    right:10px;
+    -webkit-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    padding: 0;
+    z-index: 700;
+  }
+  .slick-slider {
+    margin-bottom: 0;
+  }
+  .trendingProducts_container{
+    margin-bottom: 100px;
+    width:90%;
+    margin:auto;
+  }
+  .single_card-list {
+    /* display: none; */
+    padding-left: 0;
+    margin-top: 30px;
+}
+  .single_card-list a{
+    margin: 0 10px;
+    display: block;
+/*     border: 1px solid #e0e0e0; */
+    border-radius: 4px;
+    position: relative;
+    display:flex;
+    align-items:center;
+  }
+  .single_card-list .main_image--section img {
+    height: 147px;
+    width: 150px;
+    object-fit: contain;
+    object-position: center;
+    border-radius: 5px;
+    border: 1px solid #e0e0e0;
+}
+  .single_card-list .bottom--section {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction:column;
+    
+}
+  .single_card-list .title_holder h3 {
+    margin: 0 0 5px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #4f4f4f;
+}
+  .single_card-list .bottom--section .product_info--section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+  .single_card-list .bottom--section .product_info--section .price-section .price-text {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    color: #474747;
+}
+  .single_card-list .bottom--section .product_info--section .price-section .price-text .customer_price {
+    font-size: 18px;
+    line-height: 27px;
+}
+  .single_card-list .bottom--section .product_info--section .price-section .price-text span {
+    vertical-align: middle;
+    font-weight: 600;
+    color: #333;
+}
+  .single_card-list .bottom--section .product_info--section .price-section .price-text .mrp_price {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #999;
+    text-decoration: line-through;
+    margin-left: 5px;
+}
+  .single_card-list .bottom--section .product_info--section .price-section .price-text .discPr {
+    color: #43a047;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    margin-left: 10px;
+}
+  .single_card-list .bottom--section .btn_buy {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: center;
+    color: #00bac6;   
+    text-align: center;
+    border: 1px solid #00BAC6;
+    padding: 8px;
+    border-radius: 4px;
+    margin-top:10px;
+    background: white;
+    width: 150px;
+}
+  
+  .bottom-section {
+    flex: 0 0 45%;
+  }
+  .main_image--section {
+    flex: 0 0 45%;
+}
+  .recommendedProducts_container .section-header__title {
+   text-align: center;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    font-family: Poppins;
+    margin: 0;
+    color: #474747;
+    margin: 0;
+    letter-spacing: 0;
+    text-transform: capitalize;
+    margin-top: 20px;
+}
+  .recommendedProducts_container-bg{
+    width:100%;
+    background:white;
+    padding-bottom:80px;
+    margin-bottom:80px;
+  }
+  .recommendedProducts_container{
+    margin-bottom: 100px;
+    width:90%;
+    margin:auto;
+  }
+</style>
+
+<div class="recommendedProducts_container-bg">
+  <div class="recommendedProducts_container">
+    <h2 class="section-header__title ">You may like this</h2>
+    <div class="js_slider slider_recomm">
+    </div>
+  </div>
+</div>
+
+<script>  
+   function renderCardRecommendation(response){ 
+    let recommendedProducts = response.data;
+     console.log(response.data)
+    let productLine = '';
+    Promise.all(recommendedProducts.map(ele => $.ajax({        
+      "url": window.Shopify.routes.root + `products/${ele.product_handle}.js`,
+      "method": "GET"
+    })))
+    .then(productList => {
+      productList.forEach(function(product){        
+        product = JSON.parse(product);
+        let recommendedPrd ='';
+        recommendedPrd = `<div class="single_card-list">
+                          <a href="/products/aquacolor-diva-6-monthly-zero-power-color-lenses-2-lens-pack">
+                                                          <div class="main_image--section">
+                                                              <img class=" lazyloaded" src="${product.featured_image}" alt="Aquacolor Daily - 2 Lens Pack"> 
+                                                          </div>
+                                                          <div class="bottom-section">
+                                                              <div class="bottom--section">
+																<div>
+                                                                    <div class="title_holder">
+                                                                            <h3 class="main_title">${product.title }</h3>
+                                                                    </div>
+                                                                    <div class="product_info--section">
+                                                                        <div class="price-section">
+                                                                           <p class="price-text">
+																				<span class="customer_price">Rs. ${product.price/100 }</span>
+																				<span class="mrp_price">Rs. ${product.compare_at_price/100 }</span>
+																			</p>
+                                                                        </div>
+                                                                    </div>
+																</div>
+																<div> <button type="button" class="btn_buy">Buy Now</button> </div>
+                                                              </div>
+                                                              
+                                                          </div>
+                                                      </a>
+							</div>`
+        
+        productLine =  productLine + recommendedPrd;
+      })      
+      $('.js_slider').html(productLine);
+      if($(".slider_recomm").hasClass("slick-slider")){
+        $(".slider_recomm").removeClass('slick-initialized slick-slider slick-dotted');
+      }
+      $('.slider_recomm').slick({
+        dots:false,
+        infinite: true,
+        slidesToShow: 4,
+        slidesToScroll: 4,
+        arrows:true,
+        autoplay: false,
+        autoplaySpeed: 2000,
+        prevArrow:'<div class="slick-prev"><i class="arrow left"></i></div>',
+        nextArrow:'<div class="slick-next"><i class="arrow right"></i></div>',
+        responsive: [
+          {
+            breakpoint: 1200,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 3,
+              arrows:true,
+              dots:false,
+              autoplay: false,
+              autoplaySpeed: 2000
+            }
+          },
+          {
+            breakpoint: 749,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 1,
+              arrows:false,
+              dots:false,
+              autoplay: false,
+              autoplaySpeed: 2000,
+              variableWidth: true,
+            }
+          }
+        ]
+      });
+
+    })
+  }
+  
+  function loadCardRecommendation(custNewToken,product_data){
+    let products =   {
+      "products" : product_data
+    }
+    var creditSettings = {            
+      "url": baseURL+"/api/user-personalization/cart/get-recommendations",
+      "method":"POST",
+      data: products,
+      "headers": {
+        "Authorization": "Bearer"+" "+custNewToken,
+      },
+      dataType: 'json'
+    };
+
+    $.ajax(creditSettings).done(function (response){
+      if(response){
+        $('.loader-main').hide();
+        renderCardRecommendation(response);
+      } 
+    }).fail(function(error){
+      $('.loader-main').hide();
+      let apiError = error.responseJSON.message;
+      if(apiError === 'Unauthorized request'){
+        setNewToken();
+        location.reload();
+      }else{
+        errorPopup(apiError);
+      }
+    })
+  }
+  $(document).ready(function(){ 
+    let cartQuantity = '{{ cart.item_count }}';
+    let product_data = []; 
+    let custNewToken =  sessionStorage.getItem("custNewToken");
+    $('.product_lineItem').each(function(i,e){
+      let sku =  $(e).attr("data-line-sku"); 
+      let data_obj = {
+        sku:sku,            
+      }
+      product_data.push(data_obj);
+    })    
+    const key = 'sku';
+    const arrayUniqueByKey = [...new Map(product_data.map(item =>[item[key], item])).values()];
+    if(cartQuantity > 0){
+      loadCardRecommendation(custNewToken,arrayUniqueByKey);  
+    }
+  })
+
+</script>

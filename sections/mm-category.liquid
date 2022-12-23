@@ -1,0 +1,207 @@
+<section id="collection__product--section"
+  data-section-type="collection-banner"
+  data-section-id="{{ section.id }}"
+  data-section-data>
+  <div class="page-width">
+    <div class="collection__banner">
+      <div class="collection__product__content hidden-mobile hidden-tablet">
+        <div class="collection__product__content--wrapper">
+          {% assign headertext = section.settings.headertext %}
+          {% assign text = section.settings.text %}
+          {% assign link = section.settings.link %}
+
+          {% if headertext != blank %}
+          <h2 class="image__with__text__content--headertext">{{ headertext }}</h2>
+          {% endif %}
+          {% if text != blank %}
+          <p class="image__with__text__content--text">{{ text }}</p>
+          {% endif %}
+          {% if link != blank %}
+          <div class="banner-botton"><a href="{{ link }}" class="image__with__text__content--btn">{{section.settings.link-text}} </a></div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="collection__product__content--mobile hidden-desktop">
+        <div class="collection__product__content--wrapper">
+          {% assign headertext = section.settings.headertext %}
+          {% assign text = section.settings.text %}
+          {% assign link = section.settings.link %}
+
+          {% if headertext != blank %}
+          <h2 class="image__with__text__content--headertext">{{ headertext }}</h2>
+          {% endif %}
+          {% if text != blank %}
+          <p class="image__with__text__content--head-text">{{ text }}</p>
+          {% endif %}
+          {% if link != blank %}
+          <div class="banner-botton"><a href="{{ link }}" class="image__with__text__content--btn">{{section.settings.link-text}} </a></div>
+          {% endif %}
+        </div>
+      </div>
+      
+      <div class="collection__images--section">
+        {% for block in section.blocks %}
+        {% assign bg = block.settings.subbannerimage %}
+        {% if block.type == 'collection-banner' %} 
+          <div class="collection__images" style="background-image: url({{ bg | img_url: 'master' }})">
+            {% assign subheadertext = block.settings.subheadertext %}
+          	{% assign subtext = block.settings.subtext %}
+            
+            {% if subheadertext != blank %}
+            <h2 class="image__with__text__content--headtext">{{ subheadertext }}</h2>
+            {% endif %}
+            {% if subtext != blank %}
+            <p class="image__with__text__content--text">{{ subtext }}</p>
+            {% endif %}
+          </div>
+        {% endif %}
+        {% endfor %}               
+      </div>    
+    </div>
+       
+    {% for block in section.blocks %}
+    {% if block.type == 'collections-product' %}    
+    {% assign collection = collections[block.settings.collection] %}  
+    <div class="category_slider">
+      <div class="category_slider-pic pic-block--{{ block.id }}">
+        <h3 class="category-overlay-text">{{ collection.title }}</h3>
+        <h4 class="category-overlay-text-view"><a href="#">VIEW ALL </a></h4>
+      </div>
+      <div class="multiple-product product-block--{{ block.id }}">
+        {% for product in collection.products %}
+        <div class="product">
+          <div class="product-image">
+            <img src="{{ product.featured_image | product_img_url: '150x' }}" alt="{{ product.title | escape }}">
+          </div>
+          <div class="product-title">{{ product.title }}</div>
+          <div class="product-price">
+            <p class="product-price__compare">{{ product.compare_at_price | money }}</p>
+            <p class="product-sale-price">{{ product.price | money }}</p>
+          </div>
+        </div>        
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+</section>
+
+{% for block in section.blocks %}
+  {% if block.type == 'collections-product' %}
+  {% assign color = block.settings.arrowbg %}
+  {% assign collection-title-image = block.settings.collection-title-image %}
+  <style>
+    .product-block--{{ block.id }} .slick-next {
+      background: {{ color }};
+      outline: none;
+    }
+    .pic-block--{{ block.id }} {
+      background-image: url({{ collection-title-image | img_url: 'master' }});
+      display: block;
+    }
+  </style>
+  {% endif %}
+{% endfor %}
+  
+<style>
+  .collection__product__content {
+    background: url({{ section.settings.bbannerimage | img_url: 'master' }});
+    background-size: 100%;
+    background-repeat: no-repeat;
+  }
+  .collection__product__content--mobile {
+    background: url({{ section.settings.bbannermobileimage | img_url: 'master' }});
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+  }
+  @media only screen and (max-width: 768px){
+    .image__with__text__content {
+      background-size: cover;
+      background-position: center;
+    }
+  } 
+</style>
+
+{% schema %}
+{
+  "name": "Collection Banner Section",
+  "settings": [
+	{
+      "type": "image_picker",
+      "id": "bbannerimage",
+      "label": "Banner Image (Desktop)"
+    },
+	{
+      "type": "image_picker",
+      "id": "bbannermobileimage",
+      "label": "Banner Image (Mobile)"
+    },
+    {
+      "type": "text",
+      "id": "headertext",
+      "label": "Header"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Content"
+    },
+	{
+      "type": "text",
+      "id": "link-text",
+      "label": "Button Text"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Button Link"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Collection-banner-Image",
+  	  "type": "collection-banner",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "subbannerimage",
+          "label": "Sub Banner Image"
+        },
+		{
+          "type": "text",
+          "id": "subheadertext",
+          "label": "Sub-Banner Header"
+    	},
+        {
+          "type": "textarea",
+          "id": "subtext",
+          "label": "Sub-Banner Content"
+        }
+      ]
+    },
+	{
+      "name": "Collection-product",
+  	  "type": "collections-product",
+      "settings": [
+		{
+          "type": "image_picker",
+          "id": "collection-title-image",
+          "label": "Title Image"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Choose Collection"
+        },
+        {
+          "type": "color",
+          "id": "arrowbg",
+          "label": "Color"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

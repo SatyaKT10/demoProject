@@ -1,0 +1,130 @@
+<style>
+    /* .a_plus_productTable_background {
+        
+    } */
+
+    .a_plus_productTable {
+        max-width: 1240px;
+        margin: auto;
+        margin-top: 0px;
+        padding: 30px 0px 30px 15px;
+        background: #F3F2EF;
+    }
+
+    .a_plus_productTable h2 {
+        background: none;
+        font-family: 'Poppins' !important;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 32px;
+        line-height: 48px;
+        color: #333333;
+        text-align:center;
+        text-transform: capitalize;
+        letter-spacing: 0;
+    }
+
+    .a_plus_productTable table {
+        background-color: transparent;
+
+    }
+
+    .a_plus_productTable table td {
+        border: 0;
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        /* or 16px */
+        color: #333333;
+
+    }
+  .a_plus_productTable table tr td {
+        max-width: 20%;
+    }
+
+    .a_plus_productTable table td img {
+        background: #fd9;
+        /* margin: 30px auto 0; */
+        box-shadow: 5px -5px 4px #00bac6;
+        width: 130px;
+        height: 130px;
+    }
+
+    .a_plus_productTable table td.td_col_back {
+        background: rgba(217, 217, 217, 0.81);
+        border-bottom: 1px solid #000000;
+        border-top: 1px solid #000000;
+    }
+
+    .a_plus_productTable table td.td_background {
+        background: rgba(217, 217, 217, 0.3);
+        border-bottom: 1px solid #000000;
+        border-top: 1px solid #000000;
+        text-align: center;
+    }
+
+    .a_plus_productTable table td.td_img_data {
+        border: none;
+        background: transparent;
+        text-align: center;
+
+
+    }
+
+    .a_plus_productTable .table_overflow {
+        display: flex;
+        justify-content: center;
+
+
+    }
+
+    @media(max-width:749px) {
+      .a_plus_productTable table td img{
+        width:65px;
+        height:65px;
+      }
+        .a_plus_productTable .table_overflow {
+            display: flex;
+            justify-content: unset;
+            overflow: auto;
+
+        }
+
+        .a_plus_productTable .table_overflow::-webkit-scrollbar {
+            display: none;
+            /* for Chrome, Safari, and Opera */
+        }
+
+        .a_plus_productTable table {
+            width: 100% !important;
+
+        }
+
+        .a_plus_productTable table td {
+            width: auto !important;
+
+        }
+    }
+</style>
+
+{% assign prdTable = false %}
+{% if product.description contains '<!--aPlusProductTable-->' %}
+    {% assign aPlusProductTable = product.description | split: '<!--aPlusProductTable-->'| last %}
+    {% assign aTable = aPlusProductTable | split: '<!--aPlusProductTableEnd-->' | first %}
+{% assign prdTable = true %}
+{% endif %}
+
+{% if prdTable == false %}
+<style>
+.a_plus_productTable {
+    padding: 0px 0px 0px 0px;
+}
+</style>
+{% endif %}
+
+<div class="a_plus_productTable_background">
+    <div class="a_plus_productTable">
+        {{ aTable }}
+    </div>
+</div>

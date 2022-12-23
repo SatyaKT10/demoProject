@@ -1,0 +1,344 @@
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+{% include 'mobile-header' %}
+<div class="page-width" style="padding-top:52px; margin-bottom: 75px;">
+  <div class="tax__request-container">
+    <div class="tax__request-period">
+      <div class="tax__request-period-header tax__request-header">
+        <input type="radio" class="period__input" name="time-period" value="period" id="requestPeriod">
+        <label for="requestPeriod" class="request-title-label">
+          <span></span>
+          Transaction Period
+        </label>
+      </div>
+
+      <div class="request-date-wrapper">
+        <label for="requestDate" class="date-label">
+          Select Period
+        </label>
+        <select id="requestDate" class="request-input" disabled>
+          <option value="30">Last 30 Days</option>
+          <option value="90">Last 3 Months</option>
+          <option value="180">Last 6 Months</option>
+          <option value="365">Last 12 Months</option>
+        </select>
+      </div>
+    </div>
+    <div class="tax__request-period">
+      <div class="tax__request-custom-header tax__request-header">
+        <input type="radio" class="period__input" name="time-period" value="custom" id="customPeriod">
+        <label for="customPeriod" class="request-title-label">
+          <span></span>
+          Transaction Date from
+        </label>
+      </div>
+
+      <div class="tax__custom-date">
+        <div class="from-date request-date-wrapper">
+          <label class="date-label" for="fromDateTax">
+            From
+          </label>
+          <input type="text" id="fromDateTax" name="from" placeholder="Start Date" autocomplete="off" class="request-input" disabled>
+          <i class="date__arrow-down"></i>
+        </div>
+        <div class="to-date request-date-wrapper">
+          <label class="date-label" for="toDateTax">
+            To
+          </label>
+          <input type="text" id="toDateTax" name="to" placeholder="End Date" autocomplete="off" class="request-input" disabled>
+          <i class="date__arrow-down"></i>
+        </div>
+      </div>
+    </div>
+    <div class="date__error-wrapper">
+      <div class="date-error"><div>Please Select a Date Range </div>
+        <span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M1.9902 0.990181C1.79126 0.990233 1.59687 1.04961 1.43186 1.16073C1.26685 1.27184 1.13872 1.42964 1.06387 1.61395C0.989008 1.79826 0.970819 2.00071 1.01162 2.19542C1.05243 2.39012 1.15037 2.56823 1.29293 2.70698L6.5859 7.99995L1.29293 13.2929C1.19696 13.3851 1.12033 13.4954 1.06755 13.6176C1.01476 13.7397 0.986879 13.8711 0.985525 14.0042C0.984172 14.1372 1.00938 14.2692 1.05967 14.3924C1.10996 14.5155 1.18432 14.6274 1.2784 14.7215C1.37248 14.8156 1.48438 14.89 1.60756 14.9402C1.73073 14.9905 1.86271 15.0157 1.99575 15.0144C2.12879 15.013 2.26022 14.9851 2.38235 14.9324C2.50448 14.8796 2.61485 14.803 2.70699 14.707L7.99996 9.41401L13.2929 14.707C13.3851 14.803 13.4954 14.8796 13.6176 14.9324C13.7397 14.9851 13.8711 15.013 14.0042 15.0144C14.1372 15.0157 14.2692 14.9905 14.3924 14.9402C14.5155 14.89 14.6275 14.8156 14.7215 14.7215C14.8156 14.6274 14.89 14.5155 14.9403 14.3924C14.9906 14.2692 15.0158 14.1372 15.0144 14.0042C15.0131 13.8711 14.9852 13.7397 14.9324 13.6176C14.8796 13.4954 14.803 13.3851 14.707 13.2929L9.41402 7.99995L14.707 2.70698C14.8515 2.56652 14.9502 2.38567 14.9902 2.18815C15.0301 1.99063 15.0095 1.78565 14.9309 1.60007C14.8524 1.41448 14.7196 1.25695 14.55 1.14812C14.3804 1.03929 14.1819 0.98424 13.9804 0.990181C13.7206 0.997922 13.4741 1.1065 13.2929 1.29292L7.99996 6.58589L2.70699 1.29292C2.6138 1.19712 2.50236 1.12098 2.37924 1.06898C2.25613 1.01698 2.12384 0.990189 1.9902 0.990181Z" fill="white"/>
+          </svg>
+        </span>
+      </div>
+    </div>
+    <div class="tax__request-new">
+      <div class="tax__request-new-btn">Submit Request</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let customerId = '{{ customer.id }}';
+  
+  function requestDate(date){
+    var d = new Date(date);
+    date = [
+      d.getFullYear(),
+      ('0' + (d.getMonth() + 1)).slice(-2),
+      ('0' + d.getDate()).slice(-2)
+    ].join('-');
+
+    return date;
+  }
+  
+  function taxRequest(fromDate,toDate){
+    //API to request tax statement(wait for Payload update)
+    // Date Format "2021-03-20"
+    
+    fromDate = requestDate(fromDate);
+    toDate = requestDate(toDate);
+    
+    console.log(fromDate,toDate);
+    
+    $.ajax({
+      method: 'POST',
+      url: baseURL+'/api/tax/request',
+      data: {
+        "customer_id": customerId,
+        "from_date": fromDate,
+        "to_date": toDate,
+        "description": "Description of the tax statement"
+      },
+      dataType: 'json',
+    })
+    .done(function(response) {
+      console.log(response);
+      if(response.status == true){
+        setTimeout(function () { 
+          window.location.href = 'https://aqualensb2b.com/pages/tax-statement';
+        }, 1000);
+      }
+      else{
+        $(".date-error div").text(response.data);
+        $(".date__error-wrapper").show();
+      }
+    })
+    .fail(function(error){
+      console.log("Error",error);
+      $(".date-error div").text("Something went wrong!");
+      $(".date__error-wrapper").show();
+    })
+  }
+  
+  $(document).ready(function(){
+    let requestType = "";
+    
+    $(document).on("click",".period__input",function(){
+      let $self = $(this);
+      requestType = $(this).val(); 
+      
+      $(".request-input").attr("disabled",true);
+      $(".tax__request-new-btn").addClass("tax__request-btn-active");
+      $(".date__error-wrapper").hide();
+      $self.parents(".tax__request-period").find(".request-input").attr("disabled",false);            
+    })
+    
+    $(document).on("click",".tax__request-btn-active",function(){
+      let fromDate = "";
+      let toDate = "";
+      $(".date__error-wrapper").hide();
+      
+      if(requestType == "period"){
+        let periodValue = $("#requestDate").val();
+        let current = new Date();
+        let prior = new Date().setDate(current.getDate() - periodValue);
+        
+        fromDate = prior;
+        toDate = current;
+      }
+      
+      if(requestType == "custom"){
+        fromDate = $("#fromDateTax").val();
+        toDate = $("#toDateTax").val();
+      }
+      
+      console.log(fromDate,toDate);
+      if(fromDate == "" || toDate == ""){
+        $(".date-error div").text("Please Select a Date Range");
+        $(".date__error-wrapper").show();
+//         setTimeout(function() { 
+//           $('.date__error-wrapper').fadeOut(); 
+//         }, 1000);
+      }
+      else{
+        taxRequest(fromDate,toDate);
+      } 
+    })
+    
+    
+    $(document).on("click",".date-error span",function(){
+      $(".date__error-wrapper").hide();
+    })
+    
+    //Date Range for Start and End Date
+    let dateFormat = "mm/dd/yy";
+    var from = $( "#fromDateTax" ).datepicker({maxDate: new Date()})
+    .on( "change", function() {
+      to.datepicker( "option", "minDate", getDate( this ) );
+    });
+    var to = $( "#toDateTax" ).datepicker({maxDate: new Date()})
+    .on( "change", function() {
+      from.datepicker( "option", "maxDate", getDate( this ) );
+    });
+
+    function getDate( element ) {
+      var date;
+      try {
+        date = $.datepicker.parseDate( dateFormat, element.value );
+      } catch( error ) {
+        date = null;
+      }
+      return date;
+    }
+  }) 
+</script>
+
+<style>
+  .tax__request-container{
+    height: 100vh;
+  }
+  .tax__request-new{
+    padding: 10px 15px;
+    background: #FFFFFF;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 999;
+    border-top: 1px solid #E0E0E0;
+  }
+  .tax__request-new-btn{
+    height: 45px;
+    background: #D8D8D8;
+    border-radius: 4px;
+    text-align: center;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 45px;
+    color: #FFFFFF;
+  }
+  .tax__request-btn-active{
+    background: #00BAC6;
+    cursor: pointer;
+  }
+  .request-date-wrapper {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 21px;
+    color: #666666;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-bottom: 17px;
+    position: relative;
+  }
+  .request-date-wrapper .request-input{
+    flex: 1 1 53%;
+    max-width: 53%;
+    height: 39px;
+    padding: 0px 10px;
+    border: 1px solid #E0E0E0;
+    border-radius: 2px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #666666;
+    background-color: #FFFFFF;
+  }
+  .request-date-wrapper .request-input[disabled]{
+    color: #BDBDBD;
+    background-color: #E8E8E8;
+    cursor: default;
+  }
+  .request-date-wrapper .request-input::placeholder{
+    color: #BDBDBD;
+  }
+  .date-label{
+    flex: 1 1 47%;
+    max-width: 47%;
+    padding-right: 10px;
+    text-align: right;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 21px;
+    color: #666666;
+  }
+  .date__arrow-down{
+    border: solid #4F4F4F;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 2.5px;
+    position: absolute;
+    right: 14px;
+    top: 15px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+  }
+  .tax__request-header input[type="radio"]{
+    display:none;
+  }
+  .tax__request-header .request-title-label{
+    display: flex;
+    align-items: center;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    color: #4F4F4F;
+    padding: 17px 2px;
+    line-height: 21px;
+    margin: 0;
+  }
+  .tax__request-header input[type="radio"] + label span {
+    display:inline-block;
+    width:20px;
+    height:20px;
+    cursor:pointer;
+    -moz-border-radius:  50%;
+    border-radius:  50%;
+    border: .1rem solid #00BAC6;
+    margin-right: 10px;
+  }
+  .tax__request-header input[type="radio"]:checked + label span{
+    background: radial-gradient(#00BAC6 0%, #00BAC6 40%, transparent 50%, transparent);
+  }
+  .date__error-wrapper{
+    padding: 10px 15px;
+    width: 100%;
+    display: none;
+    position: fixed;
+    left: 0;
+    bottom: 68px;
+    transition: all 0.5s ease;
+  }
+  .date-error{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #333333;
+    border-radius: 4px;
+    padding: 12px 15px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #FFFFFF;
+  }
+  
+  @media(max-width:749px){
+    .footer_content,
+    .footer-bg-img{
+      display:none;
+    }
+    .tax__request-container {
+      height: unset;
+    }
+  }
+</style>

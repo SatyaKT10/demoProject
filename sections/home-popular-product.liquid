@@ -1,0 +1,277 @@
+<section class="product__tabs--section"
+  data-section-type="product-tabs"
+  data-section-id="{{ section.id }}"
+  data-section-data>
+  <div class="page-width">
+  {% assign section_heading = section.settings.heading %}
+  {% assign tab_name_1 = section.settings.tab_name_1 %}
+  {% assign tab_name_2 = section.settings.tab_name_2 %}
+  {% assign tab_name_3 = section.settings.tab_name_3 %}
+    
+  <div class="product__tabs">
+    {% if section_heading != blank %}
+    <div class="section__heading">
+      <h2>{{ section_heading }}</h2>
+      <center><hr class="about_hr"></center>
+    </div>
+    {% endif %}
+    
+    <div class="tab__heading">
+      {% if tab_name_1 != blank %}
+      <h3 id="{{ tab_name_1 | handleize }}" class="has--active">{{ tab_name_1 }}</h3>
+      {% endif %}
+      {% if tab_name_2 != blank %}
+      <h3 id="{{ tab_name_2 | handleize }}">{{ tab_name_2 }}</h3>
+      {% endif %}
+      {% if tab_name_3 != blank %}
+      <h3 id="{{ tab_name_3 | handleize }}">{{ tab_name_3 }}</h3>
+      {% endif %}
+    </div>
+    
+    <div class="tab__content has--active" data-tab="{{ tab_name_1 | handleize }}">
+      {% for block in section.blocks %}
+        {% if block.type == 'contactlens' %}
+          <div class="tab__content--wrapper">
+            {% assign collection-title-image = block.settings.collection-title-image %}
+            {% assign collection = collections[block.settings.collection] %}
+            <div class="popular-product__multiple-product">
+              {% for product in collection.products limit: 6 %}
+              <div class="popular-product__product">
+                <a href="{{ product.url }}">
+                <div class="popular-product__product-image">
+                  <img src="{{ product.featured_image | product_img_url: 'medium' }}" alt="{{ product.title | escape }}">
+                  <!-- for ON SALE -->
+                  {% assign showpsale = false %}
+                  {% for tag in product.tags %}
+                      {% if tag contains 'psale--' %}
+                          {% assign showpsale = true %}
+                      {% endif %}
+                  {% endfor %}
+                  {% if showpsale %}
+                      <div class="product-page-sale">
+                          {% for tag in product.tags %}
+                              {% if tag contains 'psale--' %}
+                                  {% assign text = tag | split: '--' | last %}
+                                  {{ text }}
+                                  {% unless forloop.last %}
+                                  {% endunless %}
+                              {% endif %}
+                          {% endfor %}
+                      </div>
+                  {% endif %}
+                </div>
+                <div class="tab__content-details">
+                  <div class="product-title">{{ product.title }}</div>
+                  <div class="product-price">
+                    <p class="product-price__compare ">{{ product.compare_at_price | money }}</p>
+                    <p class="product-price__price">{{ product.price | money }}</p>
+                  </div>
+                </div>
+                </a>
+              </div>
+              {% endfor %}
+            </div>
+            <div class="category_slider-pic"><img src="{{ collection-title-image | img_url: 'master' }}"></div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div> 
+    
+    <div class="tab__content" data-tab="{{ tab_name_2 | handleize }}">
+      {% for block in section.blocks %}
+		{% if block.type == 'colouredlenses' %}
+          <div class="tab__content--wrapper">
+            {% assign collection-title-image = block.settings.collection-title-image %}
+            {% assign collection = collections[block.settings.collection] %}
+            <div class="popular-product__multiple-product">
+              {% for product in collection.products limit: 6 %}
+              <div class="popular-product__product">
+                <a href="{{ product.url }}">
+                <div class="popular-product__product-image">
+                  <img src="{{ product.featured_image | product_img_url: 'medium' }}" alt="{{ product.title | escape }}">
+                  <!-- for ON SALE -->
+                  {% assign showpsale = false %}
+                  {% for tag in product.tags %}
+                      {% if tag contains 'psale--' %}
+                          {% assign showpsale = true %}
+                      {% endif %}
+                  {% endfor %}
+                  {% if showpsale %}
+                      <div class="product-page-sale">
+                          {% for tag in product.tags %}
+                              {% if tag contains 'psale--' %}
+                                  {% assign text = tag | split: '--' | last %}
+                                  {{ text }}
+                                  {% unless forloop.last %}
+                                  {% endunless %}
+                              {% endif %}
+                          {% endfor %}
+                      </div>
+                  {% endif %}
+                </div>
+                <div class="tab__content-details">
+                  <div class="product-title">{{ product.title }}</div>
+                  <div class="product-price">
+                    <p class="product-price__compare ">{{ product.compare_at_price | money }}</p>
+                    <p class="product-price__price">{{ product.price | money }}</p>
+                  </div>
+                </div>
+                </a>
+              </div>
+              {% endfor %}
+            </div>
+            <div class="category_slider-pic"><img src="{{ collection-title-image | img_url: 'master' }}"></div>
+          </div>
+      	{% endif %}
+      {% endfor %}
+    </div>
+         
+    <div class="tab__content" data-tab="{{ tab_name_3 | handleize }}">
+      {% for block in section.blocks %}
+      	{% if block.type == 'lenssolution' %}
+          <div class="tab__content--wrapper">
+            {% assign collection-title-image = block.settings.collection-title-image %}
+            {% assign collection = collections[block.settings.collection] %}
+            <div class="popular-product__multiple-product">
+              {% for product in collection.products limit: 6 %}
+              <div class="popular-product__product">
+                <a href="{{ product.url }}">
+                <div class="popular-product__product-image">
+                  <img src="{{ product.featured_image | product_img_url: 'medium' }}" alt="{{ product.title | escape }}">
+                  <!-- for ON SALE -->
+                  {% assign showpsale = false %}
+                  {% for tag in product.tags %}
+                      {% if tag contains 'psale--' %}
+                          {% assign showpsale = true %}
+                      {% endif %}
+                  {% endfor %}
+                  {% if showpsale %}
+                      <div class="product-page-sale">
+                          {% for tag in product.tags %}
+                              {% if tag contains 'psale--' %}
+                                  {% assign text = tag | split: '--' | last %}
+                                  {{ text }}
+                                  {% unless forloop.last %}
+                                  {% endunless %}
+                              {% endif %}
+                          {% endfor %}
+                      </div>
+                  {% endif %}
+                </div>
+                <div class="tab__content-details">
+                  <div class="product-title">{{ product.title }}</div>
+                  <div class="product-price">
+                    <p class="product-price__compare ">{{ product.compare_at_price | money }}</p>
+                    <p class="product-price__price">{{ product.price | money }}</p>
+                  </div>
+                </div>
+                </a>
+              </div>
+              {% endfor %}
+            </div>
+            <div class="category_slider-pic"><img src="{{ collection-title-image | img_url: 'master' }}"></div>
+          </div>
+      	{% endif %}       
+      {% endfor %}
+    </div>    
+  </div>
+  </div>
+</section>
+
+
+{% schema %}
+  {
+  "name": "Popular Product Tabs",
+  "settings": [
+    {
+      "type": "header",
+	  "content": "Heading"
+    },
+	{
+      "type": "text",
+      "id": "heading",
+      "label": "heading"
+    },
+    {
+      "type": "header",
+      "content": "Tab Names"
+    },
+    {
+      "type": "text",
+      "id": "tab_name_1",
+      "label": "First"
+    },
+    {
+      "type": "text",
+      "id": "tab_name_2",
+      "label": "Second"
+    },
+    {
+      "type": "text",
+      "id": "tab_name_3",
+      "label": "Third"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Contact Lens",
+      "type": "contactlens",
+      "settings": [        
+        {
+          "type": "image_picker",
+          "id": "collection-title-image",
+          "label": "Title-Image"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        }
+      ]
+    },
+	{
+      "name": "Coloured lenses",
+      "type": "colouredlenses",
+      "settings": [        
+        {
+          "type": "image_picker",
+          "id": "collection-title-image",
+          "label": "Title-Image"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        }
+      ]
+    },
+	{
+      "name": "Lens Solution",
+      "type": "lenssolution",
+      "settings": [        
+        {
+          "type": "image_picker",
+          "id": "collection-title-image",
+          "label": "Title-Image"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "category": "Block",
+      "name": "Popular Product Tabs",
+	  "settings": {},
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}
+
+
+

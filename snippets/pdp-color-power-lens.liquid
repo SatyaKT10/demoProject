@@ -1,0 +1,743 @@
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css"
+/>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.0.0/magnific-popup.min.css"
+  integrity="sha512-nIm/JGUwrzblLex/meoxJSPdAKQOe2bLhnrZ81g5Jbh519z8GFJIWu87WAhBH+RAyGbM4+U3S2h+kL5JoV6/wA=="
+  crossorigin="anonymous"
+/>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.0.0/jquery.magnific-popup.min.js"
+  integrity="sha512-+m6t3R87+6LdtYiCzRhC5+E0l4VQ9qIT1H9+t1wmHkMJvvUQNI5MKKb7b08WL4Kgp9K0IBgHDSLCRJk05cFUYg=="
+  crossorigin="anonymous"
+></script>
+<script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+
+<style>
+  button.select-color-btn-power {
+    width: 100%;
+    padding: 13px 0;
+    border-radius: 4px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: center;
+    color: #fff;
+    margin-bottom: 20px;
+    outline: none !important;
+    background: #00bac6;
+    border: none;
+  }
+  .power-white-popup {
+    position: relative;
+    background: #fff;
+    padding: 0px;
+    width: auto;
+  }
+  .mfp-container {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  .mfp-content {
+    position: relative;
+    display: inline-block;
+    vertical-align: bottom;
+    margin: 0 auto;
+    text-align: left;
+    z-index: 1045;
+    margin-bottom: -1px;
+  }
+  @media (max-width: 749px) {
+    .mfp-wrap {
+      overflow: hidden !important;
+    }
+    button.select-color-btn-power {
+      position: fixed;
+      bottom: 0;
+      margin-bottom: 0;
+      z-index: 998;
+      left: 0;
+    }
+  }
+  @media (min-width: 749px) {
+    .mfp-wrap {
+      overflow-y: hidden !important;
+    }
+    .mfp-container {
+      width: 50%;
+      height: 100%;
+      top: unset;
+      left: unset;
+      right: 0;
+      bottom: 0;
+      top: 0;
+    }
+    .child-one {
+      height: 100vh;
+    }
+    .child-one-qty {
+      height: 100vh;
+    }
+    .mfp-close-btn-in .mfp-close {
+      color: #333;
+      margin: 5px;
+    }
+  }
+
+  .loader {
+    height: 50px;
+    width: 50px;
+    border: 8px solid #00bac6;
+    border-radius: 50%;
+    border-top: 8px solid #fff;
+    opacity: 1;
+    margin: 0 auto;
+    /*     margin-top: 20%; */
+    animation-name: spin;
+    animation-duration: 1000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+  .loader-text {
+    text-align: center;
+    color: black;
+    font-weight: 600;
+    font-size: 20px;
+  }
+
+  .loader-main {
+    /*     position: fixed; */
+    height: 90vh;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999999;
+    opacity: 1;
+  }
+  .loader-main p {
+    height: 100px;
+    width: 100px;
+  }
+</style>
+
+<div id="color-popup" class="power-white-popup mfp-hide power-content">
+  <div class="child-one"></div>
+  <div class="child-one-qty"></div>
+</div>
+
+<button class="select-color-btn-power">Buy Now</button>
+
+<script>
+
+      //**********************  code for color options after click on Select Color button (color lens with power) **************************//
+
+  let varItemsArray = [];
+    let prdHandle = "{{ product.handle }}";
+
+    $.ajax({
+    url:  window.Shopify.routes.root + `products/${prdHandle}.js`,
+    dataType: 'json',
+    async: false,
+    success: function(product) {
+      product.variants.forEach((item) => {
+          if (item.featured_image) {
+            let varImg = item.featured_image["src"];
+            let varTitle = item.title;
+            console.log(item.id);
+            let varObj = {
+              img: varImg,
+              title: varTitle,
+              id: item.id,
+              sku: item.sku,
+              available: item.available,
+            };
+            varItemsArray = [...varItemsArray, varObj];
+
+          }
+        });
+    }
+  });
+
+
+     let product_type = "{{ product.type }}";
+      $(document).on('click','.select-color-btn-power', function(){
+        $('.child-one').show();
+        $('.child-one-qty').hide();
+
+      let variant_details = [];
+      let varData = varItemsArray;
+      //   collection_handle =  $(this).parents('.select-power-parent').attr('data-collection-handle');
+      let product_title = "{{ product.title }}";
+      let product_image = "{{ product.featured_image | product_img_url: 'master' }}";
+      let product_vendor = "{{  product.vendor }}";
+      let product_price = '{{ product.price }}';
+
+      //           GA events
+      let displayMode = 'browser';
+          const mqStandAlone = '(display-mode: standalone)';
+          if (navigator.standalone || window.matchMedia(mqStandAlone).matches || navigator.userAgent.toLowerCase().includes('wv')) {
+            displayMode = 'standalone';
+            dataLayer.push({
+              'event': 'pdpBuyNow_pwa',
+              'productType':product_type,
+              'productTitle':product_title,
+              'productPrice':product_price/100
+            })
+          }else{
+            dataLayer.push({
+              'event': 'pdpBuyNow',
+              'productType':product_type,
+              'productTitle':product_title,
+              'productPrice':product_price/100
+            })
+          } 
+          //          events end
+
+        varData.forEach(item => {
+          const{img, title,id,sku,available} = item;
+          variant_details.push({img, title,id,sku,available});
+        })
+
+        let co_select = "";
+        let sph_power = "";
+        let color_content = "";
+        let i = 0;
+
+        let stock_available = false;
+        $.ajax({
+          type: 'GET',
+          url: 'https://api.lenskart.com/v2/products/product/'+variant_details[0].sku+'/powers',
+          dataType: 'json'
+        })
+        .done(function(data){
+          let power_list =  data.result.powerTypeList[1].powerDataList[0].value;
+          variant_details.forEach(function(e){
+            stock_available = e.available;
+            let power_value = "";
+            power_list.forEach(function(e){
+
+              if(variant_details[0].sku){
+                if(e != 0.00){
+                  power_value +=  '<option class="power-btn-color power-list-item-color" data-power-color="'+e+'">'+e+'</option>';
+                }
+              }else{
+                power_value +=  '<option class="power-btn-color power-list-item-color" data-power-color="'+e+'">'+e+'</option>';
+              }
+            })
+
+
+            color_content += '<div class="add-wrapper-powered">';
+            color_content += '<div class="color-list-item  quantity-flex in-stock not-validate" input-key="'+(i+1)+'">';
+            color_content += '<div class="color-image" ><img src='+e.img+'></div>';
+            color_content += '<div class="color-info-power" data-sku-color="'+e.sku+'" data-id-color="'+e.id+'">';
+            color_content += '<div class="color-title">'+e.title+'</div>';
+            color_content += '<div class="color-sel-heading">';
+            color_content += '<div class="color-sel-power" >Power</div>';
+            color_content += '<div class="color-sel-boxes" >Boxes</div>';
+            color_content += '</div>';
+            color_content += '<div class="color-sel-input">';
+            color_content += '<select class="pow-content-sph">';
+            color_content += '<option class="power-btn-color power-list-item-color" data-power-color="'+e+'">Select Power</option>';
+            color_content += power_value;
+            color_content += '</select>';
+            color_content += '<input id="not-zero" type="number" class="qty-boxes" placeholder="Enter Qty.">';
+            color_content += '<div class="max-qty-msg"></div>';
+            //           color_content += '<div class="alert-margin-right">';
+            //           color_content += '</div>';
+            color_content += '</div>';
+            //           color_content += '<div class="alert-margin-bottom">';
+            //           color_content += '</div>';
+            color_content += '</div>';
+            color_content += '</div>';
+            color_content += '<div class="add-more-colored-power"><span class="add-more-inventory-power">+ Add More</span></div>';
+            color_content += '</div>';
+
+
+  //           console.log(stock_available);
+  //           if(stock_available == true){
+  //             console.log('disabled');
+  //             console.log($('.pow-content-sph'));
+  //             $('.color-sel-input .qty-boxes').attr("disabled", true);
+  //             $('.color-sel-input .qty-boxes').attr("placeholder", "Out Of Stock");
+  //             $('.color-sel-input .qty-boxes').addClass("check-btn");
+  //             //           $('.pow-content-sph').parent().find('input').attr("data-quantity",left_qty);
+  //             $('.color-sel-input .qty-boxes').val("");
+  //           }
+
+          });
+
+          co_select  += '<div class="select-heading-icon">'
+          co_select  += '<h2 class="heading">'+"Select Color"+'</h2>';
+          co_select  += '</div>';
+          co_select  += '<hr class="select-hr">';
+          co_select  += '<div class="color-product-image-title">'
+          co_select  += '<img src="'+product_image+'">';
+          co_select  += '<h2>'+product_title+'</h2>';
+          co_select  += '</div>';
+          //         co_select  += '<div class="select-all">';
+          //         co_select  += '<input type="checkbox" id="select-all-ckeck"/>';
+          //         co_select  +=  '<span class="select-all-heading">'+"Select All"+'</span>';
+          //         co_select  += '</div>';
+          //         co_select  += '<hr class="select-hr">';
+          co_select  += '<div class="color-list quantity-form  cart-success">';
+          co_select  += color_content;
+          co_select  += '</div>';
+          co_select  += '<hr class="select-hr">';
+          co_select  += '<div class="buy-or-cart" data-product-vendor="'+product_vendor+'">';
+          co_select  += '<button class="buy-now" disabled><span id="button_text">Buy Now</span></button>';
+          co_select  += '<button class="cart-now cart-now-style" disabled><span id="button_text">Add to Cart</span></button>';
+          co_select  += '</div>';
+
+          $('.child-one').html(co_select);
+          $('.child-one-qty').attr('data-variant',variant_details.id);
+          $('.color-sel-input .qty-boxes').attr("disabled", true);
+
+          $(document).on('change','.pow-content-sph',function(){
+            let $self = $(this);
+            let color_sku = $(this).parents('.color-info-power').attr('data-sku-color');
+            let color_sph = $(this).val();
+
+            let color_validate ={
+              "powers":[
+                {
+                  "classification": "contact_lens",
+                  "index": 0,
+                  "left": {
+                    "ap": null,
+                    "axis": null,
+                    "cyl": null,
+                    "pd": null,
+                    "sph": color_sph
+                  },
+                  "right": {
+                    "ap": null,
+                    "axis": null,
+                    "cyl": null,
+                    "pd": null,
+                    "sph": color_sph
+                  },
+                  "shell_id": color_sku
+                }
+              ]
+            }
+  //           console.log(color_validate);
+
+            let color_settings = {
+              "url": baseURL+"/api/juno/non-git",
+              "method": "POST",
+              "headers": {
+                "X-Api-Client" : "aqualens",
+                "Content-Type": "application/json",
+                "X-Session-Token": "12345679"
+              },
+
+              "data": JSON.stringify(color_validate),
+            };
+
+            $.ajax(color_settings).done(function (response) {
+              let left_qty = response.result.result[0].left.qty;
+              let right_qty = response.result.result[0].right.qty;
+  //             console.log(response);
+
+              let $current_color = $self.parent().find('input');
+              if(left_qty <= 0 || right_qty <= 0){
+                $current_color.attr("disabled", true);
+                $current_color.attr("placeholder", "Out Of Stock");
+                $current_color.addClass("check-btn");
+                $current_color.attr("data-quantity",left_qty);
+                $current_color.val("");
+  //               clevertap events
+                clevertap.event.push("OutOfStock", {
+                  "ProductTitle":product_title,
+                  "Date":  "{{ "now" | date: "%Y-%m-%d" }}"
+                });
+                //           GA events
+                let displayMode = 'browser';
+                const mqStandAlone = '(display-mode: standalone)';
+                if (navigator.standalone || window.matchMedia(mqStandAlone).matches || navigator.userAgent.toLowerCase().includes('wv')) {
+                  displayMode = 'standalone';
+                  dataLayer.push({
+                    'event': 'OutOfStock_pwa',
+                    "ProductTitle":product_title,
+                    "Date":  "{{ "now" | date: "%Y-%m-%d" }}"
+                  })
+                }else{
+                  dataLayer.push({
+                    'event': 'OutOfStock',
+                    "ProductTitle":product_title,
+                    "Date":  "{{ "now" | date: "%Y-%m-%d" }}"
+                  })
+                }
+                //          events end
+              }
+              else{
+                $current_color.attr("disabled", false);
+                $current_color.attr("placeholder", "Enter Qty.");
+                $current_color.removeClass("check-btn");
+                $current_color.attr("data-quantity",left_qty);
+                $current_color.val("");
+              }
+            })
+          })
+
+          $(document).on('input','.qty-boxes', function () {
+            let value = $(this).val();
+            $(this).parent().find('.max-qty-msg').hide();
+            if ((value !== '') && (value.indexOf('.') === -1)) {
+              let data_qty = $(this).attr('data-quantity');
+              if(data_qty){
+  //               if(value > data_qty){
+  //                 $(this).parent().find('.max-qty-msg').html("Max quantity up to "+(data_qty-1)).show();
+  //                 setTimeout(function() {
+  //                   $('.max-qty-msg').fadeOut();
+  //                 }, 2000);
+  //               }
+                $(this).val(Math.max(Math.min(value, data_qty-1), 1));
+              }
+  //             else{
+
+                if(value >= data_qty-1){
+                  $(this).parent().find('.max-qty-msg').html("Max Quantity up to "+(data_qty-1)).show();
+                  setTimeout(function() {
+                    $('.max-qty-msg').fadeOut();
+                  }, 2000);
+                }
+  //               $(this).val(Math.max(Math.min(value, data_qty), 1));
+  //             }
+            }
+          });
+
+          let popup = $('#color-popup');
+          customPopUp(popup);
+
+        })
+        .fail(function(e){
+          console.log("error:",e);
+        })
+
+        $(document).on('keyup','.qty-boxes', function(){
+          let valFlag = true;
+          $('.qty-boxes').each(function(){
+            if($(this).val()){
+              $('.buy-now').prop('disabled',false);
+              $('.cart-now').prop('disabled',false);
+              valFlag = false;
+            }
+          })
+          if(valFlag){
+            $('.buy-now').prop('disabled',true);
+            $('.cart-now').prop('disabled',true);
+          }
+        })
+
+      });
+
+      //***************************** end **************************//
+
+
+  // add to cart information
+  const notyf = new Notyf({
+        duration: 1000,
+        position: {
+          x: 'center',
+          y: 'top',
+        },
+        types: [
+          {
+            type: 'info',
+            background: '#00BAC6',
+            icon: false
+          }
+        ]
+      });
+
+  //     function to validate vendor [ differentiation of products vendor ]
+      function valiadateVendor(product_vendor) {
+        return new Promise(resolve => {
+          $.ajax({
+            url : '/cart.js',
+            type: 'GET',
+            dataType: 'JSON',
+            success:function(data){
+              console.log(data);
+              let line_item_vendor ='';
+              if(data.items.length != 0){
+                line_item_vendor = data.items[0].vendor;
+              }
+              if(data.items.length != 0 && (line_item_vendor != product_vendor)){
+                resolve(false)
+              }
+              resolve(true)
+            }
+          })
+        })
+      }
+
+
+  //     function to add in cart
+      function addedToCart(finalData,action,variantData,total_price){
+        $.ajax({
+          url : '/cart/add.js',
+          type: 'POST',
+          dataType: 'JSON',
+          data : {items:finalData},
+        })
+        .done(function(response){
+
+          notyf.open({
+            type: 'info',
+            message: "*Added into the cart"
+          });
+
+        })
+        .done(function(){
+          if(action == "addToCart"){
+            setTimeout(function () {
+              $.magnificPopup.close();
+            },1000);
+            $.ajax({
+              url : '/cart.js',
+              type: 'POST',
+              dataType: 'JSON',
+              success:function(response){
+                if(window.screen.width <= 749){
+                  $('.cart-count').html(response.item_count);
+                }
+                else{
+                  $('.cart-count').html("("+response.item_count+")");
+                }
+              }
+            })
+            //            clevertap events
+            clevertap.event.push("AddedInCart", {
+              "Category":product_type,
+              "VariantId":variantData.toString(),
+              "CartValue":total_price,
+            });
+          //   //           GA events
+            let displayMode = 'browser';
+            const mqStandAlone = '(display-mode: standalone)';
+            if (navigator.standalone || window.matchMedia(mqStandAlone).matches || navigator.userAgent.toLowerCase().includes('wv')) {
+              displayMode = 'standalone';
+              dataLayer.push({
+                'event': 'AddedInCart_pwa',
+                "Category":product_type,
+                "VariantId":variantData.toString(),
+                "CartValue":total_price,
+              })
+            }else{
+              dataLayer.push({
+                'event': 'AddedInCart',
+                "Category":product_type,
+                "VariantId":variantData.toString(),
+                "CartValue":total_price,
+              })
+            }
+            //          events end
+          }
+
+          else if(action=="buyNow"){
+            setTimeout(function () {
+              window.location.href = '/cart';
+            }, 1000);
+
+            //           GA events
+            let displayMode = 'browser';
+            const mqStandAlone = '(display-mode: standalone)';
+            if (navigator.standalone || window.matchMedia(mqStandAlone).matches || navigator.userAgent.toLowerCase().includes('wv')) {
+              displayMode = 'standalone';
+              dataLayer.push({
+                'event': 'buy-now_pwa',
+                "Category":product_type,
+                "VariantId":variantData.toString(),
+                "CartValue":total_price,
+              })
+            }else{
+              dataLayer.push({
+                'event': 'buy-now',
+                "Category":product_type,
+                "VariantId":variantData.toString(),
+                "CartValue":total_price,
+              })
+            }
+            //          events end
+          }
+        })
+
+      }
+
+  //     Adding in cart
+
+      $(document).on('click', '.cart-now', async function(){
+        //adding loader after this button click
+        let thisButton = $(this);
+        thisButton.attr('disabled',true).css('background','#00BAC6');
+        thisButton.find("#button_text").html(`Adding &nbsp;{% render 'loading-bullets'%}`);
+        //end
+
+        let product_vendor = $(this).parent('.buy-or-cart').attr('data-product-vendor');
+        let product_vendor2 = "";
+        if(product_vendor.includes("Aqualens")){
+          product_vendor2 = "Johnson & Johnson";
+        }else{
+          product_vendor2 = "Aqualens";
+        }
+
+        let flagV = await valiadateVendor(product_vendor);
+  //       console.log(flagV);
+        let finalData = [];
+        let total_price = 0;
+        let variantData = [];
+
+        $('.power-white-popup:not(.mfp-hide) .quantity-flex.in-stock:not(.quantity-flex-all)').each(function(){
+          let flexData = {};
+          let getElement = $(this);
+          let getQty = getElement.find('.qty-boxes').val() || 0;
+          let getPrice = getElement.find('.qty-boxes').attr("data-product-price");
+          let getSelect;
+          if(product_type == 'Solution'){
+            getSelect ="";
+          }else{
+            getSelect = getElement.find('.pow-content').text() || getElement.find('.pow-content-sph option:selected').text() || "0.00";
+          }
+          let getSelectCYL = getElement.find('.pow-content-cyl option:selected').text();
+          let getSelectAxis = getElement.find('.pow-content-axis option:selected').text();
+          let getVariant = $('.child-one-qty').attr('data-variant') || getElement.find('.color-info').attr('data-id-color') || getElement.find('.color-info-power').attr('data-id-color') || solution_variant_id;
+          let sku =  $('.select-power-parent').attr('data-sku') || getElement.find('.color-info').attr('data-sku-color') || getElement.find('.color-info-power').attr('data-sku-color');
+
+          total_price = total_price+(getPrice*getQty);
+          sku = parseInt(sku);
+          let getProperties = {
+            'power': getSelect,
+            'cyl': getSelectCYL,
+            'axis': getSelectAxis,
+          }
+
+          flexData.sku = sku;
+          flexData.quantity = getQty;
+          flexData.id= getVariant;
+          flexData.properties= getProperties;
+          finalData.push(flexData);
+          variantData.push(getVariant);
+
+        })
+
+        if(Object.keys(finalData).length){
+          if(flagV == false){
+            let check = confirm(`Your cart contains ${product_vendor2} products. On adding ${product_vendor} products, the previous items will be removed. Do you wish to continue?`);
+            if(check == false){
+              setTimeout(function () {
+                $.magnificPopup.close();
+              },1000);
+            }else{
+              $.ajax({
+                url : '/cart/clear.js',
+                type: 'POST',
+                dataType: 'JSON',
+                success:function(response){
+                  if(response){
+                    addedToCart(finalData,"addToCart",variantData,total_price);
+                  }
+                }
+              })
+            }
+          }
+          else{
+            addedToCart(finalData,"addToCart",variantData,total_price);
+          }
+        }
+      })
+
+  //     Adding and Buying products
+
+      $(document).on('click', '.buy-now',async function(){
+        //adding loader after this button click
+        let thisButton = $(this);
+        thisButton.attr('disabled',true).css('background','#00BAC6');
+        thisButton.find("#button_text").html(`Adding &nbsp;{% render 'loading-bullets' %}`);
+        //end
+        let product_vendor = $(this).parent('.buy-or-cart').attr('data-product-vendor');
+        let product_vendor2 = "";
+        if(product_vendor.includes("Aqualens")){
+          product_vendor2 = "Johnson & Johnson";
+        }else{
+          product_vendor2 = "Aqualens";
+        }
+        let flagV = await valiadateVendor(product_vendor);
+        let finalData = [];
+        let total_price = 0;
+        let variantData = [];
+        $('.power-white-popup:not(.mfp-hide) .quantity-flex.in-stock:not(.quantity-flex-all)').each(function(){
+          let flexData = {};
+          let getElement = $(this);
+          let getQty = getElement.find('.qty-boxes').val() || 0;
+          let getPrice = getElement.find('.qty-boxes').attr("data-product-price");
+          let getSelect;
+          if(product_type == 'Solution'){
+            getSelect ="";
+          }else{
+            getSelect = getElement.find('.pow-content').text() || getElement.find('.pow-content-sph option:selected').text() || "0.00";
+          }
+          let getSelectCYL = getElement.find('.pow-content-cyl option:selected').text();
+          let getSelectAxis = getElement.find('.pow-content-axis option:selected').text();
+          let getVariant = $('.child-one-qty').attr('data-variant') || getElement.find('.color-info').attr('data-id-color') || getElement.find('.color-info-power').attr('data-id-color') || solution_variant_id;
+          let sku =  $('.select-power-parent').attr('data-sku') || getElement.find('.color-info').attr('data-sku-color') || getElement.find('.color-info-power').attr('data-sku-color');
+          total_price = total_price+(getPrice*getQty);
+          sku = parseInt(sku);
+
+          let getProperties = {
+            'power': getSelect,
+            'cyl': getSelectCYL,
+            'axis': getSelectAxis,
+          }
+
+          flexData.sku = sku;
+          flexData.quantity = getQty;
+          flexData.id= getVariant;
+          flexData.properties= getProperties;
+          finalData.push(flexData);
+          variantData.push(getVariant);
+
+        })
+
+        if(flagV == false){
+          let check = confirm(`Your cart contains ${product_vendor2} products. On adding ${product_vendor} products, the previous items will be removed. Do you wish to continue?`);
+          if(check == false){
+            setTimeout(function () {
+              $.magnificPopup.close();
+            },1000);
+          }else{
+
+            $.ajax({
+              url : '/cart/clear.js',
+              type: 'POST',
+              dataType: 'JSON',
+              success:function(response){
+                if(response){
+                  if(Object.keys(finalData).length){
+                    addedToCart(finalData,"buyNow",variantData,total_price);
+                  }
+                }
+              }
+            })
+          }
+        }
+        else{
+          if(Object.keys(finalData).length){
+            addedToCart(finalData,"buyNow",variantData,total_price);
+          }
+        }
+
+
+      })
+
+
+  //     end
+</script>

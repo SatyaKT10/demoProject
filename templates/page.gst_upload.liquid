@@ -1,0 +1,133 @@
+{% for tag in customer.tags %}
+{% if tag contains 'gstNumber' %}
+{% assign gstNo = tag %}
+{% else %}
+{% endif %}
+{% endfor %}
+
+{% assign bypassGst = false %}
+{% for tag in customer.tags %}
+{% if tag contains 'gstSkip_true' %}
+{% assign bypassGst = true %}
+{% endif %}
+{% endfor %}
+
+
+<script>
+  $(document).ready(function () {   
+    let searchParams = new URLSearchParams(window.location.search);
+    let param = searchParams.get('update');
+    let paramprofile = searchParams.get('updateprofile');
+
+    if(param ){
+      console.log("hel");
+      $(".document_upload").removeClass("verifying");
+      //       $(".sk-step").css("display", "none");
+
+
+    }
+    else if(paramprofile){
+      $(".sk-step").css("display", "none");
+      $(".bk-step").css("display", "block");
+    }
+    else if(!param){
+      console.log("hhii");
+      if($('#form--section').attr('gstNo') ){
+        document.location.href = '/';
+      }
+      else{
+        $(".document_upload").removeClass("verifying");
+      }
+    }
+
+  })
+</script>
+
+
+<div id="form--section" data-id="{{customer.id}}" {% if gstNo %} gstNo="{{gstNo}}" {% endif %} class="document_upload verifying">
+  <div class="loader"></div>
+  <div class="form_wrapper" id="landing_form">
+    <div id="header">
+      <div class="img_wrapper">
+        <img src="logo.png" alt=""/>
+      </div>
+    </div>
+    <!--second landing page -->
+    <div class="content_Wrapper" id="checkbox_Wrapper">
+      <div class="form_content" id="signup_form_content">
+        <div class="heading_content">
+          <h3>Select any one of the following <br> documents to be uploaded</h3>
+          <p></p>
+        </div>
+        <form class="signup_form">
+          
+          {% unless bypassGst %}
+          <div class="input_Wrapper with_teaser">
+            <a href="/pages/enter-information">Company GST Certificate</a>
+            <div class="teaser-box">
+              <p>INSTANT VERIFICATION</p>
+            </div>
+            <div class="icon_wrapper">
+              <svg xmlns="http://www.w3.org/2000/svg" width="9" height="15.319" viewBox="0 0 9 15.319"><defs><style>.a{fill:#444;}</style></defs><g transform="translate(-101.478)"><g transform="translate(101.478)"><path class="a"
+           d="M110.234,7.062,103.416.245a.84.84,0,0,0-1.185,0l-.5.5a.839.839,0,0,0,0,1.185l5.725,5.725-5.731,5.731a.84.84,0,0,0,0,1.185l.5.5a.84.84,0,0,0,1.185,0l6.824-6.823a.846.846,0,0,0,0-1.189Z" 
+           transform="translate(-101.478 0)"/></g></g></svg>
+            </div>  
+          </div>
+          {% endunless %}
+          
+          <div class="input_Wrapper">
+            <a href="/pages/pan-details">Company Pan Card</a>
+            <div class="icon_wrapper">
+              <svg xmlns="http://www.w3.org/2000/svg" width="9" height="15.319" viewBox="0 0 9 15.319"><defs><style>.a{fill:#444;}</style></defs><g transform="translate(-101.478)"><g transform="translate(101.478)"><path class="a"
+           d="M110.234,7.062,103.416.245a.84.84,0,0,0-1.185,0l-.5.5a.839.839,0,0,0,0,1.185l5.725,5.725-5.731,5.731a.84.84,0,0,0,0,1.185l.5.5a.84.84,0,0,0,1.185,0l6.824-6.823a.846.846,0,0,0,0-1.189Z" 
+           transform="translate(-101.478 0)"/></g></g></svg>
+            </div>   
+          </div>
+          <div class="input_Wrapper">
+            <a href="/pages/adhar-details">Udhyog Aadhar </a>
+            <div class="icon_wrapper">
+              <svg xmlns="http://www.w3.org/2000/svg" width="9" height="15.319" viewBox="0 0 9 15.319"><defs><style>.a{fill:#444;}</style></defs><g transform="translate(-101.478)"><g transform="translate(101.478)"><path class="a"
+           d="M110.234,7.062,103.416.245a.84.84,0,0,0-1.185,0l-.5.5a.839.839,0,0,0,0,1.185l5.725,5.725-5.731,5.731a.84.84,0,0,0,0,1.185l.5.5a.84.84,0,0,0,1.185,0l6.824-6.823a.846.846,0,0,0,0-1.189Z" 
+           transform="translate(-101.478 0)"/></g></g></svg>
+            </div>   
+          </div>
+          <div class="input_Wrapper">
+            <a href="/pages/company-certificate">Company Registration Certificate</a>
+            <div class="icon_wrapper">
+              <svg xmlns="http://www.w3.org/2000/svg" width="9" height="15.319" viewBox="0 0 9 15.319"><defs><style>.a{fill:#444;}</style></defs><g transform="translate(-101.478)"><g transform="translate(101.478)"><path class="a"
+           d="M110.234,7.062,103.416.245a.84.84,0,0,0-1.185,0l-.5.5a.839.839,0,0,0,0,1.185l5.725,5.725-5.731,5.731a.84.84,0,0,0,0,1.185l.5.5a.84.84,0,0,0,1.185,0l6.824-6.823a.846.846,0,0,0,0-1.189Z" 
+           transform="translate(-101.478 0)"/></g></g></svg>
+            </div>  
+          </div>
+          <div class="input_Wrapper">
+            <a href="/pages/fssai-registration">FSSAI REGISTRATION</a>
+            <div class="icon_wrapper">
+              <svg xmlns="http://www.w3.org/2000/svg" width="9" height="15.319" viewBox="0 0 9 15.319"><defs><style>.a{fill:#444;}</style></defs><g transform="translate(-101.478)"><g transform="translate(101.478)"><path class="a"
+                d="M110.234,7.062,103.416.245a.84.84,0,0,0-1.185,0l-.5.5a.839.839,0,0,0,0,1.185l5.725,5.725-5.731,5.731a.84.84,0,0,0,0,1.185l.5.5a.84.84,0,0,0,1.185,0l6.824-6.823a.846.846,0,0,0,0-1.189Z" 
+                transform="translate(-101.478 0)"/></g></g>
+              </svg>
+            </div>  
+          </div>
+         </form>
+        <a class="sk-step" href="/">Skip this step ></a>
+        <a class="bk-step" href="/account">  Back  </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+ $(document).ready(function () {
+   if($('#form--section').attr('data-id') ==''){
+         document.location.href = '/account';
+     }
+   })
+ $(document).on('click','.sk-step',function(e){
+   e.preventDefault();
+   var thisE = $(this);
+   var url = thisE.attr('href');
+   sessionStorage.setItem("skipB",true);
+   location.href = url;
+   
+ })
+</script>

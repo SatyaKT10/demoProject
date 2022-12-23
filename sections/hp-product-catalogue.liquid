@@ -1,0 +1,126 @@
+<style>
+  .setion__separator {
+    height: 48px !important;
+    background: #F8FAFF;
+    width: 100%;
+    border: none;
+    margin: 0px 0;
+    opacity:1;
+  }
+  .catalogue__section_content {
+    max-width: 1341px;
+    margin: auto;
+    padding: 0 15px;
+  }  
+  .catalogue__section--header h2{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 149.3%;
+    text-align: left;
+    color: rgba(102, 102, 102, 0.4);
+    text-transform: capitalize;
+    letter-spacing:0;
+    margin: 60px 0 20px 0;
+  }
+  
+  .catalogue__section--subHeader h2{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 149.3%;
+    text-align: left;
+    text-transform: capitalize;
+    letter-spacing:0;
+    color: #303030;
+    margin-bottom: 40px;
+  }
+  .catalogue_desktop_none{
+      display:none;
+    }
+  @media(max-width:749px){
+    .catalogue_mobile_none{
+      display:none;
+    }
+    .catalogue_desktop_none{
+      display:block;
+    }
+    .catalogue__section--header h2{
+      text-align:center;
+    
+    }
+    .catalogue__section--subHeader h2{
+      margin-bottom: 20px;
+      text-align:center;
+    }
+  }
+</style>
+
+<hr class="setion__separator">
+<section data-section-id="{{ section.id }}" data-section-type="product_card-section" class="catalogue__section" id="catalogueSection">
+  <div class="catalogue__section_content">
+    {% if section.settings.section-heading != blank %}
+    <div class="catalogue__section--header">
+      <h2>{{ section.settings.section-heading }}</h2>
+    </div>
+    {% endif %}
+    {% if section.settings.section-sub-heading != blank %}
+    <div class="catalogue__section--subHeader">
+      <h2>{{ section.settings.section-sub-heading }}</h2>
+    </div>
+    {% endif %}
+
+    <div class="product_catalogue">
+      <a href="/collections/all">
+        {% if section.settings.MainBannerD != ''%}
+        <img src="{{ section.settings.MainBannerD | img_url: 'master'}}" class="lazyload catalogue_mobile_none" data-src="{{ section.settings.MainBannerD | img_url :'master'}}" alt="Image"  />
+        {% endif %}
+        {% if section.settings.MainBannerM  != ''%}
+        <img src="{{ section.settings.MainBannerM | img_url: 'master'}}" class="lazyload catalogue_desktop_none" data-src="{{ section.settings.MainBannerM | img_url :'master'}}" alt="Image" />
+        {% endif %}
+      </a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Product Catalogue",
+    "settings": [
+    	{
+          "type": "text",
+          "id": "section-heading",
+          "label": "Section Heading",
+          "default": "In 3 Steps"
+        },
+		{
+          "type": "text",
+          "id": "section-sub-heading",
+          "label": "Section Sub Heading",
+          "default": "Become an Aqualens Partner"
+        },
+		{  
+        "id":"MainBannerD",
+        "type":"image_picker",
+        "label":"BannerDesktop"
+        },
+        {  
+          "id":"MainBannerM",
+          "type":"image_picker",
+          "label":"BannerMobile"
+        }
+	],
+    "presets":[ 
+            { 
+               "name":{ 
+                  "en":"Product Catalogue"
+               },
+               "category":{ 
+                  "en":"Homepage"
+               }
+            }
+       ]
+  }
+{% endschema %}

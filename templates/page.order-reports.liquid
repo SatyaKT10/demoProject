@@ -1,0 +1,508 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.0.0/magnific-popup.min.css" integrity="sha512-nIm/JGUwrzblLex/meoxJSPdAKQOe2bLhnrZ81g5Jbh519z8GFJIWu87WAhBH+RAyGbM4+U3S2h+kL5JoV6/wA==" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.0.0/jquery.magnific-popup.min.js" integrity="sha512-+m6t3R87+6LdtYiCzRhC5+E0l4VQ9qIT1H9+t1wmHkMJvvUQNI5MKKb7b08WL4Kgp9K0IBgHDSLCRJk05cFUYg==" crossorigin="anonymous"></script>
+<script>
+  {% if customer %}  
+  {% else %}
+  window.location.href = "https://aqualensb2b.com/account/login";
+  {% endif %}
+</script>
+<style>
+  div#take__print_out {
+    padding-bottom: 10px;
+  }
+  .footer__section{
+    display:none;
+  }
+  .loader-main {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    z-index: 999999999;
+    background:white;
+    opacity: 0.9;
+  }
+  .loader-main p{
+    height: 100px;
+    width: 100px;
+  }
+  
+  .order__reports--bg{
+    background: #F8F8F8;
+    min-height:100vh;
+  }
+  .order__reports{
+    margin-bottom: 10px;   
+    padding: 1px 0px;
+    width:480px;
+    margin:auto;
+    box-shadow: 0 0 6px #00000029;
+    border-radius: 4px;
+    background: white;
+    min-height:40vw;
+  }
+  .range__wrapper {
+    margin-bottom: 10px;
+  }
+  .range__heading {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    text-align:center;
+    color: #333333;
+    text-transform: capitalize;
+    padding: 10px 0px;
+  }
+  .customRange__content {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 10px;
+  }
+  .date-wrapper .date-text {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 21px;
+    color: #666666;
+  }
+  input#fromDate,
+  input#toDate{
+    border: 1px solid #00BAC6;
+    color: #00BAC6;
+    font-size: 14px;
+    padding: 8px 2px;
+    text-align: center;
+  }
+  .range__btn-wrapper{
+    text-align:center;
+  }
+  .rangeSubmit__btn,
+  .rangeClear__btn{
+    border: 1px solid #00BAC6;
+    box-sizing: border-box;
+    border-radius: 4px;
+    padding: 10px 24px;
+    text-align: center;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #00BAC6;
+    cursor: pointer;
+    background: white;
+    outline: none;
+    
+  }
+  .orderReports__heading {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    text-align:center;
+    color: #333333;
+    text-transform: capitalize;
+    padding: 10px 0px;
+  }
+
+  .takePrint__btn{
+    border: 1px solid #00BAC6;
+    box-sizing: border-box;
+    border-radius: 4px;
+    padding: 9px 24px;
+    text-align: center;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #00BAC6;
+    cursor: pointer;
+    background: white;
+    width: 80px;
+    margin-left: 30px;
+    outline: none;
+  }
+  .data__content{
+    font-size:12px;
+  }
+  .customer__info-wrapper {
+    padding: 0 15px;
+    margin: 20px 0px;
+    display:none;
+  }
+  .customerInfo {
+    display: flex;
+    justify-content: space-between;
+  }
+  .thead-dark .heading__style{
+    font-size:10px;
+  }
+
+  table .table__content .ordDetails__btn {
+    color: blueviolet;
+    text-decoration: none !important;
+    border-bottom:none !important;
+  }
+  .order-header {
+    color: black;
+    font-weight: 700;
+    font-size: 17px;
+    text-align: center;
+    padding: 10px 0px;
+  }
+  @media(max-width:749px){
+    .order__reports{
+      margin-top: 0px;
+      background: #F8F8F8;
+      padding: 1px 0px;
+      min-height:undet;
+    }
+    .order-header {
+      display:none
+    }
+    .order__reports--bg {
+      background: #F8F8F8;
+      width: 100%;
+      min-height:unset;
+    }
+    .order__reports{
+      margin:unset;
+/*       margin-top:54px; */
+      max-width:unset;
+      width:unset;
+    }
+    .footer__section{
+    display:block;
+  }
+  }
+
+  /*   Print css */
+
+  @media print {   
+    .ordDetails__btn {
+
+      border-bottom:none !important;
+    }
+    .cart__header,.range__wrapper,.footer__section {
+      display:none;
+    }
+    .order__reports{
+/*       margin-top: 54px; */
+      background: #F8F8F8;
+      padding: 1px 0px;
+    }
+    .range__wrapper {
+      margin-bottom: 10px;
+    }
+    .range__heading{
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+	  text-align:center;
+      color: #333333;
+      text-transform: capitalize;
+      padding: 10px 0px;
+    }
+    .customRange__content {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 10px;
+    }
+    /*   .fromDate__content {
+
+    width: 180px;
+  } */
+    .date-wrapper .date-text {
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 21px;
+      color: #666666;
+    }
+    input#fromDate,
+    input#toDate{
+      border: 1px solid #00BAC6;
+      color: #00BAC6;
+      font-size: 14px;
+      padding: 8px 2px;
+      text-align: center;
+    }
+    .range__btn-wrapper{
+      text-align:center;
+    }
+    .rangeSubmit__btn,
+    .rangeClear__btn{
+      border: 1px solid #00BAC6;
+      box-sizing: border-box;
+      border-radius: 4px;
+      padding: 10px 24px;
+      text-align: center;
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 21px;
+      color: #00BAC6;
+      cursor: pointer;
+      background: white;
+      width:200px;
+    }
+    .orderReports__heading {
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      text-align: center;
+      color: #333333;
+      text-transform: capitalize;
+      padding:10px 0px;
+    }
+
+    .takePrint__btn{
+      border: 1px solid #00BAC6;
+      box-sizing: border-box;
+      border-radius: 4px;
+      padding: 9px 24px;
+      text-align: center;
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 21px;
+      color: #00BAC6;
+      cursor: pointer;
+      background: white;
+      width: 80px;
+      margin-left: 30px;
+    }
+    .data__content{
+      font-size:12px;
+    }
+
+    .customer__info-wrapper {
+      padding: 0 15px;
+      margin: 50px 0px;
+      display:block !important;
+    }
+    .customerInfo {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+</style>
+{% include 'mobile-header' %}
+<div class="loader-main">
+	<p><img class=" lazyloaded" src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/image_2.png?v=1640198349" data-src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/image_2.png?v=1640198349" alt="Aqualens Contact lenses"></p>
+</div>
+<div class="order__reports--bg">
+  {% render 'background-look' %}
+  <div class="order-header"> My Order Reports</div>
+  <div class="order__reports"> 
+
+    <div class="range__wrapper">
+      <div class="range__heading">Select Range</div>
+      <div class="customRange__content">
+        <div class="fromDate__content date-wrapper">
+          <label class="date-text" for="fromDate">
+            From
+          </label>
+          <input type="date" id="fromDate" name="from" max="" placeholder="Start Date">
+        </div>
+        <div class="fromDate__content date-wrapper">
+          <label class="date-text" for="toDate">
+            To
+          </label>
+          <input type="date" id="toDate" name="to" min="" placeholder="End Date">
+        </div>
+      </div>  
+      <div class="range__btn-wrapper">
+        <button class="rangeSubmit__btn">									
+          Submit                             
+        </button>
+        <button class="rangeClear__btn">									
+          Clear                             
+        </button>
+        <button class="takePrint__btn">									
+          Print                             
+        </button>
+      </div>
+    </div>
+
+    <div id="take__print_out">
+
+      <div class="customer__info-wrapper">
+        <div style="text-align:center;margin-bottom:10px;">
+          <img src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/Logo_94d32f64-bec3-4424-ad93-764b398410bb.png?v=1620733099">
+        </div>
+        <div class="customerInfo" style="display: flex;justify-content: space-between;margin-bottom:10px;">
+          <div class="cusNm-Id">
+            <div>Name:&nbsp;<span class="cusNm"></span></div>
+          </div>
+          <div>Date:&nbsp;<span class="currDate"></span></div>
+        </div>    
+      </div>
+
+      <div class="orderReports__heading" style="text-transform:capitalize;">Order Reports</div>
+      <table class="table" style="width:95%;margin: auto;">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col" class="heading__style">Sr.No.</th>
+            <th scope="col" class="heading__style">Date</th>
+            <th scope="col" class="heading__style">Order Name</th>
+            <th scope="col" class="heading__style">Order IDs</th>
+            <th scope="col" class="heading__style">Amount</th>
+            <th scope="col" class="heading__style">Payment Mode</th>
+          </tr>
+        </thead>
+        <tbody class="table__content">
+
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</div>
+<script>  
+$(document).ready(function() {      
+  var utc = new Date().toJSON().slice(0,10).replace(/-/g,'-');
+    function orderReportsToken(token,fromDate,toDate){
+      var reportsSettings = {
+        "url": baseURL+"/api/v1/orders/report/"+fromDate+"/"+toDate,
+        "method":"GET",
+        "headers": {
+          "Authorization": "Bearer"+" "+token,
+        }
+      };
+      $.ajax(reportsSettings).done(function (response) {
+        var orderHtmlConatiner = '';
+        var vsmData = '';
+        if(response.status == true){
+          $('.loader-main').hide();
+          counter = 1;
+          if(response.data.length > 0){
+            response.data.forEach(function(i,e){ 
+
+              let timeStamp = new Date(i.created_at.replace(/-/g, "/"));                                                           
+              let options = {
+                year: "2-digit",
+                month: "short",
+                day: "numeric",
+              }
+              let options2 = {
+                hour: "numeric",
+                minute: "numeric",
+              }
+              let date = Intl.DateTimeFormat("en-IN", options).format(timeStamp); //timeStamp.toDateString();
+              let time = Intl.DateTimeFormat("en-IN", options2).format(timeStamp);
+
+
+              
+//               const months = ["Jan","Feb","March","April","May","June","July","Aug","Sep","Oct","Nov","Dec"];
+//               var ordD = new Date(i.created_at);
+//               var ordDay = ordD.getDate();
+//               var ordMonth = months[ordD.getMonth()];
+//               var ordYear = ordD.getFullYear();
+//               let ordDate = ordDay + "-" + ordMonth + "-" + ordYear;
+              
+              
+              
+              let orderHtmlData =`<tr>
+									  <td scope="col" class="data__content">${counter}</td>
+                                      <td scope="col" class="data__content">${date}</td>
+                                      <td scope="col" class="data__content">
+                                        <a href="https://aqualensb2b.com/pages/order-details?order=${i.id}" class="ordDetails__btn">
+                                         ${i.id}
+                                        </a>
+  									  </td>
+									  <td scope="col" class="data__content">${i.lenskart_order_id}</td>
+									  <td scope="col" class="data__content">${i.amount}</td>
+									  <td scope="col" class="data__content">${i.payment_mode}</td>
+                                  </tr>`
+              counter ++;                            
+              orderHtmlConatiner = orderHtmlConatiner + orderHtmlData;             
+            })
+            $('tbody').html(orderHtmlConatiner);
+          }else{
+            $('tbody').html(`<div style="text-align:center;color:red;">No Orders Found</div>`);
+          }
+        }
+      }).fail(function(error){
+        $('.loader-main').hide();
+        let apiError = error.responseJSON.message;
+        errorPopup(apiError);
+        if(apiError === 'Unauthorized request'){
+          setNewToken();
+          location.reload();
+        }else{
+          errorPopup(apiError);
+        }
+      })
+    }
+      
+    var fromDate = null;
+    var toDate = null;
+    $('#fromDate').on('change',function(){
+      fromDate = $(this).val();
+      toDate = utc;
+      $('#toDate').prop('min',function(){
+        return fromDate;
+      })
+    })   
+    $('#toDate').on('change',function(){            
+        toDate = $(this).val();
+      $('#fromDate').prop('max',function(){
+        return toDate;
+      })
+    }) 
+    
+    
+    let custNewToken =  sessionStorage.getItem("custNewToken");    
+    let customer_name ='{{customer.default_address.first_name}}'
+    let customer_id ='{{ customer.id }}'
+	orderReportsToken(custNewToken,fromDate,toDate);
+       
+    $('.rangeSubmit__btn').click(function(){      
+      orderReportsToken(custNewToken,fromDate,toDate);
+    })
+    $('.rangeClear__btn').click(function(){      
+      $("#fromDate").val(utc);
+      $("#toDate").val(utc);
+      orderReportsToken(custNewToken,null,null);
+    })
+    $(document).on('click','.takePrint__btn',function(){ 
+     var printContents = document.getElementById('take__print_out').innerHTML;
+     var originalContents = document.body.innerHTML;
+         document.body.innerHTML = printContents;
+         window.print();
+         document.body.innerHTML = originalContents;		
+  	})
+    
+  $('.customerInfo .cusNm').html(customer_name);
+  $('.customerInfo .cusId').html(customer_id);
+  var utc = new Date().toJSON().slice(0,10).replace(/-/g,'-');
+  $('.currDate').html(utc);  
+  $("#fromDate").val(utc);
+  $("#toDate").val(utc);
+  
+  $("#fromDate").attr("max", utc);
+  $("#toDate").attr("max", utc );
+ 
+})
+   
+</script>
+ 

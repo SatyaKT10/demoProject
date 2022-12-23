@@ -1,0 +1,230 @@
+{% assign color_blocks = section.blocks | where: 'type', 'color-icon' %}
+
+<div class="hp__color-section">
+  <div class="section-heading mobile-hide"><h2>{{ section.settings.section-heading-1 }}</h2></div>
+  <div class="section-sub-heading mobile-hide"><p>{{ section.settings.sub-heading-1 }}</p></div>
+  <div class="section-container">
+    <div class="try__on-model">
+      <div class="model-wrapper">
+        <div id="mainElement" class="" >
+          <div id="cameraWrapper" class="model-camera__wrapper" style="width: 600px; height: 450px;">
+            <div id="camera" class="model-camera"></div>
+            <canvas id="annotation" class="model-annotation model-annotation-js"></canvas>
+          </div>
+          <canvas id="results" class="model-canvas"></canvas>          
+        </div>
+        
+        <div class="color__icon-wrapper hide" id="colorIcon">
+		{% for block in color_blocks %}
+        <button class="change color_icon-content {% if forloop.first %}active{% endif %}" value="{{block.settings.color-lens | img_url: 'master'}}" type="button" data-color="{{block.settings.color-text | trim }}">
+          <img data-src="{{block.settings.color-lens | img_url: 'master'}}" alt="{{block.settings.color-text }}" height="50px" width="50px" class="lazyload">
+          <p>{{block.settings.color-text }}</p>
+        </button>
+		{% endfor %}
+        </div>
+      </div>
+      <div class="model__action--wrapper hide">
+        <div class="model__like--wrapper">
+          <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="27px" height="18px" viewBox="0 0 144.000000 144.000000" preserveAspectRatio="xMidYMid meet">
+            <g transform="translate(0.000000,144.000000) scale(0.100000,-0.100000)" fill="currentColor" stroke="none">
+              <path d="M359 1247 c-108 -31 -210 -123 -250 -225 -31 -79 -31 -195 0 -273 71 -182 281 -387 551 -538 l56 -31 79 41 c139 71 275 168 376 269 109 108 170 201 195 300 37 147 -19 304 -144 395 -132 97 -330 92 -450 -11 l-42 -36 -37 33 c-84 73 -228 106 -334 76z"/>
+            </g>
+          </svg>
+          <span class="model__like--text">Like</span>
+        </div>
+        <div class="model__share--wrapper">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="14" viewBox="0 0 12 14" fill="none">
+            <path d="M10 0.333374C8.90333 0.333374 8 1.2367 8 2.33337C8 2.46068 8.01453 2.58479 8.03776 2.70577L3.28125 5.48051C2.93236 5.18528 2.48805 5.00004 2 5.00004C0.903327 5.00004 0 5.90337 0 7.00004C0 8.09672 0.903327 9.00004 2 9.00004C2.48805 9.00004 2.93236 8.81481 3.28125 8.51957L8.03776 11.293C8.01437 11.4144 8 11.539 8 11.6667C8 12.7634 8.90333 13.6667 10 13.6667C11.0967 13.6667 12 12.7634 12 11.6667C12 10.57 11.0967 9.66671 10 9.66671C9.51165 9.66671 9.06773 9.85293 8.71875 10.1485L3.96224 7.37244C3.98547 7.25146 4 7.12734 4 7.00004C4 6.87274 3.98547 6.74863 3.96224 6.62765L8.71875 3.85291C9.06764 4.14814 9.51195 4.33337 10 4.33337C11.0967 4.33337 12 3.43005 12 2.33337C12 1.2367 11.0967 0.333374 10 0.333374ZM10 1.66671C10.3761 1.66671 10.6667 1.95729 10.6667 2.33337C10.6667 2.70946 10.3761 3.00004 10 3.00004C9.62391 3.00004 9.33333 2.70946 9.33333 2.33337C9.33333 1.95729 9.62391 1.66671 10 1.66671ZM2 6.33338C2.37609 6.33338 2.66667 6.62396 2.66667 7.00004C2.66667 7.37613 2.37609 7.66671 2 7.66671C1.62391 7.66671 1.33333 7.37613 1.33333 7.00004C1.33333 6.62396 1.62391 6.33338 2 6.33338ZM10 11C10.3761 11 10.6667 11.2906 10.6667 11.6667C10.6667 12.0428 10.3761 12.3334 10 12.3334C9.62391 12.3334 9.33333 12.0428 9.33333 11.6667C9.33333 11.2906 9.62391 11 10 11Z" fill="#828282"></path>
+          </svg>
+          <span class="model__share--text">Share</span>
+        </div>
+      </div>
+      
+      <div class="model__loader--wrapper">
+        <img src="https://cdn.shopify.com/s/files/1/0084/6957/7794/files/minicart-loading.gif" alt="model loader" class="model__loader">        
+      </div>
+      
+      <div class="model__info--wrapper">
+        <div class="model__info--container">
+          <div class="model__info--content">
+          <div class="model__info">
+            <div class="model__info--text">
+              Face Light
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="24px" height="24px" viewBox="0 0 100.000000 100.000000" preserveAspectRatio="xMidYMid meet">
+              <g transform="translate(0.000000,100.000000) scale(0.100000,-0.100000)" fill="currentColor" stroke="none">
+                <path d="M484 967 c-11 -29 0 -102 16 -102 19 0 22 106 3 112 -7 3 -16 -2 -19 -10z"/>
+                <path d="M192 847 c-17 -19 62 -97 80 -79 10 10 4 21 -28 53 -33 33 -43 38 -52 26z"/>
+                <path d="M755 820 c-31 -31 -36 -43 -27 -52 10 -10 21 -4 53 29 23 22 38 46 35 52 -11 17 -19 14 -61 -29z"/>
+                <path d="M406 804 c-72 -23 -149 -103 -172 -179 -32 -111 -6 -202 90 -318 55 -68 56 -69 56 -133 0 -36 4 -73 10 -83 5 -10 32 -26 60 -35 46 -15 54 -15 100 0 28 9 55 25 60 35 6 10 10 47 10 83 0 64 1 65 56 133 67 81 94 135 101 208 17 161 -118 307 -281 304 -23 0 -63 -7 -90 -15z m168 -36 c59 -18 138 -99 155 -161 27 -95 2 -176 -88 -282 -28 -32 -51 -65 -51 -72 0 -10 -23 -13 -90 -13 -67 0 -90 3 -90 13 0 7 -23 40 -51 72 -64 75 -89 123 -96 185 -9 78 12 137 71 195 71 71 146 90 240 63z m6 -588 c0 -16 -8 -19 -57 -22 -44 -2 -58 -7 -58 -18 0 -11 14 -16 58 -18 80 -4 62 -22 -22 -22 -73 0 -87 5 -69 27 8 10 8 17 0 25 -7 7 -12 20 -12 30 0 16 10 18 80 18 73 0 80 -2 80 -20z"/>
+                <path d="M60 540 c0 -19 5 -21 58 -18 43 2 57 7 57 18 0 11 -14 16 -57 18 -53 3 -58 1 -58 -18z"/>
+                <path d="M820 540 c0 -19 5 -21 58 -18 43 2 57 7 57 18 0 11 -14 16 -57 18 -53 3 -58 1 -58 -18z"/>
+                <path d="M215 280 c-31 -31 -36 -43 -27 -52 10 -10 21 -4 53 29 23 22 38 46 35 52 -11 17 -19 14 -61 -29z"/>
+                <path d="M724 309 c-3 -6 12 -30 35 -52 32 -33 43 -39 53 -29 9 9 4 21 -27 52 -42 43 -50 46 -61 29z"/>
+              </g>
+            </svg>            
+          </div>
+          <div class="model__info">
+            <div class="model__info--text">
+              Wide Open
+            </div>
+            <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M11.9996 5.75999C5.6002 5.75999 0.59957 11.685 0.59957 11.685C0.44207 11.865 0.44207 12.135 0.59957 12.315C0.59957 12.315 5.6002 18.24 11.9996 18.24C18.3989 18.24 23.3996 12.315 23.3996 12.315C23.5571 12.135 23.5571 11.865 23.3996 11.685C23.3996 11.685 18.3989 5.75999 11.9996 5.75999ZM11.9996 6.71999C13.2614 6.71999 14.4671 6.98062 15.5846 7.37999C16.3346 8.22749 16.7996 9.33562 16.7996 10.56C16.7996 13.2169 14.6564 15.36 11.9996 15.36C9.3427 15.36 7.19957 13.2169 7.19957 10.56C7.19957 9.33562 7.64957 8.22749 8.39957 7.37999C9.52082 6.97874 10.7339 6.71999 11.9996 6.71999ZM6.80957 8.08499C6.44957 8.83499 6.23957 9.67499 6.23957 10.56C6.23957 13.7362 8.82332 16.32 11.9996 16.32C15.1758 16.32 17.7596 13.7362 17.7596 10.56C17.7596 9.67874 17.5589 8.83499 17.2046 8.08499C19.9158 9.46312 21.8658 11.4619 22.3646 12C21.5846 12.8437 17.2664 17.28 11.9996 17.28C6.7327 17.28 2.41457 12.8437 1.63457 12C2.13332 11.46 4.0927 9.46312 6.80957 8.08499ZM11.9996 8.15999C10.6796 8.15999 9.59957 9.23999 9.59957 10.56C9.59957 11.88 10.6796 12.96 11.9996 12.96C13.3196 12.96 14.3996 11.88 14.3996 10.56C14.3996 9.23999 13.3196 8.15999 11.9996 8.15999ZM11.9996 9.11999C12.8002 9.11999 13.4396 9.75937 13.4396 10.56C13.4396 11.3606 12.8002 12 11.9996 12C11.1989 12 10.5596 11.3606 10.5596 10.56C10.5596 9.75937 11.1989 9.11999 11.9996 9.11999Z" fill="currentColor"></path>
+            </svg>            
+          </div>
+          <div class="model__info">
+            <div class="model__info--content">
+              Look at
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="24px" height="24px" viewBox="0 0 100.000000 100.000000" preserveAspectRatio="xMidYMid meet">
+              <g transform="translate(0.000000,100.000000) scale(0.100000,-0.100000)" fill="currentColor" stroke="none">
+                <path d="M333 925 c-12 -8 -31 -31 -43 -50 l-22 -35 -90 0 c-100 0 -133 -13 -162 -60 -24 -42 -24 -518 0 -560 36 -61 32 -60 486 -60 447 1 442 0 479 56 17 27 19 49 19 284 0 235 -2 257 -19 284 -31 46 -57 55 -158 56 l-91 0 -22 35 c-38 62 -49 65 -210 65 -113 0 -150 -3 -167 -15z m323 -47 c11 -13 28 -35 37 -50 17 -28 19 -28 118 -28 93 0 102 -2 124 -25 l25 -24 0 -251 0 -251 -25 -24 -24 -25 -411 0 -411 0 -24 25 -25 24 0 251 0 251 25 24 c22 23 31 25 124 25 99 0 101 0 118 28 45 73 43 72 193 72 129 0 138 -1 156 -22z"/>
+                <path d="M430 751 c-46 -15 -85 -39 -116 -73 -54 -57 -69 -95 -69 -178 0 -83 15 -121 69 -178 53 -57 101 -77 186 -77 57 0 84 5 115 22 47 25 95 74 121 123 26 49 26 171 0 220 -26 49 -74 98 -121 122 -43 22 -144 33 -185 19z m186 -67 c68 -42 107 -117 102 -196 -12 -168 -191 -261 -334 -172 -68 42 -107 117 -102 196 12 168 191 261 334 172z"/>
+                <path d="M435 656 c-42 -18 -93 -79 -101 -121 -11 -60 4 -106 50 -151 72 -72 160 -72 232 0 67 67 72 154 11 223 -52 60 -125 78 -192 49z m144 -54 c58 -43 64 -140 12 -193 -76 -75 -204 -30 -217 77 -14 110 115 183 205 116z"/>
+              </g>
+            </svg>          
+          </div>
+          <div class="model__info">
+            <div class="model__info--text">
+              Click with
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="24px" height="24px" viewBox="0 0 64.000000 64.000000" preserveAspectRatio="xMidYMid meet">
+              <g transform="translate(0.000000,64.000000) scale(0.100000,-0.100000)" fill="currentColor" stroke="none">
+                <path d="M245 631 c-92 -24 -173 -90 -215 -176 -33 -69 -34 -199 -2 -265 35 -71 75 -114 144 -151 58 -31 70 -34 148 -33 72 0 93 4 136 26 75 40 107 70 145 140 31 58 34 70 33 148 0 72 -4 93 -26 136 -39 75 -70 107 -137 143 -65 34 -164 49 -226 32z m209 -45 c105 -51 161 -144 161 -266 0 -85 -21 -142 -74 -203 -82 -92 -237 -121 -353 -64 -167 82 -218 293 -108 445 83 115 242 152 374 88z"/>
+                <path d="M155 445 c-14 -13 -25 -33 -25 -45 0 -28 17 -25 24 5 14 56 98 56 112 0 7 -30 24 -33 24 -5 0 32 -44 70 -80 70 -19 0 -40 -9 -55 -25z"/>
+                <path d="M375 445 c-14 -13 -25 -33 -25 -45 0 -28 17 -25 24 5 14 56 98 56 112 0 7 -30 24 -33 24 -5 0 32 -44 70 -80 70 -19 0 -40 -9 -55 -25z"/>
+                <path d="M170 270 c0 -76 74 -150 150 -150 76 0 150 74 150 150 l0 30 -150 0 -150 0 0 -30z m276 -22 c-9 -49 -38 -81 -84 -98 -76 -26 -153 18 -168 98 l-6 32 132 0 133 0 -7 -32z"/>
+              </g>
+            </svg>          
+          </div>
+          <div class="model__info">
+            <div class="model__info--text">
+              40+ shades
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="24px" height="24px" viewBox="0 0 100.000000 100.000000" preserveAspectRatio="xMidYMid meet">
+              <g transform="translate(0.000000,100.000000) scale(0.100000,-0.100000)" fill="currentColor" stroke="none">
+                <path d="M403 986 c-226 -55 -360 -254 -340 -502 24 -277 263 -503 509 -481 154 14 242 151 190 296 -25 69 -20 81 68 148 90 70 125 136 125 238 0 83 -20 130 -81 192 -102 102 -305 149 -471 109z m255 -41 c117 -28 203 -89 242 -173 42 -89 11 -208 -72 -274 -95 -75 -118 -103 -118 -143 0 -21 7 -58 17 -84 18 -53 13 -99 -17 -149 -77 -126 -310 -101 -462 50 -145 145 -188 379 -104 564 80 174 294 261 514 209z"/>
+                <path d="M477 876 c-49 -45 -44 -146 8 -180 96 -63 185 100 98 180 -33 31 -73 31 -106 0z m87 -38 c30 -43 9 -118 -34 -118 -24 0 -50 37 -50 70 0 33 26 70 50 70 10 0 26 -10 34 -22z"/>
+                <path d="M257 776 c-49 -45 -44 -146 8 -180 96 -63 185 100 98 180 -33 31 -73 31 -106 0z m87 -38 c30 -43 9 -118 -34 -118 -24 0 -50 37 -50 70 0 33 26 70 50 70 10 0 26 -10 34 -22z"/>
+                <path d="M697 776 c-49 -45 -44 -146 8 -180 96 -63 185 100 98 180 -33 31 -73 31 -106 0z m87 -38 c30 -43 9 -118 -34 -118 -24 0 -50 37 -50 70 0 33 26 70 50 70 10 0 26 -10 34 -22z"/>
+                <path d="M237 516 c-49 -45 -44 -146 8 -180 96 -63 185 100 98 180 -33 31 -73 31 -106 0z m87 -38 c30 -43 9 -118 -34 -118 -24 0 -50 37 -50 70 0 33 26 70 50 70 10 0 26 -10 34 -22z"/>
+                <path d="M495 331 c-45 -20 -70 -60 -70 -112 0 -42 5 -53 33 -81 47 -48 117 -48 164 0 28 28 33 39 33 82 0 42 -5 54 -31 81 -33 33 -92 46 -129 30z m100 -56 c50 -49 15 -135 -55 -135 -41 0 -80 39 -80 80 0 41 39 80 80 80 19 0 40 -9 55 -25z"/>
+              </g>
+            </svg>         
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="try__on-content">
+      <div class="section-heading desktop-hide"><h2>{{ section.settings.section-heading-1 }}</h2></div>
+      <div class="section-sub-heading desktop-hide"><p>{{ section.settings.sub-heading-1 }}</p></div>
+      <div class="section-desc"><p>{{ section.settings.section-desc }}</p></div>
+      
+      <div class="color__icon-wrapper">
+      	{% for block in color_blocks %}
+        <button class="change color_icon-content {% if forloop.first %}active{% endif %}" value="{{block.settings.color-lens | img_url: 'master'}}" type="button" data-color="{{block.settings.color-text | trim }}">
+          <img data-src="{{block.settings.color-lens | img_url: 'master'}}" alt="{{block.settings.color-text }}" height="50px" width="50px" class="lazyload">
+          <p>{{block.settings.color-text }}</p>
+        </button>
+		{% endfor %}
+      </div>
+
+      <div class="ar-page__cta-wrapper">
+        <div class="ar-page__capture-wrapper">
+          <button id="lensify" class="capture__cta">Capture</button>
+        </div>
+        <div class="ar-page__retry-wrapper hide">
+          <button id="retryCappture" class="retry__cta retry-active">Re-Capture</button>
+          <div class="section-cta-btn">
+            <a href="https://aqualens.in/collections/color-contact-lenses">
+              <div class="section-cta-btn-text">Order Now</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="share-popup__container">
+    <div class="share-popup__wrapper">
+      <div class="share-popup__header">
+        <div class="share__header-title">Share This Page</div>
+        <div class="share-popup__close">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.99032 0.990242C1.79139 0.990294 1.59699 1.04967 1.43198 1.16079C1.26697 1.2719 1.13884 1.4297 1.06399 1.61401C0.98913 1.79832 0.970941 2.00077 1.01175 2.19548C1.05255 2.39018 1.15049 2.56829 1.29305 2.70704L6.58602 8.00001L1.29305 13.293C1.19708 13.3851 1.12046 13.4955 1.06767 13.6176C1.01489 13.7397 0.987001 13.8712 0.985647 14.0042C0.984294 14.1373 1.0095 14.2692 1.05979 14.3924C1.11008 14.5156 1.18444 14.6275 1.27852 14.7216C1.3726 14.8157 1.4845 14.89 1.60768 14.9403C1.73086 14.9906 1.86283 15.0158 1.99587 15.0144C2.12891 15.0131 2.26034 14.9852 2.38247 14.9324C2.5046 14.8796 2.61497 14.803 2.70712 14.707L8.00008 9.41407L13.2931 14.707C13.3852 14.803 13.4956 14.8796 13.6177 14.9324C13.7398 14.9852 13.8713 15.0131 14.0043 15.0145C14.1373 15.0158 14.2693 14.9906 14.3925 14.9403C14.5157 14.89 14.6276 14.8157 14.7217 14.7216C14.8157 14.6275 14.8901 14.5156 14.9404 14.3924C14.9907 14.2692 15.0159 14.1373 15.0145 14.0042C15.0132 13.8712 14.9853 13.7397 14.9325 13.6176C14.8797 13.4955 14.8031 13.3851 14.7071 13.293L9.41415 8.00001L14.7071 2.70704C14.8516 2.56658 14.9503 2.38574 14.9903 2.18822C15.0302 1.9907 15.0096 1.78571 14.931 1.60013C14.8525 1.41454 14.7197 1.25701 14.5501 1.14818C14.3805 1.03935 14.182 0.984302 13.9806 0.990242C13.7208 0.997983 13.4742 1.10656 13.2931 1.29298L8.00008 6.58595L2.70712 1.29298C2.61393 1.19718 2.50248 1.12104 2.37937 1.06904C2.25625 1.01704 2.12396 0.99025 1.99032 0.990242Z" fill="#4F4F4F"/>
+          </svg>
+        </div>
+      </div>
+      <div class="share__popup-content">
+        <a class="share__button" href="http://www.facebook.com/share.php?u=https://aqualens.in/pages/ar-filter" target="_blank">
+          <i class="fab fa fa-facebook-square" style="color: #4c6ef5; font-size: 24px;"></i>
+          <span>Facebook</span>
+        </a>
+        <a class="share__button" href="https://twitter.com/share?url=https://aqualens.in/pages/ar-filter&amp;hashtags=Aqualens" target="_blank">
+          <i class="fab fa fa-twitter-square" style="color: rgb(29, 161, 242); font-size: 24px;"></i>
+          <span>Twitter</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+{% schema %}
+  {
+    "name":"Color Lense Section",
+    "class":"color-section",
+	"settings":[
+		{
+			"type":"text",
+            "id":"section-heading-1",
+            "label":"Section Heading 1",
+			"default":"Virtual Color Try On"
+        },
+        {
+			"id":"sub-heading-1",
+            "type":"text",
+            "label":"Sub Heading 1",
+			"default":"Try 40+ eye colors virtually and share it with your friends"
+        },
+        {
+			"id":"section-desc",
+            "type":"textarea",
+            "label":"Description",
+			"default":"Color Pallet<br><span>We look beautiful together</span>"
+        },
+		{
+         	"type":"color",
+         	"id":"section-bg",
+         	"label":"Section bg color",
+			"default":"#FFFFFF"
+      	}
+	],
+    "blocks":[ 
+        {
+            "type" : "color-icon",
+            "name" : "Color Icon",
+            "settings" : [
+                {
+                    "type" : "image_picker",
+                    "id" : "color-lens", 
+                    "label" : "Lens image"
+                },
+                {
+                    "type" : "text",
+                    "id" : "color-text", 
+                    "label" : "Enter color Text",
+                    "info" : "please note this value will be your color icon name as well"
+                }
+            ]
+        }
+    ]
+  }
+{% endschema %}
+
+
+

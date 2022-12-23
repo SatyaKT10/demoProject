@@ -1,0 +1,162 @@
+<div class="store-details" data-id="{{customer.id}}" existing_tags="{% for tag in customer.tags %} {{tag}}, {% endfor %}">
+  <div class="loader"></div>
+  <div class="form_wrapper" >
+    <div class="content_Wrapper" >
+      <div class="head">We just need few information</div>
+       <div class="error-space"></div>
+      <div class="sub-head">Enter Name on PAN Card*</div>
+      <input type="text" name="store-name" class="store-name">
+      <div class="sub-head">Enter Pan Number*</div>
+      <input type="text" name="pin-code"  class="pin-code" >
+      <div class="input_Wrapper" style="display:none;">
+          <label for="fileToUpload">Upload Aadhar card</label>
+          <input type="file" name="fileToUpload" id="fileToUpload" accept="image/png, image/jpeg,.pdf" placeholder="Drag and dropfile here">
+        </div>
+           <div class="input_Wrapper upload-file-sec">
+             <div class="file_holder">
+               <div class="image_holder">
+               <svg xmlns="http://www.w3.org/2000/svg" width="51.147" height="46.399" viewBox="0 0 51.147 46.399"><defs>
+               <style>.a{fill:rgba(219,219,219,0.12);}.b{fill:#c0c0c2;}</style></defs>
+              <path class="a" d="M54.512,29.65h-.094a14.4,14.4,0,0,0-28.615,0h-.094a9.6,9.6,0,1,0,0,19.2h28.8a9.6,9.6,0,1,0,0-19.2Zm0,0"
+               transform="translate(-14.497 -15.255)"/>
+              <path class="b" d="M41.3,13.378a16,16,0,0,0-31.386-.01,11.2,11.2,0,0,0,1.29,22.33h8a1.6,1.6,0,0,0,0-3.2h-8a8,8,0,0,1,.094-16,1.6,1.6,0,0,0,1.591-1.424,12.8,12.8,0,0,1,25.434,0,1.7,1.7,0,0,0,1.685,1.424,8,8,0,1,1,0,16h-8a1.6,1.6,0,1,0,0,3.2h8A11.2,11.2,0,0,0,41.3,13.378Zm0,0" transform="translate(0.001 -0.5)"/><path class="b" d="M186.288,202.177a1.6,1.6,0,1,0,2.3-2.223l-.039-.039-6.787-6.788a1.6,1.6,0,0,0-2.263,0l0,0-6.787,6.788a1.6,1.6,0,1,0,2.223,2.3l.039-.039,4.057-4.058v20.141a1.6,1.6,0,1,0,3.2,0V198.119Zm0,0"
+                transform="translate(-155.019 -173.46)"/></svg>
+               </div>
+               <p>  <a href="#" id="upload">Click here </a> to upload your file</p>
+             </div>
+             <div class="imguploaded" >
+                <img src="" id="blah">
+               <div class="close-file">X</div>
+             </div>
+            
+        </div>
+      <button class="btn-sc" type="button">Save & continue</button>
+    </div>
+  </div>
+</div>
+<!-- <div class="sucess-popup">
+    <div class="success--popup">
+      <div class="s-pop">
+        <img src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/1-10476_transparent-background-green-check-icon-hd-png-download-removebg-preview_1.png?v=1588938575">        <h1>Saved</h1>
+        <h2>Your data is succesfully saved with us</h2>
+        <a href="/" class="ok-btn">Ok</a>
+      </div>
+  </div>
+</div> -->
+<script>
+   $(document).ready(function () {
+     if($('.store-details').attr('data-id') ==''){
+         document.location.href = '/account';
+     }
+     
+     
+     $('#upload').on('click',function(e){
+      e.preventDefault();
+     $('input[name="fileToUpload"]').trigger('click');
+    })
+     
+     
+     $("#fileToUpload").change(function() {
+       $('.file_holder').css("border","2px dashed #ededed");
+       var localImageUrl = URL.createObjectURL(this.files[0]);
+       if(this.files[0].type == "application/pdf"){ 
+         $('#blah').attr('src', 'https://cdn.shopify.com/s/files/1/0291/0417/7212/files/pdf_logo_jpg_thumbnail.png?v=1588854853');
+         $('.upload-file-sec').addClass('imgactive');
+       }
+
+       else if(this.files[0].type == "image/jpeg" || this.files[0].type == "image/jpg" || this.files[0].type == "image/png"){
+         $('#blah').attr('src', localImageUrl);
+         $('.upload-file-sec').addClass('imgactive');
+       }
+
+     });
+     
+     
+     $('.close-file').on('click',function(e){ 
+       $('#blah').attr('src', '');
+       $('.upload-file-sec').removeClass('imgactive');
+
+       $('#fileToUpload').val('');
+     } )
+     
+     
+     $("input").keyup(function(){
+       $(this).removeClass("error");
+     });
+     
+      function validateFile(file) {
+      var fileExtension = ['png','jpg','pdf','jpeg'];
+      if ($.inArray($(file).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+        $( ".error-space" ).html("Only '.png,.jpg,jpeg,.pdf' format is allowed.");
+        this.value = ''; // Clean field
+        return false;
+        $('.upload-file-sec').removeClass('imgactive');
+      }
+      return true;
+    }
+     function ValidateSize(file) {
+       var FileSize = file.files[0].size / 1024 / 1024; // in MB
+       if (FileSize > 2) {
+         $( ".error-space" ).html("File size exceeds 2 MB");
+         //             alert('File size exceeds 5 MB');
+         $(file).val(''); //for clearing with Jquery
+         return false;
+         $('.upload-file-sec').removeClass('imgactive');
+       }
+       return true;
+     }
+     
+     $(".btn-sc").click(function (event) {
+               
+       var customerId = $('.store-details').attr('data-id');
+       var storeName = $("input[name=store-name]").val();
+       var pincode = $("input[name=pin-code]").val();
+       var fileD = document.getElementById('fileToUpload');
+       if(storeName && pincode && fileD.files.length > 0){
+         if(validateFile(fileD) && ValidateSize(fileD) ){
+         $(".store-details").addClass("verifying");
+         var pandoc = fileD.files[0];
+         var formdata = new FormData();
+        var  existing_tags = $('.store-details').attr('existing_tags');
+         formdata.append("customer_id", customerId);
+         formdata.append("pan_name", storeName );
+         formdata.append("pan_number", pincode );
+         formdata.append("pan_doc", pandoc);
+         formdata.append("existing_tags", existing_tags);
+         var settingsdata = {
+           "url": baseURL+"/api/add/pan/detail",
+           "method": "POST",
+           "processData": false,
+           "contentType": false,
+           "mimeType": "multipart/form-data",
+           "data": formdata,
+           "type":"json"
+         };
+         $.ajax(settingsdata).done(function (response) {
+           $(".store-details").removeClass("verifying");
+            var json = JSON.parse(response);
+           console.log(json);
+           if(json.status){
+             document.location.href = '/cart';
+           }
+
+         })
+
+       }
+       }
+       else{
+         if(storeName==""){
+           $(".store-name").addClass("error");
+         }
+         else if(pincode==""){
+           $(".pin-code").addClass("error");
+         }
+         else if(fileD.files.length  <= 0){
+           $('.file_holder').css("border","2px dashed #e64141");
+         }
+       }
+
+       
+     })
+   })
+</script>

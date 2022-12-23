@@ -1,0 +1,184 @@
+<style>  
+    .my__account {
+    max-width: 270px;
+    max-height: -moz-fit-content;
+    max-height: fit-content;
+    padding: 15px 20px;
+    background: #FFFFFF;
+    box-shadow: 0px 5px 10px 3px rgb(0 0 0 / 1%);
+    border-radius:10px;
+    box-shadow: 0 0 6px #00000029;
+  }
+  
+  .my__profile {
+    display: flex;
+    align-items: center;
+    column-gap: 25px;
+    padding: 10px 0;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #474747;
+    border-bottom:1.5px solid #009de0;
+  }
+  .my__image {
+    height: 108px;
+    width: 108px;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .my__number {
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+  }
+  .image-icon__edit {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+  .image-icon {
+    width: 100%;
+    height: 100%;
+  }
+  .image-icon img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .check-tick{
+    line-height: 1;
+    line-height: 1;
+  }
+  .nav__header--wrapper {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    padding: 8px 0px;
+    border-bottom: 1px solid #D8D8D8;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 34px;
+    color: #333333;
+    color: #333333;
+
+  }
+  .my__nav .my__nav--header:last-child  .nav__header--wrapper{
+    border-bottom:none;
+  }
+  .nav__header--wrapper svg {
+    width: 30px;
+    flex-shrink: 0;
+  }
+  .my__logout .nav__header--wrapper{
+    border: none;
+  }
+  .nav-active{
+    color: #00BAC6;
+  }
+  .nav__header--wrapper.nav-active svg path {
+    fill: #00BAC6;
+  }
+  p.my__nav--heading:hover {
+    color: #009de0;
+  }
+</style>
+
+<!--Account Navigation For Desktop-->
+<div class="my__account">
+  <div class="my__profile">
+    <a href="https://aqualensb2b.com/account">
+    <div class="my__name--number">
+      {% assign customer_address =  customer.addresses | first %}
+      <div class="my__name" style="text-align: left;">
+        {% if customer.first_name != blank %}
+        {{ customer.first_name }}
+        {% elsif customer_address.first_name != blank %}
+        {{ customer_address.first_name }}
+        {% else %}
+        HI, AQUA
+        {% endif %}
+      </div>
+
+      {% if customer.phone != blank  %}
+      <div class="my__number">
+        <span>
+          {{ customer.phone }}
+        </span>
+        <span class="check-tick">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14.7807 7.52076L14.1914 6.91143C13.7627 6.4681 13.5621 5.85143 13.6487 5.24077L13.7674 4.40143C13.8194 4.03343 13.5701 3.69077 13.2041 3.6261L12.3694 3.47943C11.7621 3.37277 11.2374 2.9921 10.9481 2.44677L10.5507 1.6981C10.3767 1.37143 9.97339 1.2401 9.64006 1.40343L8.87872 1.77543C8.32472 2.0461 7.67606 2.0461 7.12206 1.77543L6.36006 1.40343C6.02672 1.2401 5.62339 1.37143 5.44939 1.69943L5.05206 2.4481C4.76272 2.99343 4.23872 3.3741 3.63072 3.48077L2.79606 3.62743C2.43006 3.69143 2.18072 4.0341 2.23272 4.4021L2.35139 5.24143C2.43806 5.8521 2.23739 6.46876 1.80872 6.9121L1.21939 7.52143C0.960724 7.78876 0.960724 8.2121 1.21939 8.47943L1.80872 9.08877C2.23739 9.5321 2.43806 10.1488 2.35139 10.7594L2.23272 11.5988C2.18072 11.9668 2.43006 12.3094 2.79606 12.3741L3.63072 12.5208C4.23806 12.6274 4.76272 13.0081 5.05206 13.5534L5.44939 14.3021C5.62339 14.6301 6.02672 14.7614 6.36072 14.5981L7.12206 14.2261C7.67606 13.9554 8.32472 13.9554 8.87872 14.2261L9.64006 14.5981C9.97406 14.7614 10.3767 14.6301 10.5514 14.3021L10.9487 13.5534C11.2381 13.0088 11.7621 12.6274 12.3701 12.5208L13.2047 12.3741C13.5707 12.3101 13.8201 11.9668 13.7681 11.5988L13.6494 10.7594C13.5627 10.1488 13.7634 9.5321 14.1921 9.08877L14.7814 8.47943C15.0387 8.2121 15.0387 7.7881 14.7807 7.52076ZM6.86206 10.4714L5.33339 8.94276C5.07339 8.68276 5.07339 8.2601 5.33339 8.0001C5.59339 7.7401 6.01606 7.7401 6.27606 8.0001L7.33339 9.05743L10.3907 6.0001C10.6507 5.7401 11.0734 5.7401 11.3334 6.0001C11.5934 6.2601 11.5934 6.68276 11.3334 6.94276L7.80472 10.4714C7.54472 10.7314 7.12206 10.7314 6.86206 10.4714Z" fill="#00BAC6"/>
+          </svg>                        
+        </span>
+      </div>
+      {% elsif customer.email %}
+      <div class="my__number">
+        <span>
+          {{ customer.email | split: '@' | first }}
+        </span>
+        <span class="check-tick">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14.7807 7.52076L14.1914 6.91143C13.7627 6.4681 13.5621 5.85143 13.6487 5.24077L13.7674 4.40143C13.8194 4.03343 13.5701 3.69077 13.2041 3.6261L12.3694 3.47943C11.7621 3.37277 11.2374 2.9921 10.9481 2.44677L10.5507 1.6981C10.3767 1.37143 9.97339 1.2401 9.64006 1.40343L8.87872 1.77543C8.32472 2.0461 7.67606 2.0461 7.12206 1.77543L6.36006 1.40343C6.02672 1.2401 5.62339 1.37143 5.44939 1.69943L5.05206 2.4481C4.76272 2.99343 4.23872 3.3741 3.63072 3.48077L2.79606 3.62743C2.43006 3.69143 2.18072 4.0341 2.23272 4.4021L2.35139 5.24143C2.43806 5.8521 2.23739 6.46876 1.80872 6.9121L1.21939 7.52143C0.960724 7.78876 0.960724 8.2121 1.21939 8.47943L1.80872 9.08877C2.23739 9.5321 2.43806 10.1488 2.35139 10.7594L2.23272 11.5988C2.18072 11.9668 2.43006 12.3094 2.79606 12.3741L3.63072 12.5208C4.23806 12.6274 4.76272 13.0081 5.05206 13.5534L5.44939 14.3021C5.62339 14.6301 6.02672 14.7614 6.36072 14.5981L7.12206 14.2261C7.67606 13.9554 8.32472 13.9554 8.87872 14.2261L9.64006 14.5981C9.97406 14.7614 10.3767 14.6301 10.5514 14.3021L10.9487 13.5534C11.2381 13.0088 11.7621 12.6274 12.3701 12.5208L13.2047 12.3741C13.5707 12.3101 13.8201 11.9668 13.7681 11.5988L13.6494 10.7594C13.5627 10.1488 13.7634 9.5321 14.1921 9.08877L14.7814 8.47943C15.0387 8.2121 15.0387 7.7881 14.7807 7.52076ZM6.86206 10.4714L5.33339 8.94276C5.07339 8.68276 5.07339 8.2601 5.33339 8.0001C5.59339 7.7401 6.01606 7.7401 6.27606 8.0001L7.33339 9.05743L10.3907 6.0001C10.6507 5.7401 11.0734 5.7401 11.3334 6.0001C11.5934 6.2601 11.5934 6.68276 11.3334 6.94276L7.80472 10.4714C7.54472 10.7314 7.12206 10.7314 6.86206 10.4714Z" fill="#00BAC6"/>
+          </svg>                        
+        </span>
+      </div>
+      {% endif %}
+    </div>
+    </a>
+  </div>
+  <div class="my__nav">
+    <div class="my__nav--header">
+      <a href="https://aqualensb2b.com/pages/my-orders" class="nav__header--wrapper">
+        <p class="my__nav--heading">My Orders</p>
+      </a>
+    </div>
+    <div class="my__wallet my__nav--header">
+      <a href="https://aqualensb2b.com/pages/order-reports" class="nav__header--wrapper">
+        <p class="my__nav--heading">My Order Reports</p>
+      </a>
+    </div>
+    <div class="my__wallet my__nav--header">
+      <a href="https://aqualensb2b.com/pages/retailer-dashboard" class="nav__header--wrapper">
+        <p class="my__nav--heading">Dashboard</p>
+      </a>
+    </div>
+    <div class="my__wallet my__nav--header" >
+      <a href="https://static.aqualensb2b.com/B2B-IN/knowledge-center/products-details.pdf" target="_blank"  class="nav__header--wrapper">
+        <p class="my__nav--heading">Product Details</p>
+      </a>
+    </div>
+    <div class="my__eyepower my__nav--header">
+      <a href="https://aqualensb2b.com/pages/my-requests" class="nav__header--wrapper">
+        <p class="my__nav--heading">My Request</p>
+      </a>
+    </div>
+    <div class="refer__a--friend my__nav--header">
+      <a href="https://aqualensb2b.com/pages/free-product" class="nav__header--wrapper">
+        <p class="my__nav--heading">Free Products</p>
+      </a>
+    </div>
+    <div class="refer__a--friend my__nav--header">
+      <a href="https://aqualensb2b.com/account/logout" class="nav__header--wrapper log__out">    
+        <p class="my__nav--heading">logout</p>
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  $(document).ready(function(){
+    $(".nav__header--wrapper").each(function(){
+      if(window.location.href == $(this).attr("href")){
+        $(this).addClass("nav-active");
+      }
+    })
+  })
+</script>

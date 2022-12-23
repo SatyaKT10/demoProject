@@ -1,0 +1,506 @@
+<!-- <div class="page-width">
+  <div class="grid">
+
+    <div class="grid__item form__wrapper"> -->
+<!--       <div class="form-message form-message--success hide" id="ResetSuccess" tabindex="-1">
+        {{ 'customer.recover_password.success' | t }}
+      </div>
+
+      <div id="CustomerLoginForm" class="form-vertical">
+
+        <h1 id="LoginHeading" class="text-left">{{ 'customer.login.title' | t }}</h1>
+
+        {% form 'customer_login', novalidate: 'novalidate' %}
+           <input type="hidden" name="checkout_url" value="/">
+          {%- if form.errors -%}
+            <div class="form-message form-message--error">
+              <h2 class="h3 form-message__title " tabindex="-1" data-form-status>{{ 'contact.form.error_heading' | t }}</h2>
+              {{ form.errors | default_errors }}
+            </div>
+          {%- endif -%}
+
+          <label for="CustomerEmail">{{ 'customer.login.email' | t }}</label>
+          <input
+            type="email"
+            name="customer[email]"
+            id="CustomerEmail"
+            autocomplete="email"
+            placeholder="Enter your email id"
+            autocorrect="off"
+            autocapitalize="off"
+            {%- if form.errors contains 'form' -%}
+              class="input--error"
+              aria-invalid="true"
+            {%- endif -%}
+            >
+
+          {% if form.password_needed %}
+            <label for="CustomerPassword">{{ 'customer.login.password' | t }}</label>
+            <input
+              type="password"
+              value=""
+              name="customer[password]"
+              placeholder="Enter your password"
+              id="CustomerPassword"
+              {%- if form.errors contains 'form' -%}
+                class="input--error"
+                aria-invalid="true"
+              {%- endif -%}
+            >
+          {% endif %}
+
+          <div class="text-center">
+            {% if form.password_needed %}
+              <p class="text-right"><a href="#recover" id="RecoverPassword">{{ 'customer.login.forgot_password' | t }}</a></p>
+            {% endif %}
+
+            <input type="submit" class="btn" value="login">
+
+            <p class="form__text">
+              Dont have an account ? <a href="#" id="customer_register_link">Create Account</a>
+            </p>
+          </div>
+
+        {% endform %}
+      </div>
+
+      <div id="RecoverPasswordForm" class="hide">
+
+        <div class="text-center">
+          <h2 id="RecoverHeading">{{ 'customer.recover_password.title' | t }}</h2>
+          <p>{{ 'customer.recover_password.subtext' | t }}</p>
+        </div>
+
+        <div class="form-vertical">
+          {% form 'recover_customer_password' %}
+
+            {% comment %}
+              Add a hidden span to indicate the form was submitted succesfully.
+            {% endcomment %}
+            {% if form.posted_successfully? %}
+              <span class="hide reset-password-success"></span>
+            {% endif %}
+
+            <label for="RecoverEmail">{{ 'customer.recover_password.email' | t }}</label>
+            <input
+              type="email"
+              value=""
+              name="email"
+              id="RecoverEmail"
+              class="input-full{% if form.errors %} input--error{% endif %}"
+              autocorrect="off"
+              autocapitalize="off"
+              {% if form.errors %}
+                aria-invalid="true"
+                aria-describedby="RecoverEmail-email-error"
+              {%- endif -%}
+              >
+            {%- if form.errors -%}
+              <span id="RecoverEmail-email-error" class="input-error-message">
+                <span class="visually-hidden">{{ 'general.accessibility.error' | t }} </span>
+                {% include 'icon-error' %}
+                <span>{{ form.errors.messages['form'] }}</span>
+              </span>
+            {%- endif -%}
+
+            <div class="text-center">
+              <p>
+                <input type="submit" class="btn" value="{{ 'customer.recover_password.submit' | t }}">
+              </p>
+
+              <a href="#LoginHeading" id="HideRecoverPasswordLink">{{ 'customer.recover_password.cancel' | t }}</a>
+            </div>
+          {% endform %}
+        </div>
+
+      </div>
+        {% include 'GetData' %}
+      {% comment %}
+        If accounts are set as optional, the following will be shown as an option
+        during checkout, not on the default /login page.
+      {% endcomment %}
+      {% if shop.checkout.guest_login %}
+        <div class="text-center">
+          <hr class="hr--invisible">
+          <h2>{{ 'customer.login.guest_title' | t }}</h2>
+
+          {% form 'guest_login' %}
+            <input type="submit" class="btn" value="{{ 'customer.login.guest_continue' | t }}">
+          {% endform %}
+        </div>
+      {% endif %} -->
+      
+      
+<!--------------------------------New-login---------------------->
+<!--        <div class="text-container form-container">
+
+      <h1 class="signuppopuplogo">
+        <a href="/">
+          <img src="//cdn.shopify.com/s/files/1/0084/6957/7794/files/logo_7ae23fb0-c20d-454b-ac7a-666fd6bb7d82_200x.png?v=1563190882" srcset="//cdn.shopify.com/s/files/1/0084/6957/7794/files/logo_7ae23fb0-c20d-454b-ac7a-666fd6bb7d82_200x.png?v=1563190882 1x, //cdn.shopify.com/s/files/1/0084/6957/7794/files/logo_7ae23fb0-c20d-454b-ac7a-666fd6bb7d82_200x@2x.png?v=1563190882 2x" alt="Aqualens Contact lenses" itemprop="logo">
+        </a>
+      </h1>
+      <div class="sendotp-section">
+        <p class="bogo-text-whole">
+          <span class="bogo-text">Enter Your Mobile No. to proceed.<br /></span>
+        </p> 
+
+        <div class="inputbox">
+          <input class="stdcode" type="text" value="+91" disabled />
+           <input class="otpsms-text" type='number' placeholder="Your Mobile Number" pattern="[0-9\-]*" maxlength="10" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"  name="contact">
+        </div>
+        <button class="otpsms button-style" type="submit">
+         <span id="button_text">PROCEED</span>
+          <span class="loadingicon1"></span>
+        </button>
+
+        <div class="error-notification"></div>
+      </div>
+
+      <div class="verifyotp-section hide">
+        <p class="header">Insert the OTP.</p>
+
+        <div class="otpsms-very-container">
+          <input class="otpsms-very smsdigit1" type='number' value='' maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');" >
+          <input class="otpsms-very smsdigit2" type='number' value='' maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');" >
+          <input class="otpsms-very smsdigit3" type='number' value='' maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');" >
+          <input class="otpsms-very smsdigit4" type='number' value='' maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');" >          
+        </div>
+        <div class="resendotp"><span class="not-active-link" style="float:left;">Resend OTP</span> <span id="countdown"></span></div>
+
+       
+
+        <button class="otpsmsvery button-style" type='submit'>
+          <span id="button_text">PROCEED</span>
+          <span class="loadingicon"></span>
+        </button>
+          <div class="error-notification2"></div>
+
+      </div>    
+
+      <div class="popup-elements hide">
+        <input type="tel" id="ContactFormPhonee" name="contact" pattern="[0-9\-]*" value="{% if form[phone] %}{{ form[phone] }}{% elsif customer %}{{ customer.phone }}{% endif %}" placeholder="Contact number"> 
+        <div class="submit-btn btn">Submit</div>
+      </div>
+ 
+      <div class="hide"> 
+        <form method="post" action="/account" id="create_customer" accept-charset="UTF-8">         
+
+          <input type="hidden" name="form_type" value="create_customer">
+          <input type="hidden" name="utf8" value="✓">
+
+          {{ form.errors | default_errors }}
+
+          <label for="Email" class="hidden-label">{{ 'customer.register.email' | t }}</label>
+          <input type="email" name="customer[email]" id="Email" class="input-full{% if form.errors contains 'email' %} error{% endif %}" placeholder="{{ 'customer.register.email' | t }}" {% if form.email %} value="{{ form.email }}"{% endif %} autocorrect="off" autocapitalize="off">
+
+          <label for="CreatePassword" class="hidden-label">{{ 'customer.register.password' | t }}</label>
+          <input type="text" name="customer[password]" id="CreatePassword" class="input-full{% if form.errors contains 'password' %} error{% endif %}" placeholder="{{ 'customer.register.password' | t }}" autocomplete="off">
+
+          <p>
+            <input id="creatacc" type="submit" value="{{ 'customer.register.submit' | t }}" class="btn btn--full">
+          </p>
+        </form>
+      </div>
+
+      <div class="login-hide hide">
+        {% form 'customer_login' %}
+        {{ form.errors | default_errors }}
+        <input type="hidden" name="return_to" value="back" />
+        <label for="CustomerEmail" class="hidden-label">{{ 'customer.login.email' | t }}</label>
+        <input type="email" name="customer[email]" id="CustomerEmail" class="input-full{% if form.errors contains 'email' %} error{% endif %}" placeholder="{{ 'customer.login.email' | t }}" autocorrect="off" autocapitalize="off" autofocus>
+
+        {% if form.password_needed %}
+        <label for="CustomerPassword" class="hidden-label">{{ 'customer.login.password' | t }}</label>
+        <input type="text" value="" name="customer[password]" id="CustomerPassword" class="input-full{% if form.errors contains 'password' %} error{% endif %}" placeholder="{{ 'customer.login.password' | t }}">
+        {% endif %}
+
+        <p>
+          <input id="loginacc" type="submit" class="btn btn--full" value="{{ 'customer.login.sign_in' | t }}">
+        </p>
+        <p>{{ 'layout.customer.create_account' | t | customer_register_link }}</p>
+        <p><a href="{{ shop.url }}">{{ 'customer.login.cancel' | t }}</a></p>
+        {% if form.password_needed %}
+        <p><a href="#recover" id="RecoverPassword">{{ 'customer.login.forgot_password' | t }}</a></p>
+        {% endif %}
+        {% endform %}
+      </div>          
+
+    </div>
+    </div>
+ 
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+
+    $(".otpsms").click(function (event) { 
+      var thisE = $(this);
+      thisE.addClass('disableBtn');
+      var countdigit;
+      var phoneno = $('.otpsms-text').val();
+      if(phoneno != ''){
+        if(phoneno.match('[0-9]{10}'))  {
+          thisE.find("#button_text").text('Sending...');
+          var userIdGup = '2000186438';
+          var userPGup = '2pwA7F';
+          $('.loadingicon1').css('display','inline-block').fadeOut(3000);
+          var mysenturl = 'https://subscriber.aqualens.in/api/send-otp/'+phoneno+''
+
+          var proxy = 'https://cors-anywhere.herokuapp.com/';
+
+          $.ajax({
+            url: mysenturl,
+
+            complete: function(response) {
+
+              var responseText = response.responseJSON.status;
+              if(responseText == 'SUCCESS'){
+                thisE.removeClass('disableBtn');
+                thisE.find("#button_text").text('PROCEED');
+                $(".error-notification2").html('OTP has been sent successfully.');
+                $(".error-notification2").css({color: 'green',display: 'block'});
+                $('.verifyotp-section').removeClass('hide');
+                $('.sendotp-section').hide();
+                $('.smsdigit1').focus();
+
+                resendotpcountdown();
+
+              }
+              else{
+                thisE.removeClass('disableBtn');
+                $(".error-notification1").html('Something went wrong.');
+                $(".error-notification1").css({display: 'block'});
+
+              }
+
+            } 
+          });
+          
+       
+        }
+        else{
+          thisE.removeClass('disableBtn');
+          $('.error-notification').text('Please Enter Complete Mobile Number');
+          $('.error-notification').show();
+        }            
+      }
+      else{
+        thisE.removeClass('disableBtn');
+        $('.error-notification').text('Please enter correct Mobile No');
+        $('.error-notification').show();
+      }
+    });
+
+    //   Run this code when Verify OTP Button Clicked
+    $(".otpsmsvery").click(function (e) {
+      var thisE = $(this);
+      thisE.addClass('disableBtn');
+      thisE.find("#button_text").text('Verifying...');
+      var userIdGup = '2000186438';
+      var userPGup = '2pwA7F';
+      var smsdigit1 = $('.smsdigit1').val();
+      var smsdigit2 = $('.smsdigit2').val();
+      var smsdigit3 = $('.smsdigit3').val();
+      var smsdigit4 = $('.smsdigit4').val();
+
+      var sentsmsforvarify = smsdigit1+smsdigit2+smsdigit3+smsdigit4;
+
+      if(smsdigit1 == '' || smsdigit2 == '' || smsdigit3 == '' || smsdigit4 == ''){
+        var ok = 0;
+      }
+
+      var phoneno = $('.otpsms-text').val();
+      if(ok != 0){
+         
+        
+        $('.loadingicon').css('display','inline-block').fadeOut(8000);
+        var mysenturl = 'https://subscriber.aqualens.in/api/verify-otp/'+phoneno+'/'+sentsmsforvarify+'';
+
+        var proxya = 'https://cors-anywhere.herokuapp.com/';
+        $.ajax({
+          url: mysenturl,
+
+          success: function (result) {
+            console.log(result);
+            var responseText = result.status;
+            if(responseText == 'SUCCESS'){
+              thisE.removeClass('disableBtn');
+              thisE.find("#button_text").text('Verifying...');
+              $('.error-notification2').hide();
+              $("#ContactFormPhonee").val(phoneno);
+              var value = $("#ContactFormPhonee").val();
+              value = value +"@guest.com";
+              $('#Email').val(value);
+              $('#CreatePassword').val('123456');                   
+              $('#creatacc').click();                  
+              e.preventDefault();
+            }
+            else{
+              thisE.removeClass('disabled');
+              $('.error-notification2').text(result);
+              $('.error-notification2').show();
+              if(result.includes('This OTP is incorrect') == true){
+                $('.error-notification2').html('This OTP is incorrect');
+                $('.error-notification2').css('color','red');
+                $('.error-notification2').show();
+              }
+
+
+              if(result == 'error | 909 | International Service is Disabled'){
+                $('.error-notification2').text('International Service is Disabled');
+              }
+              else if(result == 'error | 904 | Inactive Key'){
+                $('.error-notification2').text('Entered OTP is wrong');
+              }
+              else if(result == 'error | 910 | Voice Service is Disabled'){
+                $('.error-notification2').text('Voice Service is Disabled');
+              }
+              else if(result == 'error | 905 | Max No of attempts exceeded for the user'){
+                $('.error-notification2').text('Max No of attempts exceeded for the user');
+              } 
+              else if(result == 'error | 903 | Invalid code'){
+                $('.error-notification2').text('Invalid code');
+              } 
+              else if(result == 'error | 907 | Code is expired'){
+                $('.error-notification2').text('Code is expired');
+              } 
+
+              else if(result == 'error | 906 | Please try after'){
+                $('.error-notification2').text('Please try after Some Time');
+              } 
+
+              else if(result == 'error | 908 | Phone number has already been verified'){
+                $('.error-notification2').text('Phone number has already been verified');
+              } 
+
+
+              else{
+                console.log(result);
+                $('.error-notification').text(result);
+                $('.error-notification').show();
+                if(result == 'error | 909 | International Service is Disabled'){
+                  $('.error-notification2').text('International Service is Disabled');
+                }
+                else if(result == 'error | 904 | Inactive Key'){
+                  $('.error-notification2').text('Inactive Key');
+                }
+                else if(result == 'error | 910 | Voice Service is Disabled'){
+                  $('.error-notification2').text('Voice Service is Disabled');
+                }
+                else if(result == 'error | 905 | Max No of attempts exceeded for the user'){
+                  $('.error-notification2').text('Max No of attempts exceeded for the user');
+                } 
+                else if(result == 'error | 903 | Invalid code'){
+                  $('.error-notification2').text('Invalid code');
+                } 
+                else if(result == 'error | 907 | Code is expired'){
+                  $('.error-notification2').text('Code is expired');
+                } 
+                else if(result == 'error | 906 | Please try after'){
+                  $('.error-notification2').text('Please try after Some Time');
+                } 
+
+                else if(result == 'error | 908 | Phone number has already been verified'){
+                  $('.error-notification2').text('Phone number has already been verified');
+                } 
+
+              } 
+            }
+
+          }});
+      }
+      else{
+        thisE.removeClass('disabled');
+        $('.error-notification2').text('Please enter OTP');
+        $('.error-notification2').show();
+      }
+    });
+
+    // Hide error line
+    $(".otpsms-very").change(function() {
+      $('.error-notification2').hide();
+    });
+
+
+
+    $(".resendotp span").click(function () {
+      $(".otpsms").click();
+    });
+
+    $(".otpsms-very").keyup(function () {
+      if (this.value.length == this.maxLength) {
+        var $next = $(this).next('.otpsms-very');
+        if ($next.length)
+          $(this).next('.otpsms-very').focus();
+        else
+          $(this).blur();
+
+      }
+    });
+
+   
+  });
+
+  function resendotpcountdown(){
+
+    setTimeout(function(){
+      $('.resendotp span').removeClass('not-active-link');
+    }, 30000);
+
+    var timeleft = 29;
+    var downloadTimer = setInterval(function(){
+      document.getElementById("countdown").innerHTML = timeleft;
+      timeleft -= 1;
+      if(timeleft <= 0){
+        clearInterval(downloadTimer);
+        document.getElementById("countdown").innerHTML = ""
+      }
+    }, 1000);
+  }
+  $(document).on('click','#creatacc',function(e){
+    var thisE = $(this);
+    var isValid = false;
+    var regex = /^[0-9-+()]*$/;
+    var number = '';
+    var form = thisE.parents('form');
+    var email = form.find('input[name="customer[email]"]').val();
+    if(email.includes('@guest.com') == true){
+      var splitData = email.split('@');
+      var number = splitData[0];
+      if(number.length != 10){
+        number = parseInt(number);
+        if(regex.test(number) == false){
+          e.preventDefault();
+        }
+      }
+    }
+    else{
+      e.preventDefault();
+    }
+
+  })
+</script>
+ -->
+<!-- /templates/customers/login.liquid -->
+
+{% if customer %}
+<script>
+  $(document).ready(function(){
+    location.href= "/account";
+  })
+</script>
+{% else %}
+<script>
+  $(window).load(function(){
+    $("#ac-wrapper").show();
+  });
+</script>
+
+<style>
+  .closemeak{
+    display:none;
+  }
+</style>
+
+{% endif %}

@@ -1,0 +1,222 @@
+<div class="prdOrders__background">
+  <div class="prd__orders"> 
+  </div>
+</div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.0.0/magnific-popup.min.css" integrity="sha512-nIm/JGUwrzblLex/meoxJSPdAKQOe2bLhnrZ81g5Jbh519z8GFJIWu87WAhBH+RAyGbM4+U3S2h+kL5JoV6/wA==" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.0.0/jquery.magnific-popup.min.js" integrity="sha512-+m6t3R87+6LdtYiCzRhC5+E0l4VQ9qIT1H9+t1wmHkMJvvUQNI5MKKb7b08WL4Kgp9K0IBgHDSLCRJk05cFUYg==" crossorigin="anonymous"></script>
+
+<style>
+  @media(min-width:749px){
+    .prdOrders__background{
+      background: #F8F8F8;
+      border-radius:10px;
+    }  
+    .prd__orders{
+      height: auto;
+      border-radius: 4px;
+      background: white;
+      box-shadow: 0 0 6px #00000029;
+      width:auto;
+      margin:auto;
+    }
+  }
+  .prd__orders{
+    margin-top: unset;
+    background: #F8F8F8;
+    max-width:auto;
+    padding: 1px 0px;
+  }
+  .order__card{
+    margin: 15px 15px 10px 15px;
+    padding: 15px;
+    border-radius: 4px;
+    background:#FFFFFF;
+  }
+  .order__prd--info {
+    display: flex;
+    border-bottom: 1px solid #F8F8F8;
+    padding-bottom: 16px;
+  }
+  .orderPrd__image {
+    border: 1px solid #F8F8F8;
+    box-sizing: border-box;
+    border-radius: 4px;
+    max-width: 90px;
+    height: 90px;
+    margin-right:30px;
+  }
+  .orderPrd__image img{
+    width: 100%;
+    height: 100%;
+  }
+  .order__headingText {
+    flex: 0 0 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .orderPayment__total {
+    display: flex;
+    justify-content: space-between;
+  }
+  .orderId__btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+  }
+  h4.orderText__heading {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 15px;
+    color: #999999;
+    margin-bottom: 1px;
+  }
+  p.orderText__content {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    color: #333333;
+  }
+  .orderSee__Details--btn {
+    border: 1px solid #00BAC6;
+    box-sizing: border-box;
+    border-radius: 4px;
+    padding: 10px 24px;
+    text-align: center;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #00BAC6;
+    cursor:pointer;
+  }
+  .loader-main {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    z-index: 999999999;
+    background:white;
+    opacity: 0.9;
+  }
+  .loader-main p{
+    height: 100px;
+    width: 100px;
+
+  }
+  @media(max-width:749px){
+    .prd__orders{
+    margin-top: 0px;
+    background: #F8F8F8;
+    max-width:auto;     
+    padding: 1px 0px;
+  }
+  }
+</style>
+  
+<script>
+  $(document).ready(function() { 
+    let custNewToken =  sessionStorage.getItem("custNewToken");
+      var orderSettings = {
+        "url": baseURL+"/api/v1/customers/orders",
+        "method":"GET",
+        "headers": {
+          "Authorization": "Bearer"+" "+custNewToken,
+        }
+      };
+      $.ajax(orderSettings).done(function (response) {
+        if(response.status == true){
+          $('.loader-main').hide();
+          var orderContainer = ''; 
+          if(response.data.orders.length != 0){
+            response.data.orders.forEach(function(i){
+              
+              let timeStamp = new Date(i.created_at.replace(/-/g, "/"));                                                           
+              let options = {
+                year: "2-digit",
+                month: "short",
+                day: "numeric",
+              }
+              let options2 = {
+                hour: "numeric",
+                minute: "numeric",
+              }
+              let date = Intl.DateTimeFormat("en-IN", options).format(timeStamp); //timeStamp.toDateString();
+              let time = Intl.DateTimeFormat("en-IN", options2).format(timeStamp);
+              
+//               const months = ["Jan","Feb","March","April","May","June","July","Aug","Sep","Oct","Nov","Dec"];
+//               var orderD = new Date(i.created_at);
+//               var orderDay = orderD.getDate();        
+//               var orderMonth = months[orderD.getMonth()];
+//               var orderYear = orderD.getFullYear();
+              
+              
+              
+              let paymentMode = i.payment_mode.toUpperCase();
+              let htmlData = `<div class="order__card">
+                                <div class="order__card--details">
+                                    <div class="order__prd--info">
+                                        <div class="orderPrd__image">
+                                        <img src="${i.image}" alt="">
+                                        </div>
+                                        <div class="order__headingText">
+                                            <div class="orderPrd__date">
+                                                <h4 class="orderText__heading">Order Placed</h4>
+                                                <p class="orderText__content">${date}</p>
+                                            </div>
+                                            <div class="orderPayment__total">
+                                                <div class="orderPayment__mode">
+                                                    <h4 class="orderText__heading">Payment</h4>
+                                                    <p class="orderText__content">${paymentMode}</p>
+                                                </div>
+                                                <div class="orderTotal__amount">
+                                                    <h4 class="orderText__heading">Total</h4>
+                                                    <p class="orderText__content">${i.total}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="orderId__btn">
+                                        <div class="orderId__text">
+                                            <h4 class="orderText__heading">Order Id</h4>
+                                            <p class="orderText__content">${i.order_id}</p>
+                                        </div>
+                                        <a href="https://aqualensb2b.com/pages/order-details?order=${i.order_id}" class="orderSee__Details--btn">
+                                            See Details
+                                         </a>
+                                    </div>
+                                </div>
+                            </div>`
+          orderContainer = orderContainer + htmlData;
+        })
+        $('.prd__orders').html(orderContainer);
+        }else {
+          $('.prd__orders').html('<h2 style="text-align:center;color:#333333;font-family: Poppins;font-weight: 500;">No Orders Found</h2>');
+        }
+        }else {
+          $('.prd__orders').html('<h2 style="text-align:center;color:#333333;font-family: Poppins;font-weight: 500;">No Orders Found</h2>');
+        }
+      }).fail(function(error){
+        $('.loader-main').hide();
+        let apiError = error.responseJSON.message;
+        errorPopup(apiError);
+        if(apiError === 'Unauthorized request'){
+          setNewToken();
+          location.reload();
+        }else{
+          errorPopup(apiError);
+        }
+      })
+    
+  });
+  
+</script>

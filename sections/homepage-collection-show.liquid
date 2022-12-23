@@ -1,0 +1,172 @@
+{% assign leftImage = section.settings.collectionImage %}
+{% assign captiontext = section.settings.collectionCaption %}
+{% assign collection = section.settings.collectionSelect %}
+{% assign pTitle = collections[collection].title %}
+{% assign imageShow = section.settings.showImage %}
+
+<div class="homepageCollectionWarpa {{section.settings.custom_class}}">
+  <div class="CollectionContainer show-iamge-{{imageShow}}">
+    <div class="leftContent">
+      
+      <div class="rightTextWap">
+        {% if captiontext %}
+          <p class="caption" style="background: {{section.settings.collectionCaptionColor}}">
+            {{captiontext}}
+          </p>
+        {% endif %}
+        {% if collection%}
+          <p class="c-title">
+            {{section.settings.collectionTitle}}
+          </p>
+        {% endif %}
+      </div>
+      
+      <div class="imageWrap">
+        {% if leftImage %}
+        <img src="{{leftImage | img_url:'master'}}"  alt="Aqualens contact lenses">
+        {% endif %}
+      </div>
+    </div>
+    <div class="rightContent">
+      <div class="rightTextWap">
+        {% if captiontext %}
+        <p class="caption" style="background: {{section.settings.collectionCaptionColor}}">
+          {{captiontext}}
+        </p>
+        {% endif %}
+        {% if collection%}
+        <p class="c-title">
+          {{section.settings.collectionTitle}}
+        </p>
+        {% endif %}
+        <div class="productUsp">
+          <ul>
+            {% for block in section.blocks %}
+            <li>
+              <div class="icon">
+                <img src="{{block.settings.collectionUps | img_url:'master'}}" alt="Aqualens icon">
+              </div>
+              <p class="uspTitle">{{block.settings.collectionUpsTitle}}</p>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="products_wap">
+          <a href="{{collections[collection].url}}" class="view-all">view all &#x2192;</a>
+          <div class="product_container">
+            {% for cproduct in collections[collection].products limit:3 %}
+            <div class="single-product">
+              <a href="{{cproduct.url}}">
+                <div class="pImage">
+                  <img src="{{cproduct | img_url:'master'}}" alt="{{cproduct.title}}">
+                </div>
+                <p class="p-title">
+                  {{cproduct.title}}
+                </p>
+                {% for tag in cproduct.tags %}
+                  {% if tag contains 'pack_info' %}
+                	{% assign tagIn = tag | split: 'pack_info_' | last %}
+                	{% assign tagIn = tagIn | replace: "_"," "  %}
+                  	<p class="p-packTag">{{tagIn}}</p>
+                  {% elsif tag contains 'badge_text_' %}
+                	{% assign badgetext = tag | split: 'badge_text_' | last %}
+                	<p class="productBadge {{badgetext}}">&nbsp;</p>
+                  {% elsif tag contains 'power_info_' %}
+                	{% assign powerText = tag | split: 'power_info_' | last %}
+                	{% assign powerText = powerText | replace: "_"," "  %}
+                	<p class="productBadge power">{{powerText}}</p>
+                  {% endif %}
+                {% endfor %}
+                <p class="p-price">{{cproduct.price | money}}</p>
+              </a>
+            </div>
+
+            {% endfor %}
+          </div>
+          <a href="{{collections[collection].url}}" class="view-all view-all--mobile">view all &#x2192;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+{% schema %}
+{
+   "name":"Collection Show",
+   "settings":[
+      {
+         "type":"image_picker",
+         "id":"collectionImage",
+         "label":"image"
+      },
+      {
+         "type":"text",
+         "id":"collectionCaption",
+         "label":"Collection Caption",
+         "default":"our Collection"
+      },
+	  {
+         "type":"color",
+         "id":"collectionCaptionColor",
+         "label":"Collection Caption Color"
+      },
+      {
+         "type":"text",
+         "id":"collectionTitle",
+         "label":"Collection Title",
+         "default":"Collection Title"
+      },
+	  {
+        "type":"collection",
+        "id":"collectionSelect",
+        "label":"Select Collection"
+      },
+	  {
+        "type":"select",
+        "id":"showImage",
+        "label":"Show Image",
+		"options": [
+           {
+             "value": "left"
+           },
+           {
+             "value": "right"
+           }
+         ],
+         "default":   "left"
+      },
+      {
+         "type":"text",
+         "id":"custom_class",
+         "label":"Custom Class"
+      }
+   ],
+   "blocks":[
+      {
+         "name":"add usp icon",
+         "type":"homepage_collection",
+         "settings":[
+            {
+               "type":"image_picker",
+               "id":"collectionUps",
+               "label":"image"
+            },
+			{
+               "type":"text",
+               "id":"collectionUpsTitle",
+               "label":"Title"
+            }
+         ]
+      }
+   ],
+   "presets":[
+      {
+         "name":"Homepage Collection View",
+         "category":"collection"
+      }
+   ]
+}
+{% endschema %}

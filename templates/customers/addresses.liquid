@@ -1,0 +1,1126 @@
+{% comment %}
+<style>
+  .pagination__text{
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 18px;
+    color: #333333;
+  }
+  .section-header {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #333333;
+    text-align:center;
+    margin-bottom:10px;
+  }
+  .address_heading {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 24px;
+    color: #333333;
+    margin-top:10px;
+  }
+  .address__text {
+    margin-bottom: 20px;
+  }
+  .address__text p {
+    text-transform:capitalize;'
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 18px;
+    color: #333333;
+    text-align:left !important;
+  }
+  .edit__buttons {
+    display: flex;
+    justify-content: space-evenly;
+    border-top: 2px solid  #F2F2F2;
+    border-bottom: 2px solid  #F2F2F2;
+}
+  .address__width {
+    width: 90%;
+    margin: auto;
+    max-width: 500px;
+    box-shadow: 0 0 6px #00000029;
+    padding:15px;
+    background: white;
+    margin-bottom: 10px;
+  }
+  .address__pagination{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+      
+  }
+  .btn--tertiary{
+    border-radius:4px;
+  }
+  .edit_flex{
+    flex-basis:50%;
+    text-align: center;
+    border-right: 1px solid #F2F2F2;
+    padding: 12px 0px;
+    flex-basis: 50%;
+    cursor: pointer;
+  }
+  .remove_flex{
+    text-align: center;
+    padding: 12px 0px;
+    flex-basis: 50%;
+    cursor: pointer;
+  }
+  .addr__edit--button,
+  .addr__remove--button{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;    
+    background: none !important;
+    text-transform: capitalize;
+    border:none;
+  }
+  .addr__edit--button{
+    color: #00BAC6 !important;
+  }
+  .addr__remove--button{
+    color: #f3716d !important;
+  }
+  .new__addr-button{
+    font-family: Poppins;
+    color:white !important;
+    background:#00BAC6 !important;
+    letter-spacing: 0;
+    text-transform: capitalize;
+    font-size: 12px;
+  }
+  .addr__width-left{
+    left:unset !important;
+    width:unset !important;
+    float:unset !important;
+    padding: 0 0 !important;
+  }
+  .new__return-btn{
+    width:95%;
+    margin:auto;
+    max-width:500px;
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+  }
+  .new__return-btn p a{
+    font-family: Poppins;
+    background: #00BAC6;
+    color: white;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  .new__return-btn p a:hover{
+    color: white;
+  }
+  @media(max-width:749px){
+    .address__width {
+      width: 100%;
+      margin: auto;
+      max-width: 500px;
+      box-shadow: unset;
+      padding: 15px;
+    }
+    .new__return-btn p a {
+      font-family: Poppins;
+      font-size: 12px;
+    }
+    .new__addr-button{
+      font-size: 12px;
+    }
+  }
+</style>
+<div style="background: #f8f8f8;
+    padding: 10px 0px;">
+  {% include 'background-look' %}
+{% paginate customer.addresses by 5 %}
+  <div class="page-width my__address-heading">
+    <header class="section-header">
+      <h1 class="address_heading">{{ 'customer.addresses.title' | t }}</h1>
+      <div class="new__return-btn">
+        <p><a href="{{ routes.account_url }}">Return to Account</a></p>
+        <p><button type="button" class="btn address-new-toggle new__addr-button" id="AddressNewButton" aria-expanded="false" aria-owns="AddressNewForm">Add New Address</button></p>
+      </div>
+    </header>
+  </div>
+
+<div class="address__width">
+  <div class="grid">
+    <div class="grid__item medium-up--two-thirds medium-up--push-one-sixth addr__width-left">
+      {% comment %}
+        Add address form, hidden by default
+      {% endcomment %}
+      <div id="AddressNewForm" class="form-vertical hide">
+        {% form 'customer_address', customer.new_address %}
+          <h2>{{ 'customer.addresses.add_new' | t }}</h2>
+
+          <div class="grid">
+            <div class="grid__item medium-up--one-half">
+              <label for="AddressFirstNameNew">{{ 'customer.addresses.first_name' | t }}</label>
+              <input type="text" id="AddressFirstNameNew" name="address[first_name]" value="{{ form.first_name }}" autocomplete="given-name">
+            </div>
+
+            <div class="grid__item medium-up--one-half">
+              <label for="AddressLastNameNew">{{ 'customer.addresses.last_name' | t }}</label>
+              <input type="text" id="AddressLastNameNew" name="address[last_name]" value="{{ form.last_name }}" autocomplete="family-name">
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="grid__item">
+              <label for="AddressCompanyNew">{{ 'customer.addresses.company' | t }}</label>
+              <input type="text" id="AddressCompanyNew" name="address[company]" value="{{ form.company }}" autocomplete="organization">
+
+              <label for="AddressAddress1New">{{ 'customer.addresses.address1' | t }}</label>
+              <input type="text" id="AddressAddress1New" name="address[address1]" value="{{ form.address1 }}" autocomplete="street-address address-line1">
+
+              <label for="AddressAddress2New">{{ 'customer.addresses.address2' | t }}</label>
+              <input type="text" id="AddressAddress2New" name="address[address2]" value="{{ form.address2 }}" autocomplete="street-address address-line2">
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="grid__item medium-up--one-half">
+              <label for="AddressCityNew">{{ 'customer.addresses.city' | t }}</label>
+              <input type="text" id="AddressCityNew" name="address[city]" value="{{ form.city }}" autocomplete="address-level2" disabled>
+            </div>
+
+            <div class="grid__item medium-up--one-half">
+              <label for="AddressCountryNew">{{ 'customer.addresses.country' | t }}</label>
+              <select id="AddressCountryNew" name="address[country]" data-default="{{ form.country }}" autocomplete="country">{{ all_country_option_tags }}</select>
+            </div>
+          </div>
+
+          <div id="AddressProvinceContainerNew" style="display:none">
+            <label for="AddressProvinceNew">{{ 'customer.addresses.province' | t }}</label>
+            <select id="AddressProvinceNew" name="address[province]" data-default="{{ form.province }}" autocomplete="address-level1"></select>
+          </div>
+
+          <label for="AddressZipNew">{{ 'customer.addresses.zip' | t }}</label>
+          <input type="text" id="AddressZipNew" name="address[zip]" value="{{ form.zip }}" autocapitalize="characters" autocomplete="postal-code">
+
+          <label for="AddressPhoneNew">{{ 'customer.addresses.phone' | t }}</label>
+          <input type="tel" id="AddressPhoneNew" name="address[phone]" value="{{ form.phone }}" autocomplete="phone">
+
+          {{ form.set_as_default_checkbox }}
+          <label for="address_default_address_new">{{ 'customer.addresses.set_default' | t }}</label>
+
+          <div><input type="submit" class="btn" value="{{ 'customer.addresses.add' | t }}"></div>
+          <div><button type="button" class="text-link address-new-toggle">{{ 'customer.addresses.cancel' | t }}</button></div>
+
+        {% endform %}
+        <hr>
+      </div>
+
+      {% comment %}
+        List all customer addresses with a unique edit form.
+        Also add pagination in case they have a large number of addresses
+      {% endcomment %}
+      <ul>
+        {% for address in customer.addresses %}
+          <li>
+            <div class="address text-center address__text">
+              {% if address == customer.default_address %}
+                <h2 class="h4">{{ 'customer.addresses.default' | t }}</h2>
+              {% endif %}
+
+              {{ address | format_address }}
+
+              <ul class="list--inline edit__buttons">
+                <li class="edit_flex">
+                  <button
+                    id="EditFormButton_{{ address.id }}"
+                    type="button"
+                    class="btn btn--small address-edit-toggle addr__edit--button"
+                    data-form-id="{{ address.id }}"
+                    aria-owns="EditAddress_{{ address.id }}"
+                    aria-expanded="false">
+                    {{ 'customer.addresses.edit' | t }}
+                  </button>
+                </li>
+                <li class="remove_flex">
+                  <button
+                    type="button"
+                    class="btn btn--secondary btn--small address-delete addr__remove--button"
+                    data-target="{{ address.url }}"
+                    data-confirm-message="{{ 'customer.addresses.delete_confirm' | t }}">
+                    {{ 'customer.addresses.delete' | t }}
+                  </button>
+                </li>
+              </ul>
+            </div>
+
+            <div id="EditAddress_{{ address.id }}" class="form-vertical hide">
+              {% form 'customer_address', address %}
+
+                <h2>{{ 'customer.addresses.edit_address' | t }}</h2>
+
+                <div class="grid">
+                  <div class="grid__item medium-up--one-half">
+                    <label for="AddressFirstName_{{ form.id }}">{{ 'customer.addresses.first_name' | t }}</label>
+                    <input type="text" id="AddressFirstName_{{ form.id }}" name="address[first_name]" value="{{ form.first_name }}" autocomplete="given-name">
+                  </div>
+
+                  <div class="grid__item medium-up--one-half">
+                    <label for="AddressLastName_{{ form.id }}">{{ 'customer.addresses.last_name' | t }}</label>
+                    <input type="text" id="AddressLastName_{{ form.id }}" name="address[last_name]" value="{{ form.last_name }}" autocomplete="family-name">
+                  </div>
+                </div>
+
+                <label for="AddressCompany_{{ form.id }}">{{ 'customer.addresses.company' | t }}</label>
+                <input type="text" id="AddressCompany_{{ form.id }}" name="address[company]" value="{{ form.company }}" autocomplete="organization">
+
+                <label for="AddressAddress1_{{ form.id }}">{{ 'customer.addresses.address1' | t }}</label>
+                <input type="text" id="AddressAddress1_{{ form.id }}" name="address[address1]" value="{{ form.address1 }}" autocomplete="street-address address-line1">
+
+                <label for="AddressAddress2_{{ form.id }}">{{ 'customer.addresses.address2' | t }}</label>
+                <input type="text" id="AddressAddress2_{{ form.id }}" name="address[address2]" value="{{ form.address2 }}" autocomplete="street-address address-line2">
+
+                <div class="grid">
+                  <div class="grid__item medium-up--one-half">
+                    <label for="AddressCity_{{ form.id }}">{{ 'customer.addresses.city' | t }}</label>
+                    <input type="text" id="AddressCity_{{ form.id }}" name="address[city]" value="{{ form.city }}" autocomplete="address-level2">
+                  </div>
+                  <div class="grid__item medium-up--one-half">
+                    <label for="AddressCountry_{{ form.id }}">{{ 'customer.addresses.country' | t }}</label>
+                    <select id="AddressCountry_{{ form.id }}" class="address-country-option" data-form-id="{{ form.id }}" name="address[country]" data-default="{{ form.country }}" autocomplete="country">{{ all_country_option_tags }}</select>
+                  </div>
+                </div>
+
+                <div id="AddressProvinceContainer_{{ form.id }}" style="display:none">
+                  <label for="AddressProvince_{{ form.id }}">{{ 'customer.addresses.province' | t }}</label>
+                  <select id="AddressProvince_{{ form.id }}" name="address[province]" data-default="{{ form.province }}" autocomplete="address-level1"></select>
+                </div>
+
+                <div class="grid">
+                  <div class="grid__item">
+                    <label for="AddressZip_{{ form.id }}">{{ 'customer.addresses.zip' | t }}</label>
+                    <input type="text" id="AddressZip_{{ form.id }}" name="address[zip]" value="{{ form.zip }}" autocapitalize="characters" autocomplete="postal-code">
+                  </div>
+
+                  <div class="grid__item">
+                    <label for="AddressPhone_{{ form.id }}">{{ 'customer.addresses.phone' | t }}</label>
+                    <input type="tel" id="AddressPhone_{{ form.id }}" name="address[phone]" value="{{ form.phone }}" autocomplete="phone">
+                  </div>
+                </div>
+
+                <div class="text-center">
+                  {{ form.set_as_default_checkbox }}
+                  <label for="address_default_address_{{ form.id }}">{{ 'customer.addresses.set_default' | t }}</label>
+
+                  <div><input type="submit" class="btn" value="{{ 'customer.addresses.update' | t }}"></div>
+                  <div><button type="button" class="text-link address-edit-toggle" data-form-id="{{ form.id }}">{{ 'customer.addresses.cancel' | t }}</button></div>
+                </div>
+
+              {% endform %}
+              <hr>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+
+      {%- if paginate.pages > 1 -%}
+        {% include 'pagination', paginate: paginate %}
+      {%- endif -%}
+    </div>
+  </div>
+
+</div>
+{% endpaginate %}
+</div>
+
+{% endcomment %}
+
+
+<!-- new Address  -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.0.0/magnific-popup.min.css" integrity="sha512-nIm/JGUwrzblLex/meoxJSPdAKQOe2bLhnrZ81g5Jbh519z8GFJIWu87WAhBH+RAyGbM4+U3S2h+kL5JoV6/wA==" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.0.0/jquery.magnific-popup.min.js" integrity="sha512-+m6t3R87+6LdtYiCzRhC5+E0l4VQ9qIT1H9+t1wmHkMJvvUQNI5MKKb7b08WL4Kgp9K0IBgHDSLCRJk05cFUYg==" crossorigin="anonymous"></script>
+
+<style>
+  .footer__section{
+    display:none;
+  }
+  #addresses #breadcrumb{
+    display: none;
+  }
+  #addresses .wrapper {
+    background-color: #F8F8F8;
+    position: relative;
+    padding-bottom: 20px;
+  }
+  .address__section{
+    display: flex;
+    max-width: 500px;
+    margin: 0 auto;
+    justify-content: space-between;
+    box-shadow: 0 0 6px #00000029;
+    background: white;
+    margin-bottom: 10px;
+     margin-top:20px;
+  }
+  .side__account-menu{
+    width: 372px;
+    z-index: 1;
+  }
+  .address__container{
+    flex: 1 1 50%;
+  }
+  .address-scroll {
+    background-color: #FFFFFF;
+  }
+  .address__container-header{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #333333;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #FFFFFF;
+  }
+  .address__container-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .address__container-title svg{
+    display: none;
+  }
+  .address__container-new-add{
+    color: #009BDF;
+    cursor: pointer;
+  }
+  .address-wrapper .address-label {
+    display: block;
+    position: relative;
+    padding: 10px;
+    padding-left: 39px;
+    padding-right: 15px;
+  }
+  .address-wrapper input[type="radio"]{
+    display:none;
+  }
+  .address-wrapper input[type="radio"] + label .check-mark {
+    display:inline-block;
+    width:14px;
+    height:14px;
+    cursor:pointer;
+    -moz-border-radius:  50%;
+    border-radius:  50%;
+    border: .1rem solid #00BAC6;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+  }
+  .address-wrapper input[type="radio"]:checked + label .check-mark{
+    background: radial-gradient(#00BAC6 0%, #00BAC6 40%, transparent 50%, transparent);
+  }
+  .address-wrapper .address-label p {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 18px;
+    color: #333333;
+  }
+  .address__action-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid #F2F2F2;
+    border-bottom: 1px solid #F2F2F2;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+    color: #00BAC6;
+  }
+  .address__edit{
+    text-align: center;
+    border-right: 1px solid #F2F2F2;
+    padding: 18px 0px;
+    flex-basis: 50%;
+    cursor: pointer;
+  }
+  .address__remove{
+    text-align: center;
+    padding: 18px 0px;
+    flex-basis: 50%;
+    cursor: pointer;
+    color: #f3716d;
+  }
+  .address__header--close {
+    cursor: pointer;
+  }
+  label.address-label p {
+    margin-bottom: 0px;
+  }
+
+  .customer__details-container{
+    overflow: auto;
+    max-width: 450px;
+    padding: 15px;
+    background-color: #FFFFFF;
+    margin: auto;
+    border: 1px solid #E0E0E0;
+    box-shadow: 0px 7px 8px -3px rgba(0, 0, 0, 0.25);
+    border-radius: 2px;
+  }
+  .address__header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+  }
+  .address__header--title{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #333333;
+  }
+  .address__type-wrapper {
+    display: flex;
+    gap: 50px;
+  }
+  .customer__details-btn-wrapper{
+    left: 0;
+    bottom: 0;
+    width: 100%;
+  }
+  .customer__details-btn{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: center;
+    color: #FFFFFF;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    width: 100%;
+    background: #D8D8D8;
+    padding: 12px 0px;
+    outline: 0;
+  }
+  .details-btn-active {
+    background: #00BAC6;
+  }
+  .input-field{
+    padding-bottom: 5px;
+  }
+  .input-field label{
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 18px;
+    color: #4F4F4F;
+    margin: 0;
+    padding-bottom: 2px;
+  }
+  .input-field input{
+    background: #FFFFFF;
+    border: 1px solid #BDBDBD;
+    border-radius: 4px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #474747;
+    width: 100%;
+    height: 40px;
+    padding: 10px 12px;
+  }
+  .input-field textarea{
+    background: #FFFFFF;
+    border: 1px solid #BDBDBD;
+    border-radius: 4px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #474747;
+    width: 100%;
+    height: 40px;
+    padding: 10px 12px;
+    resize: none;
+  }
+  .input-field select{
+    background-color: #FFFFFF;
+    border: 1px solid #BDBDBD;
+    background-image: url(https://cdn.shopify.com/s/files/1/0084/6957/7794/files/Vector_64ec8d6a-17ee-4505-ac74-de044096b31a.png?v=1626672058);
+    background-size: 9px;
+    border-radius: 4px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #474747;
+    width: 100%;
+    height: 40px;
+    padding: 9px 12px;
+    padding-right: 28px;
+  }
+  .input-field input[type="radio"]{
+    display:none;
+  }
+  .input-field .type-label{
+    display: flex;
+    align-items: center;
+  }
+  .input-field input[type="radio"] + label span {
+    display:inline-block;
+    width:14px;
+    height:14px;
+    cursor:pointer;
+    -moz-border-radius:  50%;
+    border-radius:  50%;
+    border: .1rem solid #00BAC6;
+    margin-right: 7px;
+  }
+  .input-field input[type="radio"]:checked + label span{
+    background: radial-gradient(#00BAC6 0%, #00BAC6 40%, transparent 50%, transparent);
+  }
+  .addError{
+    color: #F3716D;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 21px;
+  }
+  .customer__details-container .mfp-close{
+    display:none;
+  }
+  .mfp-container{
+    padding:0 0 !important;
+  }
+  @media(max-width:749px){
+    .address__section{
+      max-width:500px;
+      width:95%;
+      margin-bottom: 30px;
+      box-shadow: unset;
+      background: white;
+      margin-bottom: 10px;
+      margin-top:0px;
+    }
+    .side__account-menu{
+      display: none;
+    }
+    .address__container{
+      flex: 1 1 100%;
+      width: 100%;
+    }
+    .address__container-header{
+      padding: 15px 10px;
+      border-bottom: 1px solid #E5E5E5;
+    }
+    .address__container-title {
+      cursor: pointer;
+    }
+    .address__container-title svg{
+      display: block;
+    }
+    .address__container-new-add{
+      font-size: 14px;
+      line-height: 21px;
+    }
+    .customer__details-container{
+      max-width: 100%;
+    }
+    #addresses .mfp-content {
+      vertical-align: bottom;
+    }
+    .footer__section{
+    display:block;
+  }
+  }
+</style>
+
+<div style="background: #f8f8f8;
+    padding: 10px 0px;">
+  {% include 'background-look' %}
+<div class="address__section page__section">
+  {% comment %}
+    <div class="side__account-menu">
+      {% render 'account-nav' %}
+    </div>
+  {% endcomment %}
+  <div class="address__container">
+    <div class="address__container-header">
+      <div class="address__container-title">
+        <svg class="address__container-title-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7.44678 8.99999L10.3125 6.13424C10.623 5.82374 10.623 5.31974 10.3125 5.00924C10.002 4.69874 9.49804 4.69874 9.18754 5.00924L5.72703 8.46974C5.43378 8.76299 5.43378 9.23774 5.72703 9.53024L9.18753 12.9907C9.49803 13.3012 10.002 13.3012 10.3125 12.9907C10.623 12.6802 10.623 12.1762 10.3125 11.8657L7.44678 8.99999Z" fill="#4F4F4F"/>
+        </svg>          
+        <div class="address__container-title-text">
+          My Address
+        </div>
+      </div>
+      <div class="address__container-new-add">
+        Add New
+      </div>
+    </div>
+    <!---New Add-->
+    <div class="customer__details-container new-address" style="display: none;">
+      {% form 'customer_address', customer.new_address %}
+      <div class="customer__details-content">
+        <div class="address__header">
+          <div class="address__header--title">Add Address</div>
+          <div class="address__header--close">
+            <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1.99007 0.000434763C1.79114 0.000487008 1.59674 0.0598657 1.43173 0.170979C1.26672 0.282093 1.1386 0.439893 1.06374 0.624205C0.988886 0.808517 0.970697 1.01097 1.0115 1.20567C1.05231 1.40037 1.15025 1.57848 1.29281 1.71723L6.58578 7.0102L1.29281 12.3032C1.19684 12.3953 1.12021 12.5057 1.06743 12.6278C1.01464 12.7499 0.986757 12.8814 0.985403 13.0144C0.98405 13.1475 1.00926 13.2794 1.05954 13.4026C1.10983 13.5258 1.1842 13.6377 1.27827 13.7318C1.37235 13.8258 1.48426 13.9002 1.60743 13.9505C1.73061 14.0008 1.86259 14.026 1.99563 14.0246C2.12867 14.0233 2.2601 13.9954 2.38223 13.9426C2.50436 13.8898 2.61473 13.8132 2.70687 13.7172L7.99984 8.42426L13.2928 13.7172C13.385 13.8132 13.4953 13.8898 13.6175 13.9426C13.7396 13.9954 13.871 14.0233 14.0041 14.0246C14.1371 14.026 14.2691 14.0008 14.3922 13.9505C14.5154 13.9002 14.6273 13.8259 14.7214 13.7318C14.8155 13.6377 14.8899 13.5258 14.9401 13.4026C14.9904 13.2794 15.0156 13.1475 15.0143 13.0144C15.0129 12.8814 14.985 12.7499 14.9323 12.6278C14.8795 12.5057 14.8028 12.3953 14.7069 12.3032L9.4139 7.0102L14.7069 1.71723C14.8514 1.57677 14.9501 1.39593 14.99 1.19841C15.03 1.00089 15.0093 0.795905 14.9308 0.610319C14.8523 0.424733 14.7195 0.267204 14.5499 0.158375C14.3803 0.0495457 14.1817 -0.0055056 13.9803 0.000434763C13.7205 0.0081759 13.4739 0.116755 13.2928 0.303169L7.99984 5.59614L2.70687 0.303169C2.61368 0.207375 2.50224 0.13123 2.37912 0.0792331C2.25601 0.0272363 2.12372 0.000442554 1.99007 0.000434763Z" fill="#333333"/>
+            </svg>                    
+          </div>
+        </div>
+        <div class="address__type-wrapper">
+          <div class="input-field">
+            <input type="radio" class="type__input address__type" name="type-input" value="Home" id="addressHome" checked="checked">
+            <label for="addressHome" class="type-label">
+              <span></span>
+              Home
+            </label>
+          </div>
+          <div class="input-field">
+            <input type="radio" class="type__input address__type" name="type-input" value="Office" id="addressOffice">
+            <label for="addressOffice" class="type-label">
+              <span></span>
+              Office
+            </label>
+          </div>
+        </div>
+        <div class="input-field">
+          <label for="AddressFirstNameNew">First Name<span style="color:red;">*</span></label>
+          <input type="text" id="AddressFirstNameNew" name="address[first_name]" value="{{form.first_name}}" required="required" placeholder="Enter First Name" maxlength="24">
+          <p class="addError"></p>
+        </div>
+        <div class="input-field">
+          <label for="AddressLastName_{{form.id}}">Last Name<span style="color:red;">*</span></label>
+          <input type="text" id="AddressLastName_{{form.id}}" name="address[last_name]" value="{{form.last_name}}" required="required" placeholder="Enter Last Name" maxlength="24">
+          <p class="addError"></p>
+        </div>
+        <div class="input-field">
+          <label for="AddressPhoneNew">Phone Number<span style="color:red;">*</span></label>
+          <input type="text" id="AddressPhoneNew" name="address[phone]" value="" maxlength="10" oninput="this.value=this.value.replace(/[^0-9]/g,'');" required="required" placeholder="Enter Phone Number">
+          <p class="addError"></p>
+        </div>
+        <div class="input-field">
+          <label for="AddressEmailNew">Email Address</label>
+          <input type="text" id="AddressEmailNew" name="address[company]" value="{{form.email}}" placeholder="Enter Email">
+        </div>
+        <div class="input-field">
+          <label for="AddressAddress1New">Address<span style="color:red;">*</span></label>
+          <textarea id="AddressAddress1New" name="address[address1]" value="{{form.address1}}" required="required" placeholder="Enter Address"></textarea>
+          <p class="addError"></p>
+        </div>
+        <div class="input-field">
+          <label for="AddressZipNew">Pin Code<span style="color:red;">*</span></label>
+          <input type="text" id="AddressZipNew" name="address[zip]" value="{{form.zip}}" maxlength="6" oninput="this.value=this.value.replace(/[^0-9]/g,'');" required="required" placeholder="Enter Pin">
+          <p class="addError"></p>
+        </div>
+        <div class="input-field">
+          <label for="AddressCityNew">City<span style="color:red;">*</span></label>
+          <input type="text" id="AddressCityNew" name="address[city]" value="{{form.city}}" readonly>
+        </div>
+
+<!--         <div class="input-field" style="display: none;">
+          <label for="AddressCompanyNew">Company</label>
+          <input type="text" id="AddressCompanyNew" name="address[company]" value="{{form.company}}">
+        </div> -->
+
+        <div class="hide" style="display: none;">
+          <select id="AddressCountryNew" name="address[country]" data-default="{{form.country}}">{{ country_option_tags }}</select>
+        </div>
+
+        <div class="input-field" id="AddressProvinceContainerNew">
+          <label for="AddressProvinceNew">State<span style="color:red;">*</span></label>
+          <select id="AddressProvinceNew" name="address[province]" data-default="{{form.province}}" readonly></select>
+        </div>
+
+        <div class="hide" style="display: none;">
+          {{ form.set_as_default_checkbox }}
+        </div>
+      </div>
+      <div class="customer__details-btn-wrapper">
+        <button type="submit" class="customer__details-btn">Submit</button>
+      </div>
+      {% endform %}
+    </div>
+
+    <!-- Show All Addresses -->
+    <div class="address-scroll">
+      {% for address in customer.addresses %}
+      <div class="address-wrapper {% if address == customer.default_address %} active {%endif %}">
+        <input type="radio" class="type__address" name="type-add" id="addressSelected__{{address.id}}" {% if address == customer.default_address %} checked="checked" {%endif %}>
+        <label for="addressSelected__{{address.id}}" class="address-label">
+          <span class="check-mark"></span>
+          <div>
+            <p>
+              <span class="fname">{{address.first_name | capitalize}}</span>
+              <span class="lname">{{address.last_name | capitalize}}</span>
+            </p>
+            <p> 
+              <span class="address">{{address.address1}}</span>
+            </p>
+            <p class="hide">
+              <span class="email hide">{{customer.email}}</span>
+              <span class="company hide">{{address.company}}</span>
+            </p>
+            <p>
+              <span class="city">{{address.city}}</span>
+              <span class="zip">{{address.zip}} </span>
+            </p>
+            <p class="hide">
+              <span class="hide province">{{address.province}}</span>
+              <span class="hide country">{{address.country}}</span>
+            </p>
+            <p>
+              <span class="phone">{{address.phone}}</span>
+            </p>
+          </div>
+        </label>
+        <div class="address__action-wrapper">
+          <div class="address__edit">Edit </div>
+          {% if address == customer.default_address %} 
+           <div class="address__remove" style="color:#00BAC6;" >Default</div>         
+          {% else %}
+           <div class="address__remove" onclick="Shopify.CustomerAddress.destroy( {{address.id }} , 'Are you sure you wish to delete this address?'); return false">Remove</div>
+          {% endif %}
+          
+          
+        </div>
+        <div class="customer__details-container" style="display: none;">
+          {% form 'customer_address', address %}
+          <div class="customer__details-content">
+            <div class="address__header">
+              <div class="address__header--title">Edit Address</div>
+              <div class="address__header--close">
+                <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1.99007 0.000434763C1.79114 0.000487008 1.59674 0.0598657 1.43173 0.170979C1.26672 0.282093 1.1386 0.439893 1.06374 0.624205C0.988886 0.808517 0.970697 1.01097 1.0115 1.20567C1.05231 1.40037 1.15025 1.57848 1.29281 1.71723L6.58578 7.0102L1.29281 12.3032C1.19684 12.3953 1.12021 12.5057 1.06743 12.6278C1.01464 12.7499 0.986757 12.8814 0.985403 13.0144C0.98405 13.1475 1.00926 13.2794 1.05954 13.4026C1.10983 13.5258 1.1842 13.6377 1.27827 13.7318C1.37235 13.8258 1.48426 13.9002 1.60743 13.9505C1.73061 14.0008 1.86259 14.026 1.99563 14.0246C2.12867 14.0233 2.2601 13.9954 2.38223 13.9426C2.50436 13.8898 2.61473 13.8132 2.70687 13.7172L7.99984 8.42426L13.2928 13.7172C13.385 13.8132 13.4953 13.8898 13.6175 13.9426C13.7396 13.9954 13.871 14.0233 14.0041 14.0246C14.1371 14.026 14.2691 14.0008 14.3922 13.9505C14.5154 13.9002 14.6273 13.8259 14.7214 13.7318C14.8155 13.6377 14.8899 13.5258 14.9401 13.4026C14.9904 13.2794 15.0156 13.1475 15.0143 13.0144C15.0129 12.8814 14.985 12.7499 14.9323 12.6278C14.8795 12.5057 14.8028 12.3953 14.7069 12.3032L9.4139 7.0102L14.7069 1.71723C14.8514 1.57677 14.9501 1.39593 14.99 1.19841C15.03 1.00089 15.0093 0.795905 14.9308 0.610319C14.8523 0.424733 14.7195 0.267204 14.5499 0.158375C14.3803 0.0495457 14.1817 -0.0055056 13.9803 0.000434763C13.7205 0.0081759 13.4739 0.116755 13.2928 0.303169L7.99984 5.59614L2.70687 0.303169C2.61368 0.207375 2.50224 0.13123 2.37912 0.0792331C2.25601 0.0272363 2.12372 0.000442554 1.99007 0.000434763Z" fill="#333333"/>
+                </svg>                    
+              </div>
+            </div>
+
+            <div class="input-field">
+              <label for="AddressFirstName_{{form.id}}">First Name<span style="color:red;">*</span></label>
+              <input type="text" id="AddressFirstName_{{form.id}}" name="address[first_name]" value="{{form.first_name}}" required="required" placeholder="Enter First Name" maxlength="24">
+              <p class="addError"></p>
+            </div>
+            <div class="input-field">
+              <label for="AddressLastName_{{form.id}}">Last Name<span style="color:red;">*</span></label>
+              <input type="text" id="AddressLastName_{{form.id}}" name="address[last_name]" value="{{form.last_name}}" required="required" placeholder="Enter Last Name" maxlength="24">
+              <p class="addError"></p>
+            </div>
+            
+            <div class="input-field">
+              <label for="AddressPhoneNew_{{form.id}}">Phone Number<span style="color:red;">*</span></label>
+              <input type="text" id="AddressPhoneNew_{{form.id}}" name="address[phone]" value="{{form.phone}}" maxlength="10" oninput="this.value=this.value.replace(/[^0-9]/g,'');" required="required" placeholder="Enter Phone">
+              <p class="addError"></p>
+            </div>
+            
+            
+           <div class="input-field" >
+              <label for="AddressCompany_{{form.id}}">Email Address</label>
+              <input type="text" id="AddressCompany_{{form.id}}" name="address[company]" value="{{form.company}}" placeholder="Enter Email">
+            </div>
+            <div class="input-field">
+              <label for="AddressAddress1_{{form.id}}">Address<span style="color:red;">*</span></label>
+              <input type="text" id="AddressAddress1_{{form.id}}" name="address[address1]" value="{{form.address1}}" required="required" placeholder="Enter Address">
+              <p class="addError"></p>
+            </div>
+            <div class="input-field">
+              <label for="AddressZip_{{form.id}}">Pin Code<span style="color:red;">*</span></label>
+              <input type="text" id="AddressZip_{{form.id}}" name="address[zip]" value="{{form.zip}}" maxlength="6" oninput="this.value=this.value.replace(/[^0-9]/g,'');" required="required" placeholder="Enter Pin Code">
+              <p class="addError"></p>
+            </div>
+            <div class="input-field">
+              <label for="AddressCity_{{form.id}}">City<span style="color:red;">*</span></label>
+              <input type="text" id="AddressCity_{{form.id}}" name="address[city]" value="{{form.city}}" readonly>
+            </div>
+
+<!--             <div class="input-field" style="display: none;">
+              <label for="AddressCompany_{{form.id}}">Email Address</label>
+              <input type="text" id="AddressCompany_{{form.id}}" name="address[company]" value="{{form.company}}">
+            </div> -->
+
+            <div class="hide" style="display: none;">
+              <select id="AddressCountry_{{form.id}}" name="address[country]" data-default="{{form.country}}">{{ country_option_tags }}</select>
+            </div>
+
+            <div class="input-field" id="AddressProvinceContainer_{{form.id}}">
+              <label for="AddressProvince_{{form.id}}">State<span style="color:red;">*</span></label>
+              <select id="AddressProvince_{{form.id}}" name="address[province]" data-default="{{form.province}}" readonly></select>
+            </div>
+
+            <div class="hide" style="display: none;">
+              {{ form.set_as_default_checkbox }}
+            </div>
+          </div>
+          <div class="customer__details-btn-wrapper">
+            <button type="submit" class="customer__details-btn">Submit</button>
+          </div>
+          {% endform %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+</div>
+<script>
+  // Initialize observers on address selectors
+  new Shopify.CountryProvinceSelector('AddressCountryNew', 'AddressProvinceNew', {
+    hideElement: 'AddressProvinceContainerNew'
+  });
+
+  // Setup province selector on each customer address
+  {% for address in customer.addresses %}
+  new Shopify.CountryProvinceSelector('AddressCountry_{{address.id}}', 'AddressProvince_{{address.id}}', {
+                                      hideElement: 'AddressProvinceContainer_{{address.id}}'
+                                      });
+  {% endfor %}
+
+  // Modified contents of customer_area.js (global asset)
+  Shopify.CustomerAddress = {
+    toggleForm: function(id) {
+      var editEl = document.getElementById('EditAddress_'+id);
+      editEl.style.display = editEl.style.display == 'none' ? '' : 'none';
+      return false;
+    },
+
+    toggleNewForm: function() {
+      var el = document.getElementById('AddAddress');
+      el.style.display = el.style.display == 'none' ? '' : 'none';
+      return false;
+    },
+
+    destroy: function(id, confirm_msg) {
+      if (confirm(confirm_msg || "Are you sure you wish to delete this address?")) {
+        Shopify.postLink('/account/addresses/'+id, {'parameters': {'_method': 'delete'}});
+      }
+    }
+  }
+</script>
+
+
+<script>
+  $(document).ready(function() {
+    function initialValidation(){
+      $(".customer__details-container").each(function(itr,ele){
+        let zipVal1 = $(ele).find("[name='address[zip]']").val();
+        let nameVal1 = $(ele).find("[name='address[first_name]']").val();
+        let addVal1 = $(ele).find("[name='address[address1]']").val();
+        $(ele).find(".addError").each(function(i,e){
+          if($(e).html() != "" || zipVal1 == "" || nameVal1 == "" || addVal1 == ""){
+            $(e).parents(".customer__details-container").find(".customer__details-btn").prop("disabled",true).removeClass("details-btn-active");
+          }else{
+            $(e).parents(".customer__details-container").find(".customer__details-btn").prop("disabled",false).addClass("details-btn-active");
+          }
+        })
+      })
+    }
+    initialValidation();
+  })
+   
+  function addressPopUp(popup,modal = false){
+    $.magnificPopup.open({
+      items: {
+        src: popup
+      },
+      type : 'inline',
+      closeBtnInside: true,
+      fixedContentPos:true,
+      overflowY: 'auto',
+      closeOnBgClick : true,
+      modal : modal,
+      fixedBgPos: true,
+    });
+  }
+
+  $(document).on('click',".address__edit",function(event) {
+    $(this).parents(".address-wrapper").find(".customer__details-container").show();
+    let popupContent = $(this).parents(".address-wrapper").find(".customer__details-container")
+    addressPopUp(popupContent);
+  });
+
+  $(document).on('click',".address__container-new-add",function(event) {
+    $(".new-address").show();
+    let popupContent = $(".new-address")
+    addressPopUp(popupContent);
+  });
+
+  $('.address-label').on('click', function(event) {
+    $(this).parent().find('[name="address[default]"]').prop("checked",true);
+    $(this).parent().find('form').submit();
+  });
+
+  $(document).on('click',".address__header--close",function(){
+    $.magnificPopup.close();
+  })
+  $(document).on('click',".address__container-title",function(){
+    window.history.back();
+  })
+</script>
+
+<script>
+  // Address Form Validation & Submission
+  $(document).ready(function() {
+    let zipVal = "";
+    let nameVal = "";
+    let lastNameVal = "";
+    let addVal = "";
+    let cityVal = "";
+    let stateVal = "";
+    let phoneVal = "";
+
+    function validData(){
+      $(".customer__details-container").each(function(itr,ele){
+        zipVal = $(ele).find("[name='address[zip]']").val();
+        nameVal = $(ele).find("[name='address[first_name]']").val();
+        lastNameVal = $(ele).find("[name='address[last_name]']").val();
+        addVal = $(ele).find("[name='address[address1]']").val();
+        phoneVal = $(ele).find("[name='address[phone]']").val();
+
+        $(ele).find(".addError").each(function(i,e){
+          if($(e).html() != "" || zipVal == "" || nameVal == "" || addVal == "" || lastNameVal == "" || phoneVal == ""){
+            $(e).parents(".customer__details-container").find(".customer__details-btn").prop("disabled",true).removeClass("details-btn-active");
+          }else{
+            $(e).parents(".customer__details-container").find(".customer__details-btn").prop("disabled",false).addClass("details-btn-active");
+          }
+        })
+      })
+    }
+    validData();
+
+
+    $(document).on("input","[name='address[zip]']",function(){
+      let $self = $(this);
+
+      cityVal = "";
+      stateVal = "";
+      let $referParent = $(this).parents(".customer__details-content");
+      $(this).parents(".customer__details-content").find("[name='address[city]']").val("");
+      $(this).parents(".customer__details-content").find("[name='address[province]']").val("");
+
+
+      if($(this).val().length == 6){
+        zipVal = $(this).val();
+        $(this).parent().find(".addError").html("");
+
+        $.ajax({
+          url: "https://subscriber.aqualens.in/lenskart/check-pincode/"+$(this).val(),
+        })
+        .done(function(response) {
+          if(response != "ERROR" && response.result.canDeliver == "Yes"){
+            cityVal = response.result.city;
+            stateVal = response.result.state;
+            $referParent.find("[name='address[city]']").val(response.result.city);
+            $referParent.find("[name='address[province]']").val(response.result.state);
+
+          }
+          else{
+            $self.parent().find(".addError").html("Delivery not available at this pin code");
+          }
+          validData();
+        })
+        .fail(function(addError){
+          $self.parent().find(".addError").html("Something went wrong");
+          validData();
+          console.log("Error",addError);
+        })
+      }
+      else{
+        zipVal = "";
+        if($(this).val().length > 0){
+          $(this).parent().find(".addError").html("Pin code must be 6 digits");
+        }else{
+          $(this).parent().find(".addError").html("Please enter pin code");
+        }
+      }
+      validData();
+    })
+
+    $(document).on("input","[ name='address[first_name]']",function(){
+      if($(this).val().length > 0){
+        nameVal = $(this).val()
+        $(this).parent().find(".addError").html("");
+      }else{
+        nameVal = "";
+        $(this).parent().find(".addError").html("Please enter first name");
+      }
+      validData();
+    })
+    
+    $(document).on("input","[ name='address[last_name]']",function(){
+      if($(this).val().length > 0){
+        nameVal = $(this).val()
+        $(this).parent().find(".addError").html("");
+      }else{
+        nameVal = "";
+        $(this).parent().find(".addError").html("Please enter last name");
+      }
+      validData();
+    })
+    
+
+    $(document).on("input","[ name='address[address1]']",function(){
+      if($(this).val().length > 0){
+        addVal = $(this).val();
+        $(this).parent().find(".addError").html("");
+      }else{
+        addVal = "";
+        $(this).parent().find(".addError").html("Please enter address");
+      }
+      validData();
+    })
+    
+    $(document).on("input","[name='address[phone]']",function(){
+      let phoneVal="";
+      let $self = $(this);
+      if($(this).val().length == 10){
+        phoneVal = $(this).val();
+        $(this).parent().find(".addError").html("");
+      }
+      else{
+        phoneVal = "";
+        if($(this).val().length > 0){
+          $(this).parent().find(".addError").html("Phone number must be 10 digits");
+        }else{
+          $(this).parent().find(".addError").html("");
+        }
+      }
+      validData();
+    })
+
+//     $("#AddressCompanyNew").val($("#addressHome").val());
+//     $(".address__type").on("change",function(){
+//       let value = $(this).val();
+//       $("#AddressCompanyNew").val(value);
+//     })
+  })
+</script>
+
+

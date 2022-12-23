@@ -1,0 +1,253 @@
+<!-- Section Top Banner Desktop home-top-banner-desktop -->
+<div data-section-id="{{ section.id }}" data-section-type="" class="homepage_slider top_desktop_banner ">
+
+  <div class="desktop_banner_slider">
+    {% for block in section.blocks %}
+    <div class="slideshow-containerp {{ block.settings.className}}">
+      {% if block.type == "custom-banner" %}
+      <div class="custom-banner-wrap">
+        {% if block.settings.howItWorkBanner %}
+        <a class="image--desktop redirect-link" href="{% if customer %}{{ block.settings.howItWorkBannerLink }}{% else %}https://aqualensb2b.com/account/login{% endif %}" data-banner-link="{{ block.settings.howItWorkBannerLink }}">
+          <img src="{{ block.settings.howItWorkBanner | img_url: 'master'}}" class="mobile_none" alt="Aqualens contact lenses">
+        </a>
+        <a class="image--mobile redirect-link" href="{% if customer %}{{ block.settings.howItWorkBannerLink }}{% else %}https://aqualensb2b.com/account/login{% endif %}" data-banner-link="{{ block.settings.howItWorkBannerLink }}">
+          <img src="{{ block.settings.mobilehowItWorkBanner | img_url: 'master'}}" class="desktop_none" alt="Aqualens eye lenses ">
+        </a>
+        {% endif %}
+      </div>
+      {% elsif block.type == "normal-banner" %}
+
+      {% endif %}
+    </div>  
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+  .image--mobile{
+    display:none;
+  }
+  .slick-slide{
+    height:auto;
+  }
+  @media(max-width:749px){
+    .image--desktop{
+      display:none;
+    }
+    .image--mobile{
+      display:block;
+    }
+  }
+  .homepage_slider .slick-next:before,
+  .homepage_slider .slick-prev:before{
+    content:"";
+  }
+  .homepage_slider .slick-next:focus{
+    display:none;
+  }
+  .homepage_slider .slick-prev:focus{
+    display:none;
+  }
+  .homepage_slider .arrow {
+    border: solid white;
+    border-width: 0 7px 7px 0;
+    display: inline-block;
+    padding: 7px;
+  }
+  .homepage_slider .right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    position: absolute;
+    top: 50%;
+  }
+
+  .homepage_slider .left {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+    position: absolute;
+    top: 50%;
+  }
+  .homepage_slider .slick-prev{
+    left:0px;
+    text-align: right;
+  }
+  .homepage_slider .slick-next{
+    right:0px;
+    text-align: left;
+  }
+  .homepage_slider .slick-prev,
+  .homepage_slider .slick-next {
+    position: absolute;
+    display: block;   
+    width: 4%;
+    line-height: 0px;
+    font-size: 0px;
+    cursor: pointer;
+    background: transparent;
+    color: transparent;
+    top: 50%;
+    -webkit-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    padding: 0;
+    border: none;
+    z-index: 999;
+  }
+</style>
+
+<script>
+  $('.desktop_banner_slider').slick({
+    dots:false,
+    infinite: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows:true,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    prevArrow:'<div class="slick-prev"><i class="arrow left"></i></div>',
+    nextArrow:'<div class="slick-next"><i class="arrow right"></i></div>',
+    responsive: [
+      {
+        breakpoint: 949,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          arrows:true,
+          dots:false,
+          autoplay: true,
+          autoplaySpeed: 5000
+        }
+      },
+      {
+        breakpoint: 749,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          arrows:false,
+          dots:false,
+          autoplay: true,
+          autoplaySpeed: 5000
+        }
+      }
+    ]
+  });
+
+  $(document).on('click','.custom-banner-wrap a',function(event){
+    let status_link = $(this).attr('data-banner-link');
+    sessionStorage.setItem("status_link", status_link);
+  });
+  
+  
+</script>
+
+{% schema %}
+{ 
+   "name":"Top Banner Desktop",
+   "blocks":[ 
+      
+      { 
+         "name":"Slider Item Free Lens",
+         "type":"normal-banner",
+         "settings":[
+            {
+            "type": "image_picker",
+            "id": "howItWorkBanner",
+            "label": "banner_image"
+            },
+            {
+            "type": "image_picker",
+            "id": "mobilehowItWorkBanner",
+            "label": "banner_image"
+            },
+            {
+            "id": "howItWorkBannerLink",
+            "type": "url",
+            "label": "Banner link"
+            },
+            {
+            "id": "tagClass",
+            "type": "text",
+            "label": "GTM tag Class"
+            },
+            { 
+            "type": "header",
+            "content": "Overlay"
+            },
+            {
+            "type": "text",
+            "id": "refer_heading",
+            "label": " Heading",
+            "default":"free lens <br> <span>solution</span>"
+            },
+            {
+            "type": "text",
+            "id": "refer_subheading",
+            "label": "Subheading",
+            "default":"on purchase of any monthly Contact Lens"
+            },
+            {
+            "type": "text",
+            "id": "refer_button",
+            "label": "Button text",
+            "default":"Shop Now"
+            }
+        ]
+     },
+	 { 
+         "name":"Custom Banner",
+         "type":"custom-banner",
+         "settings":[
+            {
+            "type": "image_picker",
+            "id": "howItWorkBanner",
+            "label": "banner_image"
+            },
+            {
+            "type": "image_picker",
+            "id": "mobilehowItWorkBanner",
+            "label": "banner_image"
+            },
+            {
+            "id": "howItWorkBannerLink",
+            "type": "url",
+            "label": "Banner link"
+            },
+            {
+            "id": "className",
+            "type": "text",
+            "label": "GTM tag Class"
+            },
+            {
+            "type": "text",
+            "id": "refer_heading",
+            "label": "Refer Heading",
+            "default":"Refer And Earn"
+            },
+            {
+            "type": "text",
+            "id": "refer_subheading",
+            "label": "Refer Subheading",
+            "default":"As our lives evolve, so does our relationships."
+            },
+            {
+            "type": "text",
+            "id": "refer_button",
+            "label": "Refer Button text",
+            "default":"Start Referring"
+            }
+            
+         ]
+      }
+   ],
+   "presets":[ 
+      { 
+         "name":{ 
+            "en":"Top Banner Desktop"
+         },
+         "category":{ 
+            "en":"Image"
+         }
+      }
+   ]
+} 
+{% endschema %}

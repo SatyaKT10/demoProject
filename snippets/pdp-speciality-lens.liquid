@@ -1,0 +1,1033 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.0.0/magnific-popup.min.css" integrity="sha512-nIm/JGUwrzblLex/meoxJSPdAKQOe2bLhnrZ81g5Jbh519z8GFJIWu87WAhBH+RAyGbM4+U3S2h+kL5JoV6/wA==" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.0.0/jquery.magnific-popup.min.js" integrity="sha512-+m6t3R87+6LdtYiCzRhC5+E0l4VQ9qIT1H9+t1wmHkMJvvUQNI5MKKb7b08WL4Kgp9K0IBgHDSLCRJk05cFUYg==" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+
+<style>
+
+button.select-power-btn-toric {
+    width: 100%;
+    padding: 13px 0;
+    border-radius: 4px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: center;
+    color: #fff;
+    margin-bottom: 20px;
+    outline: none;
+    background: #00BAC6;
+    border: none;
+}
+
+.power-list .power-list-item-toric {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: center;
+    outline: none;
+    height: 50px;
+  }
+  .power-btn-toric {
+    flex: 0 0 24%;
+    padding: 0;
+    border: none;
+    border-radius: 2px;
+    background: white;
+    border: 2px solid #E5E5E5;
+  }
+  @media (max-width: 749px){
+    .power-list .power-list-item-toric {
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 21px;
+      text-align: center;
+      outline: none;
+      height: 50px;
+    }
+    .power-btn-toric {
+      flex: 0 0 31%;
+      padding: 0;
+      border: none;
+      border-radius: 2px;
+      background: white;
+      border: 2px solid #E5E5E5;
+    }
+    button.select-power-btn-toric {
+      position: fixed;
+      bottom: 0;
+      margin-bottom: 0;
+      z-index: 998;
+      left: 0;
+    }
+  }
+
+      .power-white-popup {
+    position: relative;
+    background: #FFF;
+    padding: 0px;
+    width: auto;
+
+  }  
+  .mfp-container {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  .mfp-content {
+    position: relative;
+    display: inline-block;
+    vertical-align: bottom;
+    margin: 0 auto;
+    text-align: left;
+    z-index: 1045;
+    margin-bottom: -1px;
+  }
+  @media(max-width:749px){
+  .mfp-wrap{
+      overflow: hidden !important;    
+    }
+  }
+  @media(min-width:749px){
+    .mfp-wrap{
+      overflow-y: hidden !important;
+    
+    }
+    .mfp-container{
+      width: 50%;
+      height: 100%;
+      top:unset;
+      left:unset;
+      right: 0;
+      bottom: 0;
+      top:0;
+    }
+    .child-one{
+      height:100vh;
+    }
+    .child-one-qty{
+      height:100vh;
+    }
+    .mfp-close-btn-in .mfp-close {
+      color: #333;
+      margin: 5px;
+    }  
+    
+  }
+
+  .loader {
+    height: 50px;
+    width: 50px;
+    border: 8px solid #00bac6;
+    border-radius: 50%;
+    border-top: 8px solid #fff;
+    opacity: 1;
+    margin: 0 auto;
+/*     margin-top: 20%; */
+    animation-name: spin;
+    animation-duration: 1000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+
+  }
+  .loader-text{
+    text-align:center;
+    color:black;
+    font-weight:600;
+    font-size:20px;
+  }
+  
+  
+  
+  .loader-main {
+/*     position: fixed; */
+    height: 90vh;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999999;
+    opacity: 1;
+  }
+  .loader-main p{
+    height: 100px;
+    width: 100px;
+  }
+    </style>
+
+<div id="power-popup" class="power-white-popup mfp-hide power-content"><div class="child-one" style="position:relative;"></div><div class="child-one-qty"></div></div>
+
+<button class="select-power-btn-toric">Buy Now</button>
+
+
+<script>
+
+
+    //       code for power options after click on Select power button (toric)
+
+    let product_type = '{{ product.type }}';
+console.log(product_type);
+    $(document).on('click','.select-power-btn-toric', function(){  
+      $('.child-one').show();
+      $('.child-one-qty').hide();
+      let data_sku =  '{{ product.variants[0].sku }}';    
+      let variant_id =   '{{ product.variants[0].id }}'
+    //   collection_handle =  $(this).parents('.select-power-parent').attr('data-collection-handle');   
+      let product_title =  '{{ product.title }}';
+      let product_image =  '{{ product.featured_image | product_img_url: "master" }}';
+      let product_price = '{{ product.price }}';
+      let product_vendor = '{{  product.vendor }}';
+
+//           GA events
+          let displayMode = 'browser';
+          const mqStandAlone = '(display-mode: standalone)';
+          if (navigator.standalone || window.matchMedia(mqStandAlone).matches || navigator.userAgent.toLowerCase().includes('wv')) {
+            displayMode = 'standalone';
+            dataLayer.push({
+              'event': 'pdpBuyNow_pwa',
+              'productType':product_type,
+              'productTitle':product_title,
+              'productPrice':product_price/100
+            })
+          }else{
+            dataLayer.push({
+              'event': 'pdpBuyNow',
+              'productType':product_type,
+              'productTitle':product_title,
+              'productPrice':product_price/100
+            })
+          } 
+          //          events end
+
+
+
+      if(data_sku){
+
+        $.ajax({
+          type: 'GET',
+          url: 'https://api.lenskart.com/v2/products/product/'+data_sku+'/powers',
+          dataType: 'json'
+        })
+        .done(function(data){
+          //                   console.log(data);        
+          let power_value = "";
+
+          let power_list =  data.result.powerTypeList[1].powerDataList[0].value;      // For power
+          power_list_cyl = data.result.powerTypeList[2].powerDataList[0].value;       // For cyl power
+          power_list_axis = data.result.powerTypeList[3].powerDataList[0].value;      // For axis power
+
+          let pw_btn = "";
+
+          power_list.forEach(function(e){
+//             power_value += '<button class="power-btn power-list-item" data-power="'+e+'">'+e+'</button>';
+            power_value += '<button class="power-btn-toric power-list-item-toric" data-power="'+e+'">'+e+'</button>';
+
+          })
+
+          pw_btn += '<div class="select-heading-icon">'
+          pw_btn += '<h2 class="heading">Select Power<span class="active-no"></span></h2>';
+          pw_btn += '</div>';
+          pw_btn += '<hr class="select-hr">';
+          pw_btn += '<div class="color-product-image-title">'
+          pw_btn += '<img src="'+product_image+'">';
+          pw_btn += '<h2>'+product_title+'</h2>';
+          pw_btn += '</div>';
+          pw_btn += '<hr class="select-hr">';
+          pw_btn += '<div class="select-all select-all-power">';
+          pw_btn += '<input type="checkbox" id="select-all-ckeck"/>';
+          pw_btn +=  '<span class="select-all-heading">'+"Select All"+'</span>';           
+          pw_btn += '</div>'; 
+          pw_btn += '<hr class="select-hr hr-none">';
+          pw_btn += '<div class="power-scroll-desktop">';
+          pw_btn += '<div class="power-list">';
+          pw_btn += power_value;
+          pw_btn += '</div>';
+          pw_btn += '</div>';
+          pw_btn += '<hr class="select-hr">';
+          pw_btn += '<div class="select-quantity-btn-toric" data-sku-toric="'+data_sku+'" data-product-title="'+product_title+'" data-product-vendor="'+product_vendor+'" data-product-image="'+product_image+'">';
+          pw_btn += '<button class="qty-btn disable-qty"><a href="#power-popup">'+"Select Quantity"+'</a></button>';
+          pw_btn += '</div>';
+
+          $('.child-one').html(pw_btn);
+
+          $('.child-one-qty').attr('data-variant', variant_id);
+
+          $('.select-quantity-btn-toric').prop('disabled',true);
+
+          $(".power-btn-toric").click(function () {
+
+            $(this).toggleClass("btn-active"); 
+            $('input[type=checkbox]').prop("checked",false);
+            $('.disable-qty').prop("checked",false);
+
+            let  active_no = $('.btn-active').length;
+            //             console.log(active_no);
+
+            if ($(".power-btn-toric").hasClass("btn-active")) {
+              $('.select-quantity-btn-toric button').addClass("qty-active");
+              $('.active-no').show();
+              $('.active-no').text("("+active_no+" selected)");
+              $('.select-quantity-btn-toric').prop('disabled',false);
+            }else{
+              $('.select-quantity-btn-toric button').removeClass("qty-active");
+              $('.active-no').hide();
+              $('.select-quantity-btn-toric').prop('disabled',true);
+            }
+
+          });
+
+
+          $('.select-all-power input[type=checkbox]').click(function(){
+            if(this.checked){
+              $(this).parents('.child-one').find('.power-btn-toric').addClass("btn-active");
+              if ($(this).parents('.child-one').find('.power-btn-toric').hasClass("btn-active")){
+                active_no = $('.btn-active').length;
+                $('.active-no').show();
+                $('.active-no').text("("+active_no+" selected)");
+              }
+              $('.select-quantity-btn-toric button').addClass("qty-active"); 
+              $('.select-quantity-btn-toric').prop('disabled',false);   
+
+            }
+            else{
+              $('.active-no').hide();
+              $('.power-btn-toric').removeClass("btn-active");
+              $('.select-quantity-btn-toric button').removeClass("qty-active");
+              $('.select-quantity-btn-toric').prop('disabled',true);
+
+            }
+          })
+
+
+          let popup = $('#power-popup');
+          customPopUp(popup);
+        })
+
+        .fail(function(e){
+          console.log("error:",e);
+        })
+      }
+
+    });  
+
+    //end
+
+
+    //popup after click select quantity button to select quantity for powers toric
+	let toric_sku;
+    $(document).on('click','.select-quantity-btn-toric', function(){  
+      $('.child-one').hide();
+      $('.child-one-qty').show();
+      let p_data = [];
+      let p_data_value = "";
+      let pow_text = "";
+      let power_value_cyl = "";
+      let power_value_axis = ""; 
+
+      let product_title = $(this).attr('data-product-title');
+      let product_image = $(this).attr('data-product-image');
+      let product_vendor = $(this).attr('data-product-vendor');
+
+      toric_sku = $(this).attr('data-sku-toric'); 
+
+
+      $('.btn-active').each(function(e,i){
+        p_data.push($(this).attr('data-power'));
+
+        let toric_sph = $(this).attr('data-power');
+        let toric_cyl = power_list_cyl[0];
+        let toric_axis = power_list_axis[0];
+
+        let toric_validate ={
+          "powers":[ 
+            {
+              "classification": "contact_lens",
+              "index": 0,
+              "left": {
+                "ap": null,
+                "axis": toric_axis,
+                "cyl": toric_cyl,
+                "pd": null,
+                "sph": toric_sph
+              },
+              "right": {
+                "ap": null,
+                "axis": toric_axis,
+                "cyl": toric_cyl,
+                "pd": null,
+                "sph": toric_sph
+              },
+              "shell_id": toric_sku
+            }
+          ]
+        }
+//         console.log(toric_validate);
+
+        let toric_settings = {
+          "url": baseURL+"/api/juno/non-git",
+          "method": "POST",
+          "headers": {
+            "X-Api-Client" : "aqualens",
+            "Content-Type": "application/json",
+            "X-Session-Token": "12345679"
+          },
+
+          "data": JSON.stringify(toric_validate),
+        };
+
+        $.ajax(toric_settings).done(function (response) {
+          let left_qty = response.result.result[0].left.qty;
+          let right_qty = response.result.result[0].right.qty;
+          //console.log(response);
+          let toric_arr = $($('.toric-data-wrapper')[0]).find('.quantity-flex-toric');
+          //           console.log(left_qty,right_qty,e);
+          toric_arr.each(function(i,ele){
+            let data_power = $(ele).attr("data-toric-power");
+            //console.log(data_power);
+            if(data_power == toric_sph ){
+              if(left_qty <= 0 || right_qty <= 0){
+                $(ele).find('input').addClass("check-btn");
+                $(ele).find('input').attr("disabled", true);
+                $(ele).find('input').attr("placeholder", "Out Of Stock");
+                $(ele).find('input').attr("data-quantity",left_qty);
+                //$(ele).html(e+'<br>'+"<span class='power-oos'>Out Of Stock<span>");
+                //                 clevertap events
+                clevertap.event.push("OutOfStock", {
+                  "ProductTitle":product_title,
+                  "Date":  "{{ "now" | date: "%Y-%m-%d" }}"                      
+                });
+                //           GA events
+                let displayMode = 'browser';
+                const mqStandAlone = '(display-mode: standalone)';
+                if (navigator.standalone || window.matchMedia(mqStandAlone).matches || navigator.userAgent.toLowerCase().includes('wv')) {
+                  displayMode = 'standalone';
+                  dataLayer.push({
+                    'event': 'OutOfStock_pwa',
+                    "ProductTitle":product_title,
+                    "Date":  "{{ "now" | date: "%Y-%m-%d" }}"
+                  })
+                }else{
+                  dataLayer.push({
+                    'event': 'OutOfStock',
+                    "ProductTitle":product_title,
+                    "Date":  "{{ "now" | date: "%Y-%m-%d" }}"
+                  })
+                } 
+                //          events end
+              }
+              else{
+                $(ele).find('input').attr("data-quantity",left_qty);
+              }
+            }
+          });
+        })
+
+
+      });
+
+      //        console.log(power_list_cyl, power_list_axis);
+
+      power_list_cyl.forEach(function(e){
+        power_value_cyl += '<option class="power-btn-toric power-list-item-toric" data-power-cyl="'+e+'">'+e+'</option>';
+      })
+
+      power_list_axis.forEach(function(e){
+        power_value_axis += '<option class="power-btn-toric power-list-item-toric" data-power-axis="'+e+'">'+e+'</option>';
+      })
+
+      p_data.forEach(function(e,i){
+        p_data_value += '<div class="add-wrapper">';
+        p_data_value += '<div class="input-quantity-flex quantity-flex quantity-flex-toric in-stock not-validate" input-key="'+(i+1)+'" data-toric-power="'+e+'">';
+        p_data_value += '<h3  class="pow-content pow-content-style-toric">'+e+'</h3>';
+        p_data_value += '<select  class="pow-content-cyl">'+power_value_cyl+'</select>';
+        p_data_value += '<select  class="pow-content-axis">'+power_value_axis+'</select>';
+        p_data_value += '<input id="not-zero" type="number" class="reflect-boxes qty-boxes" placeholder="Enter Qty.">';
+        p_data_value += '<div class="max-qty-msg"></div>';
+        //         p_data_value += '<div class="alert-margin-bottom-left"></div>';
+        p_data_value += '</div>'; 
+        p_data_value += '<div class="add-more-inventory-toric"><span class="add-more-inventory">+ Add More</div>';
+        p_data_value += '</div>'; 
+      })
+
+      pow_text += '<div class="select-heading-icon">'
+      pow_text += '<h2 class="heading-qty"><img class="back-to-power" src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/left-arrow.png?v=1615392090">Select Quantity</h2>';
+      pow_text += '</div>';
+      pow_text += '<hr class="select-hr">';
+      pow_text += '<div class="color-product-image-title">'
+      pow_text += '<img src="'+product_image+'">';
+      pow_text += '<h2>'+product_title+'</h2>';
+      pow_text += '</div>';
+      pow_text += '<hr class="select-hr">';
+      //        pow_text += '<div class="qty-margin-top">';
+      //        pow_text += '<h3 class="heading">Power</h3>';
+      //        pow_text += '<h3 class="heading">Boxes</h3>';
+      //        pow_text += '</div>';
+      pow_text += '<div class="input-quantity-form quantity-form">';
+      pow_text += '<div class="input-quantity-flex quantity-flex quantity-flex-all" >';
+      //        pow_text += '<h3 class="pow-content">All</h3>';
+      //        pow_text += '<input class="no-of-boxes ignore-box" type="number" placeholder="Enter Qty.">';
+      pow_text += '</div>';
+      pow_text += '</div>';
+      pow_text += '<div class="qty-margin-top">';
+      pow_text += '<h3 class="heading-1">Power</h3>';
+      pow_text += '<h3 class="heading-2">CYL</h3>';
+      pow_text += '<h3 class="heading-3">Axis</h3>';
+      pow_text += '<h3 class="heading-4">Boxes</h3>';
+      pow_text += '</div>';
+      pow_text += '<div class="input-quantity-form quantity-form  desktop-scroll-toric  cart-success toric-data-wrapper">';
+      pow_text += p_data_value;
+      pow_text += '</div>';
+      pow_text += '<hr class="select-hr hr-none">';
+      pow_text += '<div class="buy-or-cart" data-product-vendor="'+product_vendor+'">';
+      pow_text += '<button class="buy-now"><span id="button_text">Buy Now</span></button>';
+      pow_text += '<button class="cart-now"><span id="button_text">Add to Cart</span></button>';
+      pow_text += '</div>';
+
+      $('.child-one-qty').html(pow_text);
+
+      let popup = $('#power-popup');
+      customPopUp(popup);
+
+
+      $('.back-to-power').click(function(){
+        $('.child-one-qty').hide();
+        $('.child-one').show();
+      })
+
+      $('.no-of-boxes').on('keyup',function(){
+        let self = $(this);
+        $('.reflect-boxes').each(function(){
+          $(this).val(self.val())
+        })
+      })
+
+
+      $('.buy-now').prop('disabled',true);
+      $('.cart-now').prop('disabled',true);
+
+      $('.qty-boxes').keyup(function(){
+        let valFlag = true; 
+        $('.qty-boxes').each(function(){
+          if($(this).val()){
+            $('.buy-now').prop('disabled',false);
+            $('.cart-now').prop('disabled',false);
+            valFlag = false;
+          }
+        })
+        if(valFlag){
+          $('.buy-now').prop('disabled',true);
+          $('.cart-now').prop('disabled',true);
+        }
+      })
+
+      
+      $(document).on('change','.pow-content-cyl',function(){
+        let $self = $(this);
+        let toric_cyl = $(this).val();
+        let toric_sph = $(this).parent().attr('data-toric-power');
+        let toric_axis = $(this).parent().find('.pow-content-axis').val();
+
+//         debugger;
+        let toric_validate = {
+          "powers":[ 
+            {
+              "classification": "contact_lens",
+              "index": 0,
+              "left": {
+                "ap": null,
+                "axis": toric_axis,
+                "cyl": toric_cyl,
+                "pd": null,
+                "sph": toric_sph
+              },
+              "right": {
+                "ap": null,
+                "axis": toric_axis,
+                "cyl": toric_cyl,
+                "pd": null,
+                "sph": toric_sph
+              },
+              "shell_id": toric_sku
+            }
+          ]
+        }
+//         console.log(toric_validate);
+
+        let toric_settings = {
+          "url": baseURL+"/api/juno/non-git",
+          "method": "POST",
+          "headers": {
+            "X-Api-Client" : "aqualens",
+            "Content-Type": "application/json",
+            "X-Session-Token": "12345679"
+          },
+
+          "data": JSON.stringify(toric_validate),
+        };
+
+        $.ajax(toric_settings).done(function (response) {
+          let left_qty = response.result.result[0].left.qty;
+          let right_qty = response.result.result[0].right.qty;
+//           console.log(response);
+
+          let $current_toric = $self.parent().find('input');
+
+          if(left_qty <= 0 || right_qty <= 0){
+            $current_toric.attr("disabled", true);
+            $current_toric.attr("placeholder", "Out Of Stock");
+            $current_toric.addClass("check-btn");
+            $current_toric.attr("data-quantity",left_qty);
+            $current_toric.val("");
+            //             clevertap events
+            clevertap.event.push("OutOfStock", {
+              "ProductTitle":product_title,
+              "Date":  "{{ "now" | date: "%Y-%m-%d" }}"                      
+            });
+            //           GA events
+            let displayMode = 'browser';
+            const mqStandAlone = '(display-mode: standalone)';
+            if (navigator.standalone || window.matchMedia(mqStandAlone).matches || navigator.userAgent.toLowerCase().includes('wv')) {
+              displayMode = 'standalone';
+              dataLayer.push({
+                'event': 'OutOfStock_pwa',
+                "ProductTitle":product_title,
+                "Date":  "{{ "now" | date: "%Y-%m-%d" }}"
+              })
+            }else{
+              dataLayer.push({
+                'event': 'OutOfStock',
+                "ProductTitle":product_title,
+                "Date":  "{{ "now" | date: "%Y-%m-%d" }}"
+              })
+            } 
+            //          events end
+          }
+          else{
+            $current_toric.attr("disabled", false);
+            $current_toric.attr("placeholder", "Enter Qty.");
+            $current_toric.removeClass("check-btn"); 
+            $current_toric.attr("data-quantity",left_qty);
+            $current_toric.val("");
+          }
+        })
+      })
+
+      $(document).on('change','.pow-content-axis',function(){
+        let $self = $(this);
+        let toric_axis = $(this).val();
+        let toric_sph = $(this).parent().attr('data-toric-power');
+        let toric_cyl = $(this).parent().find('.pow-content-cyl').val();
+
+        let toric_validate = {
+          "powers":[ 
+            {
+              "classification": "contact_lens",
+              "index": 0,
+              "left": {
+                "ap": null,
+                "axis": toric_axis,
+                "cyl": toric_cyl,
+                "pd": null,
+                "sph": toric_sph
+              },
+              "right": {
+                "ap": null,
+                "axis": toric_axis,
+                "cyl": toric_cyl,
+                "pd": null,
+                "sph": toric_sph
+              },
+              "shell_id": toric_sku
+            }
+          ]
+        }
+//         console.log(toric_validate);
+
+        let toric_settings = {
+          "url": baseURL+"/api/juno/non-git",
+          "method": "POST",
+          "headers": {
+            "X-Api-Client" : "aqualens",
+            "Content-Type": "application/json",
+            "X-Session-Token": "12345679"
+          },
+
+          "data": JSON.stringify(toric_validate),
+        };
+
+        $.ajax(toric_settings).done(function (response) {
+          let left_qty = response.result.result[0].left.qty;
+          let right_qty = response.result.result[0].right.qty;
+
+          let $current_toric = $self.parent().find('input');
+
+          if(left_qty <= 0 || right_qty <= 0){
+            $current_toric.attr("disabled", true);
+            $current_toric.attr("placeholder", "Out Of Stock");
+            $current_toric.addClass("check-btn");
+            $current_toric.attr("data-quantity",left_qty);
+            $current_toric.val("");
+            //             clevertap events
+            clevertap.event.push("OutOfStock", {
+              "ProductTitle":product_title,
+              "Date":  "{{ "now" | date: "%Y-%m-%d" }}"                      
+            });
+            //           GA events
+            let displayMode = 'browser';
+            const mqStandAlone = '(display-mode: standalone)';
+            if (navigator.standalone || window.matchMedia(mqStandAlone).matches || navigator.userAgent.toLowerCase().includes('wv')) {
+              displayMode = 'standalone';
+              dataLayer.push({
+                'event': 'OutOfStock_pwa',
+                "ProductTitle":product_title,
+                "Date":  "{{ "now" | date: "%Y-%m-%d" }}"
+              })
+            }else{
+              dataLayer.push({
+                'event': 'OutOfStock',
+                "ProductTitle":product_title,
+                "Date":  "{{ "now" | date: "%Y-%m-%d" }}"
+              })
+            } 
+            //          events end
+          }
+          else{
+            $current_toric.attr("disabled", false);
+            $current_toric.attr("placeholder", "Enter Qty.");
+            $current_toric.removeClass("check-btn"); 
+            $current_toric.attr("data-quantity",left_qty);
+            $current_toric.val("");
+          }
+        })
+      })
+
+      $(document).on('input','.qty-boxes', function () {
+        let value = $(this).val();
+        $(this).parent().find('.max-qty-msg').hide();
+        if ((value !== '') && (value.indexOf('.') === -1)) {
+          let data_qty = $(this).attr('data-quantity');       
+          if(data_qty){
+            $(this).val(Math.max(Math.min(value, data_qty-1), 1));               
+          }
+            if(value >= data_qty-1){
+              $(this).parent().find('.max-qty-msg').html("Max quantity up to "+(data_qty-1)).show();
+              setTimeout(function() { 
+                $('.max-qty-msg').fadeOut(); 
+              }, 2000);
+            }      
+        }
+      });
+
+
+
+    });
+
+
+    // add to cart information 
+const notyf = new Notyf({
+      duration: 1000,
+      position: {
+        x: 'center',
+        y: 'top',
+      },
+      types: [
+        {
+          type: 'info',
+          background: '#00BAC6',
+          icon: false
+        }
+      ]
+    });  
+    
+//     function to validate vendor [ differentiation of products vendor ]
+    function valiadateVendor(product_vendor) {
+      return new Promise(resolve => {        
+        $.ajax({
+          url : '/cart.js',
+          type: 'GET',
+          dataType: 'JSON',
+          success:function(data){
+            console.log(data);
+            let line_item_vendor ='';
+            if(data.items.length != 0){
+              line_item_vendor = data.items[0].vendor;
+            }           
+            if(data.items.length != 0 && (line_item_vendor != product_vendor)){
+              resolve(false)
+            } 
+            resolve(true)
+          }
+        })
+      })
+    }
+        
+    
+//     function to add in cart
+    function addedToCart(finalData,action,variantData,total_price){
+      $.ajax({
+        url : '/cart/add.js',
+        type: 'POST',
+        dataType: 'JSON',
+        data : {items:finalData},
+      })
+      .done(function(response){ 
+
+        notyf.open({
+          type: 'info',
+          message: "*Added into the cart"
+        });
+
+      })
+      .done(function(){
+        if(action == "addToCart"){
+          setTimeout(function () { 
+            $.magnificPopup.close();
+          },1000);
+          $.ajax({
+            url : '/cart.js',
+            type: 'POST',
+            dataType: 'JSON',
+            success:function(response){ 
+              if(window.screen.width <= 749){
+                $('.cart-count').html(response.item_count);
+              }
+              else{
+                $('.cart-count').html("("+response.item_count+")");
+              }
+            }
+          })
+          //            clevertap events
+          clevertap.event.push("AddedInCart", {
+            "Category":product_type,
+            "VariantId":variantData.toString(),
+            "CartValue":total_price,
+          });
+        //   //           GA events
+          let displayMode = 'browser';
+          const mqStandAlone = '(display-mode: standalone)';
+          if (navigator.standalone || window.matchMedia(mqStandAlone).matches || navigator.userAgent.toLowerCase().includes('wv')) {
+            displayMode = 'standalone';
+            dataLayer.push({
+              'event': 'AddedInCart_pwa',
+              "Category":product_type,
+              "VariantId":variantData.toString(),
+              "CartValue":total_price,
+            })
+          }else{
+            dataLayer.push({
+              'event': 'AddedInCart',
+              "Category":product_type,
+              "VariantId":variantData.toString(),
+              "CartValue":total_price,
+            })
+          } 
+          //          events end
+        }
+
+        else if(action=="buyNow"){
+          setTimeout(function () { 
+            window.location.href = '/cart';
+          }, 1000); 
+
+          //           GA events
+          let displayMode = 'browser';
+          const mqStandAlone = '(display-mode: standalone)';
+          if (navigator.standalone || window.matchMedia(mqStandAlone).matches || navigator.userAgent.toLowerCase().includes('wv')) {
+            displayMode = 'standalone';
+            dataLayer.push({
+              'event': 'buy-now_pwa',
+              "Category":product_type,
+              "VariantId":variantData.toString(),
+              "CartValue":total_price,
+            })
+          }else{
+            dataLayer.push({
+              'event': 'buy-now',
+              "Category":product_type,
+              "VariantId":variantData.toString(),
+              "CartValue":total_price,
+            })
+          } 
+          //          events end
+        }
+      })
+
+    }
+
+//     Adding in cart
+
+    $(document).on('click', '.cart-now', async function(){   
+      //adding loader after this button click
+      let thisButton = $(this);
+      thisButton.attr('disabled',true).css('background','#00BAC6');
+      thisButton.find("#button_text").html(`Adding &nbsp;{% render 'loading-bullets'%}`);           
+      //end 
+      
+      let product_vendor = $(this).parent('.buy-or-cart').attr('data-product-vendor'); 
+      let product_vendor2 = "";
+      if(product_vendor.includes("Aqualens")){
+        product_vendor2 = "Johnson & Johnson";
+      }else{
+        product_vendor2 = "Aqualens";
+      }
+      
+      let flagV = await valiadateVendor(product_vendor);
+//       console.log(flagV);
+      let finalData = [];
+      let total_price = 0;
+      let variantData = [];
+
+      $('.power-white-popup:not(.mfp-hide) .quantity-flex.in-stock:not(.quantity-flex-all)').each(function(){
+        let flexData = {};
+        let getElement = $(this);
+        let getQty = getElement.find('.qty-boxes').val() || 0;
+        let getPrice = getElement.find('.qty-boxes').attr("data-product-price");
+        let getSelect;
+        if(product_type == 'Solution'){
+          getSelect ="";
+        }else{
+          getSelect = getElement.find('.pow-content').text() || getElement.find('.pow-content-sph option:selected').text() || "0.00";
+        }
+        let getSelectCYL = getElement.find('.pow-content-cyl option:selected').text();
+        let getSelectAxis = getElement.find('.pow-content-axis option:selected').text();
+        let getVariant = $('.child-one-qty').attr('data-variant') || getElement.find('.color-info').attr('data-id-color') || getElement.find('.color-info-power').attr('data-id-color') || solution_variant_id;
+        let sku =  $('.select-power-parent').attr('data-sku') || getElement.find('.color-info').attr('data-sku-color') || getElement.find('.color-info-power').attr('data-sku-color');
+
+        total_price = total_price+(getPrice*getQty);
+        sku = parseInt(sku);
+        let getProperties = {
+          'power': getSelect,
+          'cyl': getSelectCYL,
+          'axis': getSelectAxis,
+        }
+
+        flexData.sku = sku;
+        flexData.quantity = getQty;
+        flexData.id= getVariant;
+        flexData.properties= getProperties;
+        finalData.push(flexData);
+        variantData.push(getVariant);
+
+      })
+
+      if(Object.keys(finalData).length){
+        if(flagV == false){
+          let check = confirm(`Your cart contains ${product_vendor2} products. On adding ${product_vendor} products, the previous items will be removed. Do you wish to continue?`);
+          if(check == false){
+            setTimeout(function () { 
+              $.magnificPopup.close();
+            },1000);
+          }else{
+            $.ajax({
+              url : '/cart/clear.js',
+              type: 'POST',
+              dataType: 'JSON',
+              success:function(response){ 
+                if(response){                  
+                  addedToCart(finalData,"addToCart",variantData,total_price);
+                }
+              }
+            })
+          }
+        }
+        else{
+          addedToCart(finalData,"addToCart",variantData,total_price);
+        }
+      }
+    })  
+    
+//     Adding and Buying products
+
+    $(document).on('click', '.buy-now',async function(){
+      //adding loader after this button click
+      let thisButton = $(this);
+      thisButton.attr('disabled',true).css('background','#00BAC6');
+      thisButton.find("#button_text").html(`Adding &nbsp;{% render 'loading-bullets' %}`);           
+      //end 
+      let product_vendor = $(this).parent('.buy-or-cart').attr('data-product-vendor'); 
+      let product_vendor2 = "";
+      if(product_vendor.includes("Aqualens")){
+        product_vendor2 = "Johnson & Johnson";
+      }else{
+        product_vendor2 = "Aqualens";
+      }    
+      let flagV = await valiadateVendor(product_vendor);
+      let finalData = [];
+      let total_price = 0;
+      let variantData = [];
+      $('.power-white-popup:not(.mfp-hide) .quantity-flex.in-stock:not(.quantity-flex-all)').each(function(){
+        let flexData = {};
+        let getElement = $(this);
+        let getQty = getElement.find('.qty-boxes').val() || 0;
+        let getPrice = getElement.find('.qty-boxes').attr("data-product-price");
+        let getSelect;
+        if(product_type == 'Solution'){
+          getSelect ="";
+        }else{
+          getSelect = getElement.find('.pow-content').text() || getElement.find('.pow-content-sph option:selected').text() || "0.00";
+        }
+        let getSelectCYL = getElement.find('.pow-content-cyl option:selected').text();
+        let getSelectAxis = getElement.find('.pow-content-axis option:selected').text();
+        let getVariant = $('.child-one-qty').attr('data-variant') || getElement.find('.color-info').attr('data-id-color') || getElement.find('.color-info-power').attr('data-id-color') || solution_variant_id;
+        let sku =  $('.select-power-parent').attr('data-sku') || getElement.find('.color-info').attr('data-sku-color') || getElement.find('.color-info-power').attr('data-sku-color');
+        total_price = total_price+(getPrice*getQty);
+        sku = parseInt(sku);
+
+        let getProperties = {
+          'power': getSelect,
+          'cyl': getSelectCYL,
+          'axis': getSelectAxis,
+        }
+
+        flexData.sku = sku;
+        flexData.quantity = getQty;
+        flexData.id= getVariant;
+        flexData.properties= getProperties;
+        finalData.push(flexData);        
+        variantData.push(getVariant);
+
+      })
+
+      if(flagV == false){
+        let check = confirm(`Your cart contains ${product_vendor2} products. On adding ${product_vendor} products, the previous items will be removed. Do you wish to continue?`);
+        if(check == false){
+          setTimeout(function () { 
+            $.magnificPopup.close();
+          },1000);
+        }else{
+
+          $.ajax({
+            url : '/cart/clear.js',
+            type: 'POST',
+            dataType: 'JSON',
+            success:function(response){ 
+              if(response){
+                if(Object.keys(finalData).length){
+                  addedToCart(finalData,"buyNow",variantData,total_price);
+                }
+              }
+            }
+          })
+        }
+      }
+      else{
+        if(Object.keys(finalData).length){
+          addedToCart(finalData,"buyNow",variantData,total_price);
+        }
+      }
+
+
+    })
+
+
+//     end
+
+
+    </script>

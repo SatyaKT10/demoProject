@@ -1,0 +1,327 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Quattrocento&display=swap');
+
+  .order__confirm-page {
+      height: 100vh;
+      padding-top: 52px;
+      text-align: center;
+  }
+
+  .order__confirm-icon-text {
+      font-family: Quattrocento;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 24px;
+      line-height: 27px;
+      color: #474747;
+      padding-top: 14px;
+      margin-bottom: 40px;
+  }
+
+  .order-content {
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 27px;
+      color: #333333;
+      padding-bottom: 8px;
+  }
+
+  .payment-content {
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 21px;
+      color: #333333;
+      margin-bottom: 20px;
+  }
+
+  .order__confirm-sms {
+      display: none;
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 21px;
+      color: #666666;
+      padding: 0 25px;
+      margin-bottom: 50px;
+  }
+
+  .back-to-home a {
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      text-decoration: underline;
+      color: #00BAC6;
+  }
+
+  .order-failure .order__confirm-icon-wrapper {
+      margin-bottom: 20px;
+  }
+
+  .loader-div {
+      background: #000;
+      top: 62px;
+      left: 0;
+      top: 8%;
+      position: fixed;
+      width: 100%;
+      height: 100vh;
+      z-index: 999;
+      opacity: 85%;
+  }
+
+  .loader {
+      height: 50px;
+      width: 50px;
+      border: 5px solid #333;
+      border-radius: 50%;
+      border-top: 5px solid #999;
+      opacity: 1;
+      margin: 0 auto;
+      margin-top: 20%;
+      animation-name: spin;
+      animation-duration: 1000ms;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+
+  }
+
+  .loader-text {
+      text-align: center;
+      color: white;
+      font-weight: 600;
+      font-size: 20px;
+  }
+
+  .invoice-btn {
+      display: none;
+      background: #00BAC6;
+      padding: 10px;
+      width: 200px;
+      margin: auto;
+      color: white;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+  }
+
+  .back-to-home {
+      margin-top: 20px;
+  }
+
+  @keyframes spin {
+      from {
+          transform: rotate(0deg);
+      }
+
+      to {
+          transform: rotate(360deg);
+      }
+  }
+
+  .no-scroll {
+      overflow: hidden;
+  }
+
+  @media(max-width:749px) {
+      .loader {
+          margin-top: 60%;
+      }
+  }
+</style>
+
+<div class="page-width">
+  <div class="loader-div">
+      <div class="loader"></div>
+      <div class="loader-text">Please wait order is in progress...</div>
+  </div>
+  <div class="order__confirm-page">
+      <div class="order__confirm-container order-success">
+          <div class="order__confirm-icon-wrapper">
+              <div class="order__confirm-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60" fill="none">
+                      <path
+                          d="M30 0L33.4353 1.7078L37.1795 0.871746L40.1062 3.35204L43.9417 3.43632L46.1898 6.54496L49.8937 7.54468L51.3326 11.101L54.6895 12.9581L55.2355 16.7554L58.0505 19.3619L57.6718 23.1795L59.7813 26.3839L58.5 30L59.7813 33.6161L57.6718 36.8205L58.0505 40.6381L55.2355 43.2446L54.6895 47.0419L51.3326 48.899L49.8937 52.4553L46.1898 53.455L43.9417 56.5637L40.1062 56.648L37.1795 59.1283L33.4353 58.2922L30 60L26.5647 58.2922L22.8205 59.1283L19.8938 56.648L16.0583 56.5637L13.8102 53.455L10.1063 52.4553L8.66744 48.899L5.31048 47.0419L4.7645 43.2446L1.94951 40.6381L2.32816 36.8205L0.218733 33.6161L1.5 30L0.218733 26.3839L2.32816 23.1795L1.94951 19.3619L4.7645 16.7554L5.31048 12.9581L8.66744 11.101L10.1063 7.54468L13.8102 6.54496L16.0583 3.43632L19.8938 3.35204L22.8205 0.871746L26.5647 1.7078L30 0Z"
+                          fill="#00BAC6" />
+                      <path
+                          d="M40.6697 21L26.2747 35.395L20.8025 29.9228L19 31.7253L26.2747 39L42.4722 22.8025L40.6697 21Z"
+                          fill="white" />
+                  </svg>
+              </div>
+              <div class="order__confirm-icon-text">Order is in Progress...</div>
+          </div>
+          <div class="order__confirm-content-wrapper">
+              <div class="order-content">Reference ID # <span class="cart-id"></span></div>
+              <div class="order-content order_content-hide">Order ID # <span class="order-id"></span></div>
+              <div class="payment-content">Payment ID # <span class="payment-id"></span></div>
+          </div>
+          <div class="order__confirm-sms">
+              Order Confirmation has been sent via SMS
+          </div>
+          <div class="invoice-btn">
+              Download Invoice
+          </div>
+          <div class="back-to-home">
+              <a href="https://aqualensb2b.com/">Back to Home</a>
+          </div>
+      </div>
+      <div class="order__confirm-container order-failure hide">
+          <div class="order__confirm-icon-wrapper">
+              <div class="order__confirm-icon">
+                  <svg style="color:red;" xmlns="http://www.w3.org/2000/svg" version="1.0" width="60px" height="60px"
+                      viewBox="0 0 96.000000 96.000000" preserveAspectRatio="xMidYMid meet"
+                      style="&#10;    color: red;&#10;">
+                      <g transform="translate(0.000000,96.000000) scale(0.100000,-0.100000)" fill="currentColor"
+                          stroke="none">
+                          <path
+                              d="M185 779 c-25 -23 -45 -47 -45 -53 0 -6 53 -64 118 -129 l117 -118 -118 -112 c-65 -62 -118 -119 -117 -127 0 -20 81 -100 100 -100 8 0 65 51 127 112 l113 113 113 -113 c62 -61 119 -112 128 -112 8 0 34 20 58 44 32 33 41 49 37 64 -4 11 -57 68 -118 127 l-110 107 116 117 c64 64 116 121 116 127 0 12 -85 94 -97 94 -4 0 -61 -53 -125 -117 l-118 -118 -118 118 c-64 64 -121 117 -125 117 -4 0 -28 -19 -52 -41z" />
+                      </g>
+                  </svg>
+              </div>
+              <div class="order__confirm-icon-text">Order Failed</div>
+              <div class="order-content">Reference ID # <span class="cart-id"></span></div>
+              <div class="payment-content">Payment ID # <span class="payment-id"></span></div>
+
+          </div>
+          <div class="order__info">
+              <div id="failure_message"></div>
+          </div>
+          <div class="back-to-home">
+              <a href="https://aqualensb2b.com/">Back to Home</a>
+          </div>
+      </div>
+  </div>
+</div>
+
+<script>
+  var cartId = "";
+  var order_id = "";
+  $(document).ready(function () {
+      let utmSource = sessionStorage.getItem("utm_source");
+      var myInterval;
+      cartId = sessionStorage.getItem("cartID");
+      const thankyouVariable = JSON.parse(sessionStorage.getItem('thankyouVariable'));
+      console.log(thankyouVariable);
+      $('.order-content .cart-id').html(thankyouVariable.cart_id);
+     if (thankyouVariable.order_status == 'created' || thankyouVariable.order_status == 'order_approval') {
+          
+          $('.payment-id').html(thankyouVariable.payment_id);
+          $('body').removeClass("no-scroll");
+          $('.order__confirm-sms').show();
+          order_id = thankyouVariable.order_id;
+
+          $('.loader-div').hide();
+          if(order_id){
+              $('.order-id').html(thankyouVariable.order_id);
+              $('.order__confirm-icon-text').html('Order Placed');
+              $('.invoice-btn').show();
+          } else {
+              $('.order-id').hide();
+              $('.order__confirm-icon-text').html('You order has been taken and will be processed once approved by retailer');
+          }
+          sessionStorage.removeItem("utm_source");
+          $.ajax({
+              url: '/cart/clear.js',
+              type: 'POST',
+              dataType: 'JSON',
+              success: function (response) {
+                  $('.cart-count').html('(' + 0 + ')');
+              }
+          })
+
+          // clevertap
+          if(order_id){
+              clevertap.event.push("Order-placed", {
+                  "OrderID": thankyouVariable.order_id,
+                  "Date": "{{ "now" | date: "% Y -% m -% d" }}"
+              });
+          }
+
+          //Creating object for gtag integration
+          let dataLayerData = thankyouVariable.cartItemData.map(item => {
+              let variantTitle = item.product_title;
+              if (item.variant_title != null) {
+                  variantTitle = item.variant_title
+              }
+              let data = {
+                  id: item.variant_id,
+                  price: (item.price / 100),
+                  quantity: item.quantity,
+                  name: item.product_title,
+                  variant: variantTitle,
+
+              }
+              return data;
+          })
+
+          console.log(dataLayerData);
+          //integration of gtag
+          dataLayer.push({
+              'event': 'transaction',
+              'ecommerce': {
+                  'purchase': {
+                      'actionField': {
+                          'id': thankyouVariable.cart_id,   // Transaction ID. Required for purchases and refunds.
+                          'affiliation': 'AqualensB2B',
+                          'revenue': thankyouVariable.orderTotal,
+                          'shipping': thankyouVariable.shipping_charge_data,
+                      },
+                      'products': dataLayerData,
+                  }
+              }
+          });
+
+          //           GA events
+          let displayMode = 'browser';
+          const mqStandAlone = '(display-mode: standalone)';
+          if (navigator.standalone || window.matchMedia(mqStandAlone).matches || navigator.userAgent.toLowerCase().includes('wv')) {
+              displayMode = 'standalone';
+              dataLayer.push({
+                  'event': 'Order-placed_pwa',
+                  'OrderID': thankyouVariable.order_id,
+                  'Date': "{{ "now" | date: "% Y -% m -% d" }}"
+      })
+          } else {
+              dataLayer.push({
+                  'event': 'Order-placed',
+                  'OrderID': thankyouVariable.order_id,
+                  'Date': "{{ "now" | date: "% Y -% m -% d" }}"
+      })
+          }
+          //          events end
+
+
+      }
+      else {
+          $('.order__confirm-icon-text').html('Order Failed');
+          $('.order_content-hide').hide();
+          $('.order-content .cart-id').html(thankyouVariable.cart_id);
+          if (thankyouVariable.payment_refund_id !== null) {
+              $("#failure_message").html(`<h4>Order processing failed.<br>Any amount deducted will be refunded.<br>Refund ID: ${thankyouVariable.payment_refund_id}</h4>`);
+          } else {
+              $('.payment-content').hide();
+              $("#failure_message").html(`<h4>${thankyouVariable.message}</h4>`);
+          }
+          $('.order-success').addClass("hide");
+          $('.order-failure').removeClass("hide");
+          $('body').removeClass("no-scroll");
+          $('.loader-div').hide();
+      }
+  })
+
+ 
+
+  $('.invoice-btn').click(function () {
+      let link = document.createElement('a');
+      let href = baseURL + '/api/v1/orders/invoices/' + order_id;
+      link.setAttribute('href', href);
+      link.setAttribute('target', '_blank');
+      link.click();
+  });
+</script>

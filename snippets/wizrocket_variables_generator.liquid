@@ -1,0 +1,29 @@
+<script type="text/javascript">	var __wzrk_account_id = "6ZR-Z65-KZ6Z";
+	var __wzrk_region = "";
+	var __wzrk_variables = "shop_url,shop_domain,shop_email,shop_money_format,product_json,product_title,product_price,cart_json,cart_item_count,cart_total_price";
+	var __wzrk_shop_url = "{{ shop.url }}";
+	var __wzrk_shop_domain = "{{ shop.domain }}";
+	var __wzrk_shop_email = "{{ shop.email }}";
+	var __wzrk_shop_money_format = "{{ shop.money_format }}";
+	var __wzrk_shop_name ="{{shop.name}}";
+	var __wzrk_charged_currency = "{{shop.currency}}";
+	var __wzrk_customer_name = "{{ customer.name }}";
+	var __wzrk_customer_identity = "{{ customer.id }}";
+	var __wzrk_customer_email = "{{ customer.email }}";
+	var __wzrk_customer_phone = "{{ customer.phone }}";
+	{% if template contains 'product' %}
+	var __wzrk_product_json = {{ product | json }};
+	var __wzrk_product_title = "{{ product.title }}";
+	var __wzrk_product_price = "{{ product.price | money }}"
+	var __wzrk_product_category_name = "{{ collection.title }}";
+	var __wzrk_currency = "{{ shop.currency }}";
+	var __wzrk_quantity ="{{ line_item.quantity }}";
+	var __wzrk_seller_name = "{{product.vendor}}"
+	{% endif %}
+	{% if template contains 'collection' %}
+	var __wzrk_collection_name = "{{collection.title}}"
+	{% endif %}
+	{% if search.performed %}
+	var __wzrk_searchterm = "{{search.terms}}"
+	{% endif %}
+</script>

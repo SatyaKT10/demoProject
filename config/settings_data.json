@@ -1,0 +1,2534 @@
+{
+  "current": {
+    "mm_primary_color": "#000000",
+    "mm_secondary_color": "#e3e3e3",
+    "mm_text_color": "#5d5d5d",
+    "color_text": "#3d4246",
+    "color_body_text": "#69727b",
+    "color_sale_text": "#171717",
+    "color_button": "#009de0",
+    "color_button_text": "#fff",
+    "color_small_button_text_border": "#3d4246",
+    "color_text_field_text": "#000",
+    "color_text_field_border": "#949494",
+    "color_text_field": "#fff",
+    "color_image_overlay_text": "#fff",
+    "color_image_overlay": "#3d4246",
+    "image_overlay_opacity": 40,
+    "color_borders": "#e8e9eb",
+    "color_body_bg": "#fff",
+    "type_header_font": "open_sans_n7",
+    "type_header_base_size": 26,
+    "type_base_font": "open_sans_n4",
+    "type_base_size": 16,
+    "type_bold_product_titles": false,
+    "share_image": "",
+    "share_facebook": true,
+    "share_twitter": true,
+    "share_pinterest": true,
+    "social_twitter_link": "https:\/\/twitter.com\/aqualens_in?lang=en",
+    "social_facebook_link": "https:\/\/www.facebook.com\/aqualens\/",
+    "social_pinterest_link": "",
+    "social_instagram_link": "https:\/\/www.instagram.com\/aqualens.in\/",
+    "social_tumblr_link": "",
+    "social_snapchat_link": "",
+    "social_youtube_link": "https:\/\/www.youtube.com\/channel\/UCUUKjBtHX1Zv_q6HQbt4veQ?view_as=subscriberhttps:\/\/www.youtube.com\/channel\/UCUUKjBtHX1Zv_q6HQbt4veQ?view_as=subscriber",
+    "social_vimeo_link": "",
+    "favicon": "shopify:\/\/shop_images\/favicon-32x32.png",
+    "enable_ajax": true,
+    "checkout_header_image": "",
+    "checkout_logo_image": "",
+    "checkout_logo_position": "left",
+    "checkout_logo_size": "medium",
+    "checkout_body_background_image": "",
+    "checkout_body_background_color": "#fff",
+    "checkout_input_background_color_mode": "white",
+    "checkout_sidebar_background_image": "",
+    "checkout_sidebar_background_color": "#fafafa",
+    "checkout_heading_font": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
+    "checkout_body_font": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
+    "checkout_accent_color": "#000000",
+    "checkout_button_color": "#ff7676",
+    "checkout_error_color": "#e32c2b",
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+          "align_logo": "left",
+          "logo": "shopify:\/\/shop_images\/Image_4_3x_200x_484630e1-cddd-4779-9fda-26d74bd2f7eb.png",
+          "logo_max_width": 200,
+          "main_linklist": "custom-menu-new",
+          "main_linklist1": "new-nav-for-other-products",
+          "message": true,
+          "home_page_only": false,
+          "message_text": "Need Assistance ? Email Us at <a href=\"mailto:partnersupport@aqualens.in\">partnersupport@aqualens.in<\/a>",
+          "message_texts": "",
+          "message_link": "",
+          "color_bg": "#009de0",
+          "color_text": "#ffffff"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "blocks": {
+          "1586188212158": {
+            "type": "text",
+            "settings": {
+              "title": "Buy The Best Eyewear From Aqualens!",
+              "text": "<p>Download&nbsp;our App to buy&nbsp;<a href=\"https:\/\/onelink.to\/lenskart2\">Eyeglasses, Sunglasses and Contact Lenses.<\/a><\/p>"
+            }
+          }
+        },
+        "block_order": [
+          "1586188212158"
+        ],
+        "settings": {
+          "show_payment_icons": false,
+          "color_footer_bg": "#4b6377",
+          "color_footer_text": "#ffffff"
+        }
+      },
+      "1576476368524": {
+        "type": "home-slider",
+        "disabled": true,
+        "blocks": {
+          "1576476421044": {
+            "type": "grid-image",
+            "settings": {
+              "slider__image": "shopify:\/\/shop_images\/Aqualens-b2b-banner-Solution-offer-web.jpg",
+              "slider__image_mobile": "shopify:\/\/shop_images\/Aqualens_B2B_banner_solution_mobile_460.jpg",
+              "link": "shopify:\/\/collections\/solution",
+              "text_position": "v-center h-left",
+              "heading-text": "",
+              "heading-color": "#000000",
+              "heading-fontSize-min": 16,
+              "heading-fontSize-max": 16,
+              "heading-text-align": "left",
+              "heading-text-transform": "uppercase",
+              "heading-line-height": 4,
+              "heading-letter-spacing": 2,
+              "heading-text-decoration": false,
+              "subheading-text": "",
+              "subheading-color": "#000000",
+              "subheading-fontSize-min": 45,
+              "subheading-fontSize-max": 45,
+              "subheading-text-align": "left",
+              "subheading-text-transform": "capitalize",
+              "subheading-line-height": 1,
+              "subheading-letter-spacing": 6,
+              "subheading-text-decoration": false,
+              "promocode": "",
+              "button1-text": "",
+              "button1-url": "#",
+              "button2-text": "",
+              "button2-url": ""
+            }
+          },
+          "1588156462588": {
+            "type": "grid-image",
+            "settings": {
+              "slider__image": "shopify:\/\/shop_images\/Aqualens-b2b-banner-product-web.jpg",
+              "slider__image_mobile": "shopify:\/\/shop_images\/Aqualens-b2b-banner-product-mobile.jpg",
+              "link": "",
+              "text_position": "v-center h-center",
+              "heading-text": "",
+              "heading-color": "#000000",
+              "heading-fontSize-min": 30,
+              "heading-fontSize-max": 48,
+              "heading-text-align": "left",
+              "heading-text-transform": "uppercase",
+              "heading-line-height": 1,
+              "heading-letter-spacing": 0,
+              "heading-text-decoration": false,
+              "subheading-text": "",
+              "subheading-color": "#000000",
+              "subheading-fontSize-min": 30,
+              "subheading-fontSize-max": 48,
+              "subheading-text-align": "left",
+              "subheading-text-transform": "uppercase",
+              "subheading-line-height": 1,
+              "subheading-letter-spacing": 0,
+              "subheading-text-decoration": false,
+              "promocode": "",
+              "button1-text": "",
+              "button1-url": "",
+              "button2-text": "",
+              "button2-url": ""
+            }
+          }
+        },
+        "block_order": [
+          "1576476421044",
+          "1588156462588"
+        ],
+        "settings": {
+          "show__dots": true,
+          "slide__speed": 4000,
+          "retailer-note": "All Prices are Customers Prices. Retail margin will be visible on Check-out page"
+        }
+      },
+      "mm-category": {
+        "type": "mm-category",
+        "blocks": {
+          "1576917497811": {
+            "type": "collection-banner",
+            "settings": {
+              "subbannerimage": "",
+              "subheadertext": "SPHERICAL LENSES",
+              "subtext": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique."
+            }
+          },
+          "1576917570205": {
+            "type": "collection-banner",
+            "settings": {
+              "subbannerimage": "",
+              "subheadertext": "Toric Lenses",
+              "subtext": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique."
+            }
+          },
+          "1576917597678": {
+            "type": "collection-banner",
+            "settings": {
+              "subbannerimage": "",
+              "subheadertext": "MULTIFOCAL LENSES",
+              "subtext": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique."
+            }
+          },
+          "1576917639927": {
+            "type": "collections-product",
+            "settings": {
+              "collection-title-image": "",
+              "collection": "",
+              "arrowbg": "#dae8fc"
+            }
+          },
+          "1576917743059": {
+            "type": "collections-product",
+            "settings": {
+              "collection-title-image": "",
+              "collection": "",
+              "arrowbg": "#d9fff9"
+            }
+          },
+          "1576917791372": {
+            "type": "collections-product",
+            "settings": {
+              "collection-title-image": "",
+              "collection": "",
+              "arrowbg": "#fceff0"
+            }
+          }
+        },
+        "block_order": [
+          "1576917497811",
+          "1576917570205",
+          "1576917597678",
+          "1576917639927",
+          "1576917743059",
+          "1576917791372"
+        ],
+        "settings": {
+          "bbannerimage": "",
+          "bbannermobileimage": "",
+          "headertext": "CLEAR LENSES",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.",
+          "link-text": "SHOP ALL",
+          "link": "#"
+        }
+      },
+      "mm-category-usp": {
+        "type": "mm-category-usp",
+        "blocks": {
+          "1576917832491": {
+            "type": "SellerImage",
+            "settings": {
+              "pimage": "",
+              "tpara": "Free Express Doorstep Delivery"
+            }
+          },
+          "1576917876930": {
+            "type": "SellerImage",
+            "settings": {
+              "pimage": "",
+              "tpara": "Best Quality Lens Guaranteed"
+            }
+          },
+          "1576917913650": {
+            "type": "SellerImage",
+            "settings": {
+              "pimage": "",
+              "tpara": "24\/7 Customer Support"
+            }
+          },
+          "1576917978443": {
+            "type": "SellerImage",
+            "settings": {
+              "pimage": "",
+              "tpara": "Free Returns\/ 10 Day Replacement"
+            }
+          }
+        },
+        "block_order": [
+          "1576917832491",
+          "1576917876930",
+          "1576917913650",
+          "1576917978443"
+        ],
+        "settings": {}
+      },
+      "mm-category-subscribe-refill": {
+        "type": "mm-category-subscribe-refill",
+        "blocks": {
+          "1576918086625": {
+            "type": "product",
+            "settings": {
+              "image": "",
+              "text": "Stop, Pause, cancel giving you full control"
+            }
+          },
+          "1576918121458": {
+            "type": "product",
+            "settings": {
+              "image": "",
+              "text": "Exclusive Offers and Discounts"
+            }
+          },
+          "1576918140835": {
+            "type": "product",
+            "settings": {
+              "image": "",
+              "text": "Rewards & Loyalty Bonuses"
+            }
+          },
+          "1576918161765": {
+            "type": "product",
+            "settings": {
+              "image": "",
+              "text": "Exclusive dashboard for easy management"
+            }
+          },
+          "1576918188932": {
+            "type": "product",
+            "settings": {
+              "image": "",
+              "text": "Store your lens power and presciptions"
+            }
+          },
+          "1576918210013": {
+            "type": "product",
+            "settings": {
+              "image": "",
+              "text": "Add your family and friends"
+            }
+          },
+          "1576918236885": {
+            "type": "product",
+            "settings": {
+              "image": "",
+              "text": "Top Up credit Wallet"
+            }
+          },
+          "1576918255455": {
+            "type": "product",
+            "settings": {
+              "image": "",
+              "text": "Priority Stock holding for your subscribed cycle"
+            }
+          }
+        },
+        "block_order": [
+          "1576918086625",
+          "1576918121458",
+          "1576918140835",
+          "1576918161765",
+          "1576918188932",
+          "1576918210013",
+          "1576918236885",
+          "1576918255455"
+        ],
+        "settings": {
+          "bgimage": "",
+          "heading": "Subscribe for Refill",
+          "subheading": "WHY SHOULD YOU SUBSCRIBE",
+          "link-text1": "SUBSCRIBE For refill",
+          "link1": "#",
+          "link-text2": "Know More",
+          "link2": "#"
+        }
+      },
+      "mm-category-image-with-text": {
+        "type": "mm-category-image-with-text",
+        "settings": {
+          "bannerimage": "",
+          "headertext": "Don't know your Lens power?",
+          "text": "No Worries, we will help you find the perfect Contact Lens",
+          "link-text": "LETS GO",
+          "link": "#"
+        }
+      },
+      "mm-collection-template": {
+        "type": "mm-collection-template",
+        "blocks": {
+          "e12805dc-8d80-4d3d-9831-994cae129946": {
+            "type": "tag_filters",
+            "settings": {
+              "filter_name": "Heading",
+              "filter_tags": ""
+            }
+          }
+        },
+        "block_order": [
+          "e12805dc-8d80-4d3d-9831-994cae129946"
+        ],
+        "settings": {
+          "show_collection_title": false,
+          "show_collection_description": true,
+          "show_collection_breadcrumb": true,
+          "empty_collection_text": "We are sorry, no products match your filter selections. Please adjust them further.",
+          "pagination_type": "basic_pagination",
+          "pagination_limit": 50,
+          "show_filter_heading": true,
+          "enable_sticky_sidebar": false,
+          "sidebar_filter_heading": "Filter By",
+          "mobile_sidebar_style": "from_side",
+          "enable_collection_sorting": true,
+          "show_product_count": true,
+          "enable_brand_filter": false,
+          "enable_brand_filter_search": false,
+          "brand_filter_heading": "Manufacturers",
+          "enable_pt_filter": false,
+          "enable_pt_filter_search": false,
+          "pt_filter_heading": "Product Type",
+          "enable_price_filter": true,
+          "price_filter_heading": "Price range",
+          "price_ranges": "0-500,500-1000,1000-2000,",
+          "price_range_slider": false,
+          "enable_size_filter": false,
+          "enable_size_filter_swatch": false,
+          "size_filter_heading": "Size",
+          "enable_color_filter": false,
+          "enable_color_filter_swatch": false,
+          "color_filter_heading": "Color",
+          "enable_discount_filter": false,
+          "discount_filter_heading": "Discount",
+          "discount_filter_options": "10,20,30,40,50",
+          "enable_availability_filter": false,
+          "enable_tag_filter": false
+        }
+      },
+      "mm-usp": {
+        "type": "mm-usp",
+        "blocks": {
+          "1577009850436": {
+            "type": "SellerImage",
+            "settings": {
+              "pimage": "",
+              "tpara": "Free Express Doorstep Delivery"
+            }
+          },
+          "1577009928093": {
+            "type": "SellerImage",
+            "settings": {
+              "pimage": "",
+              "tpara": "Best Quality Lens Guaranteed"
+            }
+          },
+          "1577009954724": {
+            "type": "SellerImage",
+            "settings": {
+              "pimage": "",
+              "tpara": "24\/7 Customer Support"
+            }
+          },
+          "1577009994932": {
+            "type": "SellerImage",
+            "settings": {
+              "pimage": "",
+              "tpara": "Free Returns \/ 10 Day Replacement"
+            }
+          }
+        },
+        "block_order": [
+          "1577009850436",
+          "1577009928093",
+          "1577009954724",
+          "1577009994932"
+        ],
+        "settings": {}
+      },
+      "mm-subscribe-refill": {
+        "type": "mm-subscribe-refill",
+        "blocks": {
+          "1577010078932": {
+            "type": "product",
+            "settings": {
+              "image": "",
+              "text": "STOP, PAUSE, CANCEL GIVING YOU FULL CONTROL"
+            }
+          },
+          "1577010111731": {
+            "type": "product",
+            "settings": {
+              "image": "",
+              "text": "EXCLUSIVE OFFERS AND DISCOUNTS"
+            }
+          },
+          "1577010123244": {
+            "type": "product",
+            "settings": {
+              "image": "",
+              "text": "REWARDS & LOYALTY BONUSES"
+            }
+          },
+          "1577010140891": {
+            "type": "product",
+            "settings": {
+              "image": "",
+              "text": "EXCLUSIVE DASHBOARD FOR EASY MANAGEMENT"
+            }
+          },
+          "1577010162275": {
+            "type": "product",
+            "settings": {
+              "image": "",
+              "text": "STORE YOUR LENS POWER AND PRESCIPTIONS"
+            }
+          },
+          "1577010186780": {
+            "type": "product",
+            "settings": {
+              "image": "",
+              "text": "ADD YOUR FAMILY AND FRIENDS"
+            }
+          },
+          "1577010206477": {
+            "type": "product",
+            "settings": {
+              "image": "",
+              "text": "TOP UP CREDIT WALLET"
+            }
+          },
+          "1577010221603": {
+            "type": "product",
+            "settings": {
+              "image": "",
+              "text": "PRIORITY STOCK HOLDING FOR YOUR SUBSCRIBED CYCLE"
+            }
+          }
+        },
+        "block_order": [
+          "1577010078932",
+          "1577010111731",
+          "1577010123244",
+          "1577010140891",
+          "1577010162275",
+          "1577010186780",
+          "1577010206477",
+          "1577010221603"
+        ],
+        "settings": {
+          "bgimage": "",
+          "heading": "Subscribe For Refill",
+          "subheading": "WHY SHOULD YOU SUBSCRIBE",
+          "link-text1": "WHY SHOULD YOU SUBSCRIBE",
+          "link1": "#",
+          "link-text2": "Know More",
+          "link2": "#"
+        }
+      },
+      "mm-image-with-text": {
+        "type": "mm-image-with-text",
+        "settings": {
+          "bannerimage": "",
+          "headertext": "Don't know your Lens Power?",
+          "text": "No Worries, will help you find the perfect Contact Lens",
+          "link-text": "Lets go",
+          "link": "#"
+        }
+      },
+      "list-collections-template": {
+        "type": "list-collections-template",
+        "settings": {
+          "display_type": "all",
+          "sort": "alphabetical",
+          "grid": 3
+        }
+      },
+      "mm-subscription-banner": {
+        "type": "mm-subscription-banner",
+        "settings": {
+          "bbannerimage": "",
+          "bbannermobileimage": "",
+          "headertext": "Get Your Lenses Delivered As Per Your Schedule",
+          "link-text": "Subscribe Now",
+          "link": "#"
+        }
+      },
+      "mm-about-how-it-works": {
+        "type": "mm-about-how-it-works",
+        "blocks": {
+          "1577095188005": {
+            "type": "about-banner",
+            "settings": {
+              "bannerimage": "",
+              "steptext": "STEP-1",
+              "content": "Choose from your favourite brand of lenses"
+            }
+          },
+          "1577095219229": {
+            "type": "about-banner",
+            "settings": {
+              "bannerimage": "",
+              "steptext": "STEP-2",
+              "content": "Setup Your Membership Schedule"
+            }
+          },
+          "1577095245246": {
+            "type": "about-banner",
+            "settings": {
+              "bannerimage": "",
+              "steptext": "STEP-3",
+              "content": "Get your lenses on Schedule at your doorstep"
+            }
+          }
+        },
+        "block_order": [
+          "1577095188005",
+          "1577095219229",
+          "1577095245246"
+        ],
+        "settings": {
+          "headertext": "How It Works"
+        }
+      },
+      "mm-benifit-of-subscription": {
+        "type": "mm-benifit-of-subscription",
+        "blocks": {
+          "1577095303826": {
+            "type": "product",
+            "settings": {
+              "blockimage": "",
+              "headingtext": "Stop, Pause, cancel giving you full control",
+              "contenttext": "<p>Legimus voluptatum eu mei, laoreet suscipiantur ad vel. Et nostrud postulant explicari pri. Et dicunt tamquam nominati mel, prima malis graeci id nam, sea et zril quodsi.<\/p>"
+            }
+          },
+          "1577095328062": {
+            "type": "product",
+            "settings": {
+              "blockimage": "",
+              "headingtext": "Exclusive Offers and Discounts",
+              "contenttext": "<p>Legimus voluptatum eu mei, laoreet suscipiantur ad vel. Et nostrud postulant explicari pri. Et dicunt tamquam nominati mel, prima malis graeci id nam, sea et zril quodsi.`<\/p>"
+            }
+          },
+          "1577095379023": {
+            "type": "product",
+            "settings": {
+              "blockimage": "",
+              "headingtext": "Rewards & Loyalty Bonuses",
+              "contenttext": "<p>Legimus voluptatum eu mei, laoreet suscipiantur ad vel. Et nostrud postulant explicari pri. Et dicunt tamquam nominati mel, prima malis graeci id nam, sea et zril quodsi.<\/p>"
+            }
+          },
+          "1577095414065": {
+            "type": "product",
+            "settings": {
+              "blockimage": "",
+              "headingtext": "Exclusive dashboard for easy management",
+              "contenttext": "<p>Legimus voluptatum eu mei, laoreet suscipiantur ad vel. Et nostrud postulant explicari pri. Et dicunt tamquam nominati mel, prima malis graeci id nam, sea et zril quodsi.<\/p>"
+            }
+          },
+          "1577095452920": {
+            "type": "product",
+            "settings": {
+              "blockimage": "",
+              "headingtext": "Store your lens power and presciptions",
+              "contenttext": "<p>Legimus voluptatum eu mei, laoreet suscipiantur ad vel. Et nostrud postulant explicari pri. Et dicunt tamquam nominati mel, prima malis graeci id nam, sea et zril quodsi.<\/p>"
+            }
+          },
+          "1577095485712": {
+            "type": "product",
+            "settings": {
+              "blockimage": "",
+              "headingtext": "Add your family and friends",
+              "contenttext": "<p>Legimus voluptatum eu mei, laoreet suscipiantur ad vel. Et nostrud postulant explicari pri. Et dicunt tamquam nominati mel, prima malis graeci id nam, sea et zril quodsi.<\/p>"
+            }
+          },
+          "1577095512701": {
+            "type": "product",
+            "settings": {
+              "blockimage": "",
+              "headingtext": "Top Up credit Wallet",
+              "contenttext": "<p>Legimus voluptatum eu mei, laoreet suscipiantur ad vel. Et nostrud postulant explicari pri. Et dicunt tamquam nominati mel, prima malis graeci id nam, sea et zril quodsi.<\/p>"
+            }
+          },
+          "1577095528069": {
+            "type": "product",
+            "settings": {
+              "blockimage": "",
+              "headingtext": "Priority Stock holding for your subscribed cycle",
+              "contenttext": "<p>Legimus voluptatum eu mei, laoreet suscipiantur ad vel. Et nostrud postulant explicari pri. Et dicunt tamquam nominati mel, prima malis graeci id nam, sea et zril quodsi.<\/p>"
+            }
+          }
+        },
+        "block_order": [
+          "1577095303826",
+          "1577095328062",
+          "1577095379023",
+          "1577095414065",
+          "1577095452920",
+          "1577095485712",
+          "1577095512701",
+          "1577095528069"
+        ],
+        "settings": {
+          "heading": "Benefits of getting Subscription"
+        }
+      },
+      "mm-frequently-asked-question": {
+        "type": "mm-frequently-asked-question",
+        "blocks": {
+          "1577095613566": {
+            "type": "text",
+            "settings": {
+              "questiontext": "Do all orders receive 10% off?",
+              "answertext": "<p>All subscription orders qualify for 10% off. We do not have a minimum frequency or order size. (If you cancel before you’ve received three shipments, you will be charged the full purchase price for all items.)<\/p>"
+            }
+          },
+          "1577095644437": {
+            "type": "text",
+            "settings": {
+              "questiontext": "Can I change the products or frequency before I’ve received my shipments?",
+              "answertext": "<p>You can change your subscription as much as you wish. Sign into your account to make product or frequency changes.<\/p>"
+            }
+          },
+          "1577095669129": {
+            "type": "text",
+            "settings": {
+              "questiontext": "Will I be charged a fee if I change my subscription before I’ve received my shipments?",
+              "answertext": "<p>All subscription orders qualify for 10% off. We do not have a minimum frequency or order size. (If you cancel before you’ve received three shipments, you will be charged the full purchase price for all items.)<\/p>"
+            }
+          },
+          "1577095690972": {
+            "type": "text",
+            "settings": {
+              "questiontext": "Is there a fee to sign up for a subscription?",
+              "answertext": "<p>No, there are no sign up fees. The only charges you will receive are for the products themselves.<\/p>"
+            }
+          }
+        },
+        "block_order": [
+          "1577095613566",
+          "1577095644437",
+          "1577095669129",
+          "1577095690972"
+        ],
+        "settings": {
+          "header": "Frequently Asked Questions"
+        }
+      },
+      "mm-about-usp": {
+        "type": "mm-about-usp",
+        "blocks": {
+          "1577095778902": {
+            "type": "SellerImage",
+            "settings": {
+              "pimage": "",
+              "tpara": "Free Express Doorstep Delivery"
+            }
+          },
+          "1577095798110": {
+            "type": "SellerImage",
+            "settings": {
+              "pimage": "",
+              "tpara": "Best Quality Lens Guaranteed"
+            }
+          },
+          "1577095834846": {
+            "type": "SellerImage",
+            "settings": {
+              "pimage": "",
+              "tpara": "24\/7 Customer Support"
+            }
+          },
+          "1577095863091": {
+            "type": "SellerImage",
+            "settings": {
+              "pimage": "",
+              "tpara": "Free Returns\/ 10 Day Replacement"
+            }
+          }
+        },
+        "block_order": [
+          "1577095778902",
+          "1577095798110",
+          "1577095834846",
+          "1577095863091"
+        ],
+        "settings": {}
+      },
+      "mm-about-subscribe-refill": {
+        "type": "mm-about-subscribe-refill",
+        "blocks": {
+          "1577095963327": {
+            "type": "product",
+            "settings": {
+              "image": "",
+              "text": "Stop, Pause, cancel giving you full control"
+            }
+          },
+          "1577095999222": {
+            "type": "product",
+            "settings": {
+              "image": "",
+              "text": "Exclusive Offers and Discounts"
+            }
+          },
+          "1577096013310": {
+            "type": "product",
+            "settings": {
+              "image": "",
+              "text": "Rewards & Loyalty Bonuses"
+            }
+          },
+          "1577096037965": {
+            "type": "product",
+            "settings": {
+              "image": "",
+              "text": "EXCLUSIVE DASHBOARD FOR EASY MANAGEMENT"
+            }
+          },
+          "1577096059025": {
+            "type": "product",
+            "settings": {
+              "image": "",
+              "text": "Store your lens power and presciptions"
+            }
+          },
+          "1577096077862": {
+            "type": "product",
+            "settings": {
+              "image": "",
+              "text": "Add your family and friends"
+            }
+          },
+          "1577096099930": {
+            "type": "product",
+            "settings": {
+              "image": "",
+              "text": "Top Up credit Wallet"
+            }
+          },
+          "1577096121423": {
+            "type": "product",
+            "settings": {
+              "image": "",
+              "text": "Priority Stock holding for your subscribed cycle"
+            }
+          }
+        },
+        "block_order": [
+          "1577095963327",
+          "1577095999222",
+          "1577096013310",
+          "1577096037965",
+          "1577096059025",
+          "1577096077862",
+          "1577096099930",
+          "1577096121423"
+        ],
+        "settings": {
+          "bgimage": "",
+          "heading": "Subscribe for Refill",
+          "subheading": "WHY SHOULD YOU SUBSCRIBE",
+          "link-text1": "SUBSCRIBE For refill",
+          "link1": "#",
+          "link-text2": "Know More",
+          "link2": "#"
+        }
+      },
+      "mm-about-image-with-text": {
+        "type": "mm-about-image-with-text",
+        "settings": {
+          "bannerimage": "",
+          "headertext": "Don't know your Lens power?",
+          "text": "No Worries, we will help you out!",
+          "link-text": "LETS GO",
+          "link": "#"
+        }
+      },
+      "product-template": {
+        "type": "product-template",
+        "settings": {
+          "image_size": "medium",
+          "show_quantity_selector": true,
+          "show_variant_labels": true,
+          "show_vendor": false,
+          "enable_zoom": false,
+          "enable_payment_button": false,
+          "show_share_buttons": false,
+          "headertext": "Subscribe for auto refill",
+          "text": "Sign up to get Free Shipping and 10% off on all orders!",
+          "notetext": "Power will be taken post checkout"
+        }
+      },
+      "home-subscribe-refill": {
+        "type": "home-subscribe-refill",
+        "blocks": {
+          "1577776544265": {
+            "type": "product",
+            "settings": {
+              "image": "",
+              "text": "STOP, PAUSE, CANCEL GIVING YOU FULL CONTROL"
+            }
+          },
+          "1577776573376": {
+            "type": "product",
+            "settings": {
+              "image": "",
+              "text": "EXCLUSIVE OFFERS AND DISCOUNTS"
+            }
+          },
+          "1577776595754": {
+            "type": "product",
+            "settings": {
+              "image": "",
+              "text": "REWARDS & LOYALTY BONUSES"
+            }
+          },
+          "1577776617171": {
+            "type": "product",
+            "settings": {
+              "image": "",
+              "text": "EXCLUSIVE DASHBOARD FOR EASY MANAGEMENT"
+            }
+          },
+          "1577776647952": {
+            "type": "product",
+            "settings": {
+              "image": "",
+              "text": "STORE YOUR LENS POWER AND PRESCIPTIONS"
+            }
+          },
+          "1577776667331": {
+            "type": "product",
+            "settings": {
+              "image": "",
+              "text": "ADD YOUR FAMILY AND FRIENDS"
+            }
+          },
+          "1577776686477": {
+            "type": "product",
+            "settings": {
+              "image": "",
+              "text": "TOP UP CREDIT WALLET"
+            }
+          },
+          "1577776706697": {
+            "type": "product",
+            "settings": {
+              "image": "",
+              "text": "PRIORITY STOCK HOLDING FOR YOUR SUBSCRIBED CYCLE"
+            }
+          }
+        },
+        "block_order": [
+          "1577776544265",
+          "1577776573376",
+          "1577776595754",
+          "1577776617171",
+          "1577776647952",
+          "1577776667331",
+          "1577776686477",
+          "1577776706697"
+        ],
+        "settings": {
+          "bgimage": "",
+          "heading": "Subscribe For Refill",
+          "subheading": "WHY SHOULD YOU SUBSCRIBE",
+          "link-text1": "SUBSCRIBE FOR REFILL",
+          "link1": "#",
+          "link-text2": "KNOW MORE",
+          "link2": "#"
+        }
+      },
+      "home-image-with-text": {
+        "type": "home-image-with-text",
+        "settings": {
+          "bannerimage": "",
+          "headertext": "Don't know your Lens Power?",
+          "text": "No Worries, will help you find the perfect Contact Lens",
+          "link-text": "LETS GO",
+          "link": "#"
+        }
+      },
+      "1586190854201": {
+        "type": "retailer-products",
+        "disabled": true,
+        "settings": {
+          "title": "Newly Arrived Products",
+          "grid": 4,
+          "rows": 3,
+          "show_vendor": false,
+          "show_view_all": false
+        }
+      },
+      "footer-alt": {
+        "type": "footer-alt",
+        "blocks": {
+          "1587737908491": {
+            "type": "menu",
+            "settings": {
+              "container_width": 15,
+              "menu_title": "Our Lenses",
+              "menu": "our-lenses"
+            }
+          },
+          "1587737922834": {
+            "type": "menu",
+            "settings": {
+              "container_width": 17,
+              "menu_title": "Shop",
+              "menu": "more-info"
+            }
+          },
+          "1587737939779": {
+            "type": "support",
+            "settings": {
+              "container_width": 18,
+              "support_title": "Support",
+              "footer_email": "partnersupport@aqualens.in",
+              "footer_phone": "",
+              "footer_timing": ""
+            }
+          },
+          "1588081937243": {
+            "type": "social",
+            "settings": {
+              "container_width": 30,
+              "nl_social_share": false,
+              "nl_social_share_title": "Follow us"
+            }
+          }
+        },
+        "block_order": [
+          "1587737908491",
+          "1587737922834",
+          "1587737939779",
+          "1588081937243"
+        ],
+        "settings": {
+          "footer-bg-img": "shopify:\/\/shop_images\/footer.png",
+          "footer-bg-img-mobile": "shopify:\/\/shop_images\/footer_mobile.png"
+        }
+      },
+      "1588154112867": {
+        "type": "homepage-collection-show",
+        "disabled": true,
+        "blocks": {
+          "1588154301536": {
+            "type": "homepage_collection",
+            "settings": {
+              "collectionUps": "shopify:\/\/shop_images\/Calendar-icon.png",
+              "collectionUpsTitle": "Daily Lens"
+            }
+          },
+          "1588154338121": {
+            "type": "homepage_collection",
+            "settings": {
+              "collectionUps": "shopify:\/\/shop_images\/lens-pack-icon.png",
+              "collectionUpsTitle": "10 & 30 Lens Packs"
+            }
+          },
+          "1588154397598": {
+            "type": "homepage_collection",
+            "settings": {
+              "collectionUps": "shopify:\/\/shop_images\/uv-protection-icon.png",
+              "collectionUpsTitle": "UV Protection"
+            }
+          },
+          "1588154418347": {
+            "type": "homepage_collection",
+            "settings": {
+              "collectionUps": "shopify:\/\/shop_images\/moisture-rich-icon.png",
+              "collectionUpsTitle": "Moisture Rich"
+            }
+          }
+        },
+        "block_order": [
+          "1588154301536",
+          "1588154338121",
+          "1588154397598",
+          "1588154418347"
+        ],
+        "settings": {
+          "collectionImage": "shopify:\/\/shop_images\/KB_AquaLens_LK_Aug198615.jpg",
+          "collectionCaption": "our Collection",
+          "collectionCaptionColor": "#22cfe6",
+          "collectionTitle": "Daily Disposables",
+          "collectionSelect": "dailies",
+          "showImage": "left",
+          "custom_class": "customClass_daily__disposables"
+        }
+      },
+      "1588158806874": {
+        "type": "homepage-collection-show",
+        "disabled": true,
+        "blocks": {
+          "1588160293951": {
+            "type": "homepage_collection",
+            "settings": {
+              "collectionUps": "shopify:\/\/shop_images\/Calendar-icon.png",
+              "collectionUpsTitle": "Monthly Lens"
+            }
+          },
+          "1588160306070": {
+            "type": "homepage_collection",
+            "settings": {
+              "collectionUps": "shopify:\/\/shop_images\/lens-pack-icon.png",
+              "collectionUpsTitle": "3 & 6 Lens Packs"
+            }
+          },
+          "1588160328557": {
+            "type": "homepage_collection",
+            "settings": {
+              "collectionUps": "shopify:\/\/shop_images\/uv-protection-icon.png",
+              "collectionUpsTitle": "UV protection"
+            }
+          },
+          "1588160347821": {
+            "type": "homepage_collection",
+            "settings": {
+              "collectionUps": "shopify:\/\/shop_images\/moisture-rich-icon.png",
+              "collectionUpsTitle": "Moisture Rich"
+            }
+          }
+        },
+        "block_order": [
+          "1588160293951",
+          "1588160306070",
+          "1588160328557",
+          "1588160347821"
+        ],
+        "settings": {
+          "collectionImage": "shopify:\/\/shop_images\/KB_AquaLens_LK_Aug19_0931.jpg",
+          "collectionCaption": "our Collection",
+          "collectionCaptionColor": "#3092e9",
+          "collectionTitle": "Monthly Disposables",
+          "collectionSelect": "monthly",
+          "showImage": "right",
+          "custom_class": "customClass_monthly__disposables"
+        }
+      },
+      "1588158908162": {
+        "type": "homepage-collection-show",
+        "disabled": true,
+        "blocks": {
+          "1588160408687": {
+            "type": "homepage_collection",
+            "settings": {
+              "collectionUps": "shopify:\/\/shop_images\/Trial-kit-icon.png",
+              "collectionUpsTitle": "Wide Colour Palette"
+            }
+          },
+          "1588160420634": {
+            "type": "homepage_collection",
+            "settings": {
+              "collectionUps": "shopify:\/\/shop_images\/Calendar-icon.png",
+              "collectionUpsTitle": "Daily & Monthly Lenses"
+            }
+          },
+          "1588160485388": {
+            "type": "homepage_collection",
+            "settings": {
+              "collectionUps": "shopify:\/\/shop_images\/uv-protection-icon.png",
+              "collectionUpsTitle": "UV Protection"
+            }
+          },
+          "1588160488377": {
+            "type": "homepage_collection",
+            "settings": {
+              "collectionUps": "shopify:\/\/shop_images\/moisture-rich-icon.png",
+              "collectionUpsTitle": "Moisture Rich"
+            }
+          }
+        },
+        "block_order": [
+          "1588160408687",
+          "1588160420634",
+          "1588160485388",
+          "1588160488377"
+        ],
+        "settings": {
+          "collectionImage": "shopify:\/\/shop_images\/KB_AquaLens_LK_Aug19_1218.jpg",
+          "collectionCaption": "our Collection",
+          "collectionCaptionColor": "#f6b142",
+          "collectionTitle": "Aquacolor Daily and Monthly",
+          "collectionSelect": "color",
+          "showImage": "left",
+          "custom_class": "customClass_aqua__color"
+        }
+      },
+      "1588159247531": {
+        "type": "homepage-collection-show",
+        "disabled": true,
+        "blocks": {
+          "1588160574314": {
+            "type": "homepage_collection",
+            "settings": {
+              "collectionUps": "shopify:\/\/shop_images\/moisture-rich-icon.png",
+              "collectionUpsTitle": "Double Moisturizing"
+            }
+          },
+          "1588160593228": {
+            "type": "homepage_collection",
+            "settings": {
+              "collectionUps": "shopify:\/\/shop_images\/uv-protection-icon.png",
+              "collectionUpsTitle": "All day comfort"
+            }
+          },
+          "1588160620640": {
+            "type": "homepage_collection",
+            "settings": {
+              "collectionUps": "shopify:\/\/shop_images\/medical_1.png",
+              "collectionUpsTitle": "No more dry eyes"
+            }
+          }
+        },
+        "block_order": [
+          "1588160574314",
+          "1588160593228",
+          "1588160620640"
+        ],
+        "settings": {
+          "collectionImage": "shopify:\/\/shop_images\/KB_AquaLens_LK_Aug19_0966.jpg",
+          "collectionCaption": "our Collection",
+          "collectionCaptionColor": "#3092e9",
+          "collectionTitle": "Aqualens Comfort Solutions",
+          "collectionSelect": "solution",
+          "showImage": "right",
+          "custom_class": ""
+        }
+      },
+      "1589333839542": {
+        "type": "top-banner-homepage",
+        "blocks": {
+          "7e3edb64-1759-4d3a-9e94-d1f35c52bf65": {
+            "type": "custom-banner",
+            "disabled": true,
+            "settings": {
+              "howItWorkBanner": "shopify:\/\/shop_images\/EOSS_OptionA_Desktop.png",
+              "mobilehowItWorkBanner": "shopify:\/\/shop_images\/EOSS_July2021_OptA_1.png",
+              "howItWorkBannerLink": "https:\/\/aqualensb2b.com\/collections\/all",
+              "className": "",
+              "refer_heading": "Refer And Earn",
+              "refer_subheading": "As our lives evolve, so does our relationships.",
+              "refer_button": "Start Referring"
+            }
+          },
+          "bf9f09ed-b340-4d12-b499-3404292cf4bf": {
+            "type": "custom-banner",
+            "settings": {
+              "howItWorkBanner": "shopify:\/\/shop_images\/1440x689_2x_82f03f20-973e-4c8c-85aa-eb6f6d668de6.png",
+              "mobilehowItWorkBanner": "shopify:\/\/shop_images\/414x664_2x_0859fba8-daf7-478d-be35-40cf972ac11e.png",
+              "howItWorkBannerLink": "https:\/\/aqualensb2b.com\/pages\/ar-filter",
+              "className": "vto",
+              "refer_heading": "Refer And Earn",
+              "refer_subheading": "As our lives evolve, so does our relationships.",
+              "refer_button": "Start Referring"
+            }
+          },
+          "1589333879226": {
+            "type": "custom-banner",
+            "settings": {
+              "howItWorkBanner": "shopify:\/\/shop_images\/Banner_1-min_a9fda429-b6c7-4a2e-a32a-f8401d8a5d8b.png",
+              "mobilehowItWorkBanner": "shopify:\/\/shop_images\/Mobile_banner_1-min_5882feb4-e89c-431b-b6e4-135be0877441.png",
+              "howItWorkBannerLink": "shopify:\/\/collections\/speciality-lens",
+              "className": "gtmtoric",
+              "refer_heading": "Earn maximum with minimum investment",
+              "refer_subheading": "Join hands with India's fastest growing contact lens brand and earn higher assured margin with every sale.",
+              "refer_button": "Start Earning"
+            }
+          },
+          "b9068948-ce08-401f-a1f0-d65551feee72": {
+            "type": "custom-banner",
+            "settings": {
+              "howItWorkBanner": "shopify:\/\/shop_images\/Desktop.jpg",
+              "mobilehowItWorkBanner": "shopify:\/\/shop_images\/Mobile.jpg",
+              "howItWorkBannerLink": "shopify:\/\/collections\/speciality-lens",
+              "className": "gtmsolution",
+              "refer_heading": "Refer And Earn",
+              "refer_subheading": "As our lives evolve, so does our relationships.",
+              "refer_button": "Start Referring"
+            }
+          },
+          "051acae3-d52b-4938-b58b-fb157845e0af": {
+            "type": "custom-banner",
+            "settings": {
+              "howItWorkBanner": "shopify:\/\/shop_images\/Banner_3-min_815c2034-af5b-4a06-a76b-da1011a489c5.png",
+              "mobilehowItWorkBanner": "shopify:\/\/shop_images\/Mobile_banner_3-min_44563f74-65c4-4c85-9a2f-00d960c65b08.png",
+              "howItWorkBannerLink": "https:\/\/aqualensb2b.com\/collections\/all",
+              "className": "gtmhome",
+              "refer_heading": "Refer And Earn",
+              "refer_subheading": "As our lives evolve, so does our relationships.",
+              "refer_button": "Start Referring"
+            }
+          }
+        },
+        "block_order": [
+          "7e3edb64-1759-4d3a-9e94-d1f35c52bf65",
+          "bf9f09ed-b340-4d12-b499-3404292cf4bf",
+          "1589333879226",
+          "b9068948-ce08-401f-a1f0-d65551feee72",
+          "051acae3-d52b-4938-b58b-fb157845e0af"
+        ],
+        "settings": {}
+      },
+      "lockDown-offer": {
+        "type": "lockDown-offer",
+        "settings": {
+          "scetion-title": "Lockdown Offers",
+          "sub-title": "(once in a lifetime)",
+          "bannerImage": "shopify:\/\/shop_images\/rsz_1section_7-_bg_with_solution_image_2880px.jpg"
+        }
+      },
+      "1589522158928": {
+        "type": "becomePartners",
+        "blocks": {
+          "1589522216154": {
+            "type": "collection",
+            "settings": {
+              "step": "Login &amp; Register"
+            }
+          },
+          "1589522229214": {
+            "type": "collection",
+            "settings": {
+              "step": "Browse and Buy"
+            }
+          },
+          "1589522237451": {
+            "type": "collection",
+            "settings": {
+              "step": "Earn Exceptional Margins"
+            }
+          }
+        },
+        "block_order": [
+          "1589522216154",
+          "1589522229214",
+          "1589522237451"
+        ],
+        "settings": {
+          "scetion-title": "Become an Aqualens partner in",
+          "sub-title": "3 simple steps",
+          "color": "#4db8c5"
+        }
+      },
+      "1589522330698": {
+        "type": "whyAqua",
+        "blocks": {
+          "1589522340962": {
+            "type": "collection",
+            "settings": {
+              "question": "Make More Margin"
+            }
+          },
+          "1589522349272": {
+            "type": "collection",
+            "settings": {
+              "question": "US FDA\/CE Approved Top Quality\n \nContact Lenses Available All over India"
+            }
+          },
+          "1589522364902": {
+            "type": "collection",
+            "settings": {
+              "question": "Simple Buying Process"
+            }
+          }
+        },
+        "block_order": [
+          "1589522340962",
+          "1589522349272",
+          "1589522364902"
+        ],
+        "settings": {
+          "scetion-title": "Why sell Aqualens products?",
+          "bannerImage": "shopify:\/\/shop_images\/rsz_1rsz_section_2_2880px.jpg"
+        }
+      },
+      "1589522442590": {
+        "type": "sellTextinfor",
+        "blocks": {
+          "1589522465084": {
+            "type": "collection",
+            "settings": {
+              "step": "50Cr+ sales<br> Since launch",
+              "icons": "shopify:\/\/shop_images\/Section_4_50Cr_-_Icon_1.png"
+            }
+          },
+          "1589522490749": {
+            "type": "collection",
+            "settings": {
+              "step": "5Lakh + Happy <br> Customers",
+              "icons": "shopify:\/\/shop_images\/Section_4_5Lakh_-_Icon_2.png"
+            }
+          },
+          "1589522512756": {
+            "type": "collection",
+            "settings": {
+              "step": "Delivering to more<br>than 99% of the pincodes",
+              "icons": "shopify:\/\/shop_images\/Section_4_Delivering_more_than_99_-_Icon_3.png"
+            }
+          }
+        },
+        "block_order": [
+          "1589522465084",
+          "1589522490749",
+          "1589522512756"
+        ],
+        "settings": {
+          "color": "#efefef"
+        }
+      },
+      "1589522600845": {
+        "type": "bannerS",
+        "settings": {
+          "MainBannerD": "shopify:\/\/shop_images\/AQUALENS-banner-5-1440x904-B2B-Page.png",
+          "MainBannerM": "shopify:\/\/shop_images\/AQUALENS-mobilebanner-5-756x2146-B2B-Page.png"
+        }
+      },
+      "1589522654582": {
+        "type": "lockDown-offer",
+        "settings": {
+          "scetion-title": "Lockdown Offer",
+          "sub-title": "(once in a lifetime)",
+          "bannerImage": "shopify:\/\/shop_images\/rsz_1section_7-_bg_with_solution_image_2880px.jpg",
+          "bannerImageSol": "shopify:\/\/shop_images\/B2B_banners_1440px_X_695px.jpg",
+          "bannerImageSolM": "shopify:\/\/shop_images\/B2B_banners_Mobile_Version_400px.jpg"
+        }
+      },
+      "1589522756414": {
+        "type": "becomePartners1",
+        "blocks": {
+          "1589522792635": {
+            "type": "collection",
+            "settings": {
+              "step": "14 days Money<br> Back Guarantee",
+              "icons": "shopify:\/\/shop_images\/Section_11-_Icon_1.png"
+            }
+          },
+          "1589522820633": {
+            "type": "collection",
+            "settings": {
+              "step": "Value For<br> Money",
+              "icons": "shopify:\/\/shop_images\/Section_11-_Icon_3.png"
+            }
+          },
+          "1589522838314": {
+            "type": "collection",
+            "settings": {
+              "step": "Doorstep<br> Delivery",
+              "icons": "shopify:\/\/shop_images\/Section_11-_Icon_2.png"
+            }
+          }
+        },
+        "block_order": [
+          "1589522792635",
+          "1589522820633",
+          "1589522838314"
+        ],
+        "settings": {
+          "scetion-title": "Become a partner",
+          "sub-title": "100% Safe and Secure",
+          "color": "#efefef"
+        }
+      },
+      "wrong-doc": {
+        "type": "wrong-doc",
+        "blocks": {
+          "1591966566643": {
+            "type": "normal-banner",
+            "settings": {
+              "wrong_img": "shopify:\/\/shop_images\/Right_GST_Doc.jpg",
+              "wrong_text": "GST document",
+              "wrong_text_class": "writeC"
+            }
+          },
+          "1591966598927": {
+            "type": "normal-banner",
+            "settings": {
+              "wrong_img": "shopify:\/\/shop_images\/sample-copy-of-Company-Registration-Certificate-in-Bangalore_6ca3d4fd-a2e4-4a34-a5d8-d6888888f645.jpg",
+              "wrong_text": "Annexure",
+              "wrong_text_class": ""
+            }
+          },
+          "1591966622718": {
+            "type": "normal-banner",
+            "settings": {
+              "wrong_img": "shopify:\/\/shop_images\/Invoice_Sample.jpg",
+              "wrong_text": "Invoice",
+              "wrong_text_class": ""
+            }
+          }
+        },
+        "block_order": [
+          "1591966566643",
+          "1591966598927",
+          "1591966622718"
+        ],
+        "settings": {}
+      },
+      "navigation-filter": {
+        "type": "navigation-filter",
+        "settings": {
+          "enable_navigation": true,
+          "navigation_linklist": "filter-navigation-mobile"
+        }
+      },
+      "ar-filter-template": {
+        "type": "ar-filter-template",
+        "blocks": {
+          "86604bb3-3340-47ee-aac8-599efea01df4": {
+            "type": "color-icon",
+            "settings": {
+              "color-lens": "shopify:\/\/shop_images\/Aqua_Green_3T_1.png",
+              "color-text": "Aqua Green"
+            }
+          },
+          "bbcb03db-9107-4c0b-802c-864f79da73d4": {
+            "type": "color-icon",
+            "settings": {
+              "color-lens": "shopify:\/\/shop_images\/Black_Rose_2T.png",
+              "color-text": "Black Rose"
+            }
+          },
+          "9babdec1-b3c9-4991-b043-6edc8180cb22": {
+            "type": "color-icon",
+            "settings": {
+              "color-lens": "shopify:\/\/shop_images\/Coco_Brown_3T.png",
+              "color-text": "Coco Brown"
+            }
+          },
+          "af39adc6-c301-4699-92fe-c5655c29acba": {
+            "type": "color-icon",
+            "settings": {
+              "color-lens": "shopify:\/\/shop_images\/Cosmo_Violet_3T.png",
+              "color-text": "Cosmo Violet"
+            }
+          },
+          "c3313992-dc99-4182-be6b-a03ab0ada846": {
+            "type": "color-icon",
+            "settings": {
+              "color-lens": "shopify:\/\/shop_images\/Emerald_Blue_3T.png",
+              "color-text": "Emerald Blue"
+            }
+          },
+          "73d0d2b0-0ca4-4ad8-8491-2241739b82a0": {
+            "type": "color-icon",
+            "settings": {
+              "color-lens": "shopify:\/\/shop_images\/GB35C_Tricky_Turquoise-removebg-preview.png",
+              "color-text": "Tricky Turquoise"
+            }
+          },
+          "8689eb7a-206e-4e22-b8a7-a0780ba2c487": {
+            "type": "color-icon",
+            "settings": {
+              "color-lens": "shopify:\/\/shop_images\/GG35C_Spicy_Grey-removebg-preview.png",
+              "color-text": "Spicy Grey"
+            }
+          },
+          "2e5e4711-bf8d-40c6-a8ff-b37869830196": {
+            "type": "color-icon",
+            "settings": {
+              "color-lens": "shopify:\/\/shop_images\/GPZ35C_Mystery_Hazel-removebg-preview.png",
+              "color-text": "Mystery Hazel"
+            }
+          },
+          "4e16bbe0-8347-4246-ae77-296146f132f3": {
+            "type": "color-icon",
+            "settings": {
+              "color-lens": "shopify:\/\/shop_images\/Halo_Black_1T.png",
+              "color-text": "Halo Black"
+            }
+          },
+          "5e8b4c19-4780-4397-a97c-f9eeba69dd7a": {
+            "type": "color-icon",
+            "settings": {
+              "color-lens": "shopify:\/\/shop_images\/Honey_Brown_2T.png",
+              "color-text": "Honey Brown"
+            }
+          },
+          "96d8a126-7734-4677-af75-39ea71d2c644": {
+            "type": "color-icon",
+            "settings": {
+              "color-lens": "shopify:\/\/shop_images\/lens_image_FL303N_Emerald.png",
+              "color-text": "Emerald"
+            }
+          },
+          "7985d6b1-d282-4f67-bc38-7a10f610c708": {
+            "type": "color-icon",
+            "settings": {
+              "color-lens": "shopify:\/\/shop_images\/lens_image_FL304N_Turquoise.png",
+              "color-text": "Turquoise"
+            }
+          },
+          "f9237316-55d3-42b3-9361-73dbeedbe04c": {
+            "type": "color-icon",
+            "settings": {
+              "color-lens": "shopify:\/\/shop_images\/lens_image_FL305N_DuskBlue.png",
+              "color-text": "DuskBlue"
+            }
+          },
+          "1619e43c-953f-4c45-b19e-0deecfa23991": {
+            "type": "color-icon",
+            "settings": {
+              "color-lens": "shopify:\/\/shop_images\/lens_image_FL306N_Brown.png",
+              "color-text": "Naughty Brown"
+            }
+          },
+          "4429c841-2489-4621-9b07-3c7081d5e5cb": {
+            "type": "color-icon",
+            "settings": {
+              "color-lens": "shopify:\/\/shop_images\/lens_image_FL307N_Gray.png",
+              "color-text": "Naughty Gray"
+            }
+          },
+          "05bc13ef-5a40-4af1-aa0d-4c26d4207b9e": {
+            "type": "color-icon",
+            "settings": {
+              "color-lens": "shopify:\/\/shop_images\/lens_image_FL311N_SilverGray.png",
+              "color-text": "Silver Gray"
+            }
+          },
+          "be10782c-24a4-439e-ab1d-aea58477dd6e": {
+            "type": "color-icon",
+            "settings": {
+              "color-lens": "shopify:\/\/shop_images\/Olive_Green_3T.png",
+              "color-text": "Olive Green"
+            }
+          },
+          "c39bc2c7-5ce4-41a1-be24-21aa20929f48": {
+            "type": "color-icon",
+            "settings": {
+              "color-lens": "shopify:\/\/shop_images\/P_Hazel_Brown_3T.png",
+              "color-text": "Hazel Brown"
+            }
+          },
+          "9f248164-895b-4927-905e-13210e96b299": {
+            "type": "color-icon",
+            "settings": {
+              "color-lens": "shopify:\/\/shop_images\/P_Pine_Green_3T.png",
+              "color-text": "Pine Green"
+            }
+          },
+          "0a48874a-9c78-40e1-a655-ff4e2841bad8": {
+            "type": "color-icon",
+            "settings": {
+              "color-lens": "shopify:\/\/shop_images\/P_Sapphire_Blue_3T.png",
+              "color-text": "Sapphire Blue"
+            }
+          },
+          "77c1f925-1495-4b9e-a7a1-54773a0931c3": {
+            "type": "color-icon",
+            "settings": {
+              "color-lens": "shopify:\/\/shop_images\/P_Venus_Gray_3T.png",
+              "color-text": "Venus Gray"
+            }
+          },
+          "e67ae957-2e80-45ef-b426-8698f3f36bf2": {
+            "type": "color-icon",
+            "settings": {
+              "color-lens": "shopify:\/\/shop_images\/Peacock_Green_2T.png",
+              "color-text": "Peacock Green"
+            }
+          },
+          "0d18d0ce-ba3f-444a-8623-fb7a7995fe99": {
+            "type": "color-icon",
+            "settings": {
+              "color-lens": "shopify:\/\/shop_images\/Sky_Blue_2T.png",
+              "color-text": "Sky Blue"
+            }
+          },
+          "e2f82aee-5448-49a2-ac37-ea49d442a268": {
+            "type": "color-icon",
+            "settings": {
+              "color-lens": "shopify:\/\/shop_images\/Smoke_Gray_2T.png",
+              "color-text": "Smoke Gray"
+            }
+          },
+          "ed80ea65-b1a5-4571-aca6-a06d2f45eb04": {
+            "type": "color-icon",
+            "settings": {
+              "color-lens": "shopify:\/\/shop_images\/Stormy_Gray_3T.png",
+              "color-text": "Stormy Gray"
+            }
+          },
+          "7ac99366-4a5b-4c10-bb58-c0c1d4b4f47b": {
+            "type": "color-icon",
+            "settings": {
+              "color-lens": "shopify:\/\/shop_images\/Submarine_Blue_2T.png",
+              "color-text": "Submarine Blue"
+            }
+          },
+          "71e996da-8efe-4e65-bbf9-43b04bf88c88": {
+            "type": "color-icon",
+            "settings": {
+              "color-lens": "shopify:\/\/shop_images\/GB90_Flirty_Blue-removebg-preview.png",
+              "color-text": "Flirty Blue"
+            }
+          },
+          "297ff6b0-63d8-4c44-b7ca-3e938fb2bf6f": {
+            "type": "color-icon",
+            "settings": {
+              "color-lens": "shopify:\/\/shop_images\/GN90_Fierce_Green-removebg-preview.png",
+              "color-text": "Fierce Green"
+            }
+          },
+          "5afcbced-8dea-4aa9-83e5-a2303e865510": {
+            "type": "color-icon",
+            "settings": {
+              "color-lens": "shopify:\/\/shop_images\/GW576_Caramel_Brown-removebg-preview.png",
+              "color-text": "Caramel Brown"
+            }
+          },
+          "3ff98b13-6b16-4a37-b226-9ab0a5bf4e57": {
+            "type": "color-icon",
+            "settings": {
+              "color-lens": "shopify:\/\/shop_images\/GB430_Ocean_Blue__1_-removebg-preview.png",
+              "color-text": "Ocean Blue"
+            }
+          },
+          "5f95dc4c-b5e8-4c8b-beca-81b17d4b00c1": {
+            "type": "color-icon",
+            "settings": {
+              "color-lens": "shopify:\/\/shop_images\/GN35C_Envy_Green__1_-removebg-preview.png",
+              "color-text": "Envy Green"
+            }
+          },
+          "8d45b76f-cb55-429a-89d5-94bc3dc389b6": {
+            "type": "color-icon",
+            "settings": {
+              "color-lens": "shopify:\/\/shop_images\/GB35C_Tricky_Turquoise-removebg-preview.png",
+              "color-text": "Icy Blue"
+            }
+          }
+        },
+        "block_order": [
+          "86604bb3-3340-47ee-aac8-599efea01df4",
+          "bbcb03db-9107-4c0b-802c-864f79da73d4",
+          "9babdec1-b3c9-4991-b043-6edc8180cb22",
+          "af39adc6-c301-4699-92fe-c5655c29acba",
+          "c3313992-dc99-4182-be6b-a03ab0ada846",
+          "73d0d2b0-0ca4-4ad8-8491-2241739b82a0",
+          "8689eb7a-206e-4e22-b8a7-a0780ba2c487",
+          "2e5e4711-bf8d-40c6-a8ff-b37869830196",
+          "4e16bbe0-8347-4246-ae77-296146f132f3",
+          "5e8b4c19-4780-4397-a97c-f9eeba69dd7a",
+          "96d8a126-7734-4677-af75-39ea71d2c644",
+          "7985d6b1-d282-4f67-bc38-7a10f610c708",
+          "f9237316-55d3-42b3-9361-73dbeedbe04c",
+          "1619e43c-953f-4c45-b19e-0deecfa23991",
+          "4429c841-2489-4621-9b07-3c7081d5e5cb",
+          "05bc13ef-5a40-4af1-aa0d-4c26d4207b9e",
+          "be10782c-24a4-439e-ab1d-aea58477dd6e",
+          "c39bc2c7-5ce4-41a1-be24-21aa20929f48",
+          "9f248164-895b-4927-905e-13210e96b299",
+          "0a48874a-9c78-40e1-a655-ff4e2841bad8",
+          "77c1f925-1495-4b9e-a7a1-54773a0931c3",
+          "e67ae957-2e80-45ef-b426-8698f3f36bf2",
+          "0d18d0ce-ba3f-444a-8623-fb7a7995fe99",
+          "e2f82aee-5448-49a2-ac37-ea49d442a268",
+          "ed80ea65-b1a5-4571-aca6-a06d2f45eb04",
+          "7ac99366-4a5b-4c10-bb58-c0c1d4b4f47b",
+          "71e996da-8efe-4e65-bbf9-43b04bf88c88",
+          "297ff6b0-63d8-4c44-b7ca-3e938fb2bf6f",
+          "5afcbced-8dea-4aa9-83e5-a2303e865510",
+          "3ff98b13-6b16-4a37-b226-9ab0a5bf4e57",
+          "5f95dc4c-b5e8-4c8b-beca-81b17d4b00c1",
+          "8d45b76f-cb55-429a-89d5-94bc3dc389b6"
+        ],
+        "settings": {
+          "section-heading-1": "Virtual Color Try On",
+          "sub-heading-1": "Try 40+ eye colors virtually and share it with your friends",
+          "section-desc": "Color Pallet<br><span>We look beautiful together<\/span>",
+          "section-bg": "#ffffff"
+        }
+      },
+      "165563431619e9874b": {
+        "type": "hp-buy-step",
+        "disabled": true,
+        "blocks": {
+          "d24d7d25-82f7-4355-9c89-d2e05f9c3767": {
+            "type": "step_slider",
+            "settings": {
+              "step_image": "shopify:\/\/shop_images\/Group_41.png",
+              "step_count": "1",
+              "step_heading": "Login & Register",
+              "step_subheading": "Register with your mobile number to create an account"
+            }
+          },
+          "ebc71ac1-a8c9-4750-ba15-91f56828b694": {
+            "type": "step_slider",
+            "settings": {
+              "step_image": "shopify:\/\/shop_images\/Group_43.png",
+              "step_count": "2",
+              "step_heading": "Browse and Buy",
+              "step_subheading": "Get access to a wide selection of high quality contact lenses"
+            }
+          },
+          "60e185a7-346c-459e-9ddd-8b100f710851": {
+            "type": "step_slider",
+            "settings": {
+              "step_image": "shopify:\/\/shop_images\/Group_41_1.png",
+              "step_count": "3",
+              "step_heading": "Earn Exceptional Margins",
+              "step_subheading": "Grow your business with our exclusive pricing"
+            }
+          }
+        },
+        "block_order": [
+          "d24d7d25-82f7-4355-9c89-d2e05f9c3767",
+          "ebc71ac1-a8c9-4750-ba15-91f56828b694",
+          "60e185a7-346c-459e-9ddd-8b100f710851"
+        ],
+        "settings": {
+          "section-heading": "In 3 Steps",
+          "section-sub-heading": "Become an Aqualens Partner"
+        }
+      },
+      "165563566105848a83": {
+        "type": "hp-aqualens-partner",
+        "disabled": true,
+        "blocks": {
+          "530401d6-c61c-43e3-8be3-5813fd2269c2": {
+            "type": "partner_slider",
+            "settings": {
+              "step_image": "shopify:\/\/shop_images\/Group_51.png",
+              "partner_text": "50Cr+ Sales since Launch"
+            }
+          },
+          "993e3819-7a19-4768-aedc-ffb7590a26e4": {
+            "type": "partner_slider",
+            "settings": {
+              "step_image": "shopify:\/\/shop_images\/Group_54.png",
+              "partner_text": "500K+ Happy Customers"
+            }
+          },
+          "098a9662-bef0-4d68-9bd8-7a264dac77e8": {
+            "type": "partner_slider",
+            "settings": {
+              "step_image": "shopify:\/\/shop_images\/Group_57.png",
+              "partner_text": "99.9% pincodes covered across India"
+            }
+          }
+        },
+        "block_order": [
+          "530401d6-c61c-43e3-8be3-5813fd2269c2",
+          "993e3819-7a19-4768-aedc-ffb7590a26e4",
+          "098a9662-bef0-4d68-9bd8-7a264dac77e8"
+        ],
+        "settings": {
+          "section-heading": "Why partner with Aqualens?"
+        }
+      },
+      "1655667207cfb1b7e3": {
+        "type": "hp-featured-products",
+        "disabled": true,
+        "blocks": {
+          "828129cd-ad68-4c7e-8e1a-b3fd55fcad23": {
+            "type": "feature_slider",
+            "settings": {
+              "card_product": "aquacolor-daily-disposable-lens-plano-10-packs",
+              "card_offer": "Get Solution for Free!",
+              "card_power": "Zero Power",
+              "card_image1": "shopify:\/\/shop_images\/GPZ35C_Mystery_Hazel-removebg-preview.png"
+            }
+          },
+          "38d7f248-b35b-4823-bd6e-ceb6a3d2e0e5": {
+            "type": "feature_slider",
+            "settings": {
+              "card_product": "aquacolor-plano-daily-zero-power-2-lens-box",
+              "card_offer": "Get Solution for Free!",
+              "card_power": "Zero Power",
+              "card_image1": "shopify:\/\/shop_images\/GB430_Ocean_Blue.jpg"
+            }
+          },
+          "25499f96-d8db-4110-9cfe-10fd10f3bd03": {
+            "type": "feature_slider",
+            "settings": {
+              "card_product": "aquacolor-monthly-disposable-lens-plano-2-packs",
+              "card_offer": "Get Solution for Free!",
+              "card_power": "Zero Power",
+              "card_image1": "shopify:\/\/shop_images\/Peacock_Green_2T.png"
+            }
+          },
+          "950afa4c-cebd-4704-8da6-27ad36b9acca": {
+            "type": "feature_slider",
+            "settings": {
+              "card_product": "aqualens-24-h-nxt-monthly-disposable-contact-lens-3-lens-box-1",
+              "card_offer": "Get Solution for Free!",
+              "card_power": "Power",
+              "card_image1": "shopify:\/\/shop_images\/GSB35C_Icy_Blue__1_-removebg-preview.png"
+            }
+          }
+        },
+        "block_order": [
+          "828129cd-ad68-4c7e-8e1a-b3fd55fcad23",
+          "38d7f248-b35b-4823-bd6e-ceb6a3d2e0e5",
+          "25499f96-d8db-4110-9cfe-10fd10f3bd03",
+          "950afa4c-cebd-4704-8da6-27ad36b9acca"
+        ],
+        "settings": {
+          "section-heading": "Featured Products"
+        }
+      },
+      "1655668329db8fcffa": {
+        "type": "hp-download-app",
+        "disabled": true,
+        "blocks": {
+          "cadecf96-60f8-4dab-b6e2-3c4efde61d4b": {
+            "type": "appInfo_slider",
+            "settings": {
+              "screen_image": "shopify:\/\/shop_images\/Group_91.png",
+              "appInfo_text": "Get easy access to Aqualens products & services on-the-go"
+            }
+          },
+          "f626ed84-1a00-4ca3-8d68-3e04bc84d638": {
+            "type": "appInfo_slider",
+            "settings": {
+              "screen_image": "shopify:\/\/shop_images\/Group_97.png",
+              "appInfo_text": "Get easy access to Aqualens products & services on-the-go"
+            }
+          },
+          "c1e652eb-c583-4a50-9c01-92d0f16bde1c": {
+            "type": "appInfo_slider",
+            "settings": {
+              "screen_image": "shopify:\/\/shop_images\/Group_97.png",
+              "appInfo_text": "Makes your purchase process easier"
+            }
+          }
+        },
+        "block_order": [
+          "cadecf96-60f8-4dab-b6e2-3c4efde61d4b",
+          "f626ed84-1a00-4ca3-8d68-3e04bc84d638",
+          "c1e652eb-c583-4a50-9c01-92d0f16bde1c"
+        ],
+        "settings": {
+          "section-heading": "Download Our App",
+          "section-sub-heading": "Faster and smarter way of staying connected"
+        }
+      },
+      "1655725709ce8f4b7e": {
+        "type": "hp-customer-review",
+        "disabled": true,
+        "blocks": {
+          "6300ef5a-2ac7-42e2-aaf5-60af016f48b8": {
+            "type": "blocks",
+            "settings": {
+              "author_img": "shopify:\/\/shop_images\/Ellipse_7.png",
+              "review-author": "Radhika",
+              "review-text": "<p>“Aqualens contact lenses basically sell themselves. No doubt, it is a <\/p>",
+              "review-stars": "4"
+            }
+          },
+          "529dec83-b24c-40e4-acf3-0787c171c8dc": {
+            "type": "blocks",
+            "settings": {
+              "author_img": "shopify:\/\/shop_images\/Ellipse_7.png",
+              "review-author": "Radhika",
+              "review-text": "<p>“Aqualens contact lenses basically sell themselves. No doubt, it is a brilliant product with such high-quality. The team at Aqualens is also very supportive and helpful throughout the process.” <\/p>",
+              "review-stars": "3"
+            }
+          },
+          "a8acbe9f-cd5a-422d-be5c-829bbcba8449": {
+            "type": "blocks",
+            "settings": {
+              "author_img": "shopify:\/\/shop_images\/Ellipse_7.png",
+              "review-author": "Radhika",
+              "review-text": "<p>“Aqualens contact lenses basically sell themselves. No doubt, it is a brilliant product with such high-quality. The team at Aqualens is also very supportive and helpful throughout the process.” <\/p>",
+              "review-stars": "5"
+            }
+          },
+          "cb3ba9be-e9ad-422c-b661-c677d481523a": {
+            "type": "blocks",
+            "settings": {
+              "author_img": "shopify:\/\/shop_images\/Ellipse_7.png",
+              "review-author": "Radhika",
+              "review-text": "<p>“Aqualens contact lenses basically sell themselves. No doubt, it is a brilliant product with such high-quality. The team at Aqualens is also very supportive and helpful throughout the process.” <\/p>",
+              "review-stars": "2"
+            }
+          }
+        },
+        "block_order": [
+          "6300ef5a-2ac7-42e2-aaf5-60af016f48b8",
+          "529dec83-b24c-40e4-acf3-0787c171c8dc",
+          "a8acbe9f-cd5a-422d-be5c-829bbcba8449",
+          "cb3ba9be-e9ad-422c-b661-c677d481523a"
+        ],
+        "settings": {
+          "section-heading": "Our Customers",
+          "section-sub-heading": "What are our partners saying?"
+        }
+      },
+      "1655759057c4c8c862": {
+        "type": "hp-product-catalogue",
+        "disabled": true,
+        "settings": {
+          "section-heading": "Our Customers",
+          "section-sub-heading": "Product Catalogue",
+          "MainBannerD": "shopify:\/\/shop_images\/AQUALENS-banner-5-1440x904-B2B-Page.webp",
+          "MainBannerM": "shopify:\/\/shop_images\/AQUALENS-mobilebanner-5-756x2146-B2B-Page.webp"
+        }
+      },
+      "1655797172cebfa396": {
+        "type": "hp-top-banner",
+        "disabled": true,
+        "settings": {
+          "info_text": "<p>Join hands with India’s fastest growing contact lens brand and earn higher margin with every sale!<\/p>",
+          "button_text": "Register"
+        }
+      },
+      "16558078638f6c969b": {
+        "type": "hp-video-gallary",
+        "disabled": true,
+        "blocks": {
+          "fd163303-cc83-481b-88f8-c5fa78b4c9f5": {
+            "type": "video-block",
+            "settings": {
+              "video-id": "A-pMDYArF5o",
+              "video-icon": "shopify:\/\/shop_images\/Group_54.png",
+              "video-title": "Aqualens Contact Lens Solution",
+              "video-timer": "00:14"
+            }
+          },
+          "473f25fc-1e3b-4037-9565-1c68a6b59db4": {
+            "type": "video-block",
+            "settings": {
+              "video-id": "b4_Wh0BmKSE",
+              "video-icon": "shopify:\/\/shop_images\/offer.png",
+              "video-title": "Aqualens wishes you a very Happy Republic Day. Jai Hind!",
+              "video-timer": "00:24"
+            }
+          },
+          "65a24aa7-18f9-4715-a1e1-ae7ce0b98916": {
+            "type": "video-block",
+            "settings": {
+              "video-id": "A-pMDYArF5o",
+              "video-icon": "shopify:\/\/shop_images\/sales.png",
+              "video-title": "cccccccc",
+              "video-timer": "88:88"
+            }
+          }
+        },
+        "block_order": [
+          "fd163303-cc83-481b-88f8-c5fa78b4c9f5",
+          "473f25fc-1e3b-4037-9565-1c68a6b59db4",
+          "65a24aa7-18f9-4715-a1e1-ae7ce0b98916"
+        ],
+        "settings": {
+          "section-heading": "Video Gallery",
+          "section-bg": "#ffffff"
+        }
+      },
+      "hp-header": {
+        "type": "hp-header",
+        "settings": {
+          "align_logo": "left",
+          "logo_max_width": 100,
+          "main_linklist": "main-menu",
+          "main_linklist1": "main-menu",
+          "message": true,
+          "home_page_only": true,
+          "message_text": "Announce something here",
+          "message_texts": "",
+          "message_link": "",
+          "color_bg": "#7796a8",
+          "color_text": "#fff"
+        }
+      },
+      "hp-header-new": {
+        "type": "hp-header-new",
+        "settings": {
+          "logo": "shopify:\/\/shop_images\/Aqualens-retailer_App-01.png",
+          "logo_url": "\/",
+          "main_menu": "new-nav-for-other-products",
+          "mobile_main_menu": "sidebar-main-menu",
+          "myaccount_menu": "my-account",
+          "sidebar_footer": "sidebar-footer-menu",
+          "drawer_search_enable": false,
+          "message": true,
+          "home_page_only": false,
+          "message_text": "Need Assistance ? Email Us at <a href=\"mailto:partnersupport@aqualens.in\">partnersupport@aqualens.in<\/a>",
+          "message_texts": "",
+          "message_link": "",
+          "color_bg": "#23a9bf",
+          "color_text": "#ffffff"
+        }
+      },
+      "hp-footer-new": {
+        "type": "hp-footer-new",
+        "blocks": {
+          "1faeb2ef-aa37-42f9-86eb-0768c562ac5f": {
+            "type": "menu",
+            "settings": {
+              "menu_title": "Aqualens B2B",
+              "menu": "more-info"
+            }
+          },
+          "0fb0e51b-e856-49f8-a65f-fa4f62e6be75": {
+            "type": "menu",
+            "settings": {
+              "menu_title": "Our Products",
+              "menu": "our-lenses"
+            }
+          },
+          "2add7860-081d-4ecf-a7dd-d327aecbea4e": {
+            "type": "menu",
+            "settings": {
+              "menu_title": "Legal",
+              "menu": "footer-legal-menu"
+            }
+          }
+        },
+        "block_order": [
+          "1faeb2ef-aa37-42f9-86eb-0768c562ac5f",
+          "0fb0e51b-e856-49f8-a65f-fa4f62e6be75",
+          "2add7860-081d-4ecf-a7dd-d327aecbea4e"
+        ],
+        "settings": {}
+      },
+      "165593021148c30f91": {
+        "type": "hp-featured-collection",
+        "disabled": true,
+        "blocks": {
+          "f2d4fdd4-0095-44fe-8fbd-8bf862f464a4": {
+            "type": "feature_slider",
+            "settings": {
+              "card_collection": "clear-lens",
+              "card_offer": "Get Solution for Free!",
+              "card_power": "",
+              "card_image1": "shopify:\/\/shop_images\/Rectangle_43.png",
+              "margin_text": "Earn up to x% Margin  (Minimum 50% Assured)",
+              "coll_color_bg": "#019FDE",
+              "coll_color_text": "#ffffff"
+            }
+          },
+          "75b0d9f2-3511-40fa-b118-f5ef96bfe3b2": {
+            "type": "feature_slider",
+            "settings": {
+              "card_collection": "color-lens",
+              "card_offer": "Get Solution for Free!",
+              "card_power": "Power",
+              "card_image1": "shopify:\/\/shop_images\/Rectangle_43_2.png",
+              "margin_text": "Earn up to x% Margin  (Minimum 30% Assured)",
+              "coll_color_bg": "#ffbd50",
+              "coll_color_text": "#ffffff"
+            }
+          },
+          "a032ea65-4435-4090-99ee-7b2d8ccca7e0": {
+            "type": "feature_slider",
+            "settings": {
+              "card_collection": "speciality-lens",
+              "card_offer": "Get Solution for Free!",
+              "card_power": "Power",
+              "card_image1": "shopify:\/\/shop_images\/Rectangle_43_1.png",
+              "margin_text": "Earn up to x% Margin  (Minimum 30% Assured)",
+              "coll_color_bg": "#019FDE",
+              "coll_color_text": "#ffffff"
+            }
+          },
+          "afb7aaa3-05a5-4f27-8f87-2b63cccb98de": {
+            "type": "feature_slider",
+            "settings": {
+              "card_collection": "lens-solution",
+              "card_offer": "Get Solution for Free!",
+              "card_power": "",
+              "card_image1": "shopify:\/\/shop_images\/Rectangle_43.png",
+              "margin_text": "Earn up to x% Margin  (Minimum 40% Assured)",
+              "coll_color_bg": "#ffbd50",
+              "coll_color_text": "#ffffff"
+            }
+          }
+        },
+        "block_order": [
+          "f2d4fdd4-0095-44fe-8fbd-8bf862f464a4",
+          "75b0d9f2-3511-40fa-b118-f5ef96bfe3b2",
+          "a032ea65-4435-4090-99ee-7b2d8ccca7e0",
+          "afb7aaa3-05a5-4f27-8f87-2b63cccb98de"
+        ],
+        "settings": {
+          "section-heading": "Featured Collection"
+        }
+      },
+      "165596589977628291": {
+        "type": "trending-products-homepage",
+        "disabled": true,
+        "settings": {}
+      }
+    },
+    "content_for_index": [
+      "1576476368524",
+      "1586190854201",
+      "1588154112867",
+      "1588158806874",
+      "1588158908162",
+      "1588159247531",
+      "1589333839542",
+      "1589522654582",
+      "1589522158928",
+      "1589522442590",
+      "1589522600845",
+      "1589522756414",
+      "1589522330698",
+      "1655797172cebfa396",
+      "1655667207cfb1b7e3",
+      "165596589977628291",
+      "165593021148c30f91",
+      "165563431619e9874b",
+      "165563566105848a83",
+      "1655725709ce8f4b7e",
+      "16558078638f6c969b",
+      "1655759057c4c8c862",
+      "1655668329db8fcffa"
+    ]
+  },
+  "presets": {
+    "Default": {
+      "color_text": "#3d4246",
+      "color_body_text": "#69727b",
+      "color_sale_text": "#557B97",
+      "color_borders": "#e8e9eb",
+      "color_button": "#557B97",
+      "color_button_text": "#fff",
+      "color_small_button_text_border": "#3d4246",
+      "color_text_field": "#fff",
+      "color_text_field_text": "#000",
+      "color_text_field_border": "#949494",
+      "color_image_overlay_text": "#fff",
+      "color_image_overlay": "#3d4246",
+      "image_overlay_opacity": 40,
+      "color_body_bg": "#fff",
+      "type_header_font": "work_sans_n6",
+      "type_header_base_size": 26,
+      "type_base_font": "work_sans_n4",
+      "type_base_size": 16,
+      "type_bold_product_titles": false,
+      "share_facebook": true,
+      "share_twitter": true,
+      "share_pinterest": true,
+      "sections": {
+        "header": {
+          "type": "header",
+          "settings": {}
+        },
+        "hero": {
+          "type": "hero",
+          "settings": {
+            "text_size": "large"
+          }
+        },
+        "slideshow": {
+          "type": "slideshow",
+          "blocks": {
+            "slideshow-0": {
+              "type": "image",
+              "settings": {}
+            },
+            "slideshow-1": {
+              "type": "image",
+              "settings": {}
+            }
+          },
+          "block_order": [
+            "slideshow-0",
+            "slideshow-1"
+          ],
+          "settings": {}
+        },
+        "featured-collections": {
+          "type": "collection",
+          "settings": {
+            "collection": "frontpage"
+          }
+        },
+        "feature-row": {
+          "type": "feature-row",
+          "settings": {}
+        },
+        "footer": {
+          "type": "footer",
+          "blocks": {
+            "link_list": {
+              "type": "link_list",
+              "settings": {}
+            },
+            "text": {
+              "type": "text",
+              "settings": {}
+            },
+            "newsletter": {
+              "type": "newsletter",
+              "settings": {}
+            }
+          },
+          "block_order": [
+            "link_list",
+            "text",
+            "newsletter"
+          ],
+          "settings": {}
+        }
+      },
+      "content_for_index": [
+        "hero",
+        "featured-collections",
+        "feature-row",
+        "slideshow"
+      ]
+    },
+    "Light": {
+      "color_text": "#162950",
+      "color_body_text": "#6d6d6d",
+      "color_sale_text": "#DA2F0C",
+      "color_borders": "#e4e4e4",
+      "color_button": "#DA2F0C",
+      "color_button_text": "#ffffff",
+      "color_small_button_text_border": "#162950",
+      "color_text_field": "#ffffff",
+      "color_text_field_text": "#162950",
+      "color_text_field_border": "#909090",
+      "color_image_overlay_text": "#ffffff",
+      "color_image_overlay": "#3d3d3d",
+      "image_overlay_opacity": 40,
+      "color_body_bg": "#f8f8f8",
+      "type_header_font": "muli_n6",
+      "type_header_base_size": 26,
+      "type_base_font": "muli_n4",
+      "type_base_size": 18,
+      "type_bold_product_titles": true,
+      "share_facebook": true,
+      "share_twitter": true,
+      "share_pinterest": true,
+      "social_twitter_link": "",
+      "social_facebook_link": "",
+      "social_pinterest_link": "",
+      "social_instagram_link": "",
+      "social_tumblr_link": "",
+      "social_snapchat_link": "",
+      "social_youtube_link": "",
+      "social_vimeo_link": "",
+      "favicon": "",
+      "checkout_header_image": "",
+      "checkout_logo_image": "",
+      "checkout_logo_position": "left",
+      "checkout_logo_size": "small",
+      "checkout_body_background_image": "",
+      "checkout_body_background_color": "#ffffff",
+      "checkout_input_background_color_mode": "white",
+      "checkout_sidebar_background_image": "",
+      "checkout_sidebar_background_color": "#e8f3f6",
+      "checkout_heading_font": "Roboto",
+      "checkout_body_font": "Source Sans Pro",
+      "checkout_accent_color": "#1990c6",
+      "checkout_button_color": "#23314e",
+      "checkout_error_color": "#ff6d6d",
+      "sections": {
+        "header": {
+          "type": "header",
+          "settings": {
+            "align_logo": "left",
+            "logo": "",
+            "logo_max_width": 135,
+            "main_linklist": "main-menu",
+            "message": true,
+            "color_bg": "#162950",
+            "color_text": "#ffffff"
+          }
+        },
+        "hero": {
+          "type": "hero",
+          "settings": {
+            "alignment": "center",
+            "hero_size": "x-large",
+            "text_size": "large"
+          }
+        },
+        "slideshow": {
+          "type": "slideshow",
+          "blocks": {
+            "slideshow-0": {
+              "type": "image",
+              "settings": {
+                "image": "",
+                "alignment": "center center"
+              }
+            },
+            "1492095993817": {
+              "type": "image",
+              "settings": {
+                "image": "",
+                "alignment": "center"
+              }
+            }
+          },
+          "block_order": [
+            "slideshow-0",
+            "1492095993817"
+          ],
+          "settings": {
+            "slideshow_height": "medium",
+            "text_size": "medium",
+            "autorotate": false,
+            "autorotate_speed": 5
+          }
+        },
+        "featured-collections": {
+          "type": "collection",
+          "settings": {
+            "grid": 3,
+            "rows": 1,
+            "show_vendor": true,
+            "show_view_all": true
+          }
+        },
+        "product-template": {
+          "type": "product-template",
+          "settings": {
+            "image_size": "medium",
+            "show_quantity_selector": false,
+            "show_variant_labels": true,
+            "show_vendor": false,
+            "enable_zoom": true,
+            "show_share_buttons": true
+          }
+        },
+        "collection-template": {
+          "type": "collection-template",
+          "settings": {
+            "layout": "grid",
+            "grid": 2,
+            "rows": 2,
+            "show_collection_image": true,
+            "show_vendor": false,
+            "sort_enable": true,
+            "tags_enable": true
+          }
+        },
+        "1492033809691": {
+          "type": "map",
+          "settings": {}
+        },
+        "1492033877875": {
+          "type": "quotes",
+          "blocks": {
+            "1492033877875-0": {
+              "type": "quote",
+              "settings": {}
+            }
+          },
+          "block_order": [
+            "1492033877875-0"
+          ],
+          "settings": {}
+        },
+        "1492033924902": {
+          "type": "custom-content",
+          "blocks": {
+            "1492033924902-0": {
+              "type": "text",
+              "settings": {
+                "width": "100%",
+                "alignment": "center",
+                "align_text": "center"
+              }
+            }
+          },
+          "block_order": [
+            "1492033924902-0"
+          ],
+          "settings": {
+            "title": ""
+          }
+        },
+        "1492096252560": {
+          "type": "collection-list",
+          "blocks": {
+            "1492096252560-0": {
+              "type": "featured_collection",
+              "settings": {}
+            },
+            "1492096252560-1": {
+              "type": "featured_collection",
+              "settings": {}
+            },
+            "1492096252560-2": {
+              "type": "featured_collection",
+              "settings": {}
+            }
+          },
+          "block_order": [
+            "1492096252560-0",
+            "1492096252560-1",
+            "1492096252560-2"
+          ],
+          "settings": {
+            "grid": 3
+          }
+        },
+        "blog-template": {
+          "type": "blog-template",
+          "settings": {
+            "layout": "grid",
+            "blog_show_author": true,
+            "blog_show_date": false
+          }
+        },
+        "article-template": {
+          "type": "article-template",
+          "settings": {
+            "blog_show_author": true,
+            "blog_show_date": true,
+            "show_share_buttons": true
+          }
+        },
+        "cart-template": {
+          "type": "cart-template",
+          "settings": {
+            "cart_notes_enable": false
+          }
+        },
+        "footer": {
+          "type": "footer",
+          "blocks": {
+            "link_list": {
+              "type": "link_list",
+              "settings": {}
+            },
+            "text": {
+              "type": "text",
+              "settings": {}
+            },
+            "newsletter": {
+              "type": "newsletter",
+              "settings": {}
+            }
+          },
+          "block_order": [
+            "link_list",
+            "text",
+            "newsletter"
+          ],
+          "settings": {}
+        }
+      },
+      "content_for_index": [
+        "hero",
+        "featured-collections",
+        "slideshow",
+        "1492033924902",
+        "1492096252560",
+        "1492033877875",
+        "1492033809691"
+      ]
+    }
+  }
+}

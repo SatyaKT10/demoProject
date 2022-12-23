@@ -1,0 +1,51 @@
+<script>
+  {% if customer %}  
+  {% else %}
+  window.location.href = "https://aqualensb2b.com/account/login";
+  {% endif %}
+</script>
+<style>
+  .order-section-style{
+    max-width:500px;
+    margin: 0px auto;
+  }
+  .order-page-bg{
+    background:#F8F8F8;
+  }
+  .order-page-bg{
+    position:relative;
+  }
+  .footer__section {
+    display: none;
+  }
+  .order-section-style .order-header {
+    color: black;
+    font-weight: 700;
+    font-size: 17px;
+    text-align: center;
+    padding: 10px 0px;
+  }
+  @media(max-width:749px){
+    .footer__section {
+      display: block;
+    }
+    .order-section-style{
+      max-width:500px;
+      margin: 0px auto;
+    }
+    .order-section-style .order-header {
+      display:none
+    }
+  }
+  </style>
+{% include 'mobile-header' %}
+<div class="order-page-bg">
+  {% render 'background-look' %}
+  <div class="loader-main">
+    <p><img class=" lazyloaded" src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/image_2.png?v=1640198349" data-src="https://cdn.shopify.com/s/files/1/0291/0417/7212/files/image_2.png?v=1640198349" alt="Aqualens Contact lenses"></p>
+  </div>
+  <div class="order-section-style">
+     <div class="order-header"> My Orders </div>
+    {% section 'orders-section' %}
+  </div>
+</div>

@@ -1,0 +1,206 @@
+<style>
+  .a_plus_banner {
+       max-width: 1240px;
+       margin: auto;
+       margin-top: 100px;
+  }
+   .a_plus_banner h2{
+       font-family: 'Poppins' !important;
+       font-style: normal;
+       font-weight: 600;
+       font-size: 32px;
+       color: #333333;
+       margin-bottom:20px;
+       text-transform: capitalize;
+       letter-spacing: 0;
+  }
+   .a_plus_banner .a_plus_banner_desc p{
+       font-family: 'Poppins';
+       font-style: normal;
+       font-weight: 400;
+       font-size: 16px;
+       color: #333333;
+       margin-top:30px;
+  }
+  
+   .custom-banner-wrap{
+       position: relative;
+       padding-bottom: 40%;
+       width: 100%;
+       background: #FFFFFF;
+       border-radius: 4px 
+  }
+   .custom-banner-wrap img {
+       position: absolute;
+       top: 50%;
+       left: 50%;
+       transform: translate(-50%, -50%);
+       width: 100%;
+       height: 100%;
+       object-fit: contain;
+  }
+   .slick-slide{
+       height:auto;
+  }
+  
+   .a_plus_banner .slick-next:before, .a_plus_banner .slick-prev:before{
+       content:"";
+  }
+   .a_plus_banner .slick-next:focus{
+       display:none;
+  }
+   .a_plus_banner .slick-prev:focus{
+       display:none;
+  }
+   .a_plus_banner .arrow {
+       border: solid #3069B3;
+       border-width: 0 2px 2px 0;
+       display: inline-block;
+       padding: 3px;
+  }
+   .a_plus_banner .right {
+       position: absolute;
+       top: 50%;
+       left: 50%;
+       transform: translate(-50%, -50%) rotate( -45deg );
+  }
+   .a_plus_banner .left {
+       position: absolute;
+       top: 50%;
+       left: 50%;
+       transform: translate(-50%, -50%) rotate( 135deg );
+  }
+   .a_plus_banner .slick-prev{
+       left:0px;
+       text-align: right;
+  }
+   .a_plus_banner .slick-next{
+       right:0px;
+       text-align: left;
+  }
+   .a_plus_banner .slick-prev{
+       position: absolute;
+       display: block;
+       width: 40px;
+       height: 40px;
+       background: white;
+       border: 1px solid #3069B3;
+       border-radius: 50%;
+       line-height: 0px;
+       font-size: 0px;
+       cursor: pointer;
+       top: 50%;
+       left: 0px;
+       margin-left: 10px;
+       -webkit-transform: translate(0, -50%);
+       -ms-transform: translate(0, -50%);
+       transform: translate(0, -50%);
+       padding: 0;
+       z-index: 99;
+  }
+   .a_plus_banner .slick-next {
+       position: absolute;
+       display: block;
+       width: 40px;
+       height: 40px;
+       background: white;
+       border: 1px solid #3069B3;
+       border-radius: 50%;
+       line-height: 0px;
+       font-size: 0px;
+       cursor: pointer;
+       top: 50%;
+       margin-right: 10px;
+       -webkit-transform: translate(0, -50%);
+       -ms-transform: translate(0, -50%);
+       transform: translate(0, -50%);
+       padding: 0;
+       z-index: 99;
+  }
+  
+     @media(max-width:749px){
+     .a_plus_banner {     
+       margin-top: 15px;
+  }
+     .a_plus_banner {
+      padding:15px;
+      }
+      .a_plus_banner h2{
+       font-size: 14px;
+      }
+      .custom-banner-wrap{
+      margin-bottom:0px
+      }
+      .a_plus_banner .a_plus_banner_desc p{
+        font-size: 12px;
+        margin-top:0;
+      }
+      
+     }
+  
+  </style>
+  {% assign descriptionTrue = false %}
+  {% if product.description contains '<!--aPlusBanner-->' %}
+    {% assign aPlusBanner = product.description | split: '<!--aPlusBanner-->'| last %}
+    {% assign aBanner = aPlusBanner | split: '<!--aPlusBannerEnd-->' | first %}
+    {% assign descriptionTrue = true %}
+  {% endif %}
+  {% if product.description contains '<!--aBannerDescription-->' %}
+    {% assign aPlusBannerDesc = product.description | split: '<!--aBannerDescription-->'| last %}
+    {% assign aBannerDesc = aPlusBannerDesc | split: '<!--aBannerDescriptionEnd-->' | first %}
+  {% endif %}
+  <!-- A+ top banner -->
+  <div class="a_plus_banner">
+    {% if descriptionTrue == true %}
+        <h2>{{ product.title }}</h2>
+    {% endif %}
+    <div class="desktop_banner_slider">
+      {{ aBanner }}
+    </div>
+    <div class="a_plus_banner_desc">
+      {{ aBannerDesc }}
+    </div>
+  </div>
+  
+  
+  <script>
+    $('.desktop_banner_slider').slick({
+      dots:false,
+      infinite: true,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      arrows:true,
+      autoplay: false,
+      autoplaySpeed: 5000,
+      prevArrow:'<div class="slick-prev"><i class="arrow left"></i></div>',
+      nextArrow:'<div class="slick-next"><i class="arrow right"></i></div>',
+      responsive: [
+        {
+          breakpoint: 949,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows:true,
+            dots:false,
+            autoplay: false,
+            autoplaySpeed: 5000
+          }
+        },
+        {
+          breakpoint: 749,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows:false,
+            dots:false,
+            autoplay: false,
+            autoplaySpeed: 5000
+          }
+        }
+      ]
+    });
+  
+  
+  </script>
+  
+  
